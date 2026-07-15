@@ -12,6 +12,13 @@ const categoryStyles: Record<ResourceType, string> = {
   startup: "category-lilac",
 };
 
+const categoryNotes: Record<ResourceType, string> = {
+  program: "加速器、比赛、资助与国际落地机会",
+  organization: "大学、政府、企业与独立创新机构",
+  event: "大会、Demo Day、路演与创始人聚会",
+  startup: "发现来自世界各地的新产品与团队",
+};
+
 export default function Home() {
   const [query, setQuery] = useState("");
 
@@ -94,8 +101,8 @@ export default function Home() {
 
       <section className="section categories-section" id="categories">
         <div className="section-heading">
-          <div><span className="section-index">01 / EXPLORE</span><h2>先选择你要解决的问题</h2></div>
-          <p>每个目录都有选择指南、站内总结和统一的信息结构，不需要在不同官网之间反复比较。</p>
+          <div><span className="section-index">01 / EXPLORE</span><h2>从你需要的资源开始</h2></div>
+          <p>不是堆积链接，而是把每一类创业资源整理成可以理解和比较的信息。</p>
         </div>
         <div className="category-grid">
           {(Object.keys(typeConfig) as ResourceType[]).map((type) => {
@@ -106,11 +113,18 @@ export default function Home() {
                 <span className="category-eyebrow">{category.eyebrow}</span>
                 <span className="category-count">{count}</span>
                 <span className="category-title">{category.title} <i aria-hidden="true">→</i></span>
-                <span className="category-note">{category.intro}</span>
+                <span className="category-note">{categoryNotes[type]}</span>
               </a>
             );
           })}
         </div>
+
+        <a className="founder-guide-card" href="/knowledge">
+          <span className="founder-guide-eyebrow">NEW · FOUNDER GUIDE</span>
+          <strong>第一次创业？从一张清晰的地图开始。</strong>
+          <p>按创业阶段整理 8 份可信的一手课程与专业指南，从理解创业、验证想法到团队、公司与融资。</p>
+          <b>进入创业指南 <i aria-hidden="true">→</i></b>
+        </a>
       </section>
 
       <section className="section resources-section" id="resources">
@@ -122,6 +136,18 @@ export default function Home() {
           <span className="updated-note"><i /> {query ? `${searchResults.length} 条匹配内容` : "6 条编辑精选 · 点击进入站内整理"}</span>
         </div>
 
+        <div className="filter-row" aria-label="资源分类导航">
+          <div className="filter-buttons">
+            <a className="active" href="#resources">精选资源</a>
+            <a href="/programs">开放计划</a>
+            <a href="/organizations">孵化机构</a>
+            <a href="/events">创业活动</a>
+            <a href="/startups">创业项目</a>
+            <a href="/knowledge">创业指南</a>
+          </div>
+          <span className="result-count">点击分类进入独立目录</span>
+        </div>
+
         {searchResults.length ? (
           <div className="resource-grid">
             {searchResults.map((resource) => <ResourceCard resource={resource} key={resource.id} />)}
@@ -130,11 +156,7 @@ export default function Home() {
           <div className="empty-state"><span>没有找到匹配的资源</span><button type="button" onClick={() => setQuery("")}>清除搜索</button></div>
         )}
 
-        <div className="directory-links" aria-label="进入完整目录">
-          {(Object.keys(typeConfig) as ResourceType[]).map((type) => (
-            <a href={typeConfig[type].path} key={type}>全部{typeConfig[type].title} <span>→</span></a>
-          ))}
-        </div>
+        <a className="all-resources" href="#categories">浏览全部资源分类 <span aria-hidden="true">→</span></a>
       </section>
 
       <section className="cities-section" id="cities">

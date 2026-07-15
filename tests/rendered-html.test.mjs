@@ -31,8 +31,14 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   const html = await response.text();
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /世界很大/);
-  assert.match(html, /先选择你要解决的问题/);
+  assert.match(html, /从你需要的资源开始/);
   assert.match(html, /href="\/knowledge"/);
+  assert.match(html, /第一次创业？从一张清晰的地图开始/);
+  assert.match(html, /点击分类进入独立目录/);
+  assert.match(html, /href="\/programs"/);
+  assert.match(html, /href="\/organizations"/);
+  assert.match(html, /href="\/events"/);
+  assert.match(html, /href="\/startups"/);
   assert.doesNotMatch(html, /创业前的第一张地图|YC Startup Library/);
   assert.match(html, /Y Combinator/);
   assert.match(html, /Berkeley SkyDeck Batch 23/);
