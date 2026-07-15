@@ -14,6 +14,7 @@ type Resource = {
   status: string;
   verified: string;
   source: string;
+  url: string;
   color: string;
   monogram: string;
 };
@@ -23,91 +24,257 @@ const resources: Resource[] = [
     id: 1,
     type: "program",
     kind: "加速计划",
-    name: "Antler Residency",
-    location: "新加坡 · Singapore",
-    description: "面向早期创始人的全球创业计划，从组建团队到首轮融资。",
-    tags: ["早期项目", "跨行业", "国际团队"],
-    timing: "滚动申请",
-    status: "开放申请",
-    verified: "今天核验",
-    source: "官方计划页",
-    color: "blue",
-    monogram: "AN",
+    name: "Y Combinator",
+    location: "美国 · San Francisco",
+    description: "面向早期科技团队的创业加速批次，可在一次申请中选择未来批次。",
+    tags: ["早期项目", "科技", "全球团队"],
+    timing: "未来批次可申请",
+    status: "接受申请",
+    verified: "2026.07.15 核验",
+    source: "YC 官方申请页",
+    url: "https://www.ycombinator.com/apply/",
+    color: "orange",
+    monogram: "YC",
   },
   {
     id: 2,
-    type: "organization",
-    kind: "孵化机构",
-    name: "Berkeley SkyDeck",
-    location: "美国 · Berkeley",
-    description: "连接大学研究、产业导师与投资网络的科技创业加速平台。",
-    tags: ["深科技", "AI", "大学生态"],
-    timing: "已核验 · 2天前",
-    status: "持续运营",
-    verified: "2天前核验",
-    source: "机构官网",
-    color: "mint",
-    monogram: "BS",
+    type: "program",
+    kind: "加速计划",
+    name: "Techstars Accelerators",
+    location: "全球 · 多城市",
+    description: "三个月导师制加速计划，帮助团队验证市场、获得增长与融资支持。",
+    tags: ["导师网络", "融资", "全球项目"],
+    timing: "查看各项目截止日",
+    status: "部分项目开放",
+    verified: "2026.07.15 核验",
+    source: "Techstars 官方目录",
+    url: "https://www.techstars.com/accelerators",
+    color: "blue",
+    monogram: "TS",
   },
   {
     id: 3,
-    type: "event",
-    kind: "创业活动",
-    name: "Slush 2026",
-    location: "芬兰 · Helsinki",
-    description: "汇聚全球创始人、投资人与科技生态建设者的年度大会。",
-    tags: ["科技大会", "融资", "线下"],
-    timing: "11月18日",
-    status: "活动预告",
-    verified: "昨天核验",
-    source: "活动官网",
-    color: "orange",
-    monogram: "SL",
+    type: "program",
+    kind: "创业计划",
+    name: "Antler Residency",
+    location: "全球 · 多城市",
+    description: "从创始人匹配、想法验证到首轮融资，按不同地区持续开放创业批次。",
+    tags: ["个人申请", "早期项目", "国际团队"],
+    timing: "多地批次可申请",
+    status: "开放申请",
+    verified: "2026.07.15 核验",
+    source: "Antler 官方申请页",
+    url: "https://www.antler.co/apply?urlHash=sNWK",
+    color: "violet",
+    monogram: "AN",
   },
   {
     id: 4,
     type: "program",
-    kind: "创业计划",
-    name: "EIT Jumpstarter",
-    location: "欧洲 · Hybrid",
-    description: "帮助科研与创新团队把早期技术转化为可验证的商业项目。",
-    tags: ["气候科技", "健康", "科研转化"],
-    timing: "开放申请",
+    kind: "大学加速器",
+    name: "Berkeley SkyDeck Batch 23",
+    location: "美国 · Berkeley",
+    description: "面向全球科技初创公司的六个月加速计划，入选团队可获得投资与导师支持。",
+    tags: ["全球团队", "六个月", "$210k"],
+    timing: "截止 08.21",
     status: "开放申请",
-    verified: "3天前核验",
-    source: "官方计划页",
-    color: "violet",
-    monogram: "EJ",
+    verified: "2026.07.15 核验",
+    source: "SkyDeck 官方计划页",
+    url: "https://skydeck.berkeley.edu/program/",
+    color: "mint",
+    monogram: "BS",
   },
   {
     id: 5,
-    type: "startup",
-    kind: "创业项目",
-    name: "Moonsift",
+    type: "program",
+    kind: "创始人计划",
+    name: "Entrepreneur First London",
     location: "英国 · London",
-    description: "用更自然的方式收藏、比较和分享来自不同网站的产品。",
-    tags: ["Consumer", "Commerce", "SaaS"],
-    timing: "项目档案",
-    status: "项目收录",
-    verified: "5天前核验",
-    source: "项目官网",
+    description: "面向个人创始人的全职线下计划，前十二周在伦敦，后续阶段前往旧金山。",
+    tags: ["个人申请", "全职线下", "早期项目"],
+    timing: "截止 08.04",
+    status: "开放申请",
+    verified: "2026.07.15 核验",
+    source: "EF 官方申请页",
+    url: "https://apply.joinef.com/",
     color: "yellow",
-    monogram: "MO",
+    monogram: "EF",
   },
   {
     id: 6,
+    type: "program",
+    kind: "在线创业课程",
+    name: "Launch by STATION F",
+    location: "法国 · Online",
+    description: "从创业基础到商业模式与路演材料，适合想系统验证想法的早期创始人。",
+    tags: ["免费课程", "商业基础", "在线"],
+    timing: "持续开放",
+    status: "在线可学",
+    verified: "2026.07.15 核验",
+    source: "STATION F 官方课程页",
+    url: "https://launch.stationf.co/",
+    color: "rose",
+    monogram: "SF",
+  },
+  {
+    id: 7,
+    type: "organization",
+    kind: "创业园区",
+    name: "STATION F",
+    location: "法国 · Paris",
+    description: "汇集三十多个创业计划、投资人与合作伙伴的大型国际创业园区。",
+    tags: ["创业园区", "国际团队", "投资网络"],
+    timing: "30+ 创业计划",
+    status: "机构档案",
+    verified: "2026.07.15 核验",
+    source: "STATION F 官网",
+    url: "https://stationf.co/",
+    color: "blue",
+    monogram: "SF",
+  },
+  {
+    id: 8,
     type: "organization",
     kind: "创新机构",
     name: "BLOCK71",
-    location: "新加坡 · Global",
-    description: "由大学与产业共同支持，连接亚洲创业者和全球创新节点。",
-    tags: ["亚洲", "国际落地", "社区"],
-    timing: "已核验 · 5天前",
-    status: "持续运营",
-    verified: "5天前核验",
-    source: "机构官网",
+    location: "新加坡 · 全球网络",
+    description: "连接亚洲与全球市场的创新网络，为创业团队提供社区、项目与落地支持。",
+    tags: ["亚洲", "国际落地", "创业社区"],
+    timing: "11 个创新节点",
+    status: "机构档案",
+    verified: "2026.07.15 核验",
+    source: "BLOCK71 官网",
+    url: "https://block71.co/",
     color: "rose",
     monogram: "71",
+  },
+  {
+    id: 9,
+    type: "organization",
+    kind: "创始人机构",
+    name: "Entrepreneur First",
+    location: "英国 · London",
+    description: "帮助优秀个人在创意和联合创始人尚未确定时，开始组建高增长科技公司。",
+    tags: ["创始人匹配", "深科技", "全球网络"],
+    timing: "多地项目",
+    status: "机构档案",
+    verified: "2026.07.15 核验",
+    source: "EF 官网",
+    url: "https://www.joinef.com/",
+    color: "violet",
+    monogram: "EF",
+  },
+  {
+    id: 10,
+    type: "organization",
+    kind: "大学加速器",
+    name: "Berkeley SkyDeck",
+    location: "美国 · Berkeley",
+    description: "连接加州大学伯克利分校、产业导师与投资网络的全球科技创业平台。",
+    tags: ["深科技", "AI", "大学生态"],
+    timing: "全球项目",
+    status: "机构档案",
+    verified: "2026.07.15 核验",
+    source: "SkyDeck 官网",
+    url: "https://skydeck.berkeley.edu/",
+    color: "mint",
+    monogram: "BS",
+  },
+  {
+    id: 11,
+    type: "event",
+    kind: "科技大会",
+    name: "TechCrunch Disrupt 2026",
+    location: "美国 · San Francisco",
+    description: "聚焦初创公司、技术趋势与融资连接的大型创业大会，包含展览与路演环节。",
+    tags: ["科技大会", "融资", "线下"],
+    timing: "10.13–10.15",
+    status: "可注册",
+    verified: "2026.07.15 核验",
+    source: "TechCrunch 活动页",
+    url: "https://techcrunch.com/events/techcrunch-disrupt/",
+    color: "blue",
+    monogram: "TC",
+  },
+  {
+    id: 12,
+    type: "event",
+    kind: "创业大会",
+    name: "Web Summit Lisbon 2026",
+    location: "葡萄牙 · Lisbon",
+    description: "连接全球创业者、投资人、科技公司与媒体的国际科技创业大会。",
+    tags: ["国际大会", "投资人", "线下"],
+    timing: "11.09–11.12",
+    status: "可购票",
+    verified: "2026.07.15 核验",
+    source: "Web Summit 官网",
+    url: "https://websummit.com/",
+    color: "violet",
+    monogram: "WS",
+  },
+  {
+    id: 13,
+    type: "event",
+    kind: "创业大会",
+    name: "Slush 2026",
+    location: "芬兰 · Helsinki",
+    description: "汇聚全球创始人、投资人与科技生态建设者的年度创业大会。",
+    tags: ["科技大会", "融资", "线下"],
+    timing: "11.18–11.19",
+    status: "可购票",
+    verified: "2026.07.15 核验",
+    source: "Slush 官网",
+    url: "https://slush.org/",
+    color: "orange",
+    monogram: "SL",
+  },
+  {
+    id: 14,
+    type: "startup",
+    kind: "YC S26 项目",
+    name: "Shepherd",
+    location: "美国 · San Francisco",
+    description: "为团队工具建立统一记忆层，让不同工作流中的智能代理共享上下文并执行任务。",
+    tags: ["AI Agents", "企业软件", "基础设施"],
+    timing: "YC Summer 2026",
+    status: "活跃项目",
+    verified: "2026.07.15 核验",
+    source: "YC 公司档案",
+    url: "https://www.ycombinator.com/companies/shepherd-3",
+    color: "yellow",
+    monogram: "SH",
+  },
+  {
+    id: 15,
+    type: "startup",
+    kind: "YC S26 项目",
+    name: "Cerenovus",
+    location: "美国 · San Francisco",
+    description: "把公司知识整理成可协作的知识图谱，帮助团队与智能代理共享组织记忆。",
+    tags: ["AI", "知识管理", "企业软件"],
+    timing: "YC Summer 2026",
+    status: "活跃项目",
+    verified: "2026.07.15 核验",
+    source: "YC 公司档案",
+    url: "https://www.ycombinator.com/companies/cerenovus",
+    color: "mint",
+    monogram: "CE",
+  },
+  {
+    id: 16,
+    type: "startup",
+    kind: "YC S25 项目",
+    name: "Pally",
+    location: "美国 · San Francisco",
+    description: "把消息、关系与行动事项集中在一个工作空间中的统一收件箱和个人关系管理工具。",
+    tags: ["Productivity", "CRM", "Consumer"],
+    timing: "YC Summer 2025",
+    status: "活跃项目",
+    verified: "2026.07.15 核验",
+    source: "YC 公司档案",
+    url: "https://www.ycombinator.com/companies/pally",
+    color: "orange",
+    monogram: "PA",
   },
 ];
 
@@ -123,7 +290,7 @@ const categories = [
   {
     eyebrow: "OPEN PROGRAMS",
     title: "开放计划",
-    count: "328",
+    count: String(resources.filter((resource) => resource.type === "program").length),
     note: "加速器、比赛、资助与国际落地机会",
     className: "category-blue",
     type: "program",
@@ -131,7 +298,7 @@ const categories = [
   {
     eyebrow: "ORGANIZATIONS",
     title: "孵化机构",
-    count: "460",
+    count: String(resources.filter((resource) => resource.type === "organization").length),
     note: "大学、政府、企业与独立创新机构",
     className: "category-mint",
     type: "organization",
@@ -139,7 +306,7 @@ const categories = [
   {
     eyebrow: "UPCOMING EVENTS",
     title: "创业活动",
-    count: "192",
+    count: String(resources.filter((resource) => resource.type === "event").length),
     note: "大会、Demo Day、路演与创始人聚会",
     className: "category-orange",
     type: "event",
@@ -147,7 +314,7 @@ const categories = [
   {
     eyebrow: "STARTUP PROJECTS",
     title: "创业项目",
-    count: "300",
+    count: String(resources.filter((resource) => resource.type === "startup").length),
     note: "发现来自世界各地的新产品与团队",
     className: "category-lilac",
     type: "startup",
@@ -157,6 +324,7 @@ const categories = [
 export default function Home() {
   const [query, setQuery] = useState("");
   const [activeType, setActiveType] = useState("all");
+  const [showAll, setShowAll] = useState(false);
 
   const visibleResources = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -175,6 +343,11 @@ export default function Home() {
     });
   }, [activeType, query]);
 
+  const displayedResources =
+    showAll || activeType !== "all" || query
+      ? visibleResources
+      : visibleResources.slice(0, 6);
+
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
@@ -183,20 +356,22 @@ export default function Home() {
   function chooseCategory(type: string) {
     setQuery("");
     setActiveType(type);
+    setShowAll(true);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   function applyQuickSearch(term: string) {
     setActiveType("all");
     setQuery(term);
+    setShowAll(true);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
     <main>
       <div className="announcement">
-        <span>原型预览</span>
-        <p>页面内容为设计示例，正式资源将在数据接入后上线</p>
+        <span>首批内容上线</span>
+        <p>16 条创业资源已于 2026.07.15 通过官方页面核验</p>
       </div>
 
       <header className="site-header">
@@ -278,48 +453,48 @@ export default function Home() {
             <span className="landmass landmass-three" />
           </div>
           <div className="atlas-core">
-            <strong>1,280</strong>
-            <span>全球创业资源</span>
+            <strong>{resources.length}</strong>
+            <span>已核验创业资源</span>
           </div>
           <div className="map-pin pin-singapore">
             <span>新加坡</span>
-            <strong>38</strong>
+            <strong>01</strong>
           </div>
           <div className="map-pin pin-london">
             <span>伦敦</span>
-            <strong>56</strong>
+            <strong>02</strong>
           </div>
           <div className="map-pin pin-berlin">
-            <span>柏林</span>
-            <strong>31</strong>
+            <span>巴黎</span>
+            <strong>02</strong>
           </div>
           <div className="map-pin pin-sf">
             <span>旧金山</span>
-            <strong>92</strong>
+            <strong>05</strong>
           </div>
           <div className="atlas-footer">
-            <span>42 个国家与地区</span>
-            <span>328 个机会正在开放</span>
+            <span>8 个国家与地区</span>
+            <span>9 个机会可立即行动</span>
           </div>
         </aside>
       </section>
 
       <section className="metrics" aria-label="平台数据">
         <div>
-          <strong>1,280</strong>
+          <strong>{resources.length}</strong>
           <span>已整理资源</span>
         </div>
         <div>
-          <strong>42</strong>
+          <strong>8</strong>
           <span>国家与地区</span>
         </div>
         <div>
-          <strong>328</strong>
-          <span>正在开放</span>
+          <strong>9</strong>
+          <span>可立即行动</span>
         </div>
         <div>
-          <strong>7d</strong>
-          <span>重点资源复核周期</span>
+          <strong>100%</strong>
+          <span>附官方来源</span>
         </div>
         <p>持续发现、整理并核验全球创业生态中的有效资源。</p>
       </section>
@@ -370,20 +545,20 @@ export default function Home() {
                 type="button"
                 key={filter.key}
                 className={activeType === filter.key ? "active" : ""}
-                onClick={() => setActiveType(filter.key)}
+                onClick={() => { setActiveType(filter.key); setShowAll(true); }}
               >
                 {filter.label}
               </button>
             ))}
           </div>
           <span className="result-count" aria-live="polite">
-            {query ? `“${query}” · ` : ""}{visibleResources.length} 条示例资源
+            {query ? `“${query}” · ` : ""}{visibleResources.length} 条已核验资源
           </span>
         </div>
 
         {visibleResources.length ? (
           <div className="resource-grid">
-            {visibleResources.map((resource) => (
+            {displayedResources.map((resource) => (
               <article className="resource-card" key={resource.id}>
                 <div className="resource-card-top">
                   <span className={`resource-logo logo-${resource.color}`}>
@@ -407,25 +582,36 @@ export default function Home() {
                     <strong>{resource.timing}</strong>
                     <span>{resource.verified} · {resource.source}</span>
                   </div>
-                  <button type="button" aria-label={`查看 ${resource.name} 详情`}>
+                  <a
+                    href={resource.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`前往 ${resource.name} 官方页面`}
+                  >
                     查看 <span aria-hidden="true">↗</span>
-                  </button>
+                  </a>
                 </div>
               </article>
             ))}
           </div>
         ) : (
           <div className="empty-state">
-            <span>没有找到匹配的示例资源</span>
+            <span>没有找到匹配的资源</span>
             <button type="button" onClick={() => setQuery("")}>
               清除搜索
             </button>
           </div>
         )}
 
-        <button className="all-resources" type="button" onClick={() => { setActiveType("all"); setQuery(""); }}>
-          浏览全部资源 <span aria-hidden="true">→</span>
-        </button>
+        {activeType === "all" && !query && !showAll ? (
+          <button className="all-resources" type="button" onClick={() => setShowAll(true)}>
+            浏览全部 {resources.length} 条资源 <span aria-hidden="true">→</span>
+          </button>
+        ) : (
+          <button className="all-resources" type="button" onClick={() => { setActiveType("all"); setQuery(""); setShowAll(false); }}>
+            返回精选资源 <span aria-hidden="true">↑</span>
+          </button>
+        )}
       </section>
 
       <section className="cities-section" id="cities">
@@ -472,7 +658,7 @@ export default function Home() {
           <a href="#submit">提交资源</a>
           <a href="#top">返回顶部 ↑</a>
         </div>
-        <p className="copyright">© 2026 Pioneer. 让创业资源更容易被发现。</p>
+        <p className="copyright">© 2026 Pioneer. 内容最近核验：2026.07.15</p>
       </footer>
     </main>
   );

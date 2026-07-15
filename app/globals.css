@@ -964,13 +964,21 @@ nav a:hover,
   gap: 14px;
 }
 
-.resource-footer button {
+.resource-footer a {
   min-width: 68px;
   height: 34px;
   padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   border: 1px solid var(--ink);
   border-radius: 999px;
   background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
   transition: background 160ms ease, color 160ms ease;
 }
@@ -995,7 +1003,7 @@ nav a:hover,
   white-space: nowrap;
 }
 
-.resource-footer button:hover {
+.resource-footer a:hover {
   background: var(--ink);
   color: white;
 }
