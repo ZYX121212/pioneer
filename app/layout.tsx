@@ -7,8 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const title = "Pioneer — 全球创业资源目录";
-  const description = "发现全球创业活动、孵化器、加速计划、创新机构与创业项目。";
+  const title = "Pioneer — 全球创业资源与创业指南";
+  const description = "理解、比较并选择全球创业计划、孵化机构、创业活动与代表性项目。";
 
   return {
     metadataBase: new URL(origin),
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: "website",
-      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "Pioneer 全球创业资源目录" }],
+      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "Pioneer 全球创业资源与创业指南" }],
     },
     twitter: {
       card: "summary_large_image",

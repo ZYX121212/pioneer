@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${path}`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -29,26 +29,47 @@ test("server-renders the Pioneer resource directory", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Pioneer — 全球创业资源目录<\/title>/i);
+  assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /世界很大/);
-  assert.match(html, /16 条创业资源已于 2026\.07\.15/);
+  assert.match(html, /先选择你要解决的问题/);
   assert.match(html, /Y Combinator/);
   assert.match(html, /Berkeley SkyDeck Batch 23/);
-  assert.match(html, /Launch by STATION F/);
-  assert.match(html, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
+  assert.match(html, /href="\/resources\/y-combinator"/);
+  assert.doesNotMatch(html, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
   assert.doesNotMatch(html, /示例资源|数据接入后上线/);
 });
 
 test("keeps the first content collection complete and source-linked", async () => {
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const urls = [...page.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+  const data = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
+  const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+  const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
   assert.equal(urls.length, 16);
   assert.equal(new Set(urls).size, 16);
-  assert.match(page, /type: "program"/);
-  assert.match(page, /type: "organization"/);
-  assert.match(page, /type: "event"/);
-  assert.match(page, /type: "startup"/);
-  assert.match(page, /target="_blank"/);
-  assert.match(page, /2026\.07\.15 核验/);
+  assert.equal(slugs.length, 16);
+  assert.equal(new Set(slugs).size, 16);
+  assert.match(data, /type: "program"/);
+  assert.match(data, /type: "organization"/);
+  assert.match(data, /type: "event"/);
+  assert.match(data, /type: "startup"/);
+  assert.match(data, /editorialNote:/);
+  assert.match(data, /bestFor:/);
+  assert.match(data, /considerations:/);
+  assert.match(data, /2026\.07\.15 核验/);
+});
+
+test("renders a directory and an internal editorial detail before the official source", async () => {
+  const directoryResponse = await render("/programs");
+  const directory = await directoryResponse.text();
+  assert.equal(directoryResponse.status, 200);
+  assert.match(directory, /先判断是否适合，再决定是否行动/);
+  assert.match(directory, /经过整理，不只是链接/);
+
+  const detailResponse = await render("/resources/y-combinator");
+  const detail = await detailResponse.text();
+  assert.equal(detailResponse.status, 200);
+  assert.match(detail, /PIONEER 判断/);
+  assert.match(detail, /这项计划适合谁/);
+  assert.match(detail, /行动之前需要注意/);
+  assert.match(detail, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
 });
