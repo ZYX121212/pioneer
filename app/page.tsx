@@ -11,6 +11,9 @@ type Resource = {
   description: string;
   tags: string[];
   timing: string;
+  status: string;
+  verified: string;
+  source: string;
   color: string;
   monogram: string;
 };
@@ -25,6 +28,9 @@ const resources: Resource[] = [
     description: "面向早期创始人的全球创业计划，从组建团队到首轮融资。",
     tags: ["早期项目", "跨行业", "国际团队"],
     timing: "滚动申请",
+    status: "开放申请",
+    verified: "今天核验",
+    source: "官方计划页",
     color: "blue",
     monogram: "AN",
   },
@@ -37,6 +43,9 @@ const resources: Resource[] = [
     description: "连接大学研究、产业导师与投资网络的科技创业加速平台。",
     tags: ["深科技", "AI", "大学生态"],
     timing: "已核验 · 2天前",
+    status: "持续运营",
+    verified: "2天前核验",
+    source: "机构官网",
     color: "mint",
     monogram: "BS",
   },
@@ -49,6 +58,9 @@ const resources: Resource[] = [
     description: "汇聚全球创始人、投资人与科技生态建设者的年度大会。",
     tags: ["科技大会", "融资", "线下"],
     timing: "11月18日",
+    status: "活动预告",
+    verified: "昨天核验",
+    source: "活动官网",
     color: "orange",
     monogram: "SL",
   },
@@ -61,6 +73,9 @@ const resources: Resource[] = [
     description: "帮助科研与创新团队把早期技术转化为可验证的商业项目。",
     tags: ["气候科技", "健康", "科研转化"],
     timing: "开放申请",
+    status: "开放申请",
+    verified: "3天前核验",
+    source: "官方计划页",
     color: "violet",
     monogram: "EJ",
   },
@@ -73,6 +88,9 @@ const resources: Resource[] = [
     description: "用更自然的方式收藏、比较和分享来自不同网站的产品。",
     tags: ["Consumer", "Commerce", "SaaS"],
     timing: "项目档案",
+    status: "项目收录",
+    verified: "5天前核验",
+    source: "项目官网",
     color: "yellow",
     monogram: "MO",
   },
@@ -85,6 +103,9 @@ const resources: Resource[] = [
     description: "由大学与产业共同支持，连接亚洲创业者和全球创新节点。",
     tags: ["亚洲", "国际落地", "社区"],
     timing: "已核验 · 5天前",
+    status: "持续运营",
+    verified: "5天前核验",
+    source: "机构官网",
     color: "rose",
     monogram: "71",
   },
@@ -160,7 +181,14 @@ export default function Home() {
   }
 
   function chooseCategory(type: string) {
+    setQuery("");
     setActiveType(type);
+    document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function applyQuickSearch(term: string) {
+    setActiveType("all");
+    setQuery(term);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -168,7 +196,7 @@ export default function Home() {
     <main>
       <div className="announcement">
         <span>原型预览</span>
-        页面内容为设计示例，正式资源将在数据接入后上线
+        <p>页面内容为设计示例，正式资源将在数据接入后上线</p>
       </div>
 
       <header className="site-header">
@@ -197,9 +225,8 @@ export default function Home() {
             <span className="pulse" /> GLOBAL STARTUP RESOURCE DIRECTORY
           </div>
           <h1>
-            世界很大，
-            <br />
-            <em>机会</em>不应难找。
+            <span>世界很大，</span>
+            <span><em>机会</em>不应难找。</span>
           </h1>
           <p className="hero-intro">
             搜索世界各地的创业活动、孵化器、加速计划、创新机构与创业项目。
@@ -219,13 +246,16 @@ export default function Home() {
               onChange={(event) => setQuery(event.target.value)}
               placeholder="搜索国家、城市、行业或机构……"
             />
-            <button type="submit">搜索资源</button>
+            <button type="submit">
+              <span className="search-full">搜索资源</span>
+              <span className="search-short">搜索</span>
+            </button>
           </form>
 
           <div className="popular-searches" aria-label="热门搜索">
             <span>热门：</span>
-            {["AI 加速器", "新加坡", "国际团队", "Demo Day"].map((term) => (
-              <button key={term} type="button" onClick={() => setQuery(term)}>
+            {["AI", "新加坡", "国际团队", "科技大会"].map((term) => (
+              <button key={term} type="button" onClick={() => applyQuickSearch(term)}>
                 {term}
               </button>
             ))}
@@ -239,6 +269,14 @@ export default function Home() {
           </div>
           <div className="orbit orbit-one" />
           <div className="orbit orbit-two" />
+          <div className="atlas-scan" />
+          <div className="globe" aria-hidden="true">
+            <span className="globe-line globe-line-one" />
+            <span className="globe-line globe-line-two" />
+            <span className="landmass landmass-one" />
+            <span className="landmass landmass-two" />
+            <span className="landmass landmass-three" />
+          </div>
           <div className="atlas-core">
             <strong>1,280</strong>
             <span>全球创业资源</span>
@@ -280,8 +318,8 @@ export default function Home() {
           <span>正在开放</span>
         </div>
         <div>
-          <strong>76%</strong>
-          <span>一周内已核验</span>
+          <strong>7d</strong>
+          <span>重点资源复核周期</span>
         </div>
         <p>持续发现、整理并核验全球创业生态中的有效资源。</p>
       </section>
@@ -326,16 +364,21 @@ export default function Home() {
         </div>
 
         <div className="filter-row" aria-label="资源分类筛选">
-          {filters.map((filter) => (
-            <button
-              type="button"
-              key={filter.key}
-              className={activeType === filter.key ? "active" : ""}
-              onClick={() => setActiveType(filter.key)}
-            >
-              {filter.label}
-            </button>
-          ))}
+          <div className="filter-buttons">
+            {filters.map((filter) => (
+              <button
+                type="button"
+                key={filter.key}
+                className={activeType === filter.key ? "active" : ""}
+                onClick={() => setActiveType(filter.key)}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+          <span className="result-count" aria-live="polite">
+            {query ? `“${query}” · ` : ""}{visibleResources.length} 条示例资源
+          </span>
         </div>
 
         {visibleResources.length ? (
@@ -346,7 +389,10 @@ export default function Home() {
                   <span className={`resource-logo logo-${resource.color}`}>
                     {resource.monogram}
                   </span>
-                  <span className="resource-kind">{resource.kind}</span>
+                  <div className="resource-status-group">
+                    <span className="resource-status"><i />{resource.status}</span>
+                    <span className="resource-kind">{resource.kind}</span>
+                  </div>
                 </div>
                 <div className="resource-location">{resource.location}</div>
                 <h3>{resource.name}</h3>
@@ -357,9 +403,12 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="resource-footer">
-                  <span>{resource.timing}</span>
+                  <div className="resource-source">
+                    <strong>{resource.timing}</strong>
+                    <span>{resource.verified} · {resource.source}</span>
+                  </div>
                   <button type="button" aria-label={`查看 ${resource.name} 详情`}>
-                    ↗
+                    查看 <span aria-hidden="true">↗</span>
                   </button>
                 </div>
               </article>
@@ -374,7 +423,7 @@ export default function Home() {
           </div>
         )}
 
-        <button className="all-resources" type="button" onClick={() => setActiveType("all")}>
+        <button className="all-resources" type="button" onClick={() => { setActiveType("all"); setQuery(""); }}>
           浏览全部资源 <span aria-hidden="true">→</span>
         </button>
       </section>
