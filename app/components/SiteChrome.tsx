@@ -3,8 +3,8 @@ export function SiteHeader() {
   return (
     <>
       <div className="announcement">
-        <span>创业指南上线</span>
-        <p>从发现机会，到理解创业下一步</p>
+        <span>站内整理已上线</span>
+        <p>首页发现机会，独立目录帮助你理解与比较</p>
       </div>
       <header className="site-header">
         <a className="brand" href="/#top" aria-label="Pioneer 首页">

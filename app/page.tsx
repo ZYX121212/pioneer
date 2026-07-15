@@ -1,10 +1,8 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { KnowledgeCard } from "./components/KnowledgeCard";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
-import { knowledgeItems, learningPath } from "./data/knowledge";
 import { resources, typeConfig, type ResourceType } from "./data/resources";
 
 const categoryStyles: Record<ResourceType, string> = {
@@ -51,8 +49,8 @@ export default function Home() {
           <div className="kicker"><span className="pulse" /> GLOBAL STARTUP RESOURCE DIRECTORY</div>
           <h1><span>世界很大，</span><span><em>机会</em>不应难找。</span></h1>
           <p className="hero-intro">
-            搜索全球创业计划、孵化机构、活动与项目，也从可信的公开课程和专业指南中，
-            理解创业的第一步。
+            搜索世界各地的创业活动、孵化器、加速计划、创新机构与创业项目。
+            无需注册，先看整理，再决定是否行动。
           </p>
 
           <form className="search-box" onSubmit={handleSearch} role="search">
@@ -68,10 +66,6 @@ export default function Home() {
               <button key={term} type="button" onClick={() => applyQuickSearch(term)}>{term}</button>
             ))}
           </div>
-          <a className="knowledge-entry-link" href="/knowledge">
-            <span>第一次创业？</span>
-            从 60 分钟入门路径开始 <b aria-hidden="true">→</b>
-          </a>
         </div>
 
         <aside className="atlas-card" aria-label="全球创业资源分布预览">
@@ -93,9 +87,9 @@ export default function Home() {
       <section className="metrics" aria-label="平台数据">
         <div><strong>{resources.length}</strong><span>站内整理档案</span></div>
         <div><strong>4</strong><span>独立资源目录</span></div>
-        <div><strong>{knowledgeItems.length}</strong><span>精选知识来源</span></div>
+        <div><strong>6</strong><span>首页编辑精选</span></div>
         <div><strong>100%</strong><span>附官方来源</span></div>
-        <p>把全球创业机会与可信知识放在同一张地图上。</p>
+        <p>首页负责发现，独立目录负责理解、比较与行动。</p>
       </section>
 
       <section className="section categories-section" id="categories">
@@ -119,56 +113,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="knowledge-section knowledge-preview" id="knowledge">
-        <div className="knowledge-heading">
-          <div>
-            <span className="section-index light">02 / FOUNDER LIBRARY</span>
-            <h2>发现机会，<br />也知道怎么开始。</h2>
-          </div>
-          <div className="knowledge-heading-copy">
-            <span>创业指南 · PIONEER LIBRARY</span>
-            <p>按创业阶段整理公开课程、专业指南与行动线索。每份内容都标注原始来源、学习成本和适用地区。</p>
-          </div>
-        </div>
-
-        <div className="learning-path-shell">
-          <aside className="learning-path-intro">
-            <span>START HERE · 60 MIN</span>
-            <strong>创业前的<br />第一张地图</strong>
-            <p>适合第一次接触创业的人。先建立完整认知，再决定需要深入的方向。</p>
-            <a href="/knowledge">进入完整指南 <span aria-hidden="true">→</span></a>
-          </aside>
-          <div className="learning-path" aria-label="创业入门学习路径">
-            {learningPath.map((step) => (
-              <a href="/knowledge#knowledge-library" key={step.number}>
-                <span>{step.number}</span>
-                <div>
-                  <strong>{step.title}</strong>
-                  <small>{step.note}</small>
-                </div>
-                <b aria-hidden="true">↗</b>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="knowledge-preview-topline">
-          <div>
-            <span>CURATED KNOWLEDGE</span>
-            <h3>先从这些一手来源开始</h3>
-          </div>
-          <a href="/knowledge">浏览全部 {knowledgeItems.length} 份内容 <span aria-hidden="true">→</span></a>
-        </div>
-        <div className="knowledge-grid">
-          {knowledgeItems.slice(0, 4).map((item) => <KnowledgeCard item={item} key={item.id} />)}
-        </div>
-      </section>
-
       <section className="section resources-section" id="resources">
         <div className="section-heading resources-heading">
           <div>
-            <span className="section-index">03 / EDITOR&apos;S PICKS</span>
-            <h2>{query ? `“${query}”的搜索结果` : "首页只放真正值得先看的"}</h2>
+            <span className="section-index">02 / EDITOR&apos;S PICKS</span>
+            <h2>{query ? `“${query}”的搜索结果` : "最近值得关注"}</h2>
           </div>
           <span className="updated-note"><i /> {query ? `${searchResults.length} 条匹配内容` : "6 条编辑精选 · 点击进入站内整理"}</span>
         </div>
@@ -190,7 +139,7 @@ export default function Home() {
 
       <section className="cities-section" id="cities">
         <div className="cities-copy">
-          <span className="section-index light">04 / STARTUP ECOSYSTEMS</span>
+          <span className="section-index light">03 / STARTUP ECOSYSTEMS</span>
           <h2>机构不是一个名字，而是一组真实入口。</h2>
           <p>先理解机构提供什么、服务谁、如何进入，再查看它正在运营的具体计划。</p>
           <a className="cities-link" href="/organizations">查看机构整理 →</a>

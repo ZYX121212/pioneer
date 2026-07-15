@@ -32,8 +32,8 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /世界很大/);
   assert.match(html, /先选择你要解决的问题/);
-  assert.match(html, /发现机会/);
-  assert.match(html, /YC Startup Library/);
+  assert.match(html, /href="\/knowledge"/);
+  assert.doesNotMatch(html, /创业前的第一张地图|YC Startup Library/);
   assert.match(html, /Y Combinator/);
   assert.match(html, /Berkeley SkyDeck Batch 23/);
   assert.match(html, /href="\/resources\/y-combinator"/);
