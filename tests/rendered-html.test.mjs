@@ -23,7 +23,7 @@ async function render(path = "/") {
   );
 }
 
-test("server-renders the Pioneer resource directory", async () => {
+test("server-renders Pioneer as a resource directory and founder guide", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -32,6 +32,8 @@ test("server-renders the Pioneer resource directory", async () => {
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /世界很大/);
   assert.match(html, /先选择你要解决的问题/);
+  assert.match(html, /发现机会/);
+  assert.match(html, /YC Startup Library/);
   assert.match(html, /Y Combinator/);
   assert.match(html, /Berkeley SkyDeck Batch 23/);
   assert.match(html, /href="\/resources\/y-combinator"/);
@@ -39,7 +41,7 @@ test("server-renders the Pioneer resource directory", async () => {
   assert.doesNotMatch(html, /示例资源|数据接入后上线/);
 });
 
-test("keeps the first content collection complete and source-linked", async () => {
+test("keeps the resource collection complete and source-linked", async () => {
   const data = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
@@ -58,6 +60,21 @@ test("keeps the first content collection complete and source-linked", async () =
   assert.match(data, /2026\.07\.15 核验/);
 });
 
+test("keeps the founder knowledge collection structured and source-linked", async () => {
+  const data = await readFile(new URL("../app/data/knowledge.ts", import.meta.url), "utf8");
+  const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
+  const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+
+  assert.equal(urls.length, 8);
+  assert.equal(new Set(urls).size, 8);
+  assert.match(data, /stage: "start"/);
+  assert.match(data, /stage: "validate"/);
+  assert.match(data, /stage: "team"/);
+  assert.match(data, /stage: "company"/);
+  assert.match(data, /stage: "funding"/);
+  assert.match(card, /target="_blank"/);
+});
+
 test("renders a directory and an internal editorial detail before the official source", async () => {
   const directoryResponse = await render("/programs");
   const directory = await directoryResponse.text();
@@ -72,4 +89,17 @@ test("renders a directory and an internal editorial detail before the official s
   assert.match(detail, /这项计划适合谁/);
   assert.match(detail, /行动之前需要注意/);
   assert.match(detail, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
+});
+
+test("renders the founder learning path and knowledge filters", async () => {
+  const response = await render("/knowledge");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /创业前的/);
+  assert.match(html, /第一张地图/);
+  assert.match(html, /从可信的一手来源开始/);
+  assert.match(html, /团队与股权/);
+  assert.match(html, /SAFE 融资文件与说明/);
+  assert.match(html, /美国公司/);
 });
