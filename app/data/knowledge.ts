@@ -23,13 +23,25 @@ export type GuideSource = {
   language: string;
 };
 
-export const pioneerGuide = {
+export type PioneerGuide = {
+  slug: string;
+  stage: string;
+  number: string;
+  title: string;
+  description: string;
+  duration: string;
+  updated: string;
+  outcome: string[];
+  sources: GuideSource[];
+};
+
+export const pioneerGuide: PioneerGuide = {
   slug: "find-the-real-problem",
   stage: "想法验证",
   number: "01",
   title: "你的想法是真问题，还是一个你喜欢的解决方案？",
   description: "先暂停做产品，用真实行为判断一个问题是否值得继续投入。",
-  duration: "约 18 分钟",
+  duration: "约 35 分钟",
   updated: "2026.07.16",
   outcome: ["一份问题陈述", "一张核心假设卡", "一个三天验证计划"],
   sources: [
@@ -61,8 +73,44 @@ export const pioneerGuide = {
       url: "https://www.aispacewalk.cn/marketing/%E4%BB%8E0%E5%88%B01%E5%81%9A%E7%A1%AC%E4%BB%B6%E4%BA%A7%E5%93%81/%E5%8F%91%E7%8E%B0%E7%9C%9F%E9%97%AE%E9%A2%98/",
       language: "中文",
     },
-  ] satisfies GuideSource[],
+  ],
 };
+
+export const interviewGuide: PioneerGuide = {
+  slug: "first-user-interview",
+  stage: "用户验证",
+  number: "02",
+  title: "第一次和潜在用户交流，应该问什么？",
+  description: "从招募、开场、追问到整理证据，完成一次不推销方案的用户访谈。",
+  duration: "约 25 分钟",
+  updated: "2026.07.16",
+  outcome: ["一份访谈招募计划", "一套 30 分钟提纲", "一张证据记录表"],
+  sources: [
+    {
+      title: "How to Talk to Users",
+      publisher: "Y Combinator",
+      use: "用于访谈原则：询问已经发生的具体经历，而不是未来的假设和功能偏好。",
+      url: "https://www.ycombinator.com/library/6g-how-to-talk-to-users",
+      language: "英文",
+    },
+    {
+      title: "User Interviews: How, When, and Why to Conduct Them",
+      publisher: "Nielsen Norman Group",
+      use: "用于访谈方法边界、开放式提问和定性研究的基本结构。",
+      url: "https://www.nngroup.com/articles/user-interviews/",
+      language: "英文",
+    },
+    {
+      title: "The Mom Test",
+      publisher: "Rob Fitzpatrick",
+      use: "用于避免礼貌性反馈、追问过去行为和识别无效恭维。",
+      url: "https://www.momtestbook.com/",
+      language: "英文",
+    },
+  ],
+};
+
+export const pioneerGuides = [pioneerGuide, interviewGuide];
 
 export const learningPath: Array<{
   number: string;
@@ -73,7 +121,7 @@ export const learningPath: Array<{
   status: "available" | "next" | "planned";
 }> = [
   { number: "01", title: "发现真问题", note: "想法是真需求，还是自我感动？", stage: "validate", href: `/knowledge/${pioneerGuide.slug}`, status: "available" },
-  { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", status: "next" },
+  { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", href: `/knowledge/${interviewGuide.slug}`, status: "available" },
   { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", status: "planned" },
   { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", status: "planned" },
   { number: "05", title: "谈联合创始人", note: "角色、投入、股权与退出", stage: "team", status: "planned" },

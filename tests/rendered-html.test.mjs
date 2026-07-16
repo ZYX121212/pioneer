@@ -87,9 +87,10 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 12);
-  assert.equal(new Set(urls).size, 12);
+  assert.equal(urls.length, 15);
+  assert.equal(new Set(urls).size, 14);
   assert.match(data, /slug: "find-the-real-problem"/);
+  assert.match(data, /slug: "first-user-interview"/);
   assert.match(data, /第一篇：发现真问题/);
   assert.match(data, /stage: "start"/);
   assert.match(data, /stage: "validate"/);
@@ -97,6 +98,20 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   assert.match(data, /stage: "company"/);
   assert.match(data, /stage: "funding"/);
   assert.match(card, /target="_blank"/);
+});
+
+test("keeps every resource backed by an individually authored research profile", async () => {
+  const resourcesData = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
+  const profilesData = await readFile(new URL("../app/data/resourceProfiles.ts", import.meta.url), "utf8");
+  const resourceSlugs = [...resourcesData.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
+  const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
+
+  assert.equal(resourceSlugs.length, 16);
+  assert.equal(profileSlugs.length, 16);
+  assert.deepEqual(new Set(profileSlugs), new Set(resourceSlugs));
+  assert.match(profilesData, /diligence: string\[\]/);
+  assert.match(profilesData, /playbook: Array/);
+  assert.match(profilesData, /comparison:/);
 });
 
 test("renders a directory and an internal editorial detail before the official source", async () => {
@@ -110,11 +125,12 @@ test("renders a directory and an internal editorial detail before the official s
   const detail = await detailResponse.text();
   assert.equal(detailResponse.status, 200);
   assert.match(detail, /Pioneer 最终判断/);
-  assert.match(detail, /这个计划如何产生价值/);
-  assert.match(detail, /这项计划适合谁/);
-  assert.match(detail, /从判断到申请的路径/);
-  assert.match(detail, /收益之外，还要计算成本/);
-  assert.match(detail, /申请前行动清单/);
+  assert.match(detail, /先判断它究竟是什么/);
+  assert.match(detail, /能力画像：强在哪里，弱在哪里/);
+  assert.match(detail, /你实际能够获得什么/);
+  assert.match(detail, /不是只有一个入口/);
+  assert.match(detail, /把隐性成本放到桌面上/);
+  assert.match(detail, /行动前必须问清的问题/);
   assert.match(detail, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
 });
 
@@ -123,12 +139,28 @@ test("renders an editorial institution portrait without changing the official so
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /机构画像与资源能力/);
-  assert.match(html, /创业计划组合/);
-  assert.match(html, /投资与资本连接/);
-  assert.match(html, /国际市场落地/);
-  assert.match(html, /Pioneer 基于公开信息做出的定性画像/);
+  assert.match(html, /能力画像：强在哪里，弱在哪里/);
+  assert.match(html, /计划组合/);
+  assert.match(html, /企业与投资网络/);
+  assert.match(html, /国际团队落地/);
+  assert.match(html, /Pioneer 基于官方公开信息做出的定性判断/);
   assert.match(html, /href="https:\/\/stationf\.co\/"/);
+});
+
+test("renders type-specific research depth for events and startup projects", async () => {
+  const eventResponse = await render("/resources/slush-2026");
+  const event = await eventResponse.text();
+  assert.equal(eventResponse.status, 200);
+  assert.match(event, /Startup Ticket/);
+  assert.match(event, /Slush Platform/);
+  assert.match(event, /基金长名单/);
+
+  const startupResponse = await render("/resources/cerenovus");
+  const startup = await startupResponse.text();
+  assert.equal(startupResponse.status, 200);
+  assert.match(startup, /公司知识图谱/);
+  assert.match(startup, /组织系统图/);
+  assert.match(startup, /管理问题试点/);
 });
 
 test("renders the founder learning path and knowledge filters", async () => {
@@ -143,6 +175,10 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /你现在/);
   assert.match(html, /卡在哪里/);
   assert.match(html, /继续查阅原始资料/);
+  assert.match(html, /篇已上线/);
+  assert.match(html, /4 种创业类型/);
+  assert.match(html, /2 张可填写工作表/);
+  assert.match(html, /href="\/knowledge\/first-user-interview"/);
   assert.match(html, /团队与股权/);
   assert.match(html, /SAFE 融资文件与说明/);
   assert.match(html, /美国公司/);
@@ -157,5 +193,27 @@ test("renders the first Pioneer decision guide", async () => {
   assert.match(html, /把想法改写成观察/);
   assert.match(html, /证据有强弱/);
   assert.match(html, /三天验证/);
+  assert.match(html, /真实存在的问题，也不一定值得成立一家公司/);
+  assert.match(html, /10–30 名兼职员工/);
+  assert.match(html, /不要默认选择访谈/);
+  assert.match(html, /同一个框架，在不同创业类型中如何变化/);
+  assert.match(html, /问题陈述生成器/);
+  assert.match(html, /AI 产品/);
   assert.match(html, /参考来源与 Pioneer 的使用方式/);
+});
+
+test("renders the second Pioneer interview guide and its working tool", async () => {
+  const response = await render("/knowledge/first-user-interview");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /PIONEER GUIDE 02/);
+  assert.match(html, /一次访谈，只解决一个主要学习目标/);
+  assert.match(html, /四种常见招募方式与邀请模板/);
+  assert.match(html, /30 分钟流程/);
+  assert.match(html, /把意见题、未来题和诱导题/);
+  assert.match(html, /无效版本/);
+  assert.match(html, /单次访谈记录表/);
+  assert.match(html, /五次访谈不是市场验证/);
+  assert.match(html, /href="https:\/\/www\.momtestbook\.com\/"/);
 });
