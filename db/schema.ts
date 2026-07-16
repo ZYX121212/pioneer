@@ -1,4 +1,9 @@
-// Intentionally empty by default.
-// Add Drizzle tables here when the site actually needs a database.
-// See examples/d1/db/schema.ts for an opt-in example.
-export {};
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+
+export const siteVisitors = sqliteTable("site_visitors", {
+  visitorId: text("visitor_id").primaryKey(),
+  firstSeenAt: text("first_seen_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  lastSeenAt: text("last_seen_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  pageViews: integer("page_views").notNull().default(1),
+});

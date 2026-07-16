@@ -63,6 +63,21 @@ test("switches homepage samples in place while keeping directory links separate"
   assert.match(page, /href=\{directoryTarget\.href\}/);
 });
 
+test("tracks anonymous unique visitors and exposes the audience count in the interface", async () => {
+  const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
+  const route = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
+  const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+
+  assert.match(schema, /siteVisitors/);
+  assert.match(schema, /visitorId: text\("visitor_id"\)\.primaryKey/);
+  assert.match(route, /ON CONFLICT\(visitor_id\) DO UPDATE/);
+  assert.match(route, /SELECT COUNT\(\*\) AS count FROM site_visitors/);
+  assert.match(counter, /pioneer:anonymous-visitor-id/);
+  assert.match(counter, /window\.crypto\.randomUUID\(\)/);
+  assert.match(page, /累计独立访客/);
+});
+
 test("keeps the resource collection complete and source-linked", async () => {
   const data = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);

@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { AudienceCount } from "./AudienceCounter";
+
 export function SiteHeader() {
   return (
     <>
       <div className="announcement">
         <span>站内整理已上线</span>
-        <p>首页发现机会，独立目录帮助你理解与比较</p>
+        <p>已有 <AudienceCount /> 位访客来过 Pioneer</p>
       </div>
       <header className="site-header">
         <a className="brand" href="/#top" aria-label="Pioneer 首页">

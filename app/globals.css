@@ -81,11 +81,17 @@ a {
   margin: 0;
 }
 
-.announcement span {
+.announcement > span {
   padding: 2px 7px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 999px;
   color: white;
+}
+
+.announcement .audience-count {
+  color: white;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
 }
 
 .site-header {
@@ -654,6 +660,14 @@ nav a:hover,
   font-family: var(--display);
   font-size: 30px;
   letter-spacing: -0.04em;
+}
+
+.metrics .visitor-metric strong {
+  color: var(--orange);
+}
+
+.metrics .audience-count {
+  font-variant-numeric: tabular-nums;
 }
 
 .metrics span,

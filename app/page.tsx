@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { AudienceCount } from "./components/AudienceCounter";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import { pioneerGuide } from "./data/knowledge";
@@ -122,10 +123,10 @@ export default function Home() {
       </section>
 
       <section className="metrics" aria-label="平台数据">
+        <div className="visitor-metric"><strong><AudienceCount /></strong><span>累计独立访客</span></div>
         <div><strong>{resources.length}</strong><span>站内整理档案</span></div>
         <div><strong>4</strong><span>独立资源目录</span></div>
         <div><strong>6</strong><span>首页编辑精选</span></div>
-        <div><strong>100%</strong><span>附官方来源</span></div>
         <p>首页负责发现，独立目录负责理解、比较与行动。</p>
       </section>
 

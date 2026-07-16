@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { AudienceProvider } from "./components/AudienceCounter";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body><AudienceProvider>{children}</AudienceProvider></body>
     </html>
   );
 }
