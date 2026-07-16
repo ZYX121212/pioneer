@@ -1,6 +1,7 @@
 import { organizationComparison, type OrganizationIntelligenceProfile } from "../data/organizationProfiles";
 import type { ResourceResearchProfile } from "../data/resourceProfiles";
 import type { Resource } from "../data/resources";
+import { OrganizationFitAssessment } from "./OrganizationFitAssessment";
 
 type Props = {
   resource: Resource;
@@ -117,6 +118,63 @@ export function OrganizationResearchDetail({ resource, profile, organization }: 
             </div>
           ))}
         </div>
+
+        <div className="organization-subheading"><span>D</span><h3>机构深度档案</h3><p>默认收起，需要做决定时再展开；事实、判断与待复核事项分别标记。</p></div>
+        <div className="organization-dossier">
+          <details open>
+            <summary><span>01</span><div><strong>成果证据与代表案例</strong><small>它过去产生过什么，但哪些不能直接归因</small></div><b>展开档案</b></summary>
+            <div className="organization-dossier-body">
+              <div className="organization-evidence-grid">
+                {organization.dossier.evidence.map((item) => (
+                  <div key={item.label}>
+                    <span className={`evidence-status evidence-${item.verification}`}>{item.verification}</span>
+                    <small>{item.label}</small>
+                    <strong>{item.value}</strong>
+                    <p>{item.interpretation}</p>
+                    <a href={item.sourceUrl} target="_blank" rel="noreferrer">来源：{item.sourceLabel} ↗</a>
+                  </div>
+                ))}
+              </div>
+              <div className="organization-case-list">
+                {organization.dossier.cases.map((item) => (
+                  <div key={item.name}><strong>{item.name}</strong><p>{item.signal}</p><div><span>不能证明</span><p>{item.caveat}</p></div></div>
+                ))}
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>02</span><div><strong>申请与筛选机制</strong><small>机构在寻找谁，你需要证明什么</small></div><b>展开档案</b></summary>
+            <div className="organization-dossier-body organization-selection-system">
+              <div className="organization-application-unit"><span>申请单位</span><strong>{organization.dossier.selection.applicationUnit}</strong><p>{organization.dossier.selection.commitment}</p></div>
+              <div className="organization-selection-columns">
+                <div><span className="organization-panel-label">申请路径</span><ol>{organization.dossier.selection.process.map((item) => <li key={item}>{item}</li>)}</ol></div>
+                <div><span className="organization-panel-label">优先信号</span><ul className="selection-positive">{organization.dossier.selection.signals.map((item) => <li key={item}>{item}</li>)}</ul></div>
+                <div><span className="organization-panel-label">常见风险</span><ul className="selection-negative">{organization.dossier.selection.rejectionRisks.map((item) => <li key={item}>{item}</li>)}</ul></div>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>03</span><div><strong>费用、股权与真实成本</strong><small>把直接成本、稀释、迁移和机会成本放在一起</small></div><b>展开档案</b></summary>
+            <div className="organization-dossier-body">
+              <div className="organization-economics-table">
+                <div className="organization-economics-head"><span>项目</span><span>目前可确认</span><span>创业者含义</span><span>行动前复核</span></div>
+                {organization.dossier.economics.map((item) => <div key={item.label}><strong>{item.label}</strong><p>{item.known}</p><p>{item.implication}</p><p>{item.verification}</p></div>)}
+              </div>
+              <p className="organization-dossier-note">条款、费用和申请周期可能变化。页面用于建立问题清单，签署前仍需以正式文件和专业意见为准。</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>04</span><div><strong>替代机构与替代路径</strong><small>不要孤立判断一个品牌</small></div><b>展开档案</b></summary>
+            <div className="organization-dossier-body">
+              <div className="organization-alternatives">
+                {organization.dossier.alternatives.map((item) => <div key={item.need}><small>如果你需要</small><h3>{item.need}</h3><span>优先比较</span><strong>{item.option}</strong><p>{item.why}</p></div>)}
+              </div>
+            </div>
+          </details>
+        </div>
       </section>
 
       <section className="organization-chapter" id="institution-decision">
@@ -136,6 +194,9 @@ export function OrganizationResearchDetail({ resource, profile, organization }: 
             <ol>{organization.redFlags.map((item) => <li key={item}>{item}</li>)}</ol>
           </div>
         </div>
+
+        <div className="organization-subheading"><span>SELF CHECK</span><h3>申请匹配度自测</h3><p>不是测你能否被录取，而是判断这个机构是否值得投入。</p></div>
+        <OrganizationFitAssessment questions={organization.dossier.selfCheck} />
 
         <div className="organization-subheading"><span>A</span><h3>成本与需要复核的问题</h3><p>公开资源之外，真正决定回报的是隐性成本。</p></div>
         <div className="organization-risk-grid">

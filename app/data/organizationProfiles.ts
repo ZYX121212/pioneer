@@ -28,6 +28,27 @@ export type OrganizationIntelligenceProfile = {
     success: string;
   }>;
   redFlags: string[];
+  dossier: {
+    evidence: Array<{
+      label: string;
+      value: string;
+      interpretation: string;
+      verification: "官方公开" | "Pioneer 判断" | "申请前复核";
+      sourceLabel: string;
+      sourceUrl: string;
+    }>;
+    cases: Array<{ name: string; signal: string; caveat: string }>;
+    selection: {
+      applicationUnit: string;
+      process: string[];
+      signals: string[];
+      commitment: string;
+      rejectionRisks: string[];
+    };
+    economics: Array<{ label: string; known: string; implication: string; verification: string }>;
+    alternatives: Array<{ need: string; option: string; why: string }>;
+    selfCheck: Array<{ question: string; passSignal: string }>;
+  };
 };
 
 export const organizationProfiles: Record<string, OrganizationIntelligenceProfile> = {
@@ -66,6 +87,44 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
       { need: "第一次理解创业", route: "先使用 Launch 在线入口", firstMove: "完成问题、用户和商业模式验证，再评估驻场项目。", success: "得到真实用户证据，而不只是完成一份 pitch deck。" },
     ],
     redFlags: ["只能说想进入 STATION F，却说不出具体项目名称。", "把巴黎创业氛围当成目标，却没有法国客户或市场假设。", "期望园区自动提供融资、客户或签证结果。"],
+    dossier: {
+      evidence: [
+        { label: "生态规模", value: "1,000+ 家在园团队 / 30+ 项目", interpretation: "选择空间大，但服务并非统一交付。", verification: "官方公开", sourceLabel: "STATION F 首页", sourceUrl: "https://stationf.co/" },
+        { label: "累计覆盖", value: "9,000 家创业公司", interpretation: "证明长期生态广度，不等于每家都接受同等强度辅导。", verification: "官方公开", sourceLabel: "STATION F 首页", sourceUrl: "https://stationf.co/" },
+        { label: "资本密度", value: "700+ 投资人 / 基金网络", interpretation: "适合主动建立关系；数字本身不代表融资转化率。", verification: "官方公开", sourceLabel: "STATION F 首页", sourceUrl: "https://stationf.co/" },
+        { label: "顶层筛选", value: "Future 40 约为园区前 4%", interpretation: "额外曝光和投资更集中在少数高表现团队。", verification: "官方公开", sourceLabel: "STATION F Startups", sourceUrl: "https://stationf.co/startups" },
+      ],
+      cases: [
+        { name: "Hugging Face", signal: "官方列为在园成长的代表性 AI 公司。", caveat: "可证明园区能承载全球化公司，不能单独证明园区造成其成功。" },
+        { name: "Alan", signal: "官方列为法国科技与保险领域代表案例。", caveat: "更适合验证法国生态与融资网络，不代表所有项目都具备同等资源。" },
+        { name: "Yuka", signal: "官方披露其全球用户规模，体现消费产品也能在生态中成长。", caveat: "成功案例跨越多年，需再核对其进入项目与当时阶段。" },
+      ],
+      selection: {
+        applicationUnit: "申请的是某一个具体项目，不是 STATION F 整体。",
+        process: ["从 30+ 项目中按行业、阶段与运营方筛选", "进入项目自己的申请页面", "按项目要求提交材料与面试", "录取后获得园区与该项目对应权益"],
+        signals: ["有清晰产品与团队", "能够说明为什么需要法国或欧洲", "与目标项目的行业资源高度匹配", "进入后 90 天有具体客户或融资目标"],
+        commitment: "驻场周期、费用、股权和活动要求由各项目决定，必须逐项确认。",
+        rejectionRisks: ["只表达对园区品牌的兴趣", "没有选出具体项目", "法国市场不是实际战略", "把合作企业名单当成确定客户"],
+      },
+      economics: [
+        { label: "项目费用", known: "各项目独立决定是否收费、提供免费空间或要求其他条件。", implication: "无法用一个统一价格判断 STATION F。", verification: "向项目运营方索取当期条款" },
+        { label: "股权与投资", known: "园区不是统一基金，部分项目或 Future 40 可能提供投资机会。", implication: "先分清‘进入园区’与‘获得投资’。", verification: "核对具体项目及投资主体" },
+        { label: "地理成本", known: "巴黎驻场会产生住宿、签证、雇佣和生活成本。", implication: "只有法国业务目标足够明确，迁移才可能划算。", verification: "按团队人数制作 6 个月预算" },
+        { label: "时间成本", known: "项目、活动和高密度社区会占用创始人时间。", implication: "提前设定只参加与客户、融资或招聘目标相关的活动。", verification: "询问往届团队每周实际投入" },
+      ],
+      alternatives: [
+        { need: "只想学习创业基础", option: "Launch 或其他在线创业课程", why: "不需要先承担巴黎驻场成本。" },
+        { need: "已有团队，重点是通用融资", option: "YC / Techstars 等单一加速器", why: "投资条款与项目路径通常更统一。" },
+        { need: "进入亚洲市场", option: "BLOCK71", why: "其节点网络更贴近具体亚洲国家。" },
+      ],
+      selfCheck: [
+        { question: "我能说出最匹配的一个具体项目吗？", passSignal: "能说出项目名称、运营方与选择理由" },
+        { question: "法国是未来 12 个月的真实市场吗？", passSignal: "已有客户名单、访谈或落地假设" },
+        { question: "我知道需要园区提供哪三项资源吗？", passSignal: "资源能对应客户、融资或招聘结果" },
+        { question: "团队能承担巴黎驻场的总成本吗？", passSignal: "已有时间、现金与签证预算" },
+        { question: "即使没有融资，项目仍值得吗？", passSignal: "至少一个非融资里程碑足以覆盖成本" },
+      ],
+    },
   },
 
   block71: {
@@ -103,6 +162,44 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
       { need: "寻找亚洲投资人", route: "使用节点活动和项目展示", firstMove: "按行业、轮次和支票规模筛选区域基金。", success: "形成与本地牵引力挂钩的融资关系。" },
     ],
     redFlags: ["把‘进入亚洲’当作目标，却没有选择第一个国家。", "只关注全球节点数量，不研究目标节点当前团队和项目。", "期待短期访问替代长期本地销售、招聘和合规投入。"],
+    dossier: {
+      evidence: [
+        { label: "累计孵化", value: "1,600+ 家创业公司", interpretation: "说明网络广度；应继续追问目标节点与行业的有效案例。", verification: "官方公开", sourceLabel: "BLOCK71 Programme", sourceUrl: "https://block71.co/programmes/supercharge/" },
+        { label: "网络形态", value: "多个国家和城市节点", interpretation: "价值在本地节点，不能把全球覆盖理解为统一服务。", verification: "官方公开", sourceLabel: "NUS Enterprise", sourceUrl: "https://enterprise.nus.edu.sg/supporting-entrepreneurs/block71-global-incubation/" },
+        { label: "服务阶段", value: "Pre-seed 至 Series A", interpretation: "不同阶段需要进入不同项目，成熟度不是统一门槛。", verification: "官方公开", sourceLabel: "BLOCK71 Singapore", sourceUrl: "https://block71.co/singapore/" },
+        { label: "当前节奏", value: "按季度或专项计划开放", interpretation: "申请窗口、行业和权益可能快速变化。", verification: "申请前复核", sourceLabel: "BLOCK71 Programmes", sourceUrl: "https://enterprise.nus.edu.sg/supporting-entrepreneurs/block71-global-incubation/block71-programmes/" },
+      ],
+      cases: [
+        { name: "ShopBack", signal: "官方将其列入 BLOCK71 孵化网络代表公司。", caveat: "能证明社区与东南亚创业生态相关，不能归因全部增长。" },
+        { name: "Carousell", signal: "官方列为代表性孵化公司，创始人也参与部分导师项目。", caveat: "今天的项目结构可能与其早期阶段不同。" },
+        { name: "Coda Payments", signal: "官方列为从网络成长的全球化支付公司。", caveat: "更能说明区域扩张潜力，仍需核对当前项目可复制资源。" },
+      ],
+      selection: {
+        applicationUnit: "申请某个城市节点的通用孵化或专项计划。",
+        process: ["先选目标国家和节点", "判断通用轨道或行业专项", "提交公司、牵引力与扩张材料", "短名单面试并核对本地落地承诺"],
+        signals: ["已有产品或原型", "能证明一个具体亚洲市场需求", "创始人愿意长期本地投入", "拥有可衡量的 6–12 个月扩张目标"],
+        commitment: "不同节点与专项计划可能要求当地注册、驻场、费用或全职参与。",
+        rejectionRisks: ["只说进入亚洲而未选国家", "没有本地客户证据", "项目阶段与公司不匹配", "无法承担本地化执行"],
+      },
+      economics: [
+        { label: "项目费用", known: "不同节点和计划并不统一；部分历史项目为 equity-free，但仍可能有孵化费用。", implication: "不能用某一项目条款推断整个 BLOCK71。", verification: "向目标节点确认当期费用" },
+        { label: "资金支持", known: "部分专项计划连接投资或政府补助，但不是普遍投资承诺。", implication: "把资本视为附加结果，而非申请的唯一理由。", verification: "区分补助、投资和融资介绍" },
+        { label: "本地化成本", known: "注册、驻场、雇佣、合规和销售需要逐国投入。", implication: "一次只验证一个国家。", verification: "制作首个市场 12 个月预算" },
+        { label: "网络时间", known: "社区活动与跨节点关系需要创始人主动经营。", implication: "用客户会面和试点数量衡量网络回报。", verification: "向校友询问真实转化" },
+      ],
+      alternatives: [
+        { need: "只进入一个国家", option: "当地垂直加速器或政府项目", why: "单点客户与监管资源可能更深。" },
+        { need: "寻找联合创始人", option: "Entrepreneur First", why: "其核心机制是个人筛选与公司形成。" },
+        { need: "进入欧洲", option: "STATION F", why: "巴黎与欧洲企业网络更集中。" },
+      ],
+      selfCheck: [
+        { question: "我已经选择第一个亚洲国家了吗？", passSignal: "能解释为什么先进入这个国家" },
+        { question: "这个节点有我的目标客户或伙伴吗？", passSignal: "已有至少 10 个目标名单" },
+        { question: "产品需要做哪些本地化？", passSignal: "已识别语言、合规、定价与渠道差异" },
+        { question: "创始人能否长期在场？", passSignal: "有人负责至少 6 个月本地执行" },
+        { question: "没有补助，市场进入仍成立吗？", passSignal: "单位经济与客户需求独立成立" },
+      ],
+    },
   },
 
   "entrepreneur-first": {
@@ -140,6 +237,44 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
       { need: "进入美国融资市场", route: "形成公司后进入旧金山阶段", firstMove: "先验证美国客户问题与公司设立路径。", success: "建立客户和投资人的下一步会议，而不只是 Demo Day 曝光。" },
     ],
     redFlags: ["只是想认识优秀的人，却没有立即全职创业的承诺。", "用履历判断搭档，不设计真实压力与冲突测试。", "已经有稳定团队和业务，却重新进入公司形成阶段。"],
+    dossier: {
+      evidence: [
+        { label: "公司组合价值", value: "官方称超过 160 亿美元", interpretation: "证明人才投资模式产生过大型公司，但不代表单个参与者成功概率。", verification: "官方公开", sourceLabel: "EF About", sourceUrl: "https://www.joinef.com/about/" },
+        { label: "联合创始人形成", value: "官方称 8 周内约 80% 找到搭档", interpretation: "说明配对速度；质量仍需用真实共同建设判断。", verification: "官方公开", sourceLabel: "EF FAQ", sourceUrl: "https://www.joinef.com/faqs/" },
+        { label: "公司投资路径", value: "最高 25 万美元", interpretation: "需要通过投资委员会，且第二部分资金附带地点与公司结构条件。", verification: "官方公开", sourceLabel: "EF FAQ", sourceUrl: "https://www.joinef.com/faqs/" },
+        { label: "参与方式", value: "全职、线下", interpretation: "不是兼职课程，而是职业与地点层面的高承诺选择。", verification: "官方公开", sourceLabel: "EF Apply", sourceUrl: "https://apply.joinef.com/" },
+      ],
+      cases: [
+        { name: "Tractable", signal: "EF 官方列出的计算机视觉与保险科技代表公司。", caveat: "证明人才型公司形成能产生深科技公司，不代表每次配对都成功。" },
+        { name: "Cleo", signal: "EF 官方列出的金融科技代表公司。", caveat: "后续资本与执行来自长期团队建设，不能只归因于项目。" },
+        { name: "Accurx", signal: "官方投资组合中的医疗软件公司。", caveat: "应重点研究创始人形成和早期验证过程，而不只看最终规模。" },
+      ],
+      selection: {
+        applicationUnit: "以个人身份申请；不要求已有想法或联合创始人。",
+        process: ["提交个人经历与异常成果", "EF 评估个人潜力与创业承诺", "进入全职线下 FORM 阶段", "形成团队后参加投资委员会", "获投团队进入旧金山 LAUNCH"],
+        signals: ["相对同龄人的异常成果", "强建设能力或技术深度", "智识好奇与高增长野心", "愿意现在全职创业", "能够吸引并与高能力者合作"],
+        commitment: "核心项目为全职线下；部分路径包含伦敦或班加罗尔后迁往旧金山。",
+        rejectionRisks: ["只有创业兴趣，没有立即行动承诺", "履历优秀但缺乏主动建设证据", "目标是小型现金流业务", "无法迁移或投入完整周期"],
+      },
+      economics: [
+        { label: "个人支持", known: "项目初期提供 equity-free Talent Investment，地区金额不同。", implication: "用于支持全职参与，但需考虑税务与实际生活成本。", verification: "核对所在地 FAQ" },
+        { label: "首笔投资", known: "官方公开为 12.5 万美元 post-money SAFE，对应 8%。", implication: "在产品和估值证据很早时即产生明确稀释。", verification: "签署前请专业人士复核" },
+        { label: "第二笔投资", known: "可选 12.5 万美元 uncapped MFN SAFE，通常关联旧金山迁移与 Delaware C-Corp。", implication: "需要同时评估公司结构、迁移与未来融资。", verification: "以当期当地条款为准" },
+        { label: "机会成本", known: "全职公司形成期可能没有形成公司或未通过投资委员会。", implication: "即使未获投，也要判断人才网络与学习是否覆盖职业成本。", verification: "访谈未形成公司或未获投参与者" },
+      ],
+      alternatives: [
+        { need: "已有稳定团队与产品", option: "YC 或其他公司型加速器", why: "不需要重新经历联合创始人形成。" },
+        { need: "只想认识潜在搭档", option: "Hackathon、创业社区与定向合作实验", why: "承诺与迁移成本更低。" },
+        { need: "进入亚洲市场", option: "BLOCK71", why: "其价值更偏公司落地，而非个人配对。" },
+      ],
+      selfCheck: [
+        { question: "如果明天开始，我愿意全职创业吗？", passSignal: "已处理工作、现金与家庭承诺" },
+        { question: "我有可证明的异常成果吗？", passSignal: "能用结果而非头衔说明能力" },
+        { question: "我真正缺的是联合创始人吗？", passSignal: "已明确需要的互补能力和价值观" },
+        { question: "我愿意为配对设置退出标准吗？", passSignal: "已设计真实任务、冲突与决策测试" },
+        { question: "我接受高增长融资路径吗？", passSignal: "理解稀释、迁移和机构资本要求" },
+      ],
+    },
   },
 
   "berkeley-skydeck": {
@@ -177,6 +312,44 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
       { need: "接近首轮机构融资", route: "申请六个月 Cohort", firstMove: "准备技术壁垒、牵引力、团队和六个月融资里程碑。", success: "达到可被机构投资人验证的产品与市场证据。" },
     ],
     redFlags: ["只因为 Berkeley 品牌申请，却无法说明需要哪一类大学资源。", "忽略知识产权、签证、湾区迁移和投资稀释。", "公司过早或过成熟，却选择了错误的计划入口。"],
+    dossier: {
+      evidence: [
+        { label: "校友融资", value: "官方披露累计 27 亿美元以上", interpretation: "说明后续资本连接能力，但统计覆盖多批次与不同项目。", verification: "官方公开", sourceLabel: "SkyDeck 首页", sourceUrl: "https://skydeck.berkeley.edu/" },
+        { label: "Cohort 规模", value: "约 20 家 / 每 6 个月", interpretation: "比总体社区更能反映高强度加速器资源密度。", verification: "官方公开", sourceLabel: "SkyDeck Program", sourceUrl: "https://skydeck.berkeley.edu/program/" },
+        { label: "项目结果", value: "官方披露多轮融资与并购案例", interpretation: "适合验证首轮机构融资能力，不能作为录取后保证。", verification: "官方公开", sourceLabel: "SkyDeck 首页", sourceUrl: "https://skydeck.berkeley.edu/" },
+        { label: "全球团队", value: "历史上约 2/3 来自美国以外", interpretation: "国际团队是核心服务对象之一，但迁移与签证成本仍真实存在。", verification: "官方公开", sourceLabel: "SkyDeck Program", sourceUrl: "https://skydeck.berkeley.edu/program/" },
+      ],
+      cases: [
+        { name: "Krisp", signal: "官方案例称 SkyDeck 帮助其招聘、GTM 与种子融资。", caveat: "可作为网络使用方式的具体案例，不代表每个团队都获得相同介绍。" },
+        { name: "Prophecy", signal: "官方案例强调投资网络、Berkeley 校友早期客户和后续融资。", caveat: "最适合已有企业产品、能把介绍转成交易的团队参考。" },
+        { name: "ThinkCyte", signal: "官方案例强调大学机械工程研究资源和后续融资。", caveat: "体现深科技匹配；非研究型公司未必能复制。" },
+      ],
+      selection: {
+        applicationUnit: "按 Cohort、IPP 或 Pad-13 等具体计划申请。",
+        process: ["先判断计划和资格", "提交团队、产品、技术与市场材料", "进入多轮筛选或面试", "Cohort 录取后另有基金投资审查", "按项目周期参加活动与 Demo Day"],
+        signals: ["技术或研究有明确壁垒", "六个月内能形成显著收入或产品里程碑", "接近首轮机构融资", "能够明确使用 Berkeley 人才、客户或资本", "国际团队有美国市场计划"],
+        commitment: "Cohort 包含每周必需活动、顾问机制和湾区参与；其他计划要求不同。",
+        rejectionRisks: ["公司阶段与计划不匹配", "只借 Berkeley 品牌", "技术强但没有商业化问题", "无法说明六个月融资或产品里程碑"],
+      },
+      economics: [
+        { label: "Cohort 投资", known: "官方当前页面披露约 21 万美元换取 7.5%，页面间数字可能存在更新差异。", implication: "适合确实准备机构融资的公司。", verification: "以录取时正式文件为准" },
+        { label: "项目费用", known: "官方 Program 页面披露 Cohort 项目费 7,500 美元。", implication: "应与投资稀释、湾区成本合并计算。", verification: "确认当期是否仍适用" },
+        { label: "Pad-13", known: "官方披露 500 美元或向 UC Berkeley 配置 1% 股权的选择。", implication: "极早期团队需比较现金与长期稀释。", verification: "签署前核对选择条件" },
+        { label: "湾区成本", known: "线下参与涉及签证、住宿、公司设立与团队迁移。", implication: "只有客户、人才和融资目标具体时才值得。", verification: "制作完整六个月预算" },
+      ],
+      alternatives: [
+        { need: "通用高增长融资", option: "YC", why: "网络更通用，大学关联不是核心。" },
+        { need: "公司形成前寻找搭档", option: "Entrepreneur First", why: "EF 直接服务个人与联合创始人形成。" },
+        { need: "只做大学技术孵化", option: "所在大学技术转移办公室或本地实验室孵化器", why: "知识产权和研究资源可能更直接。" },
+      ],
+      selfCheck: [
+        { question: "我申请的是正确计划吗？", passSignal: "能解释 Cohort、IPP 与 Pad-13 的差异" },
+        { question: "六个月内能完成什么关键里程碑？", passSignal: "有量化产品、客户或融资目标" },
+        { question: "我需要哪些 Berkeley 独特资源？", passSignal: "已列出具体人才、研究、客户或投资人类型" },
+        { question: "知识产权关系是否清晰？", passSignal: "创始人、大学与公司的权利已被确认" },
+        { question: "投资与湾区总成本可接受吗？", passSignal: "已计算股权、费用、迁移和机会成本" },
+      ],
+    },
   },
 };
 

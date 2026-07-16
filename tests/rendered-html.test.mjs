@@ -165,6 +165,12 @@ test("renders an editorial institution portrait without changing the official so
   assert.match(html, /如何获得/);
   assert.match(html, /主要边界/);
   assert.match(html, /四家机构横向比较/);
+  assert.match(html, /成果证据与代表案例/);
+  assert.match(html, /申请与筛选机制/);
+  assert.match(html, /费用、股权与真实成本/);
+  assert.match(html, /替代机构与替代路径/);
+  assert.match(html, /申请匹配度自测/);
+  assert.match(html, /Future 40 约为园区前 4%/);
   assert.match(html, /href="https:\/\/stationf\.co\/"/);
 });
 
@@ -181,6 +187,12 @@ test("keeps every featured institution backed by a structured intelligence profi
   assert.match(data, /ecosystem: \[/);
   assert.match(data, /scenarios: \[/);
   assert.match(data, /redFlags: \[/);
+  assert.match(data, /dossier: \{/);
+  assert.match(data, /evidence: \[/);
+  assert.match(data, /selection: \{/);
+  assert.match(data, /economics: \[/);
+  assert.match(data, /alternatives: \[/);
+  assert.match(data, /selfCheck: \[/);
   assert.match(data, /export const organizationComparison/);
 });
 
