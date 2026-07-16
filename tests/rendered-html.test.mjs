@@ -34,7 +34,12 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /从你需要的资源开始/);
   assert.match(html, /href="\/knowledge"/);
   assert.match(html, /第一次创业？从一张清晰的地图开始/);
-  assert.match(html, /点击分类进入独立目录/);
+  assert.match(html, /查看全部资源目录/);
+  assert.match(html, /精选资源/);
+  assert.match(html, /开放计划/);
+  assert.match(html, /孵化机构/);
+  assert.match(html, /创业活动/);
+  assert.match(html, /创业项目/);
   assert.match(html, /href="\/programs"/);
   assert.match(html, /href="\/organizations"/);
   assert.match(html, /href="\/events"/);
@@ -45,6 +50,16 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /href="\/resources\/y-combinator"/);
   assert.doesNotMatch(html, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
   assert.doesNotMatch(html, /示例资源|数据接入后上线/);
+});
+
+test("switches homepage samples in place while keeping directory links separate", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+
+  assert.match(page, /useState<PreviewMode>\("featured"\)/);
+  assert.match(page, /setActivePreview\(mode\)/);
+  assert.match(page, /resource\.type === activePreview/);
+  assert.match(page, /activePreview === "knowledge"/);
+  assert.match(page, /href=\{directoryTarget\.href\}/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {

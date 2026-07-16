@@ -3,7 +3,10 @@
 import { FormEvent, useMemo, useState } from "react";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
+import { knowledgeItems } from "./data/knowledge";
 import { resources, typeConfig, type ResourceType } from "./data/resources";
+
+type PreviewMode = "featured" | ResourceType | "knowledge";
 
 const categoryStyles: Record<ResourceType, string> = {
   program: "category-blue",
@@ -21,10 +24,16 @@ const categoryNotes: Record<ResourceType, string> = {
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
 
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    if (!normalized) return resources.filter((resource) => resource.featured);
+    if (!normalized) {
+      if (activePreview === "featured" || activePreview === "knowledge") {
+        return resources.filter((resource) => resource.featured);
+      }
+      return resources.filter((resource) => resource.type === activePreview);
+    }
     return resources.filter((resource) => {
       const searchable = [
         resource.name,
@@ -35,7 +44,22 @@ export default function Home() {
       ].join(" ").toLowerCase();
       return searchable.includes(normalized);
     });
-  }, [query]);
+  }, [activePreview, query]);
+
+  const previewTitles: Record<PreviewMode, string> = {
+    featured: "最近值得关注",
+    program: "开放计划样例",
+    organization: "孵化机构样例",
+    event: "创业活动样例",
+    startup: "创业项目样例",
+    knowledge: "创业指南精选",
+  };
+
+  const directoryTarget = activePreview === "knowledge"
+    ? { href: "/knowledge", label: "查看完整创业指南" }
+    : activePreview === "featured"
+      ? { href: "#categories", label: "查看全部资源目录" }
+      : { href: typeConfig[activePreview].path, label: `查看全部${typeConfig[activePreview].title}` };
 
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -43,6 +67,7 @@ export default function Home() {
   }
 
   function applyQuickSearch(term: string) {
+    setActivePreview("featured");
     setQuery(term);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
@@ -63,7 +88,12 @@ export default function Home() {
           <form className="search-box" onSubmit={handleSearch} role="search">
             <span className="search-icon" aria-hidden="true">⌕</span>
             <label className="sr-only" htmlFor="resource-search">搜索创业资源</label>
-            <input id="resource-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索国家、城市、行业或机构……" />
+            <input
+              id="resource-search"
+              value={query}
+              onChange={(event) => { setQuery(event.target.value); setActivePreview("featured"); }}
+              placeholder="搜索国家、城市、行业或机构……"
+            />
             <button type="submit"><span className="search-full">搜索整理内容</span><span className="search-short">搜索</span></button>
           </form>
 
@@ -131,24 +161,59 @@ export default function Home() {
         <div className="section-heading resources-heading">
           <div>
             <span className="section-index">02 / EDITOR&apos;S PICKS</span>
-            <h2>{query ? `“${query}”的搜索结果` : "最近值得关注"}</h2>
+            <h2>{query ? `“${query}”的搜索结果` : previewTitles[activePreview]}</h2>
           </div>
-          <span className="updated-note"><i /> {query ? `${searchResults.length} 条匹配内容` : "6 条编辑精选 · 点击进入站内整理"}</span>
+          <span className="updated-note">
+            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "6 份入门指南" : `${searchResults.length} 条首页样例`}
+          </span>
         </div>
 
-        <div className="filter-row" aria-label="资源分类导航">
+        <div className="filter-row" aria-label="首页内容切换">
           <div className="filter-buttons">
-            <a className="active" href="#resources">精选资源</a>
-            <a href="/programs">开放计划</a>
-            <a href="/organizations">孵化机构</a>
-            <a href="/events">创业活动</a>
-            <a href="/startups">创业项目</a>
-            <a href="/knowledge">创业指南</a>
+            {([
+              ["featured", "精选资源"],
+              ["program", "开放计划"],
+              ["organization", "孵化机构"],
+              ["event", "创业活动"],
+              ["startup", "创业项目"],
+              ["knowledge", "创业指南"],
+            ] as Array<[PreviewMode, string]>).map(([mode, label]) => (
+              <button
+                type="button"
+                key={mode}
+                className={activePreview === mode && !query ? "active" : ""}
+                onClick={() => { setActivePreview(mode); setQuery(""); }}
+              >
+                {label}
+              </button>
+            ))}
           </div>
-          <span className="result-count">点击分类进入独立目录</span>
+          <a className="result-directory-link" href={directoryTarget.href}>{directoryTarget.label} →</a>
         </div>
 
-        {searchResults.length ? (
+        {activePreview === "knowledge" && !query ? (
+          <div className="resource-grid">
+            {knowledgeItems.slice(0, 6).map((item) => (
+              <article className="resource-card home-knowledge-card" key={item.id}>
+                <div className="resource-card-top">
+                  <span className={`resource-logo logo-${item.color}`}>0{item.id}</span>
+                  <div className="resource-status-group">
+                    <span className="resource-status"><i />精选指南</span>
+                    <span className="resource-kind">{item.kind}</span>
+                  </div>
+                </div>
+                <div className="resource-location">{item.source}</div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <div className="tag-list">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                <div className="resource-footer">
+                  <div className="resource-source"><strong>{item.level} · {item.duration}</strong><span>{item.scope} · Pioneer 已整理</span></div>
+                  <a href="/knowledge#knowledge-library">查看指南 <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : searchResults.length ? (
           <div className="resource-grid">
             {searchResults.map((resource) => <ResourceCard resource={resource} key={resource.id} />)}
           </div>
@@ -156,7 +221,7 @@ export default function Home() {
           <div className="empty-state"><span>没有找到匹配的资源</span><button type="button" onClick={() => setQuery("")}>清除搜索</button></div>
         )}
 
-        <a className="all-resources" href="#categories">浏览全部资源分类 <span aria-hidden="true">→</span></a>
+        <a className="all-resources" href={directoryTarget.href}>{directoryTarget.label} <span aria-hidden="true">→</span></a>
       </section>
 
       <section className="cities-section" id="cities">
