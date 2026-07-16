@@ -79,7 +79,7 @@ test("keeps the resource collection complete and source-linked", async () => {
   assert.match(data, /editorialNote:/);
   assert.match(data, /bestFor:/);
   assert.match(data, /considerations:/);
-  assert.match(data, /2026\.07\.15 核验/);
+  assert.match(data, /2026\.07\.16 核验/);
 });
 
 test("keeps the founder knowledge collection structured and source-linked", async () => {
