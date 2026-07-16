@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { OrganizationResearchDetail } from "../../components/OrganizationResearchDetail";
 import { ResourceCard } from "../../components/ResourceCard";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
+import { getOrganizationProfile } from "../../data/organizationProfiles";
 import { getResourceProfile } from "../../data/resourceProfiles";
 import { getResourceBySlug, resources, typeConfig } from "../../data/resources";
 
@@ -27,6 +29,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   const resource = getResourceBySlug(slug);
   const profile = getResourceProfile(slug);
   if (!resource || !profile) notFound();
+  const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
 
   const config = typeConfig[resource.type];
   const directlyRelated = (resource.relatedSlugs ?? [])
@@ -60,7 +63,10 @@ export default async function ResourceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="detail-layout">
+      <section className={`detail-layout detail-layout-${resource.type}`}>
+        {organizationProfile ? (
+          <OrganizationResearchDetail resource={resource} profile={profile} organization={organizationProfile} />
+        ) : (
         <article className="detail-main">
           <section className="detail-section detail-overview">
             <span className="detail-index">01</span>
@@ -227,6 +233,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             </div>
           </section>
         </article>
+        )}
 
         <aside className="detail-sidebar">
           <div className="fact-card">

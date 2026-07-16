@@ -154,12 +154,32 @@ test("renders an editorial institution portrait without changing the official so
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /能力画像：强在哪里，弱在哪里/);
-  assert.match(html, /计划组合/);
-  assert.match(html, /企业与投资网络/);
-  assert.match(html, /国际团队落地/);
-  assert.match(html, /Pioneer 基于官方公开信息做出的定性判断/);
+  assert.match(html, /机构身份与运作逻辑/);
+  assert.match(html, /资源结构：有资源，不等于你能获得/);
+  assert.match(html, /项目组合、生态角色与进入方式/);
+  assert.match(html, /最后判断：是否值得进入/);
+  assert.match(html, /多项目创业园区/);
+  assert.match(html, /提供什么/);
+  assert.match(html, /如何获得/);
+  assert.match(html, /主要边界/);
+  assert.match(html, /四家机构横向比较/);
   assert.match(html, /href="https:\/\/stationf\.co\/"/);
+});
+
+test("keeps every featured institution backed by a structured intelligence profile", async () => {
+  const data = await readFile(new URL("../app/data/organizationProfiles.ts", import.meta.url), "utf8");
+
+  for (const slug of ["station-f", "block71", "entrepreneur-first", "berkeley-skydeck"]) {
+    assert.match(data, new RegExp(`^  "?${slug}"?: \\{$`, "m"));
+  }
+
+  assert.match(data, /dna: \[/);
+  assert.match(data, /resources: \[/);
+  assert.match(data, /portfolio: \[/);
+  assert.match(data, /ecosystem: \[/);
+  assert.match(data, /scenarios: \[/);
+  assert.match(data, /redFlags: \[/);
+  assert.match(data, /export const organizationComparison/);
 });
 
 test("renders type-specific research depth for events and startup projects", async () => {
