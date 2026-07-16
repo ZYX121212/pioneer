@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProblemWorkbook } from "../../components/FounderWorksheets";
+import { GuideProgress } from "../../components/GuideProgress";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { interviewGuide, pioneerGuide } from "../../data/knowledge";
 
@@ -120,7 +121,14 @@ export default function FindTheRealProblemGuide() {
         </div>
       </header>
 
-      <div className="guide-reading-layout">
+      <GuideProgress
+        guide={pioneerGuide}
+        judgment="先证明一群具体的人正在反复为问题付出成本，再讨论你的解决方案。过去行为、现有替代和真实承诺比口头喜欢更可信。"
+        mistakes={["从功能列表反推用户问题", "只采访朋友和支持者", "把留下邮箱或口头认可当成需求"]}
+        action="写出一份不包含产品名称的问题陈述，并安排一个三天内能接触真实行为的实验。"
+      />
+
+      <div className="guide-reading-layout" id="deep-guide">
         <aside className="guide-toc" aria-label="本篇目录">
           <span>本篇目录</span>
           <a href="#signal">01 · 先判断是否适合你</a>

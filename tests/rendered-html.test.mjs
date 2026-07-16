@@ -102,10 +102,12 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 15);
-  assert.equal(new Set(urls).size, 14);
+  assert.equal(urls.length, 21);
+  assert.equal(new Set(urls).size, 19);
   assert.match(data, /slug: "find-the-real-problem"/);
   assert.match(data, /slug: "first-user-interview"/);
+  assert.match(data, /slug: "define-your-mvp"/);
+  assert.match(data, /slug: "find-your-first-ten-users"/);
   assert.match(data, /第一篇：发现真问题/);
   assert.match(data, /stage: "start"/);
   assert.match(data, /stage: "validate"/);
@@ -211,9 +213,13 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /卡在哪里/);
   assert.match(html, /继续查阅原始资料/);
   assert.match(html, /篇已上线/);
-  assert.match(html, /4 种创业类型/);
-  assert.match(html, /2 张可填写工作表/);
+  assert.match(html, /跨类型决策案例/);
+  assert.match(html, /4 张可保存工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
+  assert.match(html, /href="\/knowledge\/define-your-mvp"/);
+  assert.match(html, /href="\/knowledge\/find-your-first-ten-users"/);
+  assert.match(html, /你现在，最接近哪一种处境/);
+  assert.match(html, /创业证据档案/);
   assert.match(html, /团队与股权/);
   assert.match(html, /SAFE 融资文件与说明/);
   assert.match(html, /美国公司/);
@@ -251,4 +257,31 @@ test("renders the second Pioneer interview guide and its working tool", async ()
   assert.match(html, /单次访谈记录表/);
   assert.match(html, /五次访谈不是市场验证/);
   assert.match(html, /href="https:\/\/www\.momtestbook\.com\/"/);
+});
+
+test("renders the MVP decision guide and local evidence tool", async () => {
+  const response = await render("/knowledge/define-your-mvp");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /PIONEER GUIDE 03/);
+  assert.match(html, /第一版的边界，应该由最大的不确定性决定/);
+  assert.match(html, /不要交付十个残缺功能/);
+  assert.match(html, /两周不是开发期限/);
+  assert.match(html, /MVP 边界卡/);
+  assert.match(html, /保存到证据档案/);
+  assert.match(html, /Practical Design: MVP Spec/);
+});
+
+test("renders the first ten users guide and action pipeline", async () => {
+  const response = await render("/knowledge/find-your-first-ten-users");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /PIONEER GUIDE 04/);
+  assert.match(html, /第一批用户不是整个市场/);
+  assert.match(html, /先写出 30 个具体名字/);
+  assert.match(html, /不要看有多少人看见/);
+  assert.match(html, /首批用户行动卡/);
+  assert.match(html, /Do Things that Don.t Scale/);
 });

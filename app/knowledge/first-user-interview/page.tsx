@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InterviewWorkbook } from "../../components/FounderWorksheets";
+import { GuideProgress } from "../../components/GuideProgress";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { interviewGuide, pioneerGuide } from "../../data/knowledge";
 
@@ -69,7 +70,14 @@ export default function FirstUserInterviewGuide() {
         </div>
       </header>
 
-      <div className="guide-reading-layout">
+      <GuideProgress
+        guide={interviewGuide}
+        judgment="访谈不是确认用户喜欢你的想法，而是重建一次近期事件：触发、步骤、替代、成本、角色关系和反向证据。"
+        mistakes={["展示方案后询问是否会用", "只记录支持想法的金句", "找方便接触的人而不筛选真实经历"]}
+        action="定义一个学习目标和一个能推翻想法的答案，找到一位最近经历过目标场景的人。"
+      />
+
+      <div className="guide-reading-layout" id="deep-guide">
         <aside className="guide-toc" aria-label="本篇目录">
           <span>本篇目录</span>
           <a href="#before">01 · 访谈前先决定学什么</a>

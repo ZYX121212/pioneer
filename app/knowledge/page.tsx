@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FounderJourney } from "../components/FounderJourney";
 import { KnowledgeExplorer } from "../components/KnowledgeExplorer";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { learningPath, pioneerGuide, pioneerGuides } from "../data/knowledge";
@@ -39,6 +40,8 @@ export default function KnowledgePage() {
           </div>
         </article>
 
+        <FounderJourney />
+
         <section className="knowledge-system-overview">
           <div className="knowledge-system-heading">
             <div><span>GUIDES · CASES · TOOLS · SOURCES</span><h2>不止告诉你该怎么想，<br />还陪你完成一次行动。</h2></div>
@@ -47,14 +50,14 @@ export default function KnowledgePage() {
           <div className="knowledge-layer-grid">
             <article className="knowledge-layer-main">
               <span>01 · 深度指南</span><strong>{pioneerGuides.length} 篇已上线</strong>
-              <p>从发现问题到完成第一次访谈，两篇内容已经形成连续路径。</p>
+              <p>从发现问题、完成访谈、确定 MVP 到找到首批用户，已经形成连续路径。</p>
               <div>{pioneerGuides.map((guide) => <Link href={`/knowledge/${guide.slug}`} key={guide.slug}><b>{guide.number}</b>{guide.title}<span>→</span></Link>)}</div>
             </article>
             <a href={`/knowledge/${pioneerGuide.slug}#cases`} className="knowledge-layer-card layer-cases">
-              <span>02 · 案例拆解</span><strong>4 种创业类型</strong><p>B2B、消费、硬件和 AI 项目的完整判断过程。</p><b>查看案例 →</b>
+              <span>02 · 案例拆解</span><strong>跨类型决策案例</strong><p>B2B、消费、硬件和 AI 项目的完整判断过程。</p><b>查看案例 →</b>
             </a>
             <a href={`/knowledge/${pioneerGuide.slug}#problem-workbook`} className="knowledge-layer-card layer-tools">
-              <span>03 · 实践工具</span><strong>2 张可填写工作表</strong><p>问题陈述生成器与单次访谈记录表，填写后可直接复制。</p><b>开始填写 →</b>
+              <span>03 · 实践工具</span><strong>4 张可保存工作表</strong><p>从问题陈述、访谈记录到 MVP 与首批用户计划，结果可保存到本地档案。</p><b>开始填写 →</b>
             </a>
             <a href="#source-library" className="knowledge-layer-card layer-sources">
               <span>04 · 原始来源</span><strong>观点可以追溯</strong><p>保留原作者、适用范围与 Pioneer 的具体使用方式。</p><b>查阅来源 ↓</b>

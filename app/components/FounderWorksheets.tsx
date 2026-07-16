@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { saveArchiveEntry } from "../lib/founderArchive";
 
 function CopyButton({ text, label = "复制结果" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
@@ -16,6 +17,16 @@ function CopyButton({ text, label = "复制结果" }: { text: string; label?: st
   }
 
   return <button type="button" onClick={copy}>{copied ? "已复制 ✓" : label}</button>;
+}
+
+function SaveResultButton({ guide, type, title, summary, content }: { guide: string; type: string; title: string; summary: string; content: string }) {
+  const [saved, setSaved] = useState(false);
+  function save() {
+    saveArchiveEntry({ guide, type, title, summary, content });
+    setSaved(true);
+    window.setTimeout(() => setSaved(false), 1800);
+  }
+  return <button type="button" className="save-result" onClick={save}>{saved ? "已保存到本地档案 ✓" : "保存到证据档案"}</button>;
 }
 
 const problemFields = [
@@ -43,7 +54,7 @@ export function ProblemWorkbook() {
     <section className="interactive-workbook" id="problem-workbook">
       <div className="workbook-heading">
         <div><span>PIONEER TOOL 01</span><h3>问题陈述生成器</h3></div>
-        <p>逐项填写，不需要出现产品名称。内容只保留在当前页面，不会上传或保存。</p>
+        <p>逐项填写，不需要出现产品名称。只有主动保存时才会写入这台设备，不会上传。</p>
       </div>
       <div className="workbook-fields">
         {problemFields.map(([key, label, placeholder]) => (
@@ -61,7 +72,7 @@ export function ProblemWorkbook() {
       <div className="workbook-output">
         <span>实时问题陈述</span>
         <p>{statement}</p>
-        <CopyButton text={statement} label="复制问题陈述" />
+        <div className="workbook-actions"><CopyButton text={statement} label="复制问题陈述" /><SaveResultButton guide="find-the-real-problem" type="问题陈述" title="我的问题陈述" summary={statement} content={hypothesisText} /></div>
       </div>
       <div className="workbook-subsection">
         <span>把问题变成一个可证伪的实验</span>
@@ -70,7 +81,7 @@ export function ProblemWorkbook() {
           <label><span>记录信号</span><textarea rows={2} value={hypothesis.signal} placeholder="你将记录哪些事实，而不是态度？" onChange={(event) => setHypothesis((current) => ({ ...current, signal: event.target.value }))} /></label>
           <label><span>预先门槛</span><textarea rows={2} value={hypothesis.threshold} placeholder="什么结果会让你继续、调整或停止？" onChange={(event) => setHypothesis((current) => ({ ...current, threshold: event.target.value }))} /></label>
         </div>
-        <CopyButton text={hypothesisText} label="复制完整假设卡" />
+        <div className="workbook-actions"><CopyButton text={hypothesisText} label="复制完整假设卡" /><SaveResultButton guide="find-the-real-problem" type="假设卡" title="问题验证假设" summary={hypothesis.method || "尚未选择验证方式"} content={hypothesisText} /></div>
       </div>
     </section>
   );
@@ -121,8 +132,66 @@ export function InterviewWorkbook() {
       <div className="workbook-output">
         <span>访谈结束前自检</span>
         <p>我是否获得了一个近期事件、一个现有替代、一个真实成本和至少一条反向证据？如果没有，先追问，不要急着总结。</p>
-        <CopyButton text={exportText} label="复制本次访谈记录" />
+        <div className="workbook-actions"><CopyButton text={exportText} label="复制本次访谈记录" /><SaveResultButton guide="first-user-interview" type="访谈记录" title={setup.target || "一次用户访谈"} summary={notes.recentEvent || setup.learning || "尚未填写最近事件"} content={exportText} /></div>
       </div>
+    </section>
+  );
+}
+
+const mvpFields = [
+  ["user", "唯一目标用户", "这次 MVP 只为哪一类人服务？"],
+  ["moment", "关键使用时刻", "在什么具体场景下开始使用？"],
+  ["outcome", "唯一完整结果", "用户完成后必须得到什么结果？"],
+  ["risk", "最危险的假设", "哪件事一旦不成立，整个方向就不成立？"],
+  ["manual", "可以人工完成的部分", "哪些后台步骤暂时不需要自动化？"],
+  ["exclude", "明确不做", "哪些诱人功能这次必须排除？"],
+  ["signal", "成功信号", "什么真实行为会让你继续投入？"],
+] as const;
+
+export function MvpWorkbook() {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const value = (key: string, fallback: string) => values[key]?.trim() || `［${fallback}］`;
+  const output = [
+    "Pioneer MVP 边界卡",
+    `目标用户：${value("user", "一类具体用户")}`,
+    `使用时刻：${value("moment", "一个具体场景")}`,
+    `完整结果：${value("outcome", "用户必须得到的结果")}`,
+    `最危险假设：${value("risk", "本轮只验证一个假设")}`,
+    `人工完成：${value("manual", "暂不自动化的后台工作")}`,
+    `明确不做：${value("exclude", "排除的功能")}`,
+    `继续门槛：${value("signal", "真实使用或付费信号")}`,
+  ].join("\n");
+
+  return (
+    <section className="interactive-workbook" id="mvp-workbook">
+      <div className="workbook-heading"><div><span>PIONEER TOOL 03</span><h3>MVP 边界卡</h3></div><p>用一个完整结果约束第一版，而不是把所有功能都做得简单一点。</p></div>
+      <div className="workbook-fields">
+        {mvpFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}
+      </div>
+      <div className="workbook-output"><span>你的 MVP 边界</span><p>为 {value("user", "目标用户")} 在 {value("moment", "关键时刻")} 交付 {value("outcome", "一个完整结果")}；本轮只验证 {value("risk", "最危险的假设")}。</p><div className="workbook-actions"><CopyButton text={output} label="复制 MVP 边界卡" /><SaveResultButton guide="define-your-mvp" type="MVP 边界" title="我的 MVP 边界卡" summary={values.outcome || "尚未填写完整结果"} content={output} /></div></div>
+    </section>
+  );
+}
+
+const firstUserFields = [
+  ["segment", "足够窄的人群", "例如：过去 30 天处理过临时换班的独立餐厅店长"],
+  ["place", "他们在哪里出现", "社群、名录、线下地点、现有关系或工作现场"],
+  ["reason", "为什么现在愿意行动", "最近发生了什么，让问题优先级上升？"],
+  ["offer", "第一次提供什么", "不是功能列表，而是一个可以亲自交付的结果"],
+  ["ask", "希望对方承担什么", "20 分钟交流、提供资料、试用、付押金或付费"],
+  ["threshold", "七天推进门槛", "联系多少人、获得多少回复、多少次真实体验？"],
+] as const;
+
+export function FirstUsersWorkbook() {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const output = ["Pioneer 首批用户行动卡", ...firstUserFields.map(([key, label]) => `${label}：${values[key] || "［未填写］"}`)].join("\n");
+  return (
+    <section className="interactive-workbook" id="first-users-workbook">
+      <div className="workbook-heading"><div><span>PIONEER TOOL 04</span><h3>首批用户行动卡</h3></div><p>先建立 30 人名单，再判断渠道。最初十个用户通常来自一对一触达，而不是大规模曝光。</p></div>
+      <div className="workbook-fields compact">
+        {firstUserFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}
+      </div>
+      <div className="workbook-output"><span>七天行动计划</span><p>为 {values.segment || "［目标人群］"} 建立 30 人名单，从 {values.place || "［三个具体渠道］"} 开始逐一触达，并用 {values.threshold || "［回复、体验与承诺］"} 判断是否继续。</p><div className="workbook-actions"><CopyButton text={output} label="复制首批用户计划" /><SaveResultButton guide="find-your-first-ten-users" type="首批用户计划" title="我的首批用户行动卡" summary={values.segment || "尚未定义目标人群"} content={output} /></div></div>
     </section>
   );
 }

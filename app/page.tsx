@@ -165,7 +165,7 @@ export default function Home() {
             <h2>{query ? `“${query}”的搜索结果` : previewTitles[activePreview]}</h2>
           </div>
           <span className="updated-note">
-            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "2 篇 Pioneer 原创指南" : `${searchResults.length} 条首页样例`}
+            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "4 篇 Pioneer 原创指南" : `${searchResults.length} 条首页样例`}
           </span>
         </div>
 

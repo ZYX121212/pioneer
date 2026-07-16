@@ -110,7 +110,75 @@ export const interviewGuide: PioneerGuide = {
   ],
 };
 
-export const pioneerGuides = [pioneerGuide, interviewGuide];
+export const mvpGuide: PioneerGuide = {
+  slug: "define-your-mvp",
+  stage: "产品验证",
+  number: "03",
+  title: "第一版到底做什么，才能验证而不是拖延？",
+  description: "从最危险的假设倒推 MVP，只交付一个完整结果，不把未来产品缩小一遍。",
+  duration: "约 28 分钟",
+  updated: "2026.07.16",
+  outcome: ["一个 MVP 学习目标", "一张功能边界表", "一份两周验证计划"],
+  sources: [
+    {
+      title: "Practical Design: MVP Spec",
+      publisher: "Y Combinator",
+      use: "用于区分产品功能与产品特性，并强调 MVP 必须让真实用户理解和使用一个完整价值。",
+      url: "https://www.ycombinator.com/blog/practical-design-mvp",
+      language: "英文",
+    },
+    {
+      title: "YC’s Essential Startup Advice",
+      publisher: "Y Combinator",
+      use: "用于尽早发布、与用户交流，并用一个足够有用的核心结果替代等待完美产品。",
+      url: "https://www.ycombinator.com/blog/ycs-essential-startup-advice/",
+      language: "英文",
+    },
+    {
+      title: "Don't Build When You Build-Measure-Learn",
+      publisher: "Strategyzer",
+      use: "用于从学习目标而不是功能数量定义 MVP，并优先选择最低成本的实验载体。",
+      url: "https://www.strategyzer.com/library/dont-build-when-you-build-measure-learn",
+      language: "英文",
+    },
+  ],
+};
+
+export const firstUsersGuide: PioneerGuide = {
+  slug: "find-your-first-ten-users",
+  stage: "早期获客",
+  number: "04",
+  title: "最初十个用户不会自己出现，你应该去哪里找？",
+  description: "从一个足够窄的人群开始，建立名单、手工触达，并用真实推进而不是曝光量判断渠道。",
+  duration: "约 30 分钟",
+  updated: "2026.07.16",
+  outcome: ["一份 30 人目标名单", "三种手工触达脚本", "一张首批用户推进表"],
+  sources: [
+    {
+      title: "Do Things that Don't Scale",
+      publisher: "Paul Graham",
+      use: "用于早期用户需要由创始人手工招募、亲自服务，而不是等待可规模化渠道出现。",
+      url: "https://www.paulgraham.com/ds.html",
+      language: "英文",
+    },
+    {
+      title: "YC’s Essential Startup Advice",
+      publisher: "Y Combinator",
+      use: "用于先找到少量真正需要产品的用户，再讨论增长与规模化。",
+      url: "https://www.ycombinator.com/blog/ycs-essential-startup-advice/",
+      language: "英文",
+    },
+    {
+      title: "Startup School Week 1 Recap",
+      publisher: "Y Combinator",
+      use: "用于识别更可能成为第一批客户的人，并从用户特征与问题强度建立筛选条件。",
+      url: "https://www.ycombinator.com/blog/startup-school-week-1-recap-kevin-hale-and-eric-migicovsky/",
+      language: "英文",
+    },
+  ],
+};
+
+export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide];
 
 export const learningPath: Array<{
   number: string;
@@ -122,8 +190,8 @@ export const learningPath: Array<{
 }> = [
   { number: "01", title: "发现真问题", note: "想法是真需求，还是自我感动？", stage: "validate", href: `/knowledge/${pioneerGuide.slug}`, status: "available" },
   { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", href: `/knowledge/${interviewGuide.slug}`, status: "available" },
-  { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", status: "planned" },
-  { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", status: "planned" },
+  { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", href: `/knowledge/${mvpGuide.slug}`, status: "available" },
+  { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", href: `/knowledge/${firstUsersGuide.slug}`, status: "available" },
   { number: "05", title: "谈联合创始人", note: "角色、投入、股权与退出", stage: "team", status: "planned" },
   { number: "06", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", status: "planned" },
 ];
