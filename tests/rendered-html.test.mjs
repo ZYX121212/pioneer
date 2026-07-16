@@ -33,7 +33,8 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /世界很大/);
   assert.match(html, /从你需要的资源开始/);
   assert.match(html, /href="\/knowledge"/);
-  assert.match(html, /第一次创业？从一张清晰的地图开始/);
+  assert.match(html, /你的想法是真问题，还是自我感动/);
+  assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
   assert.match(html, /查看全部资源目录/);
   assert.match(html, /精选资源/);
   assert.match(html, /开放计划/);

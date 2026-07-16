@@ -3,7 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
-import { knowledgeItems } from "./data/knowledge";
+import { pioneerGuide } from "./data/knowledge";
 import { resources, typeConfig, type ResourceType } from "./data/resources";
 
 type PreviewMode = "featured" | ResourceType | "knowledge";
@@ -149,11 +149,11 @@ export default function Home() {
           })}
         </div>
 
-        <a className="founder-guide-card" href="/knowledge">
+        <a className="founder-guide-card" href={`/knowledge/${pioneerGuide.slug}`}>
           <span className="founder-guide-eyebrow">NEW · FOUNDER GUIDE</span>
-          <strong>第一次创业？从一张清晰的地图开始。</strong>
-          <p>按创业阶段整理 8 份可信的一手课程与专业指南，从理解创业、验证想法到团队、公司与融资。</p>
-          <b>进入创业指南 <i aria-hidden="true">→</i></b>
+          <strong>你的想法是真问题，还是自我感动？</strong>
+          <p>Pioneer 首篇创业决策指南：不用先做产品，三天完成问题陈述、核心假设和第一轮验证。</p>
+          <b>开始第一篇指南 <i aria-hidden="true">→</i></b>
         </a>
       </section>
 
@@ -164,7 +164,7 @@ export default function Home() {
             <h2>{query ? `“${query}”的搜索结果` : previewTitles[activePreview]}</h2>
           </div>
           <span className="updated-note">
-            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "6 份入门指南" : `${searchResults.length} 条首页样例`}
+            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "1 篇 Pioneer 原创指南" : `${searchResults.length} 条首页样例`}
           </span>
         </div>
 
@@ -192,27 +192,19 @@ export default function Home() {
         </div>
 
         {activePreview === "knowledge" && !query ? (
-          <div className="resource-grid">
-            {knowledgeItems.slice(0, 6).map((item) => (
-              <article className="resource-card home-knowledge-card" key={item.id}>
-                <div className="resource-card-top">
-                  <span className={`resource-logo logo-${item.color}`}>0{item.id}</span>
-                  <div className="resource-status-group">
-                    <span className="resource-status"><i />精选指南</span>
-                    <span className="resource-kind">{item.kind}</span>
-                  </div>
-                </div>
-                <div className="resource-location">{item.source}</div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <div className="tag-list">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                <div className="resource-footer">
-                  <div className="resource-source"><strong>{item.level} · {item.duration}</strong><span>{item.scope} · Pioneer 已整理</span></div>
-                  <a href="/knowledge#knowledge-library">查看指南 <span aria-hidden="true">→</span></a>
-                </div>
-              </article>
-            ))}
-          </div>
+          <article className="home-guide-feature">
+            <div className="home-guide-number"><span>PIONEER GUIDE</span><strong>{pioneerGuide.number}</strong></div>
+            <div className="home-guide-copy">
+              <span>{pioneerGuide.stage} · {pioneerGuide.duration}</span>
+              <h3>{pioneerGuide.title}</h3>
+              <p>{pioneerGuide.description}</p>
+              <a href={`/knowledge/${pioneerGuide.slug}`}>阅读完整指南 <b aria-hidden="true">→</b></a>
+            </div>
+            <div className="home-guide-outcomes">
+              <span>看完你会带走</span>
+              {pioneerGuide.outcome.map((item) => <strong key={item}>{item}</strong>)}
+            </div>
+          </article>
         ) : searchResults.length ? (
           <div className="resource-grid">
             {searchResults.map((resource) => <ResourceCard resource={resource} key={resource.id} />)}
