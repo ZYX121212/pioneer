@@ -17,7 +17,7 @@ export function KnowledgeCard({ item }: { item: KnowledgeItem }) {
       <div className="knowledge-card-footer">
         <span>{item.level} · {item.duration}</span>
         <a href={item.url} target="_blank" rel="noreferrer" aria-label={`前往 ${item.title} 原始来源`}>
-          查看原始来源 <b aria-hidden="true">↗</b>
+          前往原始资料 <b aria-hidden="true">↗</b>
         </a>
       </div>
     </article>

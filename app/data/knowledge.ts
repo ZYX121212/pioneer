@@ -15,20 +15,69 @@ export type KnowledgeItem = {
   color: string;
 };
 
+export type GuideSource = {
+  title: string;
+  publisher: string;
+  use: string;
+  url: string;
+  language: string;
+};
+
+export const pioneerGuide = {
+  slug: "find-the-real-problem",
+  stage: "想法验证",
+  number: "01",
+  title: "你的想法是真问题，还是一个你喜欢的解决方案？",
+  description: "先暂停做产品，用真实行为判断一个问题是否值得继续投入。",
+  duration: "约 18 分钟",
+  updated: "2026.07.16",
+  outcome: ["一份问题陈述", "一张核心假设卡", "一个三天验证计划"],
+  sources: [
+    {
+      title: "How to Talk to Users",
+      publisher: "Y Combinator",
+      use: "用于用户访谈部分：少谈假设，多追问已经发生的具体经历。",
+      url: "https://www.ycombinator.com/library/6g-how-to-talk-to-users",
+      language: "英文",
+    },
+    {
+      title: "Validate Your Ideas with the Test Card",
+      publisher: "Strategyzer",
+      use: "用于假设卡结构：明确假设、实验、衡量方式与成功门槛。",
+      url: "https://www.strategyzer.com/library/validate-your-ideas-with-the-test-card",
+      language: "英文",
+    },
+    {
+      title: "Know Your Customers’ ‘Jobs to Be Done’",
+      publisher: "Harvard Business Review",
+      use: "用于理解用户为什么在特定情境下选择或放弃一种解决方式。",
+      url: "https://hbr.org/2016/09/know-your-customers-jobs-to-be-done",
+      language: "英文",
+    },
+    {
+      title: "第一篇：发现真问题",
+      publisher: "AI Spacewalk",
+      use: "页面组织参考：进入信号、行动步骤和阶段判断；Pioneer 已重新编排为通用创业场景。",
+      url: "https://www.aispacewalk.cn/marketing/%E4%BB%8E0%E5%88%B01%E5%81%9A%E7%A1%AC%E4%BB%B6%E4%BA%A7%E5%93%81/%E5%8F%91%E7%8E%B0%E7%9C%9F%E9%97%AE%E9%A2%98/",
+      language: "中文",
+    },
+  ] satisfies GuideSource[],
+};
+
 export const learningPath: Array<{
   number: string;
   title: string;
   note: string;
   stage: KnowledgeStage;
+  href?: string;
+  status: "available" | "next" | "planned";
 }> = [
-  { number: "01", title: "理解创业", note: "它与普通生意有什么不同", stage: "start" },
-  { number: "02", title: "找到问题", note: "从想法走向真实需求", stage: "validate" },
-  { number: "03", title: "验证用户", note: "访谈、实验与第一批反馈", stage: "validate" },
-  { number: "04", title: "做出 MVP", note: "用最小成本验证关键假设", stage: "validate" },
-  { number: "05", title: "组建团队", note: "联合创始人与合作预期", stage: "team" },
-  { number: "06", title: "理解股权", note: "归属期、控制权与退出机制", stage: "team" },
-  { number: "07", title: "设立公司", note: "先理解地区与结构差异", stage: "company" },
-  { number: "08", title: "认识融资", note: "是否要融，以及会付出什么", stage: "funding" },
+  { number: "01", title: "发现真问题", note: "想法是真需求，还是自我感动？", stage: "validate", href: `/knowledge/${pioneerGuide.slug}`, status: "available" },
+  { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", status: "next" },
+  { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", status: "planned" },
+  { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", status: "planned" },
+  { number: "05", title: "谈联合创始人", note: "角色、投入、股权与退出", stage: "team", status: "planned" },
+  { number: "06", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", status: "planned" },
 ];
 
 export const knowledgeStages: Array<{ key: "all" | KnowledgeStage; label: string }> = [

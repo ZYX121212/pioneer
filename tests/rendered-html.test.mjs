@@ -86,8 +86,10 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 8);
-  assert.equal(new Set(urls).size, 8);
+  assert.equal(urls.length, 12);
+  assert.equal(new Set(urls).size, 12);
+  assert.match(data, /slug: "find-the-real-problem"/);
+  assert.match(data, /第一篇：发现真问题/);
   assert.match(data, /stage: "start"/);
   assert.match(data, /stage: "validate"/);
   assert.match(data, /stage: "team"/);
@@ -106,10 +108,26 @@ test("renders a directory and an internal editorial detail before the official s
   const detailResponse = await render("/resources/y-combinator");
   const detail = await detailResponse.text();
   assert.equal(detailResponse.status, 200);
-  assert.match(detail, /PIONEER 判断/);
+  assert.match(detail, /Pioneer 最终判断/);
+  assert.match(detail, /这个计划如何产生价值/);
   assert.match(detail, /这项计划适合谁/);
-  assert.match(detail, /行动之前需要注意/);
+  assert.match(detail, /从判断到申请的路径/);
+  assert.match(detail, /收益之外，还要计算成本/);
+  assert.match(detail, /申请前行动清单/);
   assert.match(detail, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
+});
+
+test("renders an editorial institution portrait without changing the official source", async () => {
+  const response = await render("/resources/station-f");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /机构画像与资源能力/);
+  assert.match(html, /创业计划组合/);
+  assert.match(html, /投资与资本连接/);
+  assert.match(html, /国际市场落地/);
+  assert.match(html, /Pioneer 基于公开信息做出的定性画像/);
+  assert.match(html, /href="https:\/\/stationf\.co\/"/);
 });
 
 test("renders the founder learning path and knowledge filters", async () => {
@@ -117,10 +135,26 @@ test("renders the founder learning path and knowledge filters", async () => {
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /创业前的/);
-  assert.match(html, /第一张地图/);
-  assert.match(html, /从可信的一手来源开始/);
+  assert.match(html, /不是多读几篇/);
+  assert.match(html, /而是做对下一个决定/);
+  assert.match(html, /首篇指南/);
+  assert.match(html, /你的想法是真问题，还是一个你喜欢的解决方案/);
+  assert.match(html, /你现在/);
+  assert.match(html, /卡在哪里/);
+  assert.match(html, /继续查阅原始资料/);
   assert.match(html, /团队与股权/);
   assert.match(html, /SAFE 融资文件与说明/);
   assert.match(html, /美国公司/);
+});
+
+test("renders the first Pioneer decision guide", async () => {
+  const response = await render("/knowledge/find-the-real-problem");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /创业不是从“产品”开始/);
+  assert.match(html, /把想法改写成观察/);
+  assert.match(html, /证据有强弱/);
+  assert.match(html, /三天验证/);
+  assert.match(html, /参考来源与 Pioneer 的使用方式/);
 });

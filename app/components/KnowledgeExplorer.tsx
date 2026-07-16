@@ -12,13 +12,13 @@ export function KnowledgeExplorer() {
   );
 
   return (
-    <div className="knowledge-library" id="knowledge-library">
+    <div className="knowledge-library" id="source-library">
       <div className="knowledge-library-topline">
         <div>
-          <span className="knowledge-library-label">CURATED KNOWLEDGE</span>
-          <h3>从可信的一手来源开始</h3>
+          <span className="knowledge-library-label">ORIGINAL SOURCES</span>
+          <h3>继续查阅原始资料</h3>
         </div>
-        <p>中文导读正在逐步补充。涉及公司、股权与融资的内容，请先确认适用地区，并在实际决策前咨询当地专业人士。</p>
+        <p>Pioneer 指南负责帮助你形成判断；这里保留公开课程和专业资料的原始入口，供你核验观点并继续深入。</p>
       </div>
 
       <div className="knowledge-filter-row" aria-label="创业知识阶段筛选">
@@ -43,7 +43,7 @@ export function KnowledgeExplorer() {
 
       <div className="knowledge-trust-note">
         <span>HOW WE CURATE</span>
-        <p><strong>保留原始语境。</strong> Pioneer 提供中文导读、阶段标签和适用范围，不替代原作者，也不把单一地区经验包装成全球答案。</p>
+        <p><strong>观点与来源分开。</strong> Pioneer 的判断会明确标记，原作者的内容保留名称、出处和适用范围；涉及公司、股权与融资时，请在行动前咨询当地专业人士。</p>
       </div>
     </div>
   );
