@@ -192,9 +192,9 @@ test("renders China and US investor profiles inside the institution directory", 
   assert.match(directory, /创业机构/);
   assert.match(directory, /投资机构/);
   assert.match(directory, /红杉中国 HongShan/);
-  assert.match(directory, /Andreessen Horowitz/);
-  assert.match(directory, /经纬创投 Matrix Partners China/);
-  assert.match(directory, /First Round Capital/);
+  assert.equal((directory.match(/class="resource-card"/g) ?? []).length, 9);
+  assert.match(directory, /共 28 条 · 当前显示 1–9/);
+  assert.match(directory, /aria-label="第 4 页"/);
 
   const detailResponse = await render("/resources/linear-capital");
   const detail = await detailResponse.text();
@@ -203,6 +203,24 @@ test("renders China and US investor profiles inside the institution directory", 
   assert.match(detail, /它可能会被什么吸引/);
   assert.match(detail, /怎样更有效地接触它/);
   assert.match(detail, /\$1M–\$10M/);
+});
+
+test("paginates every directory while preserving search and filter behavior", async () => {
+  const explorer = await readFile(new URL("../app/components/DirectoryExplorer.tsx", import.meta.url), "utf8");
+
+  assert.match(explorer, /const pageSize = 9/);
+  assert.match(explorer, /visible\.slice\(pageStart, pageStart \+ pageSize\)/);
+  assert.match(explorer, /URLSearchParams\(window\.location\.search\)/);
+  assert.match(explorer, /window\.addEventListener\("popstate"/);
+  assert.match(explorer, /url\.searchParams\.set\("page", String\(page\)\)/);
+  assert.match(explorer, /setQuery\(event\.target\.value\); resetPage\(\)/);
+  assert.match(explorer, /setActiveTag\(tag\); resetPage\(\)/);
+
+  const englishResponse = await render("/en/organizations");
+  const english = await englishResponse.text();
+  assert.equal(englishResponse.status, 200);
+  assert.match(english, /28 entries · showing 1–9/);
+  assert.match(english, /Directory pagination/);
 });
 
 test("renders a directory and an internal editorial detail before the official source", async () => {
