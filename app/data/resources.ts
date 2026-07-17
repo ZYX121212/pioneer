@@ -21,6 +21,7 @@ export type Resource = {
   source: string;
   url: string;
   sources?: { label: string; href: string }[];
+  detailPath?: string;
   color: string;
   monogram: string;
   featured?: boolean;
@@ -358,6 +359,7 @@ export const resources: Resource[] = [
     verified: "2026.07.17 核验",
     source: "WAIC 官方网站",
     url: "https://www.worldaic.com.cn/",
+    detailPath: "/waic-2026",
     sources: [
       { label: "WAIC 官方网站与议程", href: "https://www.worldaic.com.cn/" },
       { label: "官方注册与观众购票入口", href: "https://www.worldaic.com.cn/register" },

@@ -143,6 +143,7 @@ test("keeps the resource collection complete and source-linked", async () => {
   assert.match(data, /bestFor:/);
   assert.match(data, /considerations:/);
   assert.match(data, /2026\.07\.16 核验/);
+  assert.match(data, /detailPath: "\/waic-2026"/);
 });
 
 test("keeps the founder knowledge collection structured and source-linked", async () => {
@@ -245,6 +246,12 @@ test("keeps every featured institution backed by a structured intelligence profi
 });
 
 test("renders type-specific research depth for events and startup projects", async () => {
+  const eventDirectoryResponse = await render("/events");
+  const eventDirectory = await eventDirectoryResponse.text();
+  assert.equal(eventDirectoryResponse.status, 200);
+  assert.match(eventDirectory, /WAIC 2026 世界人工智能大会/);
+  assert.match(eventDirectory, /href="\/waic-2026"/);
+
   const eventResponse = await render("/resources/slush-2026");
   const event = await eventResponse.text();
   assert.equal(eventResponse.status, 200);
@@ -252,7 +259,7 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(event, /Slush Platform/);
   assert.match(event, /基金长名单/);
 
-  const waicResponse = await render("/resources/waic-shanghai-2026");
+  const waicResponse = await render("/waic-2026");
   const waic = await waicResponse.text();
   assert.equal(waicResponse.status, 200);
   assert.match(waic, /三地四馆/);

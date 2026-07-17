@@ -4,7 +4,7 @@ import type { Resource } from "../data/resources";
 export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; lang?: "zh" | "en" }) {
   const english = lang === "en" ? getEnglishResource(resource.slug) : undefined;
   const copy = english ?? resource;
-  const detailHref = lang === "en" ? `/en/resources/${resource.slug}` : `/resources/${resource.slug}`;
+  const detailHref = lang === "en" ? `/en/resources/${resource.slug}` : resource.detailPath ?? `/resources/${resource.slug}`;
   const detailLabel = lang === "en" ? "Research brief" : "整理详情";
   const sourceLine = lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
 
