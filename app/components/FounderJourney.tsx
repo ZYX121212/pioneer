@@ -3,7 +3,18 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { pioneerGuides } from "../data/knowledge";
-import { ARCHIVE_EVENT, ARCHIVE_KEY, type ArchiveEntry, readArchive, readCompletions } from "../lib/founderArchive";
+import {
+  ARCHIVE_EVENT,
+  ARCHIVE_KEY,
+  type ArchiveEntry,
+  type FounderProject,
+  type GuideDecision,
+  readArchive,
+  readCompletions,
+  readDecisions,
+  readProject,
+  saveProject,
+} from "../lib/founderArchive";
 
 const situations = [
   { signal: "我只有一个想法", title: "不知道它是不是真需求", guide: "find-the-real-problem", action: "先区分问题与解决方案" },
@@ -17,11 +28,27 @@ const situations = [
 export function FounderJourney() {
   const [completed, setCompleted] = useState<string[]>([]);
   const [archive, setArchive] = useState<ArchiveEntry[]>([]);
+  const [decisions, setDecisions] = useState<GuideDecision[]>([]);
+  const [project, setProject] = useState<FounderProject | null>(null);
+  const [draft, setDraft] = useState({ name: "", oneLine: "", targetUser: "", currentRisk: "", nextAction: "" });
+  const [projectSaved, setProjectSaved] = useState(false);
 
   useEffect(() => {
     const refresh = () => {
       setCompleted(readCompletions());
       setArchive(readArchive());
+      setDecisions(readDecisions());
+      const savedProject = readProject();
+      setProject(savedProject);
+      if (savedProject) {
+        setDraft({
+          name: savedProject.name,
+          oneLine: savedProject.oneLine,
+          targetUser: savedProject.targetUser,
+          currentRisk: savedProject.currentRisk,
+          nextAction: savedProject.nextAction,
+        });
+      }
     };
     refresh();
     window.addEventListener(ARCHIVE_EVENT, refresh);
@@ -33,6 +60,19 @@ export function FounderJourney() {
   }, []);
 
   const progress = useMemo(() => Math.round((completed.length / pioneerGuides.length) * 100), [completed]);
+  const latestDecision = decisions[0];
+  const nextGuide = pioneerGuides.find((guide) => !completed.includes(guide.slug)) || pioneerGuides[pioneerGuides.length - 1];
+  const archiveByGuide = pioneerGuides.map((guide) => ({
+    guide,
+    latest: archive.find((entry) => entry.guide === guide.slug),
+    decision: decisions.find((entry) => entry.guide === guide.slug),
+  }));
+
+  function submitProject() {
+    saveProject(draft);
+    setProjectSaved(true);
+    window.setTimeout(() => setProjectSaved(false), 1800);
+  }
 
   function clearArchive() {
     if (!window.confirm("确定清空这台设备上保存的创业证据吗？")) return;
@@ -67,25 +107,54 @@ export function FounderJourney() {
 
       <section className="founder-workspace" id="my-founder-workspace">
         <div className="workspace-progress">
-          <span>MY FOUNDER PATH · 仅保存在本设备</span>
-          <strong>{completed.length} / {pioneerGuides.length} 个决策任务完成</strong>
+          <span>MY PROJECT · 仅保存在本设备</span>
+          <strong>{project?.name || "建立你的创业项目档案"}</strong>
           <div aria-label={`学习进度 ${progress}%`}><i style={{ width: `${progress}%` }} /></div>
-          <p>完成状态和工作表不会上传。更换设备或清理浏览器数据后将无法恢复。</p>
+          <p>{project?.oneLine || `${completed.length} / ${pioneerGuides.length} 个决策任务完成。填写项目后，Pioneer 会把证据、判断和下一步聚合在一起。`}</p>
+          <div className="project-snapshot">
+            <div><span>目标用户</span><b>{project?.targetUser || "尚未定义"}</b></div>
+            <div><span>当前风险</span><b>{project?.currentRisk || "尚未选择"}</b></div>
+            <div><span>下一步</span><b>{project?.nextAction || `建议先完成：${nextGuide.title}`}</b></div>
+          </div>
         </div>
         <div className="workspace-archive">
           <div className="workspace-archive-heading">
-            <div><span>创业证据档案</span><strong>{archive.length ? `${archive.length} 份已保存结果` : "还没有保存结果"}</strong></div>
+            <div><span>创业项目档案</span><strong>{archive.length ? `${archive.length} 份证据 · ${decisions.length} 个阶段判断` : "先建立项目，再沉淀证据"}</strong></div>
             {archive.length > 0 && <button type="button" onClick={clearArchive}>清空本地档案</button>}
+          </div>
+          <div className="project-form">
+            <label><span>项目名称</span><input value={draft.name} placeholder="例如：餐饮门店临时换班助手" onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))} /></label>
+            <label><span>一句话方向</span><textarea rows={2} value={draft.oneLine} placeholder="为谁，在什么场景下，交付什么结果？" onChange={(event) => setDraft((current) => ({ ...current, oneLine: event.target.value }))} /></label>
+            <label><span>目标用户</span><input value={draft.targetUser} placeholder="尽量写角色、近期行为和触发时机" onChange={(event) => setDraft((current) => ({ ...current, targetUser: event.target.value }))} /></label>
+            <label><span>当前最危险假设</span><input value={draft.currentRisk} placeholder="例如：店长愿意为减少临时协调付费" onChange={(event) => setDraft((current) => ({ ...current, currentRisk: event.target.value }))} /></label>
+            <label><span>本周下一步</span><input value={draft.nextAction} placeholder={`例如：完成 ${nextGuide.title}`} onChange={(event) => setDraft((current) => ({ ...current, nextAction: event.target.value }))} /></label>
+            <button type="button" onClick={submitProject}>{projectSaved ? "项目档案已保存 ✓" : "保存项目档案"}</button>
+          </div>
+          <div className="decision-strip">
+            <div><span>最近阶段判断</span><strong>{latestDecision ? decisionLabels[latestDecision.decision] : "还没有判断"}</strong><p>{latestDecision?.reason || "每篇指南完成后，选择继续、缩小、调整或停止，并写下理由。"}</p></div>
+            <Link href={`/knowledge/${nextGuide.slug}`}>继续下一步：{nextGuide.number}</Link>
           </div>
           {archive.length ? (
             <div className="archive-list">
-              {archive.slice(0, 4).map((entry) => (
-                <article key={entry.id}><span>{entry.type} · {new Date(entry.savedAt).toLocaleDateString("zh-CN")}</span><strong>{entry.title}</strong><p>{entry.summary}</p></article>
+              {archiveByGuide.map(({ guide, latest, decision }) => (
+                <article key={guide.slug}>
+                  <span>{guide.number} · {guide.stage}</span>
+                  <strong>{latest?.title || guide.title}</strong>
+                  <p>{latest?.summary || "还没有保存这一步的证据。"}</p>
+                  <small>{decision ? `判断：${decisionLabels[decision.decision]}` : "等待阶段判断"}</small>
+                </article>
               ))}
             </div>
-          ) : <p className="archive-empty">在指南工作表中选择“保存到证据档案”，你的问题陈述、访谈记录和实验计划会汇总到这里。</p>}
+          ) : <p className="archive-empty">在指南工作表中选择“保存到证据档案”，你的问题陈述、访谈记录和实验计划会汇总到这个项目里。</p>}
         </div>
       </section>
     </>
   );
 }
+
+const decisionLabels: Record<GuideDecision["decision"], string> = {
+  continue: "继续推进",
+  narrow: "缩小人群",
+  change: "调整假设",
+  stop: "停止这一方向",
+};

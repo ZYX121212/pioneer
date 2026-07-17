@@ -231,7 +231,9 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /href="\/knowledge\/define-your-mvp"/);
   assert.match(html, /href="\/knowledge\/find-your-first-ten-users"/);
   assert.match(html, /你现在，最接近哪一种处境/);
-  assert.match(html, /创业证据档案/);
+  assert.match(html, /建立你的创业项目档案/);
+  assert.match(html, /创业项目档案/);
+  assert.match(html, /最近阶段判断/);
   assert.match(html, /团队与股权/);
   assert.match(html, /SAFE 融资文件与说明/);
   assert.match(html, /美国公司/);
@@ -251,6 +253,7 @@ test("renders the first Pioneer decision guide", async () => {
   assert.match(html, /不要默认选择访谈/);
   assert.match(html, /同一个框架，在不同创业类型中如何变化/);
   assert.match(html, /问题陈述生成器/);
+  assert.match(html, /阶段判断/);
   assert.match(html, /AI 产品/);
   assert.match(html, /参考来源与 Pioneer 的使用方式/);
 });
@@ -267,6 +270,7 @@ test("renders the second Pioneer interview guide and its working tool", async ()
   assert.match(html, /把意见题、未来题和诱导题/);
   assert.match(html, /无效版本/);
   assert.match(html, /单次访谈记录表/);
+  assert.match(html, /保存阶段判断/);
   assert.match(html, /五次访谈不是市场验证/);
   assert.match(html, /href="https:\/\/www\.momtestbook\.com\/"/);
 });
@@ -282,6 +286,7 @@ test("renders the MVP decision guide and local evidence tool", async () => {
   assert.match(html, /两周不是开发期限/);
   assert.match(html, /MVP 边界卡/);
   assert.match(html, /保存到证据档案/);
+  assert.match(html, /调整假设/);
   assert.match(html, /Practical Design: MVP Spec/);
 });
 

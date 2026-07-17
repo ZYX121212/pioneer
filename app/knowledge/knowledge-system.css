@@ -147,6 +147,36 @@
   color: rgba(20, 34, 28, 0.65);
 }
 
+.project-snapshot {
+  margin-top: 24px;
+  display: grid;
+  gap: 1px;
+  background: rgba(20, 34, 28, 0.22);
+}
+
+.project-snapshot > div {
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.project-snapshot span,
+.project-form span,
+.decision-strip span,
+.workbook-feedback span,
+.guide-decision-capture span {
+  display: block;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.project-snapshot b {
+  margin-top: 6px;
+  display: block;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .workspace-archive-heading {
   display: flex;
   align-items: flex-start;
@@ -170,6 +200,77 @@
   background: transparent;
   font-size: 9px;
   cursor: pointer;
+}
+
+.project-form {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.project-form label:nth-child(2) {
+  grid-column: 1 / -1;
+}
+
+.project-form input,
+.project-form textarea,
+.guide-decision-capture textarea {
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.project-form button {
+  padding: 11px 14px;
+  align-self: end;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: white;
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.decision-strip {
+  margin-top: 18px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: #fffdf8;
+}
+
+.decision-strip strong {
+  margin-top: 7px;
+  display: block;
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.decision-strip p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.decision-strip a {
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 850;
+  white-space: nowrap;
 }
 
 .archive-list {
@@ -206,6 +307,14 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.archive-list small {
+  margin-top: 12px;
+  display: block;
+  color: var(--orange);
+  font-size: 9px;
+  font-weight: 850;
 }
 
 .guide-fast-track {
@@ -301,6 +410,67 @@
   color: var(--ink);
 }
 
+.guide-decision-capture {
+  margin-top: 26px;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.guide-decision-capture strong {
+  margin-top: 8px;
+  display: block;
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1.05;
+}
+
+.guide-decision-capture label {
+  grid-column: 1 / -1;
+}
+
+.guide-decision-capture textarea {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: #17382c;
+  color: white;
+}
+
+.guide-decision-capture > button {
+  width: fit-content;
+  padding: 11px 15px;
+  border: 1px solid #98e7b0;
+  background: #98e7b0;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.decision-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.decision-options button {
+  min-height: 48px;
+  padding: 10px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.decision-options button.active {
+  border-color: #ff8c67;
+  background: #ff8c67;
+  color: var(--ink);
+}
+
 .workbook-actions {
   display: flex;
   flex-wrap: wrap;
@@ -311,6 +481,28 @@
   border-color: var(--ink);
   background: transparent;
   color: var(--ink);
+}
+
+.workbook-feedback {
+  margin: 16px 0;
+  padding: 15px;
+  border: 1px solid rgba(255, 106, 61, 0.35);
+  background: rgba(255, 106, 61, 0.08);
+}
+
+.workbook-feedback span {
+  color: var(--orange);
+}
+
+.workbook-feedback ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.workbook-feedback li {
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.55;
 }
 
 .guide-hero-mint {
@@ -525,6 +717,8 @@
   .fast-track-grid article { min-height: 0; }
   .decision-checklist,
   .outreach-anatomy { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .guide-decision-capture { grid-template-columns: 1fr; }
+  .decision-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 700px) {
@@ -547,4 +741,7 @@
   .mvp-sprint > div { grid-template-columns: 1fr; gap: 7px; }
   .user-pipeline > div { grid-template-columns: 70px 1fr; }
   .user-pipeline strong { grid-column: 2; text-align: left; }
+  .project-form,
+  .decision-strip { grid-template-columns: 1fr; }
+  .decision-strip a { width: fit-content; white-space: normal; }
 }

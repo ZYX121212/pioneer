@@ -29,6 +29,24 @@ function SaveResultButton({ guide, type, title, summary, content }: { guide: str
   return <button type="button" className="save-result" onClick={save}>{saved ? "已保存到本地档案 ✓" : "保存到证据档案"}</button>;
 }
 
+function WorkbookFeedback({ hints }: { hints: string[] }) {
+  if (!hints.length) return null;
+  return (
+    <div className="workbook-feedback">
+      <span>防错提示</span>
+      <ul>{hints.map((hint) => <li key={hint}>{hint}</li>)}</ul>
+    </div>
+  );
+}
+
+function hasConcreteSignal(text: string) {
+  return /\d|上周|昨天|今天|过去|最近|每周|每月|小时|分钟|元|美元|付费|介绍|试用|预约|数据/.test(text);
+}
+
+function tooManyTargets(text: string) {
+  return /、|和|以及|全部|所有|任何|企业和个人|学生和上班族/.test(text);
+}
+
 const problemFields = [
   ["person", "谁遇到问题", "例如：管理 10–30 名兼职员工的餐饮店经理"],
   ["scene", "问题发生的场景", "例如：员工临时请假，需要在两小时内重新排班"],
@@ -49,6 +67,12 @@ export function ProblemWorkbook() {
   }, [values]);
 
   const hypothesisText = `核心假设：${statement}\n验证方式：${hypothesis.method || "［访谈、观察、手工服务或其他实验］"}\n记录信号：${hypothesis.signal || "［频率、成本、替代行为与真实承诺］"}\n判断门槛：${hypothesis.threshold || "［什么结果会让你继续、调整或停止］"}`;
+  const hints = [
+    values.person && tooManyTargets(values.person) ? "目标人群可能太宽。试着只写一种角色和一种近期行为。" : "",
+    values.barrier && /平台|系统|工具|App|软件|AI|自动化/i.test(values.barrier) ? "这里像是在描述解决方案。先写用户遇到的阻力，不写产品形态。" : "",
+    values.cost && !hasConcreteSignal(values.cost) ? "成本还不够可观察。加入时间、金钱、次数、风险或机会损失。" : "",
+    hypothesis.signal && /喜欢|满意|感兴趣|愿意/.test(hypothesis.signal) ? "成功信号偏态度。尽量改成真实行为，例如预约、付费、复用或介绍。" : "",
+  ].filter(Boolean);
 
   return (
     <section className="interactive-workbook" id="problem-workbook">
@@ -72,6 +96,7 @@ export function ProblemWorkbook() {
       <div className="workbook-output">
         <span>实时问题陈述</span>
         <p>{statement}</p>
+        <WorkbookFeedback hints={hints} />
         <div className="workbook-actions"><CopyButton text={statement} label="复制问题陈述" /><SaveResultButton guide="find-the-real-problem" type="问题陈述" title="我的问题陈述" summary={statement} content={hypothesisText} /></div>
       </div>
       <div className="workbook-subsection">
@@ -109,6 +134,12 @@ export function InterviewWorkbook() {
     "",
     ...noteFields.map(([key, label]) => `${label}：${notes[key] || "［未填写］"}`),
   ].join("\n");
+  const hints = [
+    notes.recentEvent && !hasConcreteSignal(notes.recentEvent) ? "最近经历还不够具体。补上发生时间、触发事件和结果。" : "",
+    !notes.workaround && (notes.hardestPart || notes.cost) ? "还缺现有替代方案。问清对方现在怎么解决。" : "",
+    notes.commitment && /喜欢|不错|可以|感兴趣/.test(notes.commitment) ? "下一步承诺偏口头。尽量记录介绍、资料、试用、预约或付费。" : "",
+    !notes.counterEvidence && Object.values(notes).filter(Boolean).length >= 3 ? "还没有反向证据。至少记录一条说明问题不严重或不适合的内容。" : "",
+  ].filter(Boolean);
 
   return (
     <section className="interactive-workbook interview-workbook" id="interview-workbook">
@@ -132,6 +163,7 @@ export function InterviewWorkbook() {
       <div className="workbook-output">
         <span>访谈结束前自检</span>
         <p>我是否获得了一个近期事件、一个现有替代、一个真实成本和至少一条反向证据？如果没有，先追问，不要急着总结。</p>
+        <WorkbookFeedback hints={hints} />
         <div className="workbook-actions"><CopyButton text={exportText} label="复制本次访谈记录" /><SaveResultButton guide="first-user-interview" type="访谈记录" title={setup.target || "一次用户访谈"} summary={notes.recentEvent || setup.learning || "尚未填写最近事件"} content={exportText} /></div>
       </div>
     </section>
@@ -161,6 +193,12 @@ export function MvpWorkbook() {
     `明确不做：${value("exclude", "排除的功能")}`,
     `继续门槛：${value("signal", "真实使用或付费信号")}`,
   ].join("\n");
+  const hints = [
+    values.user && tooManyTargets(values.user) ? "目标用户可能不止一类。MVP 先服务一个最窄人群。" : "",
+    values.outcome && /功能|页面|模块|系统|平台/.test(values.outcome) ? "完整结果不等于功能。改写成用户完成后得到的业务或生活结果。" : "",
+    values.risk && /需求.*技术|技术.*渠道|定价.*产品/.test(values.risk) ? "一次 MVP 最好只验证一个主要风险，先拆开。" : "",
+    values.signal && /喜欢|满意|好用|感兴趣/.test(values.signal) ? "继续门槛偏态度。改成独立使用、复用、付费、转介绍或交付资料。" : "",
+  ].filter(Boolean);
 
   return (
     <section className="interactive-workbook" id="mvp-workbook">
@@ -168,7 +206,7 @@ export function MvpWorkbook() {
       <div className="workbook-fields">
         {mvpFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}
       </div>
-      <div className="workbook-output"><span>你的 MVP 边界</span><p>为 {value("user", "目标用户")} 在 {value("moment", "关键时刻")} 交付 {value("outcome", "一个完整结果")}；本轮只验证 {value("risk", "最危险的假设")}。</p><div className="workbook-actions"><CopyButton text={output} label="复制 MVP 边界卡" /><SaveResultButton guide="define-your-mvp" type="MVP 边界" title="我的 MVP 边界卡" summary={values.outcome || "尚未填写完整结果"} content={output} /></div></div>
+      <div className="workbook-output"><span>你的 MVP 边界</span><p>为 {value("user", "目标用户")} 在 {value("moment", "关键时刻")} 交付 {value("outcome", "一个完整结果")}；本轮只验证 {value("risk", "最危险的假设")}。</p><WorkbookFeedback hints={hints} /><div className="workbook-actions"><CopyButton text={output} label="复制 MVP 边界卡" /><SaveResultButton guide="define-your-mvp" type="MVP 边界" title="我的 MVP 边界卡" summary={values.outcome || "尚未填写完整结果"} content={output} /></div></div>
     </section>
   );
 }
@@ -185,13 +223,19 @@ const firstUserFields = [
 export function FirstUsersWorkbook() {
   const [values, setValues] = useState<Record<string, string>>({});
   const output = ["Pioneer 首批用户行动卡", ...firstUserFields.map(([key, label]) => `${label}：${values[key] || "［未填写］"}`)].join("\n");
+  const hints = [
+    values.segment && tooManyTargets(values.segment) ? "第一批用户仍然偏宽。加入角色、近期行为和触发时机。" : "",
+    values.place && /社交媒体|朋友圈|小红书|公众号|广告/.test(values.place) ? "渠道还偏泛。先写出能找到具体名字的地点、社群、名录或介绍路径。" : "",
+    values.ask && !/分钟|资料|试用|押金|付费|预约|介绍/.test(values.ask) ? "请求动作还不够具体。写清希望对方承担哪一种成本。" : "",
+    values.threshold && !hasConcreteSignal(values.threshold) ? "七天门槛需要数字，例如联系人数、回复数、体验数或承诺数。" : "",
+  ].filter(Boolean);
   return (
     <section className="interactive-workbook" id="first-users-workbook">
       <div className="workbook-heading"><div><span>PIONEER TOOL 04</span><h3>首批用户行动卡</h3></div><p>先建立 30 人名单，再判断渠道。最初十个用户通常来自一对一触达，而不是大规模曝光。</p></div>
       <div className="workbook-fields compact">
         {firstUserFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}
       </div>
-      <div className="workbook-output"><span>七天行动计划</span><p>为 {values.segment || "［目标人群］"} 建立 30 人名单，从 {values.place || "［三个具体渠道］"} 开始逐一触达，并用 {values.threshold || "［回复、体验与承诺］"} 判断是否继续。</p><div className="workbook-actions"><CopyButton text={output} label="复制首批用户计划" /><SaveResultButton guide="find-your-first-ten-users" type="首批用户计划" title="我的首批用户行动卡" summary={values.segment || "尚未定义目标人群"} content={output} /></div></div>
+      <div className="workbook-output"><span>七天行动计划</span><p>为 {values.segment || "［目标人群］"} 建立 30 人名单，从 {values.place || "［三个具体渠道］"} 开始逐一触达，并用 {values.threshold || "［回复、体验与承诺］"} 判断是否继续。</p><WorkbookFeedback hints={hints} /><div className="workbook-actions"><CopyButton text={output} label="复制首批用户计划" /><SaveResultButton guide="find-your-first-ten-users" type="首批用户计划" title="我的首批用户行动卡" summary={values.segment || "尚未定义目标人群"} content={output} /></div></div>
     </section>
   );
 }
