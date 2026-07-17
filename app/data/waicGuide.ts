@@ -507,8 +507,10 @@ export const waicDays: WaicDay[] = [
 
 export const waicSources = [
   { label: "WAIC 2026 官方网站", href: "https://www.worldaic.com.cn/" },
+  { label: "WAIC 2026 官方展商目录", href: "https://www.worldaic.com.cn/exhibitors" },
   { label: "WAIC 官方报名入口", href: "https://www.worldaic.com.cn/register" },
   { label: "上海市政府：WAIC 2026 信息", href: "https://www.shanghai.gov.cn/nw12344/20260707/deee99228f02433e9b0fb8f9447e8b34.html" },
+  { label: "上海官方：场馆入口、交通与接驳指南", href: "https://english.shanghai.gov.cn/en-ParticipateExplore/20260716/e9f440efa31f4b81987f9c65ff4760df.html" },
   { label: "WAIC Academic 参会指南", href: "https://waica2026.worldaic.com.cn/participant-guide/" },
   { label: "WAIC Academic 官方议程", href: "https://waica2026.worldaic.com.cn/program/program-glance/" },
   { label: "上海官方：WAIC City Walk 指南", href: "https://english.shanghai.gov.cn/en-Participate%26Explore/20260714/16456ccac1204771941ab1af9e9743ba.html" },

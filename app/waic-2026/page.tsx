@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { WaicExhibitorRadar } from "../components/WaicExhibitorRadar";
 import { waicDays, waicFounderRoutes, waicSources, waicVenues } from "../data/waicGuide";
 
 export const metadata: Metadata = {
@@ -10,11 +11,42 @@ export const metadata: Metadata = {
 
 const quickNav = [
   ["01", "大会总览", "waic-overview"],
-  ["02", "四馆怎么选", "waic-venues"],
+  ["02", "四馆与地图", "waic-venues"],
   ["03", "创业者路线", "waic-routes"],
-  ["04", "看什么", "waic-focus"],
+  ["04", "展商与看点", "waic-focus"],
   ["05", "周边活动", "waic-side-events"],
   ["06", "行动清单", "waic-action"],
+] as const;
+
+const venueAccess = [
+  {
+    name: "上海世博中心",
+    role: "主论坛",
+    address: "浦东新区世博大道 1500 号 · 2 号门",
+    metro: "8 号线中华艺术宫站 3 号口 / 13 号线世博大道站 1 号口",
+    hours: "07.17 12:00–17:00 · 07.18–19 08:30–17:00 · 07.20 08:30–16:00",
+  },
+  {
+    name: "上海世博展览馆",
+    role: "展览主场",
+    address: "浦东新区博成路 850 号北门 / 周家渡路 E1、E2 / 世博馆路 W1",
+    metro: "8 号线中华艺术宫站 3 号口 / 13 号线世博大道站 1 号口 / 7 号线耀华路站 1 号口",
+    hours: "07.17 12:00–16:00 · 07.18–19 08:30–17:00 · 07.20 08:30–16:00",
+  },
+  {
+    name: "张江科学会堂",
+    role: "前沿技术",
+    address: "浦东新区海科路 1393 号 · S3 门",
+    metro: "13 号线学林路站 1 号口",
+    hours: "07.17 12:00–17:00 · 07.18–19 08:30–17:00 · 07.20 08:30–16:00",
+  },
+  {
+    name: "西岸国际会展中心",
+    role: "创新生态",
+    address: "徐汇区龙耀路 7 号 · 北门",
+    metro: "11 号线龙耀路站 1 号口",
+    hours: "07.17 12:00–17:00 · 07.18–19 08:30–17:00 · 07.20 08:30–16:00",
+  },
 ] as const;
 
 const focusAreas = [
@@ -179,6 +211,47 @@ export default function Waic2026Page() {
             </article>
           ))}
         </div>
+        <div className="waic-map-heading">
+          <div><span>VENUE MAP · NOT TO SCALE</span><h3>先看城市关系，再决定一天怎么走</h3></div>
+          <p>世博两馆是唯一适合步行串联的组合；张江与西岸都应独立成线。下面是行动示意图，不替代官方馆内地图。</p>
+        </div>
+        <div className="waic-route-map" aria-label="WAIC 2026 三地四馆交通关系示意图">
+          <article className="waic-map-region waic-map-region-expo">
+            <span>浦东 · 世博片区</span>
+            <div><b>世博中心</b><small>主论坛</small></div>
+            <i>步行约 10–15 分钟</i>
+            <div><b>世博展览馆</b><small>展览主场</small></div>
+          </article>
+          <div className="waic-map-connector"><span>大会接驳 / 地铁</span><b>↔</b><small>跨区至少预留 45–60 分钟</small></div>
+          <article className="waic-map-region">
+            <span>浦东 · 张江</span>
+            <div><b>张江科学会堂</b><small>技术与硬科技</small></div>
+            <i>13 号线 · 学林路站</i>
+          </article>
+          <div className="waic-map-connector"><span>大会接驳 / 地铁</span><b>↔</b><small>不建议与世博临时往返</small></div>
+          <article className="waic-map-region">
+            <span>徐汇 · 西岸</span>
+            <div><b>西岸国际会展中心</b><small>创新生态与体验</small></div>
+            <i>11 号线 · 龙耀路站</i>
+          </article>
+        </div>
+        <div className="waic-access-grid">
+          {venueAccess.map((venue, index) => (
+            <article key={venue.name}>
+              <div><span>0{index + 1}</span><small>{venue.role}</small></div>
+              <h3>{venue.name}</h3>
+              <dl>
+                <div><dt>入口</dt><dd>{venue.address}</dd></div>
+                <div><dt>轨交</dt><dd>{venue.metro}</dd></div>
+                <div><dt>开放</dt><dd>{venue.hours}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+        <div className="waic-map-actions">
+          <p><b>馆内地图在哪里？</b>Hi WAIC 是官方票务与现场导航入口，提供日程、地图导览和接驳信息。展位与入口可能实时变化，因此本站保留稳定的路线判断，并把实时导航交给官方系统。</p>
+          <a href="https://english.shanghai.gov.cn/en-ParticipateExplore/20260716/e9f440efa31f4b81987f9c65ff4760df.html" target="_blank" rel="noreferrer">查看官方交通、入口与接驳图 ↗</a>
+        </div>
         <div className="waic-logistics-grid">
           <article><span>票证</span><h3>先完成官方注册</h3><p>论坛、展览和部分专业活动可能使用不同资格。以官方报名页显示的票种、审核结果和入场说明为准，不要只凭周边活动凭证进入大会。</p><a href="https://www.worldaic.com.cn/register" target="_blank" rel="noreferrer">官方报名 ↗</a></article>
           <article><span>移动</span><h3>一天只选一个区域</h3><p>世博两馆可连排；张江与西岸分别成线。为安检、步行、临时交流留出至少 30–45 分钟，不把日程排到无缝衔接。</p></article>
@@ -219,6 +292,12 @@ export default function Waic2026Page() {
             </article>
           ))}
         </div>
+        <div className="waic-exhibitor-heading">
+          <span>EXHIBITOR RADAR · FOUNDER EDITION</span>
+          <h3>不要从 1,100 家开始，先找与你的任务有关的人</h3>
+          <p>以下不是“最热门展商榜”，而是一份创业者现场筛选器：先按基础设施、模型与 Agent、企业应用、具身智能和创业项目缩小范围，再带着同一组问题去比较。</p>
+        </div>
+        <WaicExhibitorRadar />
         <div className="waic-official-heading">
           <span>OFFICIAL EXTENSIONS</span>
           <h3>主会场之外，还有三条经过官方确认的路线</h3>

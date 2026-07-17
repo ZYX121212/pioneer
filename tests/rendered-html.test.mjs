@@ -444,7 +444,13 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(waic, /detail-main waic-detail-main/);
   assert.match(waic, /waic-fact-panel/);
   assert.match(waic, /detail-sidebar waic-detail-sidebar/);
-  assert.match(waic, /四馆怎么选/);
+  assert.match(waic, /四馆与地图/);
+  assert.match(waic, /先看城市关系，再决定一天怎么走/);
+  assert.match(waic, /场馆入口、交通与接驳指南/);
+  assert.match(waic, /搜索重点展商或方向/);
+  assert.match(waic, /打开官方完整展商目录/);
+  assert.match(waic, /MiniMax M3 多模态模型/);
+  assert.match(waic, /waic-radar-more/);
   assert.match(waic, /创业者路线/);
   assert.match(waic, /WAIC 周边活动日历/);
   assert.match(waic, /37(?:<!-- -->)? 场周边活动/);

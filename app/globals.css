@@ -8341,6 +8341,210 @@ footer {
   color: var(--ink);
 }
 
+.waic-map-heading,
+.waic-exhibitor-heading {
+  margin: 76px 0 0 70px;
+  padding-top: 34px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.42fr);
+  gap: 40px;
+  border-top: 1px solid var(--ink);
+}
+
+.waic-map-heading span,
+.waic-exhibitor-heading > span {
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.waic-map-heading h3,
+.waic-exhibitor-heading h3 {
+  max-width: 800px;
+  margin: 12px 0 0;
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 43px);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.waic-map-heading p,
+.waic-exhibitor-heading p {
+  margin: 25px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.waic-route-map {
+  margin: 30px 0 0 70px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(210px, 1.35fr) minmax(105px, 0.45fr) minmax(180px, 1fr) minmax(105px, 0.45fr) minmax(180px, 1fr);
+  align-items: stretch;
+  border: 1px solid var(--ink);
+  background: #e5e9ff;
+}
+
+.waic-map-region {
+  min-width: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(20, 34, 28, 0.28);
+  background: #f8f5ee;
+}
+
+.waic-map-region > span {
+  color: var(--waic-blue);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.waic-map-region > div {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.waic-map-region b {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.waic-map-region small,
+.waic-map-region i,
+.waic-map-connector small,
+.waic-map-connector span {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.waic-map-region i {
+  margin-top: 16px;
+  font-style: normal;
+}
+
+.waic-map-region-expo > i {
+  width: fit-content;
+  margin: 14px 0 -4px;
+  padding: 4px 7px;
+  background: var(--waic-lime);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.waic-map-connector {
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.waic-map-connector b {
+  margin: 8px 0;
+  color: var(--waic-blue);
+  font-family: var(--display);
+  font-size: 30px;
+}
+
+.waic-access-grid {
+  margin: 16px 0 0 70px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.waic-access-grid > article {
+  min-width: 0;
+  padding: 26px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #f8f5ee;
+}
+
+.waic-access-grid > article > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.waic-access-grid h3 {
+  margin: 18px 0 20px;
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 550;
+}
+
+.waic-access-grid dl,
+.waic-access-grid dl div {
+  margin: 0;
+}
+
+.waic-access-grid dl div {
+  padding: 11px 0;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.waic-access-grid dt {
+  color: var(--muted);
+}
+
+.waic-access-grid dd {
+  margin: 0;
+}
+
+.waic-map-actions {
+  margin: 16px 0 0 70px;
+  padding: 24px 26px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 30px;
+  align-items: center;
+  border: 1px solid var(--ink);
+}
+
+.waic-map-actions p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.waic-map-actions p b {
+  margin-right: 8px;
+  color: var(--ink);
+}
+
+.waic-map-actions a {
+  padding: 12px 17px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: white;
+  font-size: 11px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
 .waic-logistics-grid {
   margin: 18px 0 0 70px;
   display: grid;
@@ -8475,6 +8679,196 @@ footer {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.65;
+}
+
+.waic-exhibitor-heading {
+  grid-template-columns: 1fr;
+}
+
+.waic-exhibitor-heading p {
+  max-width: 850px;
+  margin-top: 14px;
+}
+
+.waic-exhibitor-radar {
+  margin: 30px 0 0 70px;
+}
+
+.waic-radar-toolbar {
+  padding: 22px;
+  border: 1px solid var(--ink);
+  background: #e8ebff;
+}
+
+.waic-radar-toolbar label > span {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.waic-radar-toolbar input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: #f8f5ee;
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.waic-radar-toolbar input:focus {
+  box-shadow: inset 0 0 0 2px var(--waic-blue);
+}
+
+.waic-radar-filters {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.waic-radar-filters button {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.waic-radar-filters button:hover,
+.waic-radar-filters button.is-active {
+  background: var(--waic-blue);
+  color: white;
+}
+
+.waic-radar-result-line {
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.waic-radar-result-line a {
+  color: var(--ink);
+  font-weight: 850;
+}
+
+.waic-radar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.waic-radar-grid article {
+  min-width: 0;
+  min-height: 300px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #f8f5ee;
+}
+
+.waic-radar-grid article > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.waic-radar-grid article > div span {
+  color: var(--orange);
+  font-family: var(--display);
+  font-size: 18px;
+}
+
+.waic-radar-grid article > div small {
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.waic-radar-grid h4 {
+  margin: 28px 0 16px;
+  font-family: var(--display);
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -0.025em;
+}
+
+.waic-radar-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.waic-radar-grid .waic-radar-highlight {
+  margin: -7px 0 14px;
+  padding: 8px 10px;
+  background: var(--waic-lime);
+  color: var(--ink);
+}
+
+.waic-radar-highlight b,
+.waic-radar-question b {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.waic-radar-grid .waic-radar-question {
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--ink);
+}
+
+.waic-radar-note,
+.waic-radar-empty {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.waic-radar-empty {
+  padding: 40px 24px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.waic-radar-more {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--ink);
+  border-top: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.waic-radar-more:hover {
+  background: var(--ink);
+  color: white;
 }
 
 .waic-official-heading {
@@ -8925,6 +9319,23 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .waic-map-heading {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .waic-route-map {
+    grid-template-columns: 1fr;
+  }
+
+  .waic-map-connector {
+    min-height: 90px;
+  }
+
+  .waic-radar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .waic-official-grid {
     grid-template-columns: 1fr;
   }
@@ -9017,9 +9428,15 @@ footer {
   .waic-scale-strip,
   .waic-source-note,
   .waic-venue-grid,
+  .waic-map-heading,
+  .waic-route-map,
+  .waic-access-grid,
+  .waic-map-actions,
   .waic-logistics-grid,
   .waic-route-list,
   .waic-focus-grid,
+  .waic-exhibitor-heading,
+  .waic-exhibitor-radar,
   .waic-official-heading,
   .waic-official-grid,
   .waic-event-notice,
@@ -9035,11 +9452,37 @@ footer {
 
   .waic-decision-grid,
   .waic-venue-grid,
+  .waic-access-grid,
   .waic-logistics-grid,
   .waic-focus-grid,
+  .waic-radar-grid,
   .waic-event-grid,
   .waic-one-page-plan {
     grid-template-columns: 1fr;
+  }
+
+  .waic-map-heading,
+  .waic-exhibitor-heading {
+    gap: 0;
+  }
+
+  .waic-map-actions {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .waic-map-actions a {
+    width: fit-content;
+    white-space: normal;
+  }
+
+  .waic-radar-result-line {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .waic-radar-grid article {
+    min-height: 260px;
   }
 
   .waic-venue-grid article,
