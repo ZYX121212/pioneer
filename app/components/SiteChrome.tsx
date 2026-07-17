@@ -1,51 +1,98 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { AudienceCount } from "./AudienceCounter";
 
-export function SiteHeader() {
+type SiteChromeProps = {
+  lang?: "zh" | "en";
+};
+
+const nav = {
+  zh: {
+    announcement: "站内整理已上线",
+    visited: "位访客来过 Pioneer",
+    homeLabel: "Pioneer 首页",
+    links: [
+      ["/knowledge", "创业指南"],
+      ["/programs", "开放计划"],
+      ["/organizations", "孵化机构"],
+      ["/events", "创业活动"],
+      ["/startups", "创业项目"],
+    ],
+    submit: "提交资源",
+    languageHref: "/en",
+    languageLabel: "EN",
+    footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
+    copyright: "© 2026 Pioneer. 内容最近核验：2026.07.15",
+  },
+  en: {
+    announcement: "Curated resources are live",
+    visited: "visitors have explored Pioneer",
+    homeLabel: "Pioneer home",
+    links: [
+      ["/en/programs", "Programs"],
+      ["/en/organizations", "Institutions"],
+      ["/en/events", "Events"],
+      ["/en/startups", "Startups"],
+    ],
+    submit: "Submit resource",
+    languageHref: "/",
+    languageLabel: "中文",
+    footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
+    copyright: "© 2026 Pioneer. Last reviewed: 2026.07.16",
+  },
+} as const;
+
+export function SiteHeader({ lang = "zh" }: SiteChromeProps) {
+  const copy = nav[lang];
+  const homeHref = lang === "en" ? "/en#top" : "/#top";
+
   return (
     <>
       <div className="announcement">
-        <span>站内整理已上线</span>
-        <p>已有 <AudienceCount /> 位访客来过 Pioneer</p>
+        <span>{copy.announcement}</span>
+        <p>{lang === "zh" ? "已有 " : ""}<AudienceCount /> {copy.visited}</p>
       </div>
       <header className="site-header">
-        <a className="brand" href="/#top" aria-label="Pioneer 首页">
+        <a className="brand" href={homeHref} aria-label={copy.homeLabel}>
           <span className="brand-mark" aria-hidden="true">P</span>
           <span>PIONEER</span>
         </a>
-        <nav aria-label="主导航">
-          <a href="/knowledge">创业指南</a>
-          <a href="/programs">开放计划</a>
-          <a href="/organizations">孵化机构</a>
-          <a href="/events">创业活动</a>
-          <a href="/startups">创业项目</a>
+        <nav aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
+          {copy.links.map(([href, label]) => (
+            <a href={href} key={href} data-audience-event="nav:open" data-audience-target={label}>{label}</a>
+          ))}
         </nav>
-        <a className="submit-link" href="/#submit">
-          提交资源 <span aria-hidden="true">↗</span>
-        </a>
+        <div className="header-actions">
+          <a className="language-link" href={copy.languageHref}>{copy.languageLabel}</a>
+          <a
+            className="submit-link"
+            href={`${homeHref.split("#")[0]}#submit`}
+            data-audience-event="submit-resource:intent"
+            data-audience-target="header-submit"
+          >
+            {copy.submit} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </header>
     </>
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ lang = "zh" }: SiteChromeProps) {
+  const copy = nav[lang];
   return (
     <footer id="about">
       <div className="footer-brand">
         <span className="brand-mark">P</span>
         <div>
           <strong>PIONEER</strong>
-          <p>GLOBAL STARTUP DIRECTORY &amp; FOUNDER GUIDE</p>
+          <p>{copy.footerLine}</p>
         </div>
       </div>
       <div className="footer-links">
-        <a href="/knowledge">创业指南</a>
-        <a href="/programs">开放计划</a>
-        <a href="/organizations">孵化机构</a>
-        <a href="/events">创业活动</a>
-        <a href="/startups">创业项目</a>
+        {copy.links.map(([href, label]) => (
+          <a href={href} key={href} data-audience-event="footer:open" data-audience-target={label}>{label}</a>
+        ))}
       </div>
-      <p className="copyright">© 2026 Pioneer. 内容最近核验：2026.07.15</p>
+      <p className="copyright">{copy.copyright}</p>
     </footer>
   );
 }

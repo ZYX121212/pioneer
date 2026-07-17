@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type PioneerGuide } from "../data/knowledge";
 import { type GuideDecision, readCompletions, readDecisions, saveGuideDecision, toggleCompletion } from "../lib/founderArchive";
 
@@ -10,19 +10,11 @@ export function GuideProgress({ guide, judgment, mistakes, action }: {
   mistakes: string[];
   action: string;
 }) {
-  const [done, setDone] = useState(false);
-  const [decision, setDecision] = useState<GuideDecision["decision"]>("continue");
-  const [reason, setReason] = useState("");
+  const savedDecision = readGuideDecision(guide.slug);
+  const [done, setDone] = useState(() => readCompletions().includes(guide.slug));
+  const [decision, setDecision] = useState<GuideDecision["decision"]>(() => savedDecision?.decision ?? "continue");
+  const [reason, setReason] = useState(() => savedDecision?.reason ?? "");
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    setDone(readCompletions().includes(guide.slug));
-    const current = readDecisions().find((item) => item.guide === guide.slug);
-    if (current) {
-      setDecision(current.decision);
-      setReason(current.reason);
-    }
-  }, [guide.slug]);
 
   function saveDecision() {
     saveGuideDecision({ guide: guide.slug, decision, reason: reason.trim() || "尚未填写判断理由" });
@@ -72,3 +64,7 @@ const decisionOptions: Array<{ value: GuideDecision["decision"]; label: string }
   { value: "change", label: "调整假设" },
   { value: "stop", label: "停止方向" },
 ];
+
+function readGuideDecision(slug: string) {
+  return readDecisions().find((item) => item.guide === slug);
+}
