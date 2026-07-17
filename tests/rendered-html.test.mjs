@@ -75,7 +75,7 @@ test("server-renders English directories and resource briefs", async () => {
   const directoryResponse = await render("/en/organizations");
   const directory = await directoryResponse.text();
   assert.equal(directoryResponse.status, 200);
-  assert.match(directory, /Incubators &amp; Institutions/);
+  assert.match(directory, /Startup Institutions/);
   assert.match(directory, /More Than A Link List/);
   assert.match(directory, /Institution profile/);
   assert.match(directory, /href="\/en\/resources\/station-f"/);
@@ -131,10 +131,10 @@ test("keeps the resource collection complete and source-linked", async () => {
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 17);
-  assert.equal(new Set(urls).size, 17);
-  assert.equal(slugs.length, 17);
-  assert.equal(new Set(slugs).size, 17);
+  assert.equal(urls.length, 29);
+  assert.equal(new Set(urls).size, 29);
+  assert.equal(slugs.length, 29);
+  assert.equal(new Set(slugs).size, 29);
   assert.match(data, /type: "program"/);
   assert.match(data, /type: "organization"/);
   assert.match(data, /type: "event"/);
@@ -169,15 +169,38 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
 test("keeps every resource backed by an individually authored research profile", async () => {
   const resourcesData = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
   const profilesData = await readFile(new URL("../app/data/resourceProfiles.ts", import.meta.url), "utf8");
+  const investmentProfilesData = await readFile(new URL("../app/data/investmentProfiles.ts", import.meta.url), "utf8");
   const resourceSlugs = [...resourcesData.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
   const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
+  const investmentProfileSlugs = [...investmentProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)].map((match) => match[1] ?? match[2]);
 
-  assert.equal(resourceSlugs.length, 17);
+  assert.equal(resourceSlugs.length, 29);
   assert.equal(profileSlugs.length, 17);
-  assert.deepEqual(new Set(profileSlugs), new Set(resourceSlugs));
+  assert.equal(investmentProfileSlugs.length, 12);
+  assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs]), new Set(resourceSlugs));
   assert.match(profilesData, /diligence: string\[\]/);
   assert.match(profilesData, /playbook: Array/);
   assert.match(profilesData, /comparison:/);
+  assert.match(investmentProfilesData, /founderFit: string\[\]/);
+  assert.match(investmentProfilesData, /questions: string\[\]/);
+});
+
+test("renders China and US investor profiles inside the institution directory", async () => {
+  const directoryResponse = await render("/organizations");
+  const directory = await directoryResponse.text();
+  assert.equal(directoryResponse.status, 200);
+  assert.match(directory, /创业机构/);
+  assert.match(directory, /投资机构/);
+  assert.match(directory, /红杉中国 HongShan/);
+  assert.match(directory, /Andreessen Horowitz/);
+
+  const detailResponse = await render("/resources/linear-capital");
+  const detail = await detailResponse.text();
+  assert.equal(detailResponse.status, 200);
+  assert.match(detail, /投资机构画像/);
+  assert.match(detail, /它可能会被什么吸引/);
+  assert.match(detail, /怎样更有效地接触它/);
+  assert.match(detail, /\$1M–\$10M/);
 });
 
 test("renders a directory and an internal editorial detail before the official source", async () => {

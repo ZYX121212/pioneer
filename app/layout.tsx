@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
   const title = "Pioneer — 全球创业资源与创业指南";
-  const description = "理解、比较并选择全球创业计划、孵化机构、创业活动与代表性项目。";
+  const description = "理解、比较并选择全球创业计划、投资与孵化机构、创业活动与代表性项目。";
 
   return {
     metadataBase: new URL(origin),

@@ -18,7 +18,7 @@ const categoryStyles: Record<ResourceType, string> = {
 
 const categoryNotes: Record<ResourceType, string> = {
   program: "加速器、比赛、资助与国际落地机会",
-  organization: "大学、政府、企业与独立创新机构",
+  organization: "投资机构、孵化器、创业园区与大学平台",
   event: "大会、Demo Day、路演与创始人聚会",
   startup: "发现来自世界各地的新产品与团队",
 };
@@ -50,7 +50,7 @@ export default function Home() {
   const previewTitles: Record<PreviewMode, string> = {
     featured: "最近值得关注",
     program: "开放计划样例",
-    organization: "孵化机构样例",
+    organization: "创业机构样例",
     event: "创业活动样例",
     startup: "创业项目样例",
     knowledge: "创业指南精选",
@@ -187,7 +187,7 @@ export default function Home() {
             {([
               ["featured", "精选资源"],
               ["program", "开放计划"],
-              ["organization", "孵化机构"],
+              ["organization", "创业机构"],
               ["event", "创业活动"],
               ["startup", "创业项目"],
               ["knowledge", "创业指南"],

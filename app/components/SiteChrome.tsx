@@ -12,7 +12,7 @@ const nav = {
     links: [
       ["/knowledge", "创业指南"],
       ["/programs", "开放计划"],
-      ["/organizations", "孵化机构"],
+      ["/organizations", "创业机构"],
       ["/events", "创业活动"],
       ["/startups", "创业项目"],
     ],

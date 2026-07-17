@@ -9,10 +9,21 @@ export function DirectoryExplorer({ resources, lang = "zh" }: { resources: Resou
   const [query, setQuery] = useState("");
   const allLabel = lang === "en" ? "All" : "全部";
   const [activeTag, setActiveTag] = useState(allLabel);
-  const tags = [allLabel, ...Array.from(new Set(resources.flatMap((resource) => {
+  const availableTags = Array.from(new Set(resources.flatMap((resource) => {
     const english = lang === "en" ? getEnglishResource(resource.slug) : undefined;
     return english?.tags ?? resource.tags;
-  }))).slice(0, 8)];
+  })));
+  const isOrganizationDirectory = resources[0]?.type === "organization";
+  const preferredTags = isOrganizationDirectory
+    ? (lang === "en"
+      ? ["Investor", "China", "United States", "Early stage", "Multi-stage"]
+      : ["投资机构", "中国", "美国", "早期", "全阶段"])
+    : [];
+  const tags = [
+    allLabel,
+    ...preferredTags.filter((tag) => availableTags.includes(tag)),
+    ...availableTags.filter((tag) => !preferredTags.includes(tag)),
+  ].slice(0, 9);
 
   const visible = useMemo(() => {
     const normalized = query.trim().toLowerCase();

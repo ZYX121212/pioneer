@@ -2,9 +2,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { OrganizationResearchDetail } from "../../components/OrganizationResearchDetail";
+import { InvestmentResearchDetail } from "../../components/InvestmentResearchDetail";
 import { ResourceCard } from "../../components/ResourceCard";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { getOrganizationProfile } from "../../data/organizationProfiles";
+import { getInvestmentProfile } from "../../data/investmentProfiles";
 import { getResourceProfile } from "../../data/resourceProfiles";
 import { getResourceBySlug, resources, typeConfig } from "../../data/resources";
 
@@ -27,8 +29,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ResourceDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const resource = getResourceBySlug(slug);
-  const profile = getResourceProfile(slug);
-  if (!resource || !profile) notFound();
+  const profile = getResourceProfile(slug)!;
+  const investmentProfile = getInvestmentProfile(slug);
+  if (!resource || (!profile && !investmentProfile)) notFound();
   const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
 
   const config = typeConfig[resource.type];
@@ -64,7 +67,9 @@ export default async function ResourceDetailPage({ params }: PageProps) {
       </section>
 
       <section className={`detail-layout detail-layout-${resource.type}`}>
-        {organizationProfile ? (
+        {investmentProfile ? (
+          <InvestmentResearchDetail resource={resource} investment={investmentProfile} />
+        ) : organizationProfile && profile ? (
           <OrganizationResearchDetail resource={resource} profile={profile} organization={organizationProfile} />
         ) : (
         <article className="detail-main">
@@ -75,9 +80,9 @@ export default async function ResourceDetailPage({ params }: PageProps) {
               <h2>先判断它究竟是什么</h2>
               <p>{resource.overview}</p>
               <div className="identity-model-grid">
-                <div><span>运作模式</span><p>{profile.identity.model}</p></div>
-                <div><span>核心价值</span><p>{profile.identity.primaryValue}</p></div>
-                <div><span>价值发生条件</span><p>{profile.identity.valueCondition}</p></div>
+                <div><span>运作模式</span><p>{profile!.identity.model}</p></div>
+                <div><span>核心价值</span><p>{profile!.identity.primaryValue}</p></div>
+                <div><span>价值发生条件</span><p>{profile!.identity.valueCondition}</p></div>
               </div>
             </div>
           </section>
