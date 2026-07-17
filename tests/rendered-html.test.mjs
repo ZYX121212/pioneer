@@ -131,10 +131,10 @@ test("keeps the resource collection complete and source-linked", async () => {
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 29);
-  assert.equal(new Set(urls).size, 29);
-  assert.equal(slugs.length, 29);
-  assert.equal(new Set(slugs).size, 29);
+  assert.equal(urls.length, 41);
+  assert.equal(new Set(urls).size, 41);
+  assert.equal(slugs.length, 41);
+  assert.equal(new Set(slugs).size, 41);
   assert.match(data, /type: "program"/);
   assert.match(data, /type: "organization"/);
   assert.match(data, /type: "event"/);
@@ -174,9 +174,9 @@ test("keeps every resource backed by an individually authored research profile",
   const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
   const investmentProfileSlugs = [...investmentProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)].map((match) => match[1] ?? match[2]);
 
-  assert.equal(resourceSlugs.length, 29);
+  assert.equal(resourceSlugs.length, 41);
   assert.equal(profileSlugs.length, 17);
-  assert.equal(investmentProfileSlugs.length, 12);
+  assert.equal(investmentProfileSlugs.length, 24);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs]), new Set(resourceSlugs));
   assert.match(profilesData, /diligence: string\[\]/);
   assert.match(profilesData, /playbook: Array/);
@@ -193,6 +193,8 @@ test("renders China and US investor profiles inside the institution directory", 
   assert.match(directory, /投资机构/);
   assert.match(directory, /红杉中国 HongShan/);
   assert.match(directory, /Andreessen Horowitz/);
+  assert.match(directory, /经纬创投 Matrix Partners China/);
+  assert.match(directory, /First Round Capital/);
 
   const detailResponse = await render("/resources/linear-capital");
   const detail = await detailResponse.text();
