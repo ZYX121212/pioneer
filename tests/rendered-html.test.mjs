@@ -131,10 +131,10 @@ test("keeps the resource collection complete and source-linked", async () => {
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 41);
-  assert.equal(new Set(urls).size, 41);
-  assert.equal(slugs.length, 41);
-  assert.equal(new Set(slugs).size, 41);
+  assert.equal(urls.length, 53);
+  assert.equal(new Set(urls).size, 53);
+  assert.equal(slugs.length, 53);
+  assert.equal(new Set(slugs).size, 53);
   assert.match(data, /type: "program"/);
   assert.match(data, /type: "organization"/);
   assert.match(data, /type: "event"/);
@@ -170,19 +170,26 @@ test("keeps every resource backed by an individually authored research profile",
   const resourcesData = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
   const profilesData = await readFile(new URL("../app/data/resourceProfiles.ts", import.meta.url), "utf8");
   const investmentProfilesData = await readFile(new URL("../app/data/investmentProfiles.ts", import.meta.url), "utf8");
+  const startupProfilesData = await readFile(new URL("../app/data/startupProfiles.ts", import.meta.url), "utf8");
   const resourceSlugs = [...resourcesData.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
   const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
   const investmentProfileSlugs = [...investmentProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)].map((match) => match[1] ?? match[2]);
+  const startupProfileSlugs = [...startupProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)]
+    .map((match) => match[1] ?? match[2])
+    .filter((slug) => slug !== "snapshot" && slug !== "business");
 
-  assert.equal(resourceSlugs.length, 41);
+  assert.equal(resourceSlugs.length, 53);
   assert.equal(profileSlugs.length, 17);
   assert.equal(investmentProfileSlugs.length, 24);
-  assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs]), new Set(resourceSlugs));
+  assert.equal(startupProfileSlugs.length, 12);
+  assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));
   assert.match(profilesData, /diligence: string\[\]/);
   assert.match(profilesData, /playbook: Array/);
   assert.match(profilesData, /comparison:/);
   assert.match(investmentProfilesData, /founderFit: string\[\]/);
   assert.match(investmentProfilesData, /questions: string\[\]/);
+  assert.match(startupProfilesData, /lessons: Array/);
+  assert.match(startupProfilesData, /risks: Array/);
 });
 
 test("renders China and US investor profiles inside the institution directory", async () => {
@@ -314,6 +321,11 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(waic, /四馆怎么选/);
   assert.match(waic, /创业者路线/);
   assert.match(waic, /WAIC 周边活动日历/);
+  assert.match(waic, /37(?:<!-- -->)? 场周边活动/);
+  assert.match(waic, /24 个城市地标/);
+  assert.match(waic, /WAIC ACADEMIC/);
+  assert.match(waic, /Future Tech 与 OPC/);
+  assert.match(waic, /AI 时代创业者闭门交流会/);
   assert.match(waic, /KEY FACTS/);
   assert.match(waic, /SOURCE &amp; ACTION/);
   assert.match(waic, /前往官方页面/);
@@ -333,6 +345,28 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(startup, /公司知识图谱/);
   assert.match(startup, /组织系统图/);
   assert.match(startup, /管理问题试点/);
+
+  const startupDirectoryResponse = await render("/startups");
+  const startupDirectory = await startupDirectoryResponse.text();
+  assert.equal(startupDirectoryResponse.status, 200);
+  assert.match(startupDirectory, /共 15 条 · 当前显示 1–9/);
+  assert.match(startupDirectory, /DeepSeek 深度求索/);
+  assert.match(startupDirectory, /aria-label="第 2 页"/);
+
+  const researchedStartupResponse = await render("/resources/anthropic");
+  const researchedStartup = await researchedStartupResponse.text();
+  assert.equal(researchedStartupResponse.status, 200);
+  assert.match(researchedStartup, /创业项目研究章节/);
+  assert.match(researchedStartup, /它选择了什么问题/);
+  assert.match(researchedStartup, /产品不是一个功能，而是一套系统/);
+  assert.match(researchedStartup, /创业者真正可以借鉴什么/);
+  assert.match(researchedStartup, /增长信号之外，还要看什么/);
+
+  const englishStartupResponse = await render("/en/resources/elevenlabs");
+  const englishStartup = await englishStartupResponse.text();
+  assert.equal(englishStartupResponse.status, 200);
+  assert.match(englishStartup, /Voice AI \/ creative platform/);
+  assert.match(englishStartup, /Open official page/);
 });
 
 test("renders the founder learning path and knowledge filters", async () => {

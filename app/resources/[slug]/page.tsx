@@ -3,12 +3,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { OrganizationResearchDetail } from "../../components/OrganizationResearchDetail";
 import { InvestmentResearchDetail } from "../../components/InvestmentResearchDetail";
+import { StartupResearchDetail } from "../../components/StartupResearchDetail";
 import { ResourceCard } from "../../components/ResourceCard";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { getOrganizationProfile } from "../../data/organizationProfiles";
 import { getInvestmentProfile } from "../../data/investmentProfiles";
 import { getResourceProfile } from "../../data/resourceProfiles";
 import { getResourceBySlug, resources, typeConfig } from "../../data/resources";
+import { getStartupProfile } from "../../data/startupProfiles";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -31,7 +33,8 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   const resource = getResourceBySlug(slug);
   const profile = getResourceProfile(slug)!;
   const investmentProfile = getInvestmentProfile(slug);
-  if (!resource || (!profile && !investmentProfile)) notFound();
+  const startupProfile = getStartupProfile(slug);
+  if (!resource || (!profile && !investmentProfile && !startupProfile)) notFound();
   const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
 
   const config = typeConfig[resource.type];
@@ -67,7 +70,9 @@ export default async function ResourceDetailPage({ params }: PageProps) {
       </section>
 
       <section className={`detail-layout detail-layout-${resource.type}`}>
-        {investmentProfile ? (
+        {startupProfile ? (
+          <StartupResearchDetail resource={resource} startup={startupProfile} />
+        ) : investmentProfile ? (
           <InvestmentResearchDetail resource={resource} investment={investmentProfile} />
         ) : organizationProfile && profile ? (
           <OrganizationResearchDetail resource={resource} profile={profile} organization={organizationProfile} />

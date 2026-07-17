@@ -17,11 +17,16 @@ export function DirectoryExplorer({ resources, lang = "zh" }: { resources: Resou
     return english?.tags ?? resource.tags;
   })));
   const isOrganizationDirectory = resources[0]?.type === "organization";
+  const isStartupDirectory = resources[0]?.type === "startup";
   const preferredTags = isOrganizationDirectory
     ? (lang === "en"
       ? ["Investor", "China", "United States", "Early stage", "Multi-stage"]
       : ["投资机构", "中国", "美国", "早期", "全阶段"])
-    : [];
+    : isStartupDirectory
+      ? (lang === "en"
+        ? ["China", "United States", "AI", "Robotics", "Enterprise", "Developer tools"]
+        : ["中国", "美国", "AI", "机器人", "企业服务", "开发者工具"])
+      : [];
   const tags = [
     allLabel,
     ...preferredTags.filter((tag) => availableTags.includes(tag)),
