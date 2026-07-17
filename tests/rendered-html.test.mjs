@@ -157,6 +157,9 @@ test("renders the weekly opportunity signup and share action sitewide", async ()
 });
 
 test("publishes search discovery files for public pages", async () => {
+  const verification = await readFile(new URL("../public/google357e53b311b2261b.html", import.meta.url), "utf8");
+  assert.equal(verification.trim(), "google-site-verification: google357e53b311b2261b.html");
+
   const sitemapResponse = await render("/sitemap.xml");
   const sitemap = await sitemapResponse.text();
   assert.equal(sitemapResponse.status, 200);
