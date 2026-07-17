@@ -224,7 +224,7 @@ test("keeps every resource backed by an individually authored research profile",
     .filter((slug) => slug !== "snapshot" && slug !== "business");
 
   assert.ok(resourceSlugs.length >= 53);
-  assert.equal(profileSlugs.length, 17);
+  assert.equal(profileSlugs.length, 26);
   assert.equal(investmentProfileSlugs.length, 24);
   assert.ok(startupProfileSlugs.length >= 12);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));

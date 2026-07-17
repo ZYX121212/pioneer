@@ -47,6 +47,73 @@ export type ResourceResearchProfile = {
   };
 };
 
+type FounderEventProfileInput = {
+  event: string;
+  model: string;
+  primaryValue: string;
+  valueCondition: string;
+  audience: string;
+  meetingTarget: string;
+  preparation: string;
+  tripCost: string;
+  alternative: string;
+};
+
+function founderEventProfile(input: FounderEventProfileInput): ResourceResearchProfile {
+  return {
+    identity: {
+      model: input.model,
+      primaryValue: input.primaryValue,
+      valueCondition: input.valueCondition,
+    },
+    capabilities: [
+      { label: "目标人群密度", strength: "核心", detail: `${input.event} 的主要价值来自 ${input.audience} 在同一时间出现，而不是舞台内容本身。` },
+      { label: "会面与关系建立", strength: "强", detail: `适合围绕 ${input.meetingTarget} 提前建立名单、预约会面，并在现场验证合作意愿。` },
+      { label: "市场情报", strength: "强", detail: "可以快速比较同类产品、客户表述、投资主题和区域生态，但必须带着明确问题观察。" },
+      { label: "直接业务转化", strength: "中", detail: "大会提供连接场景，不保证采购或融资；价值取决于会前准备与会后连续跟进。" },
+    ],
+    offers: [
+      { title: "高密度行业现场", includes: `在有限时间内接触 ${input.audience}，并观察他们正在讨论和采购什么。`, founderValue: "用真实对话校准市场判断，减少只依赖线上信息形成的偏差。" },
+      { title: "结构化会面入口", includes: `通过官方活动工具、展区、圆桌或周边活动接触 ${input.meetingTarget}。`, founderValue: "把陌生市场中的关系建立压缩到一次经过规划的行程中。" },
+      { title: "产品与叙事压力测试", includes: "在短时间内重复演示产品、回答质疑并记录反复出现的问题。", founderValue: "识别客户真正关心的指标、采购障碍和团队叙事中的空白。" },
+    ],
+    entryPaths: [
+      { title: "普通参会者", forWhom: "需要学习市场并完成少量高质量会面的创始人。", prepare: `${input.preparation}；至少提前两周完成目标名单和邀约。` },
+      { title: "创业公司展示或竞赛", forWhom: "产品已经可演示，希望获得集中曝光、买家或投资人反馈的团队。", prepare: "核对独立资格和截止日，并准备稳定演示、30 秒介绍、媒体资料和会后承接流程。" },
+      { title: "周边活动与闭门圆桌", forWhom: "目标非常具体、主会场噪声过高的团队。", prepare: "只选择参会者与目标高度重合的活动，不按数量填满日程。" },
+    ],
+    stageFit: [
+      { stage: "只有想法", fit: "暂不优先", reason: "跨国参会成本通常高于通用内容价值，先完成用户访谈和最小验证。" },
+      { stage: "已有可演示产品", fit: "优先考虑", reason: "可以把现场对话转化为具体产品反馈、试点和渠道验证。" },
+      { stage: "已有早期客户", fit: "优先考虑", reason: "已有证据使合作、融资和市场进入讨论更可信。" },
+      { stage: "成熟增长期", fit: "可以考虑", reason: "仅当活动能连接目标市场中的大客户、资本或政策角色时值得。" },
+    ],
+    costs: [
+      { label: "差旅与门票", level: "高", detail: input.tripCost },
+      { label: "准备时间", level: "高", detail: "有效参会需要研究名单、预约会面、训练演示并准备跟进材料，不能只计算现场几天。" },
+      { label: "机会成本", level: "中", detail: "创始团队离开产品和客户现场可能打断经营节奏，应设置明确回报门槛。" },
+      { label: "信息噪声", level: "高", detail: "大型活动的热度、舞台观点和随机社交很容易替代真正的客户证据。" },
+    ],
+    diligence: [
+      `你能否列出在 ${input.event} 必须见到的 10 个具体组织或角色？`,
+      "参会后 30 天内，什么可量化结果能够证明这次行程值得？",
+      "创业展示、竞赛、闭门活动和普通门票是否使用不同申请入口？",
+      `如果不参加，这笔预算用于 ${input.alternative} 是否更接近当前目标？`,
+    ],
+    playbook: [
+      { phase: "出发前 4 周", title: "定义唯一任务", action: "从融资、客户、渠道、媒体或市场学习中只选择一个首要目标。", output: "一页参会任务书" },
+      { phase: "出发前 3 周", title: "建立目标名单", action: `围绕 ${input.meetingTarget} 建立 30 人长名单，并筛成 10 个优先对象。`, output: "10 个目标会面" },
+      { phase: "活动现场", title: "记录证据而非名片", action: "每次交流记录需求、决策人、阻力、下一步和承诺日期。", output: "结构化会面记录" },
+      { phase: "返程后 72 小时", title: "完成第一轮跟进", action: "发送带有具体下一步的个性化跟进，并淘汰没有真实意向的线索。", output: "30 天转化看板" },
+    ],
+    comparison: {
+      chooseWhen: input.valueCondition,
+      avoidWhen: "你无法指出具体目标对象、没有可演示或可讨论的证据，或只是因为大会有名而想参加。",
+      compareWith: `至少与 ${input.alternative} 比较总成本、目标人群密度和 30 天内可验证的结果。`,
+    },
+  };
+}
+
 export const resourceProfiles: Record<string, ResourceResearchProfile> = {
   "y-combinator": {
     identity: {
@@ -832,6 +899,124 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       { phase: "第 4 周", title: "判断替代价值", action: "比较节省时间、机会转化和隐私成本。", output: "保留或停止决定" },
     ],
     comparison: { chooseWhen: "你的工作价值高度依赖关系，且多平台沟通已经造成可量化遗漏。", avoidWhen: "联系人数量少，或你无法接受敏感消息被集中处理。", compareWith: "与传统个人 CRM 比较自动化；与销售 CRM 比较团队流程；与统一收件箱比较关系智能。" },
+  },
+
+  "techbbq-2026": {
+    ...founderEventProfile({
+    event: "TechBBQ 2026",
+    model: "北欧创始人、早期投资人与科技社区构成的两日创业大会，并设独立 Investor Day。",
+    primaryValue: "以较高的北欧创投密度建立第一层关系，并理解当地资本、客户与创业文化。",
+    valueCondition: "北欧是未来 12 个月的真实客户、融资或人才市场，且团队能提前安排具体会面。",
+    audience: "北欧创始人、种子与 A 轮投资人、社区建设者和 B2B 科技公司",
+    meetingTarget: "丹麦及北欧投资人、行业创始人和潜在客户",
+    preparation: "准备北欧市场假设、简洁融资叙事与本地客户名单",
+    tripCost: "哥本哈根住宿和跨国差旅成本较高；Investor Day 也不是所有创始人都可进入。",
+    alternative: "对北欧客户做远程访谈、参加 Slush，或安排一周定向市场拜访",
+    }),
+  },
+  "ifa-berlin-2026": {
+    ...founderEventProfile({
+    event: "IFA Berlin 2026",
+    model: "消费电子与家电行业展会，IFA Next 为创业公司提供展示、路演、媒体和投资人入口。",
+    primaryValue: "一次性验证欧洲渠道、品类定位、媒体叙事和产品现场吸引力。",
+    valueCondition: "团队已有稳定可演示产品、清晰量产计划，并需要欧洲买家、品牌或媒体。",
+    audience: "消费科技品牌、渠道买家、经销商、媒体、投资人与硬件创业公司",
+    meetingTarget: "欧洲渠道买家、品牌合作方、专业媒体和 IFA Next 投资人",
+    preparation: "准备稳定样机、英文销售资料、批发价格、交付周期、认证与售后答案",
+    tripCost: "除门票差旅外，样机运输、展位搭建、保险与现场团队会显著增加总成本。",
+    alternative: "直接拜访欧洲经销商、参加垂直硬件展，或做小范围媒体发布",
+    }),
+  },
+  "bits-and-pretzels-2026": {
+    ...founderEventProfile({
+    event: "Bits & Pretzels 2026",
+    model: "面向欧洲创始人、投资人和企业伙伴的三日大会，强调匹配、跨境扩张与创始人经验。",
+    primaryValue: "进入德国和中欧创业网络，建立资本、企业客户与跨境伙伴关系。",
+    valueCondition: "公司已有产品或客户证据，并把德语区或欧洲融资视为明确下一步。",
+    audience: "欧洲创始人、天使与风险投资人、企业创新团队和创业生态机构",
+    meetingTarget: "德国及欧洲投资人、企业客户和市场进入伙伴",
+    preparation: "准备欧洲市场数据、融资进度、目标行业名单和清晰的合作请求",
+    tripCost: "大会与慕尼黑啤酒节同期，住宿与交通成本高，需提前预订。",
+    alternative: "在德国安排定向客户拜访、参加更垂直的行业会，或选择 TechBBQ / Sifted Summit",
+    }),
+  },
+  "sifted-summit-2026": {
+    ...founderEventProfile({
+    event: "Sifted Summit 2026",
+    model: "聚焦欧洲 Series A+ 科技公司的创始人、运营者和投资人的两日峰会。",
+    primaryValue: "获得与成长阶段更匹配的组织、增长、资本效率和国际扩张经验。",
+    valueCondition: "公司已经进入 Series A 左右或之后，并面临规模化而非从零验证问题。",
+    audience: "欧洲成长型公司创始人、高管、运营者、成长轮投资人与 LP",
+    meetingTarget: "Series A+ 同阶段创始人、成长投资人和欧洲扩张负责人",
+    preparation: "带着一个真实规模化难题和可交换的运营数据参加闭门圆桌",
+    tripCost: "伦敦差旅和票价较高，极早期团队还会承担明显的阶段错配成本。",
+    alternative: "聘请专项顾问、组织同阶段创始人小组，或参加面向早期公司的活动",
+    }),
+  },
+  "switch-singapore-2026": {
+    ...founderEventProfile({
+    event: "SWITCH 2026",
+    model: "由新加坡创新体系连接深科技、国际市场、产业伙伴和创业生态的三日大会。",
+    primaryValue: "把新加坡作为东南亚落地节点，验证企业试点、资本和区域市场进入路径。",
+    valueCondition: "团队属于深科技或 B2B 技术，并能说明为什么新加坡是区域战略中的必要节点。",
+    audience: "深科技创业公司、企业创新团队、早期投资人、政府与国际市场机构",
+    meetingTarget: "新加坡企业试点方、早期基金、科研转化与市场进入机构",
+    preparation: "准备东南亚市场优先级、技术验证证据和新加坡落地的具体请求",
+    tripCost: "观众票可免费注册，但国际差旅、住宿和三天创始团队时间仍是主要成本。",
+    alternative: "申请新加坡具体加速或落地项目、定向拜访 BLOCK71，或远程验证区域客户",
+    }),
+  },
+  "hong-kong-fintech-week-2026": {
+    ...founderEventProfile({
+    event: "Hong Kong FinTech Week × StartmeupHK 2026",
+    model: "金融科技大会与创业生态周联合形成的五日城市级活动，覆盖监管、机构、资本与创业公司。",
+    primaryValue: "在同一窗口理解香港金融监管、机构采购、跨境业务和亚洲资本网络。",
+    valueCondition: "团队服务金融行业或跨境市场，并已有合规、产品与机构合作的初步证据。",
+    audience: "银行、保险、监管机构、金融科技公司、投资人与国际创业团队",
+    meetingTarget: "香港金融机构、监管与合规伙伴、投资人及中国内地连接方",
+    preparation: "准备合规路径、数据安全、集成方式、目标金融机构和试点方案",
+    tripCost: "五天活动分散在不同地点和形式，时间成本高，闭门活动可能需要独立资格。",
+    alternative: "对香港金融机构做定向拜访、进入监管沙盒，或参加 Singapore FinTech Festival",
+    }),
+  },
+  "singapore-fintech-festival-2026": {
+    ...founderEventProfile({
+    event: "Singapore FinTech Festival 2026",
+    model: "政策、监管、金融机构、技术供应商与资本共同参与的大型金融科技大会。",
+    primaryValue: "同时接触东南亚金融监管、银行买方、合作伙伴和专业资本。",
+    valueCondition: "公司解决的是金融机构可采购的问题，并准备好解释合规、集成与商业回报。",
+    audience: "中央银行、监管机构、金融机构、金融科技公司、投资人与企业技术团队",
+    meetingTarget: "东南亚银行、监管与政策角色、金融科技投资人与渠道伙伴",
+    preparation: "准备监管地图、机构销售材料、集成架构、客户案例与明确试点范围",
+    tripCost: "创业票、国际差旅和新加坡住宿构成较高成本，大会规模也增加筛选负担。",
+    alternative: "安排区域银行销售行程、参加垂直金融科技活动，或进入具体监管与创新计划",
+    }),
+  },
+  "gitex-global-2026": {
+    ...founderEventProfile({
+    event: "GITEX GLOBAL × Expand North Star 2026",
+    model: "由 Scale Summit、全球科技展和创业投资平台共同组成的五日超大型科技活动。",
+    primaryValue: "连接海湾政府、企业买方、主权与风险资本，以及区域市场进入伙伴。",
+    valueCondition: "中东是清晰目标市场，且团队能围绕国家、行业和买方准备具体名单。",
+    audience: "政府科技负责人、企业决策者、国际科技公司、投资人与成长型创业团队",
+    meetingTarget: "海湾政府项目方、大型企业买方、区域渠道与中东资本",
+    preparation: "按国家和行业馆拆分名单，准备本地化案例、采购周期与落地合作模式",
+    tripCost: "迪拜旺季的住宿、展位和差旅成本高，五日活动也会占用核心团队大量时间。",
+    alternative: "通过本地合作伙伴定向进入海湾市场，或参加更垂直的中东行业展",
+    }),
+  },
+  "ces-2027-eureka-park": {
+    ...founderEventProfile({
+    event: "CES 2027 · Eureka Park",
+    model: "全球科技贸易活动中的创业展示入口，为符合资格的早期团队提供产品发布与连接场景。",
+    primaryValue: "把已准备好的产品同时展示给全球媒体、渠道、品牌、投资人与企业伙伴。",
+    valueCondition: "产品可稳定演示、团队符合 Eureka Park 资格，并拥有承接曝光与订单的交付能力。",
+    audience: "消费科技买家、媒体、品牌、投资人、国际展团和早期科技创业公司",
+    meetingTarget: "目标渠道、专业媒体、品牌合作方、企业买家和硬件投资人",
+    preparation: "准备稳定样机、英文媒体包、渠道价格、认证、交付计划和现场故障预案",
+    tripCost: "拉斯维加斯旺季住宿、展位、物流、样机保险和多人现场支持会形成很高总成本。",
+    alternative: "做独立产品发布、直接拜访渠道，或先参加 IFA Next 等更聚焦展区",
+    }),
   },
 };
 
