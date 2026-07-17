@@ -286,8 +286,17 @@ test("renders type-specific research depth for events and startup projects", asy
   const waic = await waicResponse.text();
   assert.equal(waicResponse.status, 200);
   assert.match(waic, /三地四馆/);
-  assert.match(waic, /WAIC Future Tech/);
-  assert.match(waic, /WAIC 任务书/);
+  assert.match(waic, /href="#waic-overview"/);
+  assert.match(waic, /四馆怎么选/);
+  assert.match(waic, /创业者路线/);
+  assert.match(waic, /WAIC 周边活动日历/);
+  assert.match(waic, /7 月 16 日/);
+  assert.match(waic, /7 月 20 日/);
+  assert.match(waic, /Demo Day @ Physical AI Camp/);
+  assert.match(waic, /GO SUMMIT × WAIC 上海/);
+  assert.match(waic, /第二届 AI 研究者派对之夏/);
+  assert.match(waic, /Creator Night/);
+  assert.match(waic, /信息最后核验：2026.07.17/);
   assert.match(waic, /原始参考来源/);
 
   const startupResponse = await render("/resources/cerenovus");
