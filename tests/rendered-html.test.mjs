@@ -499,6 +499,8 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /卡在哪里/);
   assert.match(html, /继续查阅原始资料/);
   assert.match(html, /篇已上线/);
+  assert.match(html, /knowledge-layer-main-summary/);
+  assert.match(html, /knowledge-layer-guide-grid/);
   assert.match(html, /跨类型决策案例/);
   assert.match(html, /6 张可保存工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
