@@ -178,7 +178,89 @@ export const firstUsersGuide: PioneerGuide = {
   ],
 };
 
-export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide];
+export const cofounderGuide: PioneerGuide = {
+  slug: "test-your-cofounder",
+  stage: "团队与股权",
+  number: "05",
+  title: "先验证能不能一起创业，再讨论应该分多少股权。",
+  description: "判断你是否需要联合创始人，用一次真实共事测试角色、投入、冲突与长期承诺。",
+  duration: "约 32 分钟",
+  updated: "2026.07.17",
+  outcome: ["一份联合创始人需求说明", "一张四周共事测试卡", "一份创始人关键约定清单"],
+  sources: [
+    {
+      title: "How to Split Equity Among Co-Founders",
+      publisher: "Y Combinator",
+      use: "用于理解创始人价值主要来自未来共同执行，明显不平等的股权需要非常充分的理由。",
+      url: "https://www.ycombinator.com/blog/splitting-equity-among-founders",
+      language: "英文",
+    },
+    {
+      title: "Equity for Founders",
+      publisher: "Stripe Atlas",
+      use: "用于解释创始人股权、归属期、离开机制和知识产权转让；具体条款必须结合注册地与专业意见。",
+      url: "https://stripe.com/guides/atlas/equity",
+      language: "英文",
+    },
+    {
+      title: "Founder Equity Terms",
+      publisher: "Stripe Documentation",
+      use: "用于说明常见的四年归属期、一年悬崖期及归属起始日，但不把平台默认值当成所有公司的法律答案。",
+      url: "https://docs.stripe.com/atlas/equity-terms",
+      language: "英文",
+    },
+    {
+      title: "YC Co-Founder Matching",
+      publisher: "Y Combinator",
+      use: "作为寻找潜在联合创始人的公开入口之一；匹配只是认识，必须通过真实共事完成验证。",
+      url: "https://www.ycombinator.com/cofounder-matching",
+      language: "英文",
+    },
+  ],
+};
+
+export const fundingDecisionGuide: PioneerGuide = {
+  slug: "decide-whether-to-fundraise",
+  stage: "融资基础",
+  number: "06",
+  title: "融资不是创业进度条：你的公司现在真的需要钱吗？",
+  description: "先定义资金要跨越的里程碑，再比较收入、补助、债务、天使和风险投资。",
+  duration: "约 34 分钟",
+  updated: "2026.07.17",
+  outcome: ["一张融资必要性判断卡", "一份下一轮里程碑预算", "一份融资前证据清单"],
+  sources: [
+    {
+      title: "A Guide to Seed Fundraising",
+      publisher: "Y Combinator",
+      use: "用于融资时机、融资规模、投资人沟通和融资过程的基础框架。",
+      url: "https://www.ycombinator.com/blog/how-to-raise-a-seed-round/",
+      language: "英文",
+    },
+    {
+      title: "Aaron Harris on Fundraising and Meeting with Investors",
+      publisher: "Y Combinator",
+      use: "用于理解融资是一段集中过程，需要并行接触、清晰计划和尽快回到公司建设。",
+      url: "https://www.ycombinator.com/blog/aaron-harris-on-fundraising-and-meeting-with-investors",
+      language: "英文",
+    },
+    {
+      title: "Writing a Business Plan",
+      publisher: "Sequoia Capital",
+      use: "用于组织公司目的、问题、解决方案、为什么是现在、市场、团队和财务逻辑，而不是照抄一套幻灯片。",
+      url: "https://sequoiacap.com/article/writing-a-business-plan/",
+      language: "英文",
+    },
+    {
+      title: "SAFE Financing Documents",
+      publisher: "Y Combinator",
+      use: "用于查看 SAFE 原始文件和使用指南；签署前必须理解稀释、估值上限和所在地法律影响。",
+      url: "https://www.ycombinator.com/documents",
+      language: "英文",
+    },
+  ],
+};
+
+export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, cofounderGuide, fundingDecisionGuide];
 
 export const learningPath: Array<{
   number: string;
@@ -192,8 +274,8 @@ export const learningPath: Array<{
   { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", href: `/knowledge/${interviewGuide.slug}`, status: "available" },
   { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", href: `/knowledge/${mvpGuide.slug}`, status: "available" },
   { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", href: `/knowledge/${firstUsersGuide.slug}`, status: "available" },
-  { number: "05", title: "谈联合创始人", note: "角色、投入、股权与退出", stage: "team", status: "planned" },
-  { number: "06", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", status: "planned" },
+  { number: "05", title: "验证联合创始人", note: "先真实共事，再谈角色与股权", stage: "team", href: `/knowledge/${cofounderGuide.slug}`, status: "available" },
+  { number: "06", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", href: `/knowledge/${fundingDecisionGuide.slug}`, status: "available" },
 ];
 
 export const knowledgeStages: Array<{ key: "all" | KnowledgeStage; label: string }> = [

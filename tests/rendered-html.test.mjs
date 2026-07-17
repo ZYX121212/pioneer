@@ -239,12 +239,14 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 21);
-  assert.equal(new Set(urls).size, 19);
+  assert.equal(urls.length, 29);
+  assert.equal(new Set(urls).size, 25);
   assert.match(data, /slug: "find-the-real-problem"/);
   assert.match(data, /slug: "first-user-interview"/);
   assert.match(data, /slug: "define-your-mvp"/);
   assert.match(data, /slug: "find-your-first-ten-users"/);
+  assert.match(data, /slug: "test-your-cofounder"/);
+  assert.match(data, /slug: "decide-whether-to-fundraise"/);
   assert.match(data, /第一篇：发现真问题/);
   assert.match(data, /stage: "start"/);
   assert.match(data, /stage: "validate"/);
@@ -477,10 +479,12 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /继续查阅原始资料/);
   assert.match(html, /篇已上线/);
   assert.match(html, /跨类型决策案例/);
-  assert.match(html, /4 张可保存工作表/);
+  assert.match(html, /6 张可保存工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
   assert.match(html, /href="\/knowledge\/define-your-mvp"/);
   assert.match(html, /href="\/knowledge\/find-your-first-ten-users"/);
+  assert.match(html, /href="\/knowledge\/test-your-cofounder"/);
+  assert.match(html, /href="\/knowledge\/decide-whether-to-fundraise"/);
   assert.match(html, /你现在，最接近哪一种处境/);
   assert.match(html, /建立你的创业项目档案/);
   assert.match(html, /创业项目档案/);
@@ -552,4 +556,32 @@ test("renders the first ten users guide and action pipeline", async () => {
   assert.match(html, /不要看有多少人看见/);
   assert.match(html, /首批用户行动卡/);
   assert.match(html, /Do Things that Don.t Scale/);
+});
+
+test("renders the cofounder validation guide and working agreement tool", async () => {
+  const response = await render("/knowledge/test-your-cofounder");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /PIONEER GUIDE 05/);
+  assert.match(html, /你缺的是共同创业者/);
+  assert.match(html, /用四周真实共事/);
+  assert.match(html, /股权不是奖励过去点子/);
+  assert.match(html, /联合创始人验证卡/);
+  assert.match(html, /不构成公司、证券、税务/);
+  assert.match(html, /How to Split Equity Among Co-Founders/);
+});
+
+test("renders the fundraising decision guide and milestone budget tool", async () => {
+  const response = await render("/knowledge/decide-whether-to-fundraise");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /PIONEER GUIDE 06/);
+  assert.match(html, /不是所有好生意/);
+  assert.match(html, /一轮融资应该购买一次风险下降/);
+  assert.match(html, /金额来自里程碑预算/);
+  assert.match(html, /融资必要性判断卡/);
+  assert.match(html, /不构成证券、投资、法律/);
+  assert.match(html, /A Guide to Seed Fundraising/);
 });

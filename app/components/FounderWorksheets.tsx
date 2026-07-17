@@ -239,3 +239,59 @@ export function FirstUsersWorkbook() {
     </section>
   );
 }
+
+const cofounderFields = [
+  ["gap", "为什么需要联合创始人", "缺少哪项长期核心能力，而不是短期工作量？"],
+  ["candidate", "候选人与关系基础", "认识多久、曾共同完成什么困难任务？"],
+  ["trial", "四周共同任务", "真实用户、产品或销售任务，不做模拟讨论"],
+  ["roles", "初始角色与最终责任", "谁对产品、技术、市场、融资和招聘做最终决定？"],
+  ["commitment", "投入与风险承诺", "全职时间、开始日期、现金需求和家庭约束"],
+  ["conflict", "分歧处理规则", "如何提出异议、僵局时谁决定、多久复盘一次？"],
+  ["departure", "离开与知识产权", "离开时如何交接、股权如何处理、成果归谁？"],
+] as const;
+
+export function CofounderWorkbook() {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const output = ["Pioneer 联合创始人验证卡", ...cofounderFields.map(([key, label]) => `${label}：${values[key] || "［未填写］"}`)].join("\n");
+  const hints = [
+    values.gap && /忙|人手|帮忙|事情多/.test(values.gap) ? "这更像短期人手问题。联合创始人应该补足长期核心能力与共同决策责任。" : "",
+    values.trial && !/用户|发布|产品|销售|客户|交付|代码|访谈/.test(values.trial) ? "共同任务可能还不够真实。用会影响用户或公司的具体任务测试合作。" : "",
+    values.commitment && !/全职|小时|日期|月|工资|现金/.test(values.commitment) ? "投入承诺需要可核验的时间、开始日期和个人现金约束。" : "",
+    values.departure && !/归属|vesting|股权|知识产权|交接|回购/.test(values.departure) ? "还缺离开机制。至少讨论归属期、未归属股权、知识产权与交接。" : "",
+  ].filter(Boolean);
+  return (
+    <section className="interactive-workbook" id="cofounder-workbook">
+      <div className="workbook-heading"><div><span>PIONEER TOOL 05</span><h3>联合创始人验证卡</h3></div><p>先设计一次真实共事，再决定是否共同成立公司。股权和法律条款需结合注册地请专业人士确认。</p></div>
+      <div className="workbook-fields">{cofounderFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}</div>
+      <div className="workbook-output"><span>四周合作测试</span><p>与 {values.candidate || "［候选人］"} 共同完成 {values.trial || "［一项真实任务］"}，重点观察角色承担、坏消息沟通、分歧处理和持续投入，而不是只看讨论是否愉快。</p><WorkbookFeedback hints={hints} /><div className="workbook-actions"><CopyButton text={output} label="复制验证卡" /><SaveResultButton guide="test-your-cofounder" type="团队验证" title="我的联合创始人验证卡" summary={values.candidate || values.gap || "尚未填写候选人与能力缺口"} content={output} /></div></div>
+    </section>
+  );
+}
+
+const fundingFields = [
+  ["milestone", "资金要跨越的里程碑", "例如：完成 3 个付费试点并证明 60% 毛利，而不是“扩大团队”"],
+  ["evidence", "当前已经拥有的证据", "用户、收入、留存、技术、审批、供应链或创始人优势"],
+  ["amount", "需要的总金额", "按人员、产品、销售、合规、设备和缓冲逐项计算"],
+  ["months", "预计可运行时间", "当前现金加本轮资金可支持多少个月？"],
+  ["alternatives", "不出售股权的替代资金", "客户收入、预付款、补助、竞赛、供应商账期或贷款"],
+  ["dilution", "愿意接受的所有权与治理变化", "不仅写比例，还要写投票、董事会、信息权与后续轮次"],
+  ["failure", "融资失败后的计划", "缩减范围、延后招聘、增加收入或停止哪个方向？"],
+] as const;
+
+export function FundingDecisionWorkbook() {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const output = ["Pioneer 融资必要性判断卡", ...fundingFields.map(([key, label]) => `${label}：${values[key] || "［未填写］"}`)].join("\n");
+  const hints = [
+    values.milestone && /扩大|发展|增长|招人|推广/.test(values.milestone) && !hasConcreteSignal(values.milestone) ? "里程碑还像用途描述。加入用户、收入、技术、审批或交付的可验证结果。" : "",
+    values.amount && !hasConcreteSignal(values.amount) ? "金额需要从具体预算相加，而不是先决定一个整数。" : "",
+    values.months && !/\d/.test(values.months) ? "请写出当前现金、本轮资金和月度净消耗对应的运行月数。" : "",
+    !values.alternatives && Object.values(values).filter(Boolean).length >= 3 ? "还没有比较非股权资金。至少判断收入、预付款、补助或债务是否更匹配。" : "",
+  ].filter(Boolean);
+  return (
+    <section className="interactive-workbook" id="funding-decision-workbook">
+      <div className="workbook-heading"><div><span>PIONEER TOOL 06</span><h3>融资必要性判断卡</h3></div><p>先写资金将购买哪一个里程碑，再决定融资工具。本文不构成证券、法律、税务或投资建议。</p></div>
+      <div className="workbook-fields">{fundingFields.map(([key, label, placeholder]) => <label key={key}><span>{label}</span><textarea rows={2} value={values[key] || ""} placeholder={placeholder} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value }))} /></label>)}</div>
+      <div className="workbook-output"><span>你的融资命题</span><p>计划筹集 {values.amount || "［金额］"}，支持公司运行 {values.months || "［月数］"}，目标是在资金用完前完成 {values.milestone || "［下一里程碑］"}。如果无法融资，将执行 {values.failure || "［替代计划］"}。</p><WorkbookFeedback hints={hints} /><div className="workbook-actions"><CopyButton text={output} label="复制融资判断卡" /><SaveResultButton guide="decide-whether-to-fundraise" type="融资判断" title="我的融资必要性判断卡" summary={values.milestone || "尚未定义资金里程碑"} content={output} /></div></div>
+    </section>
+  );
+}
