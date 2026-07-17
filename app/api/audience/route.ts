@@ -17,6 +17,7 @@ type AudienceStats = {
   topPaths: Array<{ path: string; views: number }>;
   topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
+  topReferrals: Array<{ resourceName: string; visits: number }>;
 };
 
 function json(data: unknown, status = 200) {
@@ -55,6 +56,7 @@ async function readAudienceStats(): Promise<AudienceStats> {
     topPaths,
     topSources,
     topEvents,
+    topReferrals,
   ] = await Promise.all([
     database.prepare("SELECT COUNT(*) AS count FROM site_visitors").first<{ count: number }>(),
     database.prepare("SELECT COALESCE(SUM(page_views), 0) AS count FROM site_visitors").first<{ count: number }>(),
@@ -109,6 +111,18 @@ async function readAudienceStats(): Promise<AudienceStats> {
         LIMIT 8
       `)
       .all<{ eventName: string; target: string | null; count: number }>(),
+    database
+      .prepare(`
+        SELECT submissions.resource_name AS resourceName, COUNT(*) AS visits
+        FROM site_page_views AS views
+        INNER JOIN resource_submissions AS submissions ON submissions.share_token = views.campaign
+        WHERE views.source = 'resource_submission'
+          AND views.viewed_at >= datetime('now', '-7 days')
+        GROUP BY submissions.id, submissions.resource_name
+        ORDER BY visits DESC, submissions.resource_name ASC
+        LIMIT 8
+      `)
+      .all<{ resourceName: string; visits: number }>(),
   ]);
 
   return {
@@ -130,6 +144,10 @@ async function readAudienceStats(): Promise<AudienceStats> {
       eventName: row.eventName,
       target: row.target,
       count: Number(row.count ?? 0),
+    })),
+    topReferrals: (topReferrals.results ?? []).map((row) => ({
+      resourceName: row.resourceName,
+      visits: Number(row.visits ?? 0),
     })),
   };
 }

@@ -16,6 +16,7 @@ type AudienceStats = {
   topPaths: Array<{ path: string; views: number }>;
   topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
+  topReferrals: Array<{ resourceName: string; visits: number }>;
 };
 
 const emptyStats: AudienceStats = {
@@ -31,6 +32,7 @@ const emptyStats: AudienceStats = {
   topPaths: [],
   topSources: [],
   topEvents: [],
+  topReferrals: [],
 };
 
 function formatNumber(value: number) {
@@ -52,6 +54,7 @@ function eventLabel(eventName: string) {
     "share:site": "分享网站",
     "submit-resource:intent": "推荐资源意向",
     "submission:complete": "完成资源提交",
+    "submission:share": "资源方分享 Pioneer",
     "weekly:official": "打开本周机会官方页",
     "weekly:calendar": "保存机会截止日",
     "weekly:open": "查看本周机会",
@@ -200,6 +203,22 @@ export default function AnalyticsPage() {
             <p className="analytics-empty">还没有按钮、搜索或资源详情点击。</p>
           )}
         </article>
+      </section>
+
+      <section className="analytics-referrals">
+        <div>
+          <span className="section-index">COMMUNITY LOOP</span>
+          <h2>资源方带来的访问</h2>
+          <p>统计提交完成后生成的专属分享链接，帮助判断哪些机构或社区真正带来了新访客。</p>
+        </div>
+        <div>
+          {stats.topReferrals.length ? stats.topReferrals.map((item) => (
+            <div className="analytics-row" key={item.resourceName}>
+              <span>{item.resourceName}</span>
+              <strong>{formatNumber(item.visits)} 次</strong>
+            </div>
+          )) : <p className="analytics-empty">还没有资源方分享带来的访问。</p>}
+        </div>
       </section>
 
       <section className="analytics-note">

@@ -50,12 +50,13 @@ export async function POST(request: Request) {
     }
 
     const database = await getD1();
+    const shareToken = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
     await database
       .prepare(`
         INSERT INTO resource_submissions (
           resource_type, resource_name, resource_url, location, deadline, why_useful,
-          submitter_name, submitter_email, relationship, language, source_path, status, created_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', CURRENT_TIMESTAMP)
+          submitter_name, submitter_email, relationship, language, source_path, status, share_token, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, CURRENT_TIMESTAMP)
       `)
       .bind(
         resourceType,
@@ -69,10 +70,11 @@ export async function POST(request: Request) {
         relationship,
         language,
         sourcePath.startsWith("/") ? sourcePath : language === "en" ? "/en/submit" : "/submit",
+        shareToken,
       )
       .run();
 
-    return json({ ok: true });
+    return json({ ok: true, shareToken });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to submit resource";
     return json({ error: message }, 500);

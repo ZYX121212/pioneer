@@ -211,7 +211,7 @@
 }
 
 .submission-success {
-  min-height: 430px;
+  min-height: 560px;
   padding: 46px;
   display: flex;
   flex-direction: column;
@@ -246,6 +246,104 @@
   margin: 0 0 28px;
   font-size: 12px;
   line-height: 1.7;
+}
+
+.submission-referral-kit {
+  width: 100%;
+  margin: 4px 0 24px;
+  padding: 24px;
+  border: 1px solid var(--ink);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.submission-referral-kit > span {
+  color: #a43d25;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.submission-referral-kit h3 {
+  margin: 12px 0 8px;
+  font-family: var(--display);
+  font-size: clamp(23px, 2.5vw, 34px);
+  letter-spacing: -0.04em;
+}
+
+.submission-referral-kit > p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.submission-referral-kit input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  font: 11px var(--body);
+}
+
+.submission-referral-kit > div {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.submission-referral-kit button,
+.submission-referral-kit a {
+  min-height: 40px;
+  padding: 10px 13px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: white;
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.submission-referral-kit button.secondary,
+.submission-referral-kit a {
+  background: transparent;
+  color: var(--ink);
+}
+
+.submission-success .submission-again {
+  padding: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.analytics-referrals {
+  margin: 0 5vw 34px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
+  gap: 56px;
+  border: 1px solid var(--ink);
+  background: #f4ff72;
+}
+
+.analytics-referrals h2 {
+  margin: 12px 0 10px;
+  font-family: var(--display);
+  font-size: 32px;
+}
+
+.analytics-referrals > div:first-child p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.analytics-referrals .analytics-row {
+  border-color: rgba(15, 30, 24, 0.22);
 }
 
 @media (max-width: 720px) {
@@ -288,6 +386,25 @@
 
   .submission-submit button {
     width: 100%;
+  }
+
+  .submission-success {
+    padding: 28px 22px;
+  }
+
+  .submission-referral-kit {
+    padding: 18px;
+  }
+
+  .submission-referral-kit > div {
+    display: grid;
+  }
+
+  .analytics-referrals {
+    margin: 0 18px 34px;
+    padding: 24px;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 

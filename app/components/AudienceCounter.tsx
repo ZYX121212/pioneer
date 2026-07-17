@@ -25,6 +25,7 @@ function getAnonymousVisitorId() {
 
 function getAttribution() {
   const parameters = new URLSearchParams(window.location.search);
+  const referralToken = parameters.get("ref")?.slice(0, 32);
   let referrer: string | undefined;
 
   if (document.referrer) {
@@ -38,9 +39,9 @@ function getAttribution() {
 
   return {
     referrer,
-    source: parameters.get("utm_source") ?? (referrer ? new URL(referrer).hostname : "direct"),
-    medium: parameters.get("utm_medium") ?? undefined,
-    campaign: parameters.get("utm_campaign") ?? undefined,
+    source: referralToken ? "resource_submission" : parameters.get("utm_source") ?? (referrer ? new URL(referrer).hostname : "direct"),
+    medium: referralToken ? "community" : parameters.get("utm_medium") ?? undefined,
+    campaign: referralToken ?? parameters.get("utm_campaign") ?? undefined,
   };
 }
 

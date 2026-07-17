@@ -220,6 +220,7 @@ test("accepts bilingual resource recommendations into the review workflow", asyn
   assert.match(schema, /resourceSubmissions/);
   assert.match(api, /INSERT INTO resource_submissions/);
   assert.match(api, /pending/);
+  assert.match(api, /shareToken/);
 
   const chineseResponse = await render("/submit");
   const chinese = await chineseResponse.text();
@@ -233,6 +234,20 @@ test("accepts bilingual resource recommendations into the review workflow", asyn
   assert.equal(englishResponse.status, 200);
   assert.match(english, /Help useful opportunities/);
   assert.match(english, /Submit for Pioneer review/);
+});
+
+test("turns resource submissions into measurable community referrals", async () => {
+  const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
+  const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
+  const analyticsApi = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
+  const form = await readFile(new URL("../app/components/ResourceSubmissionForm.tsx", import.meta.url), "utf8");
+  assert.match(schema, /shareToken/);
+  assert.match(counter, /resource_submission/);
+  assert.match(counter, /parameters\.get\("ref"\)/);
+  assert.match(analyticsApi, /topReferrals/);
+  assert.match(analyticsApi, /submissions\.share_token = views\.campaign/);
+  assert.match(form, /专属来源链接/);
+  assert.match(form, /submission:share/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {

@@ -51,5 +51,6 @@ export const resourceSubmissions = sqliteTable("resource_submissions", {
   language: text("language").notNull().default("zh"),
   sourcePath: text("source_path").notNull().default("/submit"),
   status: text("status").notNull().default("pending"),
+  shareToken: text("share_token").unique(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });

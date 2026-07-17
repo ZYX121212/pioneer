@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { trackAudienceEvent } from "./AudienceCounter";
 
 type Copy = {
@@ -24,6 +25,12 @@ type Copy = {
   submitting: string;
   successTitle: string;
   successBody: string;
+  shareHeading: string;
+  shareBody: string;
+  shareButton: string;
+  copyButton: string;
+  copied: string;
+  shareText: (resourceName: string) => string;
   again: string;
   fallbackError: string;
 };
@@ -41,6 +48,10 @@ const copy: Record<"zh" | "en", Copy> = {
     submit: "提交给 Pioneer 审核", submitting: "正在提交…",
     successTitle: "已经收到，感谢你让好资源更容易被发现。",
     successBody: "Pioneer 会先检查官方网站、适用人群与时间信息，再决定是否收录。",
+    shareHeading: "现在，把 Pioneer 转给同样需要它的人。",
+    shareBody: "下面是你的专属来源链接。通过它进入 Pioneer 的访问，会被单独计入资源方传播数据。",
+    shareButton: "分享给社区", copyButton: "复制推荐文案", copied: "已复制",
+    shareText: (resourceName) => `我刚刚向 Pioneer 推荐了「${resourceName}」。这里整理了全球创业计划、机构、活动和实用指南，分享给正在找机会的创业者。`,
     again: "继续推荐另一个资源", fallbackError: "提交没有成功，请稍后再试。",
   },
   en: {
@@ -55,6 +66,10 @@ const copy: Record<"zh" | "en", Copy> = {
     submit: "Submit for Pioneer review", submitting: "Submitting…",
     successTitle: "Received. Thank you for helping founders discover a useful resource.",
     successBody: "Pioneer will verify the official source, audience and timing before deciding whether to publish it.",
+    shareHeading: "Now help the right founders discover Pioneer.",
+    shareBody: "This is your unique referral link. Visits through it are counted as community referrals from your submission.",
+    shareButton: "Share with your community", copyButton: "Copy suggested post", copied: "Copied",
+    shareText: (resourceName) => `I just recommended “${resourceName}” to Pioneer — a curated directory of global startup programs, institutions, events and practical founder guides.`,
     again: "Recommend another resource", fallbackError: "The submission did not go through. Please try again later.",
   },
 };
@@ -63,6 +78,9 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
   const text = copy[lang];
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [shareUrl, setShareUrl] = useState("");
+  const [shareCopy, setShareCopy] = useState("");
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -77,8 +95,14 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, language: lang, sourcePath: window.location.pathname }),
       });
-      const result = (await response.json()) as { ok?: boolean; error?: string };
+      const result = (await response.json()) as { ok?: boolean; error?: string; shareToken?: string };
       if (!response.ok || !result.ok) throw new Error(result.error || text.fallbackError);
+      const resourceName = String(values.resourceName ?? "Pioneer");
+      const referralUrl = result.shareToken
+        ? `${window.location.origin}/?ref=${encodeURIComponent(result.shareToken)}`
+        : window.location.origin;
+      setShareUrl(referralUrl);
+      setShareCopy(text.shareText(resourceName));
       form.reset();
       setStatus("success");
       trackAudienceEvent("submission:complete", String(values.resourceType ?? "unknown"));
@@ -88,13 +112,60 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
     }
   }
 
+  async function shareReferral() {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "Pioneer", text: shareCopy, url: shareUrl });
+      } else {
+        await navigator.clipboard.writeText(`${shareCopy}\n${shareUrl}`);
+        setCopyStatus("copied");
+      }
+      trackAudienceEvent("submission:share", "native");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      setMessage(text.fallbackError);
+    }
+  }
+
+  async function copyReferral() {
+    try {
+      await navigator.clipboard.writeText(`${shareCopy}\n${shareUrl}`);
+      setCopyStatus("copied");
+      trackAudienceEvent("submission:share", "copy");
+    } catch {
+      setMessage(text.fallbackError);
+    }
+  }
+
   if (status === "success") {
     return (
       <section className="submission-success" aria-live="polite">
         <span aria-hidden="true">✓</span>
         <h2>{text.successTitle}</h2>
         <p>{text.successBody}</p>
-        <button type="button" onClick={() => setStatus("idle")}>{text.again}</button>
+        <div className="submission-referral-kit">
+          <span>SHARE · REFER · GROW</span>
+          <h3>{text.shareHeading}</h3>
+          <p>{text.shareBody}</p>
+          <input value={shareUrl} readOnly aria-label={lang === "en" ? "Unique referral link" : "专属来源链接"} />
+          <div>
+            <button type="button" onClick={shareReferral}>{text.shareButton} ↗</button>
+            <button type="button" className="secondary" onClick={copyReferral}>
+              {copyStatus === "copied" ? text.copied : text.copyButton}
+            </button>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+              target="_blank"
+              rel="noreferrer"
+              data-audience-event="submission:share"
+              data-audience-target="linkedin"
+            >LinkedIn</a>
+          </div>
+        </div>
+        <button type="button" className="submission-again" onClick={() => {
+          setStatus("idle");
+          setCopyStatus("idle");
+        }}>{text.again}</button>
       </section>
     );
   }
