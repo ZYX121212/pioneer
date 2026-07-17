@@ -250,6 +250,16 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <a href={resource.url} target="_blank" rel="noreferrer">
               前往官方页面 <span aria-hidden="true">↗</span>
             </a>
+            {resource.sources && resource.sources.length > 1 ? (
+              <div className="source-reference-list">
+                <span>原始参考来源</span>
+                {resource.sources.slice(1).map((source) => (
+                  <a href={source.href} target="_blank" rel="noreferrer" key={source.href}>
+                    {source.label} <span aria-hidden="true">↗</span>
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
           <p className="editorial-disclaimer">Pioneer 的判断用于帮助你缩小选择范围，不构成投资、录取或商业结果保证。</p>
         </aside>

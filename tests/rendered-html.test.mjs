@@ -131,10 +131,10 @@ test("keeps the resource collection complete and source-linked", async () => {
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 16);
-  assert.equal(new Set(urls).size, 16);
-  assert.equal(slugs.length, 16);
-  assert.equal(new Set(slugs).size, 16);
+  assert.equal(urls.length, 17);
+  assert.equal(new Set(urls).size, 17);
+  assert.equal(slugs.length, 17);
+  assert.equal(new Set(slugs).size, 17);
   assert.match(data, /type: "program"/);
   assert.match(data, /type: "organization"/);
   assert.match(data, /type: "event"/);
@@ -171,8 +171,8 @@ test("keeps every resource backed by an individually authored research profile",
   const resourceSlugs = [...resourcesData.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
   const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
 
-  assert.equal(resourceSlugs.length, 16);
-  assert.equal(profileSlugs.length, 16);
+  assert.equal(resourceSlugs.length, 17);
+  assert.equal(profileSlugs.length, 17);
   assert.deepEqual(new Set(profileSlugs), new Set(resourceSlugs));
   assert.match(profilesData, /diligence: string\[\]/);
   assert.match(profilesData, /playbook: Array/);
@@ -251,6 +251,14 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(event, /Startup Ticket/);
   assert.match(event, /Slush Platform/);
   assert.match(event, /基金长名单/);
+
+  const waicResponse = await render("/resources/waic-shanghai-2026");
+  const waic = await waicResponse.text();
+  assert.equal(waicResponse.status, 200);
+  assert.match(waic, /三地四馆/);
+  assert.match(waic, /WAIC Future Tech/);
+  assert.match(waic, /WAIC 任务书/);
+  assert.match(waic, /原始参考来源/);
 
   const startupResponse = await render("/resources/cerenovus");
   const startup = await startupResponse.text();

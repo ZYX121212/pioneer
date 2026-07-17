@@ -20,6 +20,7 @@ export type Resource = {
   verified: string;
   source: string;
   url: string;
+  sources?: { label: string; href: string }[];
   color: string;
   monogram: string;
   featured?: boolean;
@@ -336,6 +337,38 @@ export const resources: Resource[] = [
     color: "orange",
     monogram: "SL",
     featured: true,
+  },
+  {
+    id: 17,
+    slug: "waic-shanghai-2026",
+    type: "event",
+    kind: "人工智能大会",
+    name: "WAIC 2026 世界人工智能大会",
+    location: "中国 · 上海",
+    description: "7 月 17–20 日在上海世博、张江与西岸举行，连接 AI 前沿技术、产业应用、全球治理、创投与青年创新。",
+    overview: "WAIC 2026 的完整名称是“2026 世界人工智能大会暨人工智能全球治理高级别会议”。它不是单一展会，而是由论坛、展览、赛事、体验、创新孵化和人才连接组成的城市级 AI 生态活动。四个场馆承担不同功能：世博中心偏主论坛与行业议题，世博展览馆集中展示产品，张江突出芯片和硬科技，西岸侧重智能终端与 AI+文娱。",
+    editorialNote: "WAIC 对创业者最大的价值不是把四个馆全部逛完，而是在高度集中的中国 AI 生态里完成一次“趋势判断 + 产品比较 + 关键会面”。AI 创业团队应优先围绕一个核心问题选择场馆和活动，并把现场交流转化为客户试点、投资会面或技术合作。",
+    whyItMatters: "WAIC 同时汇集政策、科研、产业、资本和公众体验，能够帮助创始人看清中国 AI 市场正在形成的基础设施、热门赛道和落地场景。规模越大，信息噪声也越高；真正的回报来自有假设地观察、有名单地会面，以及会后迅速验证。",
+    bestFor: ["正在做 AI、具身智能、芯片或行业智能化的创业团队", "需要理解中国 AI 产业、政策与资本方向的创始人", "寻找企业场景、技术伙伴、投资机构或上海落地资源的项目"],
+    considerations: ["大会横跨三大片区四个场馆，不适合临时无目标地全场游走", "论坛、展览、WAIC Academic 与创投活动可能有不同预约或票证要求", "热门技术展示不等于市场需求，必须记录客户、成本和采购证据"],
+    highlights: [{ label: "活动日期", value: "2026.07.17–07.20" }, { label: "大会主题", value: "智能伙伴 共创未来" }, { label: "大会规模", value: "1100+ 企业 / 3000+ 展品" }, { label: "空间结构", value: "三地四馆" }],
+    tags: ["人工智能", "上海", "创投与产业"],
+    timing: "07.17–07.20 正在举行",
+    status: "正在举行",
+    verified: "2026.07.17 核验",
+    source: "WAIC 官方网站",
+    url: "https://www.worldaic.com.cn/",
+    sources: [
+      { label: "WAIC 官方网站与议程", href: "https://www.worldaic.com.cn/" },
+      { label: "官方注册与观众购票入口", href: "https://www.worldaic.com.cn/register" },
+      { label: "上海市政府筹备发布会", href: "https://www.shanghai.gov.cn/nw12344/20260707/deee99228f02433e9b0fb8f9447e8b34.html" },
+      { label: "WAIC Academic 参会指南", href: "https://waica2026.worldaic.com.cn/participant-guide/" },
+      { label: "场馆开放与交通提醒", href: "https://english.shanghai.gov.cn/en-ParticipateExplore/20260716/e9f440efa31f4b81987f9c65ff4760df.html" },
+    ],
+    color: "orange",
+    monogram: "AI",
+    featured: true,
+    relatedSlugs: ["techcrunch-disrupt-2026", "slush-2026"],
   },
   {
     id: 14,
