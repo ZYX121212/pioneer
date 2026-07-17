@@ -10,7 +10,10 @@ type AudienceStats = {
   todayVisitors: number;
   sevenDayVisitors: number;
   sevenDayPageViews: number;
+  subscriberCount: number;
+  sevenDaySubscribers: number;
   topPaths: Array<{ path: string; views: number }>;
+  topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
 };
 
@@ -43,7 +46,10 @@ async function readAudienceStats(): Promise<AudienceStats> {
     todayVisitors,
     sevenDayVisitors,
     sevenDayPageViews,
+    subscriberCount,
+    sevenDaySubscribers,
     topPaths,
+    topSources,
     topEvents,
   ] = await Promise.all([
     database.prepare("SELECT COUNT(*) AS count FROM site_visitors").first<{ count: number }>(),
@@ -58,6 +64,12 @@ async function readAudienceStats(): Promise<AudienceStats> {
       .prepare("SELECT COUNT(*) AS count FROM site_page_views WHERE viewed_at >= datetime('now', '-7 days')")
       .first<{ count: number }>(),
     database
+      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active'")
+      .first<{ count: number }>(),
+    database
+      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND created_at >= datetime('now', '-7 days')")
+      .first<{ count: number }>(),
+    database
       .prepare(`
         SELECT path, COUNT(*) AS views
         FROM site_page_views
@@ -67,6 +79,16 @@ async function readAudienceStats(): Promise<AudienceStats> {
         LIMIT 6
       `)
       .all<{ path: string; views: number }>(),
+    database
+      .prepare(`
+        SELECT COALESCE(NULLIF(source, ''), 'direct') AS source, COUNT(*) AS visits
+        FROM site_page_views
+        WHERE viewed_at >= datetime('now', '-7 days')
+        GROUP BY COALESCE(NULLIF(source, ''), 'direct')
+        ORDER BY visits DESC, source ASC
+        LIMIT 8
+      `)
+      .all<{ source: string; visits: number }>(),
     database
       .prepare(`
         SELECT event_name AS eventName, target, COUNT(*) AS count
@@ -85,7 +107,13 @@ async function readAudienceStats(): Promise<AudienceStats> {
     todayVisitors: Number(todayVisitors?.count ?? 0),
     sevenDayVisitors: Number(sevenDayVisitors?.count ?? 0),
     sevenDayPageViews: Number(sevenDayPageViews?.count ?? 0),
+    subscriberCount: Number(subscriberCount?.count ?? 0),
+    sevenDaySubscribers: Number(sevenDaySubscribers?.count ?? 0),
     topPaths: (topPaths.results ?? []).map((row) => ({ path: row.path, views: Number(row.views ?? 0) })),
+    topSources: (topSources.results ?? []).map((row) => ({
+      source: row.source,
+      visits: Number(row.visits ?? 0),
+    })),
     topEvents: (topEvents.results ?? []).map((row) => ({
       eventName: row.eventName,
       target: row.target,
@@ -110,6 +138,10 @@ export async function POST(request: Request) {
       path?: string;
       eventName?: string;
       target?: string;
+      referrer?: string;
+      source?: string;
+      medium?: string;
+      campaign?: string;
     };
     const visitorId = payload.visitorId?.trim() ?? "";
 
@@ -149,10 +181,17 @@ export async function POST(request: Request) {
         .bind(visitorId),
       database
         .prepare(`
-          INSERT INTO site_page_views (visitor_id, path, viewed_at)
-          VALUES (?, ?, CURRENT_TIMESTAMP)
+          INSERT INTO site_page_views (visitor_id, path, referrer, source, medium, campaign, viewed_at)
+          VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
         `)
-        .bind(visitorId, path),
+        .bind(
+          visitorId,
+          path,
+          cleanTarget(payload.referrer),
+          cleanTarget(payload.source),
+          cleanTarget(payload.medium),
+          cleanTarget(payload.campaign),
+        ),
     ]);
 
     return json(await readAudienceStats());

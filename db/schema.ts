@@ -12,6 +12,10 @@ export const sitePageViews = sqliteTable("site_page_views", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   visitorId: text("visitor_id").notNull(),
   path: text("path").notNull().default("/"),
+  referrer: text("referrer"),
+  source: text("source"),
+  medium: text("medium"),
+  campaign: text("campaign"),
   viewedAt: text("viewed_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
@@ -21,5 +25,14 @@ export const siteEvents = sqliteTable("site_events", {
   eventName: text("event_name").notNull(),
   path: text("path").notNull().default("/"),
   target: text("target"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const newsletterSubscribers = sqliteTable("newsletter_subscribers", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  language: text("language").notNull().default("zh"),
+  sourcePath: text("source_path").notNull().default("/"),
+  status: text("status").notNull().default("active"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });

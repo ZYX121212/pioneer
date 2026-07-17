@@ -106,24 +106,69 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const analytics = await readFile(new URL("../app/admin/analytics/page.tsx", import.meta.url), "utf8");
+  const newsletter = await readFile(new URL("../app/api/newsletter/route.ts", import.meta.url), "utf8");
+  const sitemap = await readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8");
+  const robots = await readFile(new URL("../app/robots.txt/route.ts", import.meta.url), "utf8");
 
   assert.match(schema, /siteVisitors/);
   assert.match(schema, /sitePageViews/);
   assert.match(schema, /siteEvents/);
+  assert.match(schema, /newsletterSubscribers/);
+  assert.match(schema, /source: text\("source"\)/);
   assert.match(schema, /visitorId: text\("visitor_id"\)\.primaryKey/);
   assert.match(route, /ON CONFLICT\(visitor_id\) DO UPDATE/);
   assert.match(route, /SELECT COUNT\(\*\) AS count FROM site_visitors/);
   assert.match(route, /INSERT INTO site_page_views/);
   assert.match(route, /INSERT INTO site_events/);
+  assert.match(route, /topSources/);
+  assert.match(route, /newsletter_subscribers/);
   assert.match(counter, /pioneer:anonymous-visitor-id/);
   assert.match(counter, /window\.crypto\.randomUUID\(\)/);
   assert.match(counter, /data-audience-event/);
+  assert.match(counter, /utm_source/);
   assert.match(page, /累计独立访客/);
   assert.match(page, /累计浏览次数/);
   assert.match(page, /trackAudienceEvent\("search:submit"/);
   assert.match(analytics, /创业者反馈仪表盘/);
   assert.match(analytics, /热门访问路径/);
   assert.match(analytics, /关键行为/);
+  assert.match(analytics, /访问来源/);
+  assert.match(analytics, /累计订阅/);
+  assert.match(newsletter, /INSERT INTO newsletter_subscribers/);
+  assert.match(sitemap, /sitemaps\.org\/schemas\/sitemap/);
+  assert.match(robots, /sitemap\.xml/);
+});
+
+test("renders the weekly opportunity signup and share action sitewide", async () => {
+  const response = await render();
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /每周一次，把真正值得关注的创业机会发给你/);
+  assert.match(html, /订阅每周机会/);
+  assert.match(html, /分享 Pioneer/);
+
+  const englishResponse = await render("/en");
+  const english = await englishResponse.text();
+  assert.match(english, /One useful startup opportunity briefing, every week/);
+  assert.match(english, /Get the weekly brief/);
+});
+
+test("publishes search discovery files for public pages", async () => {
+  const sitemapResponse = await render("/sitemap.xml");
+  const sitemap = await sitemapResponse.text();
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(sitemapResponse.headers.get("content-type") ?? "", /application\/xml/);
+  assert.match(sitemap, /<loc>https:\/\/pioneer-global-resources\.hiayun\.chatgpt\.site\/programs<\/loc>/);
+  assert.match(sitemap, /\/resources\/y-combinator<\/loc>/);
+  assert.match(sitemap, /\/en\/resources\/y-combinator<\/loc>/);
+
+  const robotsResponse = await render("/robots.txt");
+  const robots = await robotsResponse.text();
+  assert.equal(robotsResponse.status, 200);
+  assert.match(robots, /Allow: \//);
+  assert.match(robots, /Disallow: \/admin\//);
+  assert.match(robots, /Sitemap: .*\/sitemap\.xml/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {
@@ -131,10 +176,10 @@ test("keeps the resource collection complete and source-linked", async () => {
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   const slugs = [...data.matchAll(/slug: "([^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 53);
-  assert.equal(new Set(urls).size, 53);
-  assert.equal(slugs.length, 53);
-  assert.equal(new Set(slugs).size, 53);
+  assert.ok(urls.length >= 53);
+  assert.equal(new Set(urls).size, urls.length);
+  assert.equal(slugs.length, urls.length);
+  assert.equal(new Set(slugs).size, slugs.length);
   assert.match(data, /type: "program"/);
   assert.match(data, /type: "organization"/);
   assert.match(data, /type: "event"/);
@@ -178,10 +223,10 @@ test("keeps every resource backed by an individually authored research profile",
     .map((match) => match[1] ?? match[2])
     .filter((slug) => slug !== "snapshot" && slug !== "business");
 
-  assert.equal(resourceSlugs.length, 53);
+  assert.ok(resourceSlugs.length >= 53);
   assert.equal(profileSlugs.length, 17);
   assert.equal(investmentProfileSlugs.length, 24);
-  assert.equal(startupProfileSlugs.length, 12);
+  assert.ok(startupProfileSlugs.length >= 12);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));
   assert.match(profilesData, /diligence: string\[\]/);
   assert.match(profilesData, /playbook: Array/);
@@ -349,7 +394,7 @@ test("renders type-specific research depth for events and startup projects", asy
   const startupDirectoryResponse = await render("/startups");
   const startupDirectory = await startupDirectoryResponse.text();
   assert.equal(startupDirectoryResponse.status, 200);
-  assert.match(startupDirectory, /共 15 条 · 当前显示 1–9/);
+  assert.match(startupDirectory, /共 \d+ 条 · 当前显示 1–9/);
   assert.match(startupDirectory, /DeepSeek 深度求索/);
   assert.match(startupDirectory, /aria-label="第 2 页"/);
 

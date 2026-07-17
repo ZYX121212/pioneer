@@ -1,4 +1,5 @@
 import { AudienceCount } from "./AudienceCounter";
+import { GrowthFooter } from "./GrowthFooter";
 
 type SiteChromeProps = {
   lang?: "zh" | "en";
@@ -80,6 +81,7 @@ export function SiteFooter({ lang = "zh" }: SiteChromeProps) {
   const copy = nav[lang];
   return (
     <footer id="about">
+      <GrowthFooter lang={lang} />
       <div className="footer-brand">
         <span className="brand-mark">P</span>
         <div>

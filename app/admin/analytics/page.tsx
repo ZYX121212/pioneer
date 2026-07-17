@@ -9,7 +9,10 @@ type AudienceStats = {
   todayVisitors: number;
   sevenDayVisitors: number;
   sevenDayPageViews: number;
+  subscriberCount: number;
+  sevenDaySubscribers: number;
   topPaths: Array<{ path: string; views: number }>;
+  topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
 };
 
@@ -19,7 +22,10 @@ const emptyStats: AudienceStats = {
   todayVisitors: 0,
   sevenDayVisitors: 0,
   sevenDayPageViews: 0,
+  subscriberCount: 0,
+  sevenDaySubscribers: 0,
   topPaths: [],
+  topSources: [],
   topEvents: [],
 };
 
@@ -34,9 +40,11 @@ function eventLabel(eventName: string) {
     "footer:open": "页脚导航",
     "guide:open": "阅读指南",
     "nav:open": "顶部导航",
+    "newsletter:subscribe": "订阅每周机会",
     "resource:open": "查看资源详情",
     "search:quick": "热门搜索",
     "search:submit": "主动搜索",
+    "share:site": "分享网站",
     "submit-resource:intent": "推荐资源意向",
   };
 
@@ -71,14 +79,10 @@ export default function AnalyticsPage() {
   }, []);
 
   const conversionHint = useMemo(() => {
-    const intentCount = stats.topEvents
-      .filter((event) => event.eventName === "submit-resource:intent")
-      .reduce((sum, event) => sum + event.count, 0);
-
     if (stats.sevenDayVisitors === 0) return "等待第一批真实访问";
-    if (intentCount === 0) return "最近 7 天有访问，还没有推荐资源意向";
-    return `最近 7 天约 ${Math.round((intentCount / stats.sevenDayVisitors) * 100)}% 访客产生推荐意向`;
-  }, [stats.sevenDayVisitors, stats.topEvents]);
+    if (stats.sevenDaySubscribers === 0) return "最近 7 天有访问，还没有新增订阅";
+    return `最近 7 天约 ${Math.round((stats.sevenDaySubscribers / stats.sevenDayVisitors) * 100)}% 访客完成订阅`;
+  }, [stats.sevenDaySubscribers, stats.sevenDayVisitors]);
 
   return (
     <main>
@@ -114,6 +118,16 @@ export default function AnalyticsPage() {
               <strong>{status === "loading" ? "—" : formatNumber(stats.sevenDayVisitors)}</strong>
               <p>{conversionHint}</p>
             </div>
+            <div className="analytics-card">
+              <span>累计订阅</span>
+              <strong>{status === "loading" ? "—" : formatNumber(stats.subscriberCount)}</strong>
+              <p>愿意持续接收每周机会的人</p>
+            </div>
+            <div className="analytics-card">
+              <span>7 日浏览</span>
+              <strong>{status === "loading" ? "—" : formatNumber(stats.sevenDayPageViews)}</strong>
+              <p>判断内容是否被继续探索</p>
+            </div>
           </>
         )}
       </section>
@@ -138,6 +152,23 @@ export default function AnalyticsPage() {
 
         <article className="analytics-list">
           <div>
+            <span className="section-index">ACQUISITION</span>
+            <h2>访问来源</h2>
+          </div>
+          {stats.topSources.length ? (
+            stats.topSources.map((item) => (
+              <div className="analytics-row" key={item.source}>
+                <span>{item.source === "direct" ? "直接访问" : item.source}</span>
+                <strong>{formatNumber(item.visits)} 次</strong>
+              </div>
+            ))
+          ) : (
+            <p className="analytics-empty">新的来源数据会从本次更新后开始累计。</p>
+          )}
+        </article>
+
+        <article className="analytics-list">
+          <div>
             <span className="section-index">INTENT</span>
             <h2>关键行为</h2>
           </div>
@@ -156,7 +187,7 @@ export default function AnalyticsPage() {
 
       <section className="analytics-note">
         <strong>当前统计口径</strong>
-        <p>人数按匿名设备去重；浏览次数记录页面访问；关键行为只记录事件名称、路径和目标，不记录姓名、邮箱或联系方式。</p>
+        <p>人数按匿名设备去重；浏览次数记录页面访问；来源优先读取推广链接参数，其次读取外部来源网站。订阅邮箱只用于每周机会通讯，不会出现在行为统计中。</p>
       </section>
 
       <SiteFooter />

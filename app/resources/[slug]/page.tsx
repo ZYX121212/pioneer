@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${resource.name} — Pioneer 整理详情`,
     description: resource.description,
+    alternates: {
+      canonical: resource.detailPath ?? `/resources/${resource.slug}`,
+      languages: {
+        "zh-CN": resource.detailPath ?? `/resources/${resource.slug}`,
+        en: `/en/resources/${resource.slug}`,
+      },
+    },
   };
 }
 

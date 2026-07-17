@@ -4978,7 +4978,7 @@ nav a:hover,
 .analytics-panel {
   padding: 34px 5vw;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -5020,7 +5020,7 @@ nav a:hover,
 .analytics-grid {
   padding: 0 5vw 36px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -5085,6 +5085,119 @@ footer {
   gap: 50px;
   background: #0f1e18;
   color: white;
+}
+
+.growth-footer {
+  grid-column: 1 / -1;
+  margin-bottom: 12px;
+  padding: 34px 0 42px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.growth-footer-copy > span {
+  color: #ff8b6b;
+  font-family: var(--display);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.growth-footer-copy h2 {
+  max-width: 720px;
+  margin: 13px 0 14px;
+  color: white;
+  font-family: var(--display);
+  font-size: clamp(30px, 3.5vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+
+.growth-footer-copy p {
+  max-width: 620px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.growth-footer-actions {
+  align-self: end;
+}
+
+.growth-footer-actions form {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.growth-footer-actions input[type="email"] {
+  min-width: 0;
+  padding: 13px 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font: inherit;
+}
+
+.growth-footer-actions input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.growth-footer-actions form:focus-within {
+  border-color: #ff8b6b;
+}
+
+.growth-footer-actions form button,
+.share-site-button {
+  border: 0;
+  cursor: pointer;
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.growth-footer-actions form button {
+  padding: 12px 16px;
+  background: #ff7550;
+  color: #0f1e18;
+}
+
+.growth-footer-actions form button:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.newsletter-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+}
+
+.growth-footer-feedback {
+  min-height: 18px;
+  padding-top: 7px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 10px;
+}
+
+.share-site-button {
+  margin-top: 12px;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.share-site-button:hover {
+  color: #ff8b6b;
 }
 
 .footer-brand {
@@ -5259,6 +5372,11 @@ footer {
   .analytics-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .growth-footer {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -5285,6 +5403,18 @@ footer {
   .analytics-grid,
   .analytics-note {
     grid-template-columns: 1fr;
+  }
+
+  .growth-footer {
+    padding: 18px 0 34px;
+  }
+
+  .growth-footer-actions form {
+    grid-template-columns: 1fr;
+  }
+
+  .growth-footer-actions form button {
+    min-height: 44px;
   }
 
   .analytics-note {

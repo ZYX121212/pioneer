@@ -23,13 +23,35 @@ function getAnonymousVisitorId() {
   return visitorId;
 }
 
+function getAttribution() {
+  const parameters = new URLSearchParams(window.location.search);
+  let referrer: string | undefined;
+
+  if (document.referrer) {
+    try {
+      const url = new URL(document.referrer);
+      if (url.origin !== window.location.origin) referrer = url.href;
+    } catch {
+      // Ignore malformed browser referrers.
+    }
+  }
+
+  return {
+    referrer,
+    source: parameters.get("utm_source") ?? (referrer ? new URL(referrer).hostname : "direct"),
+    medium: parameters.get("utm_medium") ?? undefined,
+    campaign: parameters.get("utm_campaign") ?? undefined,
+  };
+}
+
 async function sendAudienceSignal(payload: { eventName?: string; target?: string } = {}) {
   const response = await fetch("/api/audience", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       visitorId: getAnonymousVisitorId(),
-      path: `${window.location.pathname}${window.location.search}`,
+      path: window.location.pathname,
+      ...(!payload.eventName ? getAttribution() : {}),
       ...payload,
     }),
     cache: "no-store",
