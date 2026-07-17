@@ -9,6 +9,7 @@ const staticPaths = [
   "/events",
   "/startups",
   "/knowledge",
+  "/weekly",
   "/waic-2026",
   "/en",
   "/en/programs",

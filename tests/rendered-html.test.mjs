@@ -36,6 +36,8 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /你的想法是真问题，还是自我感动/);
   assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
   assert.match(html, /查看全部资源目录/);
+  assert.match(html, /本周值得行动的 4 个创业机会/);
+  assert.match(html, /href="\/weekly"/);
   assert.match(html, /精选资源/);
   assert.match(html, /开放计划/);
   assert.match(html, /孵化机构/);
@@ -162,6 +164,7 @@ test("publishes search discovery files for public pages", async () => {
   assert.match(sitemap, /<loc>https:\/\/pioneer-global-resources\.hiayun\.chatgpt\.site\/programs<\/loc>/);
   assert.match(sitemap, /\/resources\/y-combinator<\/loc>/);
   assert.match(sitemap, /\/en\/resources\/y-combinator<\/loc>/);
+  assert.match(sitemap, /\/weekly<\/loc>/);
 
   const robotsResponse = await render("/robots.txt");
   const robots = await robotsResponse.text();
@@ -169,6 +172,22 @@ test("publishes search discovery files for public pages", async () => {
   assert.match(robots, /Allow: \//);
   assert.match(robots, /Disallow: \/admin\//);
   assert.match(robots, /Sitemap: .*\/sitemap\.xml/);
+});
+
+test("renders the first weekly opportunity brief with actionable official links", async () => {
+  const response = await render("/weekly");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /本周值得行动的/);
+  assert.match(html, /WAIC 2026 世界人工智能大会/);
+  assert.match(html, /Y Combinator/);
+  assert.match(html, /Entrepreneur First London/);
+  assert.match(html, /Berkeley SkyDeck Batch 23/);
+  assert.match(html, /今天完成这三步/);
+  assert.match(html, /打开官方页面/);
+  assert.match(html, /data-audience-event="weekly:official"/);
+  assert.match(html, /application\/ld\+json/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {

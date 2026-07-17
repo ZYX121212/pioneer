@@ -41,11 +41,15 @@ function eventLabel(eventName: string) {
     "guide:open": "阅读指南",
     "nav:open": "顶部导航",
     "newsletter:subscribe": "订阅每周机会",
+    "newsletter:intent": "查看订阅入口",
     "resource:open": "查看资源详情",
     "search:quick": "热门搜索",
     "search:submit": "主动搜索",
     "share:site": "分享网站",
     "submit-resource:intent": "推荐资源意向",
+    "weekly:official": "打开本周机会官方页",
+    "weekly:open": "查看本周机会",
+    "weekly:resource": "阅读本周机会详情",
   };
 
   return labels[eventName] ?? eventName;

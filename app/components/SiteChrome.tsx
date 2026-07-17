@@ -11,6 +11,7 @@ const nav = {
     visited: "位访客来过 Pioneer",
     homeLabel: "Pioneer 首页",
     links: [
+      ["/weekly", "本周机会"],
       ["/knowledge", "创业指南"],
       ["/programs", "开放计划"],
       ["/organizations", "创业机构"],
