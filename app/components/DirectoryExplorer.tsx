@@ -24,8 +24,8 @@ export function DirectoryExplorer({ resources, lang = "zh" }: { resources: Resou
       : ["投资机构", "中国", "美国", "早期", "全阶段"])
     : isStartupDirectory
       ? (lang === "en"
-        ? ["China", "United States", "AI", "Robotics", "Enterprise", "Developer tools"]
-        : ["中国", "美国", "AI", "机器人", "企业服务", "开发者工具"])
+        ? ["Seed / early", "Series A", "Series B–C", "Growth stage", "Scaled", "China", "United States"]
+        : ["种子/早期", "A轮", "B–C轮", "成长期", "规模化", "中国", "美国"])
       : [];
   const tags = [
     allLabel,

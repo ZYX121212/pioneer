@@ -7,6 +7,13 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
   const detailHref = lang === "en" ? `/en/resources/${resource.slug}` : resource.detailPath ?? `/resources/${resource.slug}`;
   const detailLabel = lang === "en" ? "Research brief" : "整理详情";
   const sourceLine = lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
+  const stageLabels = {
+    seed: lang === "en" ? "Seed / early" : "种子 / 早期",
+    "series-a": lang === "en" ? "Series A" : "A 轮",
+    "series-bc": lang === "en" ? "Series B–C" : "B–C 轮",
+    growth: lang === "en" ? "Growth stage" : "成长期",
+    scale: lang === "en" ? "Scaled" : "规模化",
+  };
 
   return (
     <article className="resource-card">
@@ -18,6 +25,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
         </div>
       </div>
       <div className="resource-location">{copy.location}</div>
+      {resource.stageType ? <div className={`resource-stage stage-${resource.stageType}`}>{stageLabels[resource.stageType]}<span>{lang === "en" ? "Company stage" : resource.fundingStage}</span></div> : null}
       <h3>{resource.name}</h3>
       <p>{copy.description}</p>
       <div className="tag-list">

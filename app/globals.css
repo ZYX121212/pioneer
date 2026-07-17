@@ -1676,6 +1676,34 @@ nav a:hover,
   box-shadow: 0 16px 38px rgba(20, 34, 28, 0.08);
 }
 
+.resource-stage {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resource-stage::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.resource-stage span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .resource-card-top,
 .resource-footer {
   display: flex;
