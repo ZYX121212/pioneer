@@ -81,27 +81,13 @@ export default function Waic2026Page() {
               <a className="waic-secondary-link" href="https://www.worldaic.com.cn/register" target="_blank" rel="noreferrer">官方报名 ↗</a>
             </div>
           </div>
-          <aside className="detail-sidebar waic-detail-sidebar" aria-label="WAIC 关键信息与官方入口">
-            <div className="fact-card">
-              <span className="section-index">KEY FACTS</span>
-              <div><span>活动日期</span><strong>2026.07.17–07.20</strong></div>
-              <div><span>举办城市</span><strong>Shanghai</strong></div>
-              <div><span>活动特点</span><strong>世界人工智能大会</strong></div>
-              <div><span>当前状态</span><strong>正在举行</strong></div>
-              <div><span>地点</span><strong>中国 · 上海 · 三地四馆</strong></div>
-              <div><span>本页整理</span><strong>{eventCount} 场周边活动</strong></div>
-            </div>
-            <div className="source-card">
-              <span className="section-index">SOURCE &amp; ACTION</span>
-              <strong>WAIC 官方网站</strong>
-              <p>2026.07.17 核验。论坛、展览、票证和活动时间可能变化，行动前请在官方页面再次确认。</p>
-              <a href="https://www.worldaic.com.cn/" target="_blank" rel="noreferrer">前往官方页面 <span aria-hidden="true">↗</span></a>
-              <div className="waic-source-shortcuts">
-                <a href="https://www.worldaic.com.cn/register" target="_blank" rel="noreferrer">官方注册 / 购票 <span aria-hidden="true">↗</span></a>
-                <a href="https://waica2026.worldaic.com.cn/participant-guide/" target="_blank" rel="noreferrer">官方参会指南 <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-            <p className="editorial-disclaimer">Pioneer 的判断用于帮助你缩小选择范围，不构成投资、录取或商业结果保证。</p>
+          <aside className="waic-fact-panel">
+            <span>WAIC 2026</span>
+            <div><small>大会日期</small><strong>07.17—07.20</strong></div>
+            <div><small>主题</small><strong>智能伙伴 · 共创未来</strong></div>
+            <div><small>规模</small><strong>140+ 论坛 · 1100+ 企业</strong></div>
+            <div><small>本页整理</small><strong>{eventCount} 场周边活动</strong></div>
+            <p>官方数据与活动安排可能继续变化，出发前务必点击原始链接复核。</p>
           </aside>
         </div>
       </section>
@@ -112,6 +98,8 @@ export default function Waic2026Page() {
         ))}
       </nav>
 
+      <div className="detail-layout waic-detail-layout">
+        <div className="detail-main waic-detail-main">
       <section className="waic-section waic-overview" id="waic-overview">
         <div className="waic-section-heading">
           <span>01</span>
@@ -283,6 +271,31 @@ export default function Waic2026Page() {
           <p>活动临时变更很常见。出发前请再次核对日期、时间、地址、费用、审核结果与入场凭证；没有收到确认通知的审核制活动，请勿直接前往。</p>
         </div>
       </section>
+        </div>
+
+        <aside className="detail-sidebar waic-detail-sidebar" aria-label="WAIC 关键信息与官方入口">
+          <div className="fact-card">
+            <span className="section-index">KEY FACTS</span>
+            <div><span>活动日期</span><strong>2026.07.17–07.20</strong></div>
+            <div><span>举办城市</span><strong>Shanghai</strong></div>
+            <div><span>活动特点</span><strong>世界人工智能大会</strong></div>
+            <div><span>当前状态</span><strong>正在举行</strong></div>
+            <div><span>地点</span><strong>中国 · 上海 · 三地四馆</strong></div>
+            <div><span>本页整理</span><strong>{eventCount} 场周边活动</strong></div>
+          </div>
+          <div className="source-card">
+            <span className="section-index">SOURCE &amp; ACTION</span>
+            <strong>WAIC 官方网站</strong>
+            <p>2026.07.17 核验。论坛、展览、票证和活动时间可能变化，行动前请在官方页面再次确认。</p>
+            <a href="https://www.worldaic.com.cn/" target="_blank" rel="noreferrer">前往官方页面 <span aria-hidden="true">↗</span></a>
+            <div className="waic-source-shortcuts">
+              <a href="https://www.worldaic.com.cn/register" target="_blank" rel="noreferrer">官方注册 / 购票 <span aria-hidden="true">↗</span></a>
+              <a href="https://waica2026.worldaic.com.cn/participant-guide/" target="_blank" rel="noreferrer">官方参会指南 <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <p className="editorial-disclaimer">Pioneer 的判断用于帮助你缩小选择范围，不构成投资、录取或商业结果保证。</p>
+        </aside>
+      </div>
 
       <SiteFooter />
     </main>

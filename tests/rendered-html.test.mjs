@@ -289,6 +289,10 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.equal(waicResponse.status, 200);
   assert.match(waic, /三地四馆/);
   assert.match(waic, /href="#waic-overview"/);
+  assert.match(waic, /detail-layout waic-detail-layout/);
+  assert.match(waic, /detail-main waic-detail-main/);
+  assert.match(waic, /waic-fact-panel/);
+  assert.match(waic, /detail-sidebar waic-detail-sidebar/);
   assert.match(waic, /四馆怎么选/);
   assert.match(waic, /创业者路线/);
   assert.match(waic, /WAIC 周边活动日历/);
