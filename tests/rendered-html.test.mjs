@@ -402,10 +402,16 @@ test("renders type-specific research depth for events and startup projects", asy
   const researchedStartup = await researchedStartupResponse.text();
   assert.equal(researchedStartupResponse.status, 200);
   assert.match(researchedStartup, /创业项目研究章节/);
-  assert.match(researchedStartup, /它选择了什么问题/);
+  assert.match(researchedStartup, /先用一分钟理解它/);
+  assert.match(researchedStartup, /它走到了哪一步/);
+  assert.match(researchedStartup, /谁在使用，谁在付钱/);
   assert.match(researchedStartup, /产品不是一个功能，而是一套系统/);
+  assert.match(researchedStartup, /哪些信息是证据，哪些只是故事/);
+  assert.match(researchedStartup, /它必须战胜什么/);
+  assert.match(researchedStartup, /每一项风险都要对应观察指标/);
   assert.match(researchedStartup, /创业者真正可以借鉴什么/);
-  assert.match(researchedStartup, /增长信号之外，还要看什么/);
+  assert.match(researchedStartup, /最终判断，以及下一步看什么/);
+  assert.match(researchedStartup, /href="#startup-verdict"/);
 
   const englishStartupResponse = await render("/en/resources/elevenlabs");
   const englishStartup = await englishStartupResponse.text();
