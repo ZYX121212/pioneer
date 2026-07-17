@@ -281,17 +281,12 @@ export default function Waic2026Page() {
             <div><span>活动特点</span><strong>世界人工智能大会</strong></div>
             <div><span>当前状态</span><strong>正在举行</strong></div>
             <div><span>地点</span><strong>中国 · 上海 · 三地四馆</strong></div>
-            <div><span>本页整理</span><strong>{eventCount} 场周边活动</strong></div>
           </div>
           <div className="source-card">
             <span className="section-index">SOURCE &amp; ACTION</span>
             <strong>WAIC 官方网站</strong>
             <p>2026.07.17 核验。论坛、展览、票证和活动时间可能变化，行动前请在官方页面再次确认。</p>
             <a href="https://www.worldaic.com.cn/" target="_blank" rel="noreferrer">前往官方页面 <span aria-hidden="true">↗</span></a>
-            <div className="waic-source-shortcuts">
-              <a href="https://www.worldaic.com.cn/register" target="_blank" rel="noreferrer">官方注册 / 购票 <span aria-hidden="true">↗</span></a>
-              <a href="https://waica2026.worldaic.com.cn/participant-guide/" target="_blank" rel="noreferrer">官方参会指南 <span aria-hidden="true">↗</span></a>
-            </div>
           </div>
           <p className="editorial-disclaimer">Pioneer 的判断用于帮助你缩小选择范围，不构成投资、录取或商业结果保证。</p>
         </aside>

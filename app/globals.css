@@ -6354,8 +6354,6 @@ footer {
 
 .waic-detail-layout {
   padding: 0 5vw 110px;
-  grid-template-columns: minmax(0, 1.8fr) minmax(300px, 0.52fr);
-  gap: 5vw;
 }
 
 .waic-detail-main {
@@ -6364,91 +6362,16 @@ footer {
 }
 
 .waic-detail-main .waic-section {
-  padding: 110px 0;
+  padding: 88px 0;
 }
 
 .waic-detail-layout > .waic-detail-sidebar {
-  position: sticky;
-  display: block;
-  top: 165px;
-  margin-top: 110px;
-}
-
-.waic-detail-sidebar .fact-card,
-.waic-detail-sidebar .source-card {
-  padding: 32px;
-}
-
-.waic-detail-sidebar .fact-card {
-  border-color: var(--ink);
-  background: rgba(255, 255, 255, 0.52);
-}
-
-.waic-detail-sidebar .fact-card > .section-index {
-  margin-bottom: 28px;
-  color: var(--orange);
-  font-size: 12px;
-}
-
-.waic-detail-sidebar .fact-card > div {
-  padding: 17px 0;
-}
-
-.waic-detail-sidebar .fact-card > div span {
-  font-size: 11px;
-}
-
-.waic-detail-sidebar .fact-card > div strong {
-  font-size: 16px;
-  line-height: 1.45;
-}
-
-.waic-detail-sidebar .source-card {
-  margin-top: 14px;
-}
-
-.waic-detail-sidebar .source-card > .section-index {
-  color: var(--orange);
-  font-size: 12px;
-}
-
-.waic-detail-sidebar .source-card > strong {
-  margin-top: 28px;
-  font-size: 21px;
-}
-
-.waic-detail-sidebar .source-card > p {
-  font-size: 12px;
-}
-
-.waic-detail-sidebar .source-card > a {
-  padding: 15px 18px;
-  font-size: 13px;
-}
-
-.waic-source-shortcuts {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.waic-detail-sidebar .waic-source-shortcuts a {
-  margin: 0;
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 10px;
+  top: 154px;
+  margin-top: 88px;
 }
 
 .waic-detail-sidebar .editorial-disclaimer {
-  margin-top: 14px;
-  font-size: 10px;
+  margin-top: 16px;
 }
 
 .waic-quick-nav {
@@ -6504,7 +6427,7 @@ footer {
 .waic-section-heading > span {
   font-family: var(--display);
   color: var(--orange);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 800;
 }
 
@@ -6521,7 +6444,7 @@ footer {
   max-width: 980px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(39px, 5vw, 76px);
+  font-size: clamp(34px, 4vw, 58px);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 1;
@@ -6531,7 +6454,7 @@ footer {
   max-width: 920px;
   margin: 30px 0 45px 70px;
   color: var(--muted);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.75;
 }
 
