@@ -66,10 +66,10 @@ export function EnglishHome() {
     <main>
       <SiteHeader lang="en" />
 
-      <section className="hero" id="top">
+      <section className="hero hero-en" id="top">
         <div className="hero-copy">
           <div className="kicker"><span className="pulse" /> GLOBAL STARTUP RESOURCE DIRECTORY</div>
-          <h1><span>The world is large.</span><span><em>Opportunity</em> should be easier to read.</span></h1>
+          <h1 className="hero-title-en"><span>The world is large.</span><span><em>Opportunity</em> should be</span><span>easier to read.</span></h1>
           <p className="hero-intro">
             Search startup events, incubators, accelerator programs, innovation institutions and new startup projects from around the world.
             No account required. Read the brief, compare the fit, then decide what to do.

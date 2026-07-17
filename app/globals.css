@@ -644,6 +644,17 @@ nav a:hover,
   white-space: nowrap;
 }
 
+.hero-en .hero-title-en {
+  max-width: none;
+  font-size: clamp(54px, 5.1vw, 92px);
+  line-height: 0.94;
+}
+
+.hero-en .hero-title-en > span {
+  width: fit-content;
+  max-width: 100%;
+}
+
 .hero h1 em {
   position: relative;
   color: var(--orange);
@@ -7348,6 +7359,11 @@ footer {
     font-size: clamp(40px, 12.5vw, 58px);
     line-height: 0.98;
     letter-spacing: -0.065em;
+  }
+
+  .hero-en .hero-title-en {
+    font-size: clamp(40px, 12.5vw, 58px);
+    line-height: 0.98;
   }
 
   .hero-intro {

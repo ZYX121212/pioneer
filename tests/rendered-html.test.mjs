@@ -62,6 +62,8 @@ test("server-renders the English resource directory experience", async () => {
   assert.equal(response.status, 200);
   assert.match(html, /Global Startup Resources &amp; Founder Briefs/);
   assert.match(html, /The world is large/);
+  assert.match(html, /hero hero-en/);
+  assert.match(html, /Opportunity<\/em> should be<\/span><span>easier to read/);
   assert.match(html, /Start With The Resource You Need/);
   assert.match(html, /Programs/);
   assert.match(html, /Institutions/);
