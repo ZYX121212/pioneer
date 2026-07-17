@@ -290,6 +290,10 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(waic, /四馆怎么选/);
   assert.match(waic, /创业者路线/);
   assert.match(waic, /WAIC 周边活动日历/);
+  assert.match(waic, /KEY FACTS/);
+  assert.match(waic, /SOURCE &amp; ACTION/);
+  assert.match(waic, /前往官方页面/);
+  assert.match(waic, /中国 · 上海 · 三地四馆/);
   assert.match(waic, /7 月 16 日/);
   assert.match(waic, /7 月 20 日/);
   assert.match(waic, /Demo Day @ Physical AI Camp/);
