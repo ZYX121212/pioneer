@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
+import { WeeklyShareActions } from "../components/WeeklyShareActions";
 import { getResourceBySlug } from "../data/resources";
 import { siteOrigin } from "../lib/site";
 
@@ -11,6 +12,18 @@ export const metadata: Metadata = {
     title: "本周值得行动的 4 个创业机会",
     description: "不是机会堆积，而是截止时间、适合人群和下一步行动。",
     url: `${siteOrigin}/weekly`,
+    images: [{
+      url: `${siteOrigin}/weekly-og.png`,
+      width: 1731,
+      height: 909,
+      alt: "Pioneer 本周值得行动的 4 个创业机会",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "本周值得行动的 4 个创业机会",
+    description: "WAIC、YC、EF、Berkeley SkyDeck：截止时间、适合人群和下一步行动。",
+    images: [`${siteOrigin}/weekly-og.png`],
   },
 };
 
@@ -109,6 +122,15 @@ export default function WeeklyPage() {
         <div><strong>01</strong><span>正在发生</span><p>WAIC 本周末</p></div>
         <div><strong>03</strong><span>即将截止</span><p>YC · EF · SkyDeck</p></div>
         <div><strong>04</strong><span>可完成动作</span><p>每项都有行动清单</p></div>
+      </section>
+
+      <section className="weekly-share-band">
+        <div>
+          <span className="section-index">SAVE · SHARE · FOLLOW</span>
+          <h2>别只收藏，给机会一个明确的下一步。</h2>
+          <p>转给合适的人、把 4 个关键时间加入日历，或通过 RSS 跟进下一期。</p>
+        </div>
+        <WeeklyShareActions />
       </section>
 
       <section className="weekly-list">

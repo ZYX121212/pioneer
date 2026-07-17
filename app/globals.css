@@ -5645,6 +5645,69 @@ nav a:hover,
   padding: 32px 5vw 84px;
 }
 
+.weekly-share-band {
+  padding: 34px 5vw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: center;
+  border-bottom: 1px solid var(--ink);
+  background: #eef4ec;
+}
+
+.weekly-share-band h2 {
+  margin: 10px 0 6px;
+  font-family: var(--display);
+  font-size: clamp(24px, 3vw, 42px);
+  letter-spacing: -0.045em;
+}
+
+.weekly-share-band p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.weekly-share-actions {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+  align-items: center;
+}
+
+.weekly-share-actions button,
+.weekly-share-actions > a {
+  min-height: 45px;
+  padding: 0 15px;
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  font: 850 10px var(--display);
+  cursor: pointer;
+}
+
+.weekly-share-actions button {
+  background: var(--ink);
+  color: white;
+}
+
+.weekly-share-actions button:hover,
+.weekly-share-actions > a:hover {
+  transform: translateY(-2px);
+}
+
+.weekly-share-status {
+  min-height: 14px;
+  grid-column: 1 / -1;
+  color: #9d2c18;
+  font-size: 9px;
+  text-align: right;
+}
+
 .weekly-signal {
   padding: 58px 0;
   display: grid;
@@ -6368,6 +6431,21 @@ footer {
 
   .weekly-list {
     padding: 12px 18px 52px;
+  }
+
+  .weekly-share-band {
+    padding: 28px 18px;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .weekly-share-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .weekly-share-status {
+    grid-column: 1;
+    text-align: left;
   }
 
   .weekly-signal {

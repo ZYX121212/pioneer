@@ -48,8 +48,11 @@ function eventLabel(eventName: string) {
     "share:site": "分享网站",
     "submit-resource:intent": "推荐资源意向",
     "weekly:official": "打开本周机会官方页",
+    "weekly:calendar": "保存机会截止日",
     "weekly:open": "查看本周机会",
     "weekly:resource": "阅读本周机会详情",
+    "weekly:rss": "订阅 RSS",
+    "weekly:share": "分享本周机会",
   };
 
   return labels[eventName] ?? eventName;

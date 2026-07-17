@@ -190,7 +190,28 @@ test("renders the first weekly opportunity brief with actionable official links"
   assert.match(html, /今天完成这三步/);
   assert.match(html, /打开官方页面/);
   assert.match(html, /data-audience-event="weekly:official"/);
+  assert.match(html, /分享本期/);
+  assert.match(html, /href="\/weekly\/deadlines\.ics"/);
+  assert.match(html, /href="\/feed\.xml"/);
+  assert.match(html, /weekly-og\.png/);
   assert.match(html, /application\/ld\+json/);
+});
+
+test("publishes the weekly brief as a calendar and RSS feed", async () => {
+  const calendarResponse = await render("/weekly/deadlines.ics");
+  const calendar = await calendarResponse.text();
+  assert.equal(calendarResponse.status, 200);
+  assert.match(calendarResponse.headers.get("content-type") ?? "", /text\/calendar/);
+  assert.match(calendar, /BEGIN:VCALENDAR/);
+  assert.match(calendar, /Y Combinator Fall 2026/);
+  assert.match(calendar, /20260821/);
+
+  const feedResponse = await render("/feed.xml");
+  const feed = await feedResponse.text();
+  assert.equal(feedResponse.status, 200);
+  assert.match(feedResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
+  assert.match(feed, /Pioneer 本周创业机会/);
+  assert.match(feed, /本周值得行动的 4 个创业机会/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {
