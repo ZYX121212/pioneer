@@ -6650,56 +6650,56 @@ footer {
 }
 
 .waic-dark-section {
-  background: var(--ink);
-  color: white;
+  background: transparent;
+  color: var(--ink);
 }
 
 .waic-dark-section .waic-section-heading small {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
 }
 
 .waic-route-list {
   margin: 50px 0 0 70px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid var(--ink);
 }
 
 .waic-route-list article {
   padding: 30px 0;
   display: grid;
-  grid-template-columns: 70px minmax(0, 1.3fr) minmax(230px, 0.55fr);
-  gap: 25px;
+  grid-template-columns: 52px minmax(0, 1fr) minmax(190px, 0.42fr);
+  gap: 22px;
   align-items: start;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid var(--line);
 }
 
 .waic-route-list article > span {
-  color: var(--waic-lime);
+  color: var(--orange);
   font-family: var(--display);
   font-size: 24px;
 }
 
 .waic-route-list small {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
 }
 
 .waic-route-list h3 {
   margin: 6px 0 10px;
   font-family: var(--display);
-  font-size: 31px;
+  font-size: 28px;
   font-weight: 500;
 }
 
 .waic-route-list p,
 .waic-route-list strong {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 14px;
+  color: var(--muted);
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.7;
 }
 
 .waic-route-list strong {
-  color: white;
+  color: var(--ink);
 }
 
 .waic-focus-grid {
@@ -6739,8 +6739,99 @@ footer {
   line-height: 1.65;
 }
 
+.waic-official-heading {
+  margin: 76px 0 0 70px;
+  padding-top: 34px;
+  border-top: 1px solid var(--ink);
+}
+
+.waic-official-heading > span {
+  color: var(--orange);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.waic-official-heading h3 {
+  max-width: 760px;
+  margin: 12px 0 14px;
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 43px);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.waic-official-heading p {
+  max-width: 780px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.waic-official-grid {
+  margin: 32px 0 0 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--line);
+}
+
+.waic-official-grid article {
+  min-height: 390px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.waic-official-grid article > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.waic-official-grid article > div span {
+  color: var(--orange);
+  font-family: var(--display);
+  font-size: 18px;
+}
+
+.waic-official-grid small {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.waic-official-grid h4 {
+  margin: 34px 0 20px;
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 580;
+  letter-spacing: -0.025em;
+  line-height: 1.16;
+}
+
+.waic-official-grid p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.waic-official-grid a {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .waic-events-section {
-  background: #eae7de;
+  background: transparent;
 }
 
 .waic-event-notice {
@@ -7010,7 +7101,7 @@ footer {
 }
 
 .waic-sources {
-  background: #e6e1d5;
+  background: transparent;
 }
 
 .waic-sources > p {
@@ -7094,6 +7185,14 @@ footer {
 
   .waic-focus-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .waic-official-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .waic-official-grid article {
+    min-height: 300px;
   }
 
   .waic-logistics-grid {
@@ -7183,6 +7282,8 @@ footer {
   .waic-logistics-grid,
   .waic-route-list,
   .waic-focus-grid,
+  .waic-official-heading,
+  .waic-official-grid,
   .waic-event-notice,
   .waic-date-nav,
   .waic-days,

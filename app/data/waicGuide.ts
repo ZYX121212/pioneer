@@ -290,6 +290,17 @@ export const waicDays: WaicDay[] = [
     note: "适合在正式论坛之外，进入更垂直的研究、创作和全球化圈层。",
     events: [
       {
+        title: "AI 时代创业者闭门交流会",
+        time: "下午 · 具体时间以报名通知为准",
+        place: "张江科学之门",
+        category: "融资社交",
+        forWhom: "AI 创业者、交大安泰校友、张江园区团队与准备落地上海的项目",
+        value: "七个赛道的创业者讨论 AI 产品如何从底层能力走向一门具体生意，适合上午看完张江硬件与算力后继续深聊。",
+        organizer: "张江创业生态相关单位",
+        sourceUrl: "https://segg.sh.gov.cn/pdfpt/gzdt/20260714/c6e5adda2e2040a9a8cbf531fd27561e.html",
+        access: "报名审核并入群后确认",
+      },
+      {
         title: "知乎 Tech Club · 新知科技大会",
         time: "13:30 开始",
         place: "西岸 · 油罐艺术中心 U 罐",
@@ -499,6 +510,9 @@ export const waicSources = [
   { label: "WAIC 官方报名入口", href: "https://www.worldaic.com.cn/register" },
   { label: "上海市政府：WAIC 2026 信息", href: "https://www.shanghai.gov.cn/nw12344/20260707/deee99228f02433e9b0fb8f9447e8b34.html" },
   { label: "WAIC Academic 参会指南", href: "https://waica2026.worldaic.com.cn/participant-guide/" },
+  { label: "WAIC Academic 官方议程", href: "https://waica2026.worldaic.com.cn/program/program-glance/" },
+  { label: "上海官方：WAIC City Walk 指南", href: "https://english.shanghai.gov.cn/en-Participate%26Explore/20260714/16456ccac1204771941ab1af9e9743ba.html" },
+  { label: "上海官方：7.18 AI 创业者闭门交流", href: "https://segg.sh.gov.cn/pdfpt/gzdt/20260714/c6e5adda2e2040a9a8cbf531fd27561e.html" },
   { label: "WaytoAGI WAIC Side Events", href: waytoagi },
   { label: "PANews WAIC 2026 跑会指南", href: panews },
   { label: "AfterParty WAIC 周边活动", href: afterparty },

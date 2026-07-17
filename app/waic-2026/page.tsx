@@ -50,6 +50,33 @@ const focusAreas = [
   },
 ];
 
+const officialExtensions = [
+  {
+    label: "CITY WALK · 07.15—07.20",
+    title: "24 个城市地标，不必只在展馆里理解 AI",
+    facts: "官方 City Walk 包含 8 个重点体验点与 6 条产业路线；产业路线于 7 月 18–20 日开放。",
+    founderValue: "优先选择 SMC × Z·Pilot、模速空间、张江机器人谷等产业节点，把体验转化为产品、场景与园区判断。",
+    action: "通过 Hi WAIC 完成实名注册并预约路线",
+    href: "https://english.shanghai.gov.cn/en-Participate%26Explore/20260714/16456ccac1204771941ab1af9e9743ba.html",
+  },
+  {
+    label: "WAIC ACADEMIC · 07.18—07.20",
+    title: "正式学术议程已经细化到场次和会议室",
+    facts: "覆盖科学多模态 Agent、AI 数学建模、量子计算加速、天基智能计算、具身智能空间交互与青年菁英论坛。",
+    founderValue: "技术团队可按具体研究问题选场，不再把“去学术论坛”当成一个模糊任务。",
+    action: "查看 WAICA 官方逐日议程",
+    href: "https://waica2026.worldaic.com.cn/program/program-glance/",
+  },
+  {
+    label: "VENTURE ECOSYSTEM",
+    title: "Future Tech 与 OPC 是创业团队的正式入口",
+    facts: "WAIC Future Tech 汇集 80+ 投资机构和近 180 个项目；OPC 独立先锋挑战从 711 份申请中选出 22 个项目。",
+    founderValue: "观察哪些团队正在获得资本与生态支持，并反向比较自己的阶段、证据和差异化是否足够清楚。",
+    action: "查看上海官方 WAIC 创业生态介绍",
+    href: "https://english.shanghai.gov.cn/en-Latest-WhatsNew/20260710/6cd94d78f71a42e3a747541b9021fe2b.html",
+  },
+];
+
 const actionList = [
   ["会前 24 小时", "只定 1 个主目标、3 场必去内容、5 位希望见的人；为每位联系人写清楚为什么要见。"],
   ["进入场馆后", "先完成目标路线，再处理临时邀请。每次交流记录：对方是谁、关键事实、下一步、截止时间。"],
@@ -189,6 +216,22 @@ export default function Waic2026Page() {
               <h3>{focus.title}</h3>
               <p><b>第一性问题：</b>{focus.question}</p>
               <p><b>现场看什么：</b>{focus.watch}</p>
+            </article>
+          ))}
+        </div>
+        <div className="waic-official-heading">
+          <span>OFFICIAL EXTENSIONS</span>
+          <h3>主会场之外，还有三条经过官方确认的路线</h3>
+          <p>这些内容与社群周边活动分开整理：它们来自 WAIC 或上海官方信息，适合需要更确定行程的创业者。</p>
+        </div>
+        <div className="waic-official-grid">
+          {officialExtensions.map((item, index) => (
+            <article key={item.title}>
+              <div><span>0{index + 1}</span><small>{item.label}</small></div>
+              <h4>{item.title}</h4>
+              <p>{item.facts}</p>
+              <p><b>对创业者的价值：</b>{item.founderValue}</p>
+              <a href={item.href} target="_blank" rel="noreferrer">{item.action} ↗</a>
             </article>
           ))}
         </div>
