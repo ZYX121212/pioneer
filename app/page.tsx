@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { AudienceCount } from "./components/AudienceCounter";
+import { AudienceCount, PageViewCount, trackAudienceEvent } from "./components/AudienceCounter";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import { pioneerGuide } from "./data/knowledge";
@@ -64,12 +64,14 @@ export default function Home() {
 
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    trackAudienceEvent("search:submit", query.trim() || "empty");
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   function applyQuickSearch(term: string) {
     setActivePreview("featured");
     setQuery(term);
+    trackAudienceEvent("search:quick", term);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -124,9 +126,9 @@ export default function Home() {
 
       <section className="metrics" aria-label="平台数据">
         <div className="visitor-metric"><strong><AudienceCount /></strong><span>累计独立访客</span></div>
+        <div className="visitor-metric"><strong><PageViewCount /></strong><span>累计浏览次数</span></div>
         <div><strong>{resources.length}</strong><span>站内整理档案</span></div>
         <div><strong>4</strong><span>独立资源目录</span></div>
-        <div><strong>6</strong><span>首页编辑精选</span></div>
         <p>首页负责发现，独立目录负责理解、比较与行动。</p>
       </section>
 
@@ -140,7 +142,13 @@ export default function Home() {
             const category = typeConfig[type];
             const count = resources.filter((resource) => resource.type === type).length;
             return (
-              <a className={`category-card ${categoryStyles[type]}`} href={category.path} key={type}>
+              <a
+                className={`category-card ${categoryStyles[type]}`}
+                href={category.path}
+                key={type}
+                data-audience-event="directory:open"
+                data-audience-target={type}
+              >
                 <span className="category-eyebrow">{category.eyebrow}</span>
                 <span className="category-count">{count}</span>
                 <span className="category-title">{category.title} <i aria-hidden="true">→</i></span>
@@ -150,7 +158,12 @@ export default function Home() {
           })}
         </div>
 
-        <a className="founder-guide-card" href={`/knowledge/${pioneerGuide.slug}`}>
+        <a
+          className="founder-guide-card"
+          href={`/knowledge/${pioneerGuide.slug}`}
+          data-audience-event="guide:open"
+          data-audience-target={pioneerGuide.slug}
+        >
           <span className="founder-guide-eyebrow">NEW · FOUNDER GUIDE</span>
           <strong>你的想法是真问题，还是自我感动？</strong>
           <p>Pioneer 首篇创业决策指南：不用先做产品，三天完成问题陈述、核心假设和第一轮验证。</p>
@@ -189,7 +202,14 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <a className="result-directory-link" href={directoryTarget.href}>{directoryTarget.label} →</a>
+          <a
+            className="result-directory-link"
+            href={directoryTarget.href}
+            data-audience-event="directory:open"
+            data-audience-target={directoryTarget.label}
+          >
+            {directoryTarget.label} →
+          </a>
         </div>
 
         {activePreview === "knowledge" && !query ? (
@@ -199,7 +219,13 @@ export default function Home() {
               <span>{pioneerGuide.stage} · {pioneerGuide.duration}</span>
               <h3>{pioneerGuide.title}</h3>
               <p>{pioneerGuide.description}</p>
-              <a href={`/knowledge/${pioneerGuide.slug}`}>阅读完整指南 <b aria-hidden="true">→</b></a>
+              <a
+                href={`/knowledge/${pioneerGuide.slug}`}
+                data-audience-event="guide:open"
+                data-audience-target={pioneerGuide.slug}
+              >
+                阅读完整指南 <b aria-hidden="true">→</b>
+              </a>
             </div>
             <div className="home-guide-outcomes">
               <span>看完你会带走</span>
@@ -214,7 +240,14 @@ export default function Home() {
           <div className="empty-state"><span>没有找到匹配的资源</span><button type="button" onClick={() => setQuery("")}>清除搜索</button></div>
         )}
 
-        <a className="all-resources" href={directoryTarget.href}>{directoryTarget.label} <span aria-hidden="true">→</span></a>
+        <a
+          className="all-resources"
+          href={directoryTarget.href}
+          data-audience-event="directory:open"
+          data-audience-target={directoryTarget.label}
+        >
+          {directoryTarget.label} <span aria-hidden="true">→</span>
+        </a>
       </section>
 
       <section className="cities-section" id="cities">
@@ -222,11 +255,23 @@ export default function Home() {
           <span className="section-index light">03 / STARTUP ECOSYSTEMS</span>
           <h2>机构不是一个名字，而是一组真实入口。</h2>
           <p>先理解机构提供什么、服务谁、如何进入，再查看它正在运营的具体计划。</p>
-          <a className="cities-link" href="/organizations">查看机构整理 →</a>
+          <a
+            className="cities-link"
+            href="/organizations"
+            data-audience-event="directory:open"
+            data-audience-target="organizations"
+          >
+            查看机构整理 →
+          </a>
         </div>
         <div className="city-list" aria-label="热门创业生态">
           {["新加坡", "伦敦", "巴黎", "伯克利", "旧金山"].map((city, index) => (
-            <a href="/organizations" key={city}>
+            <a
+              href="/organizations"
+              key={city}
+              data-audience-event="ecosystem:open"
+              data-audience-target={city}
+            >
               <span>0{index + 1}</span><strong>{city}</strong>
               <i>{["Singapore", "London", "Paris", "Berkeley", "San Francisco"][index]}</i><b>→</b>
             </a>
@@ -238,7 +283,7 @@ export default function Home() {
         <span className="submit-kicker">KNOW A GREAT RESOURCE?</span>
         <h2>让有价值的机会与知识，被更多创业者真正理解。</h2>
         <p>可以推荐一个计划、机构、活动或公开知识来源。我们会核验后再发布。</p>
-        <button type="button">推荐一个来源 ↗</button>
+        <button type="button" data-audience-event="submit-resource:intent" data-audience-target="home-submit">推荐一个来源 ↗</button>
       </section>
 
       <SiteFooter />

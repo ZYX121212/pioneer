@@ -53,6 +53,43 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.doesNotMatch(html, /示例资源|数据接入后上线/);
 });
 
+test("server-renders the English resource directory experience", async () => {
+  const response = await render("/en");
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Global Startup Resources &amp; Founder Briefs/);
+  assert.match(html, /The world is large/);
+  assert.match(html, /Start With The Resource You Need/);
+  assert.match(html, /Programs/);
+  assert.match(html, /Institutions/);
+  assert.match(html, /Events/);
+  assert.match(html, /Startups/);
+  assert.match(html, /href="\/en\/programs"/);
+  assert.match(html, /href="\/en\/resources\/y-combinator"/);
+  assert.match(html, /Research brief/);
+  assert.match(html, /href="\/"/);
+});
+
+test("server-renders English directories and resource briefs", async () => {
+  const directoryResponse = await render("/en/organizations");
+  const directory = await directoryResponse.text();
+  assert.equal(directoryResponse.status, 200);
+  assert.match(directory, /Incubators &amp; Institutions/);
+  assert.match(directory, /More Than A Link List/);
+  assert.match(directory, /Institution profile/);
+  assert.match(directory, /href="\/en\/resources\/station-f"/);
+
+  const detailResponse = await render("/en/resources/station-f");
+  const detail = await detailResponse.text();
+  assert.equal(detailResponse.status, 200);
+  assert.match(detail, /What It Actually Is/);
+  assert.match(detail, /Who Should Pay Attention/);
+  assert.match(detail, /Before You Click Apply/);
+  assert.match(detail, /Open official page/);
+  assert.match(detail, /href="https:\/\/stationf\.co\/"/);
+});
+
 test("switches homepage samples in place while keeping directory links separate", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 
@@ -68,14 +105,25 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   const route = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
   const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const analytics = await readFile(new URL("../app/admin/analytics/page.tsx", import.meta.url), "utf8");
 
   assert.match(schema, /siteVisitors/);
+  assert.match(schema, /sitePageViews/);
+  assert.match(schema, /siteEvents/);
   assert.match(schema, /visitorId: text\("visitor_id"\)\.primaryKey/);
   assert.match(route, /ON CONFLICT\(visitor_id\) DO UPDATE/);
   assert.match(route, /SELECT COUNT\(\*\) AS count FROM site_visitors/);
+  assert.match(route, /INSERT INTO site_page_views/);
+  assert.match(route, /INSERT INTO site_events/);
   assert.match(counter, /pioneer:anonymous-visitor-id/);
   assert.match(counter, /window\.crypto\.randomUUID\(\)/);
+  assert.match(counter, /data-audience-event/);
   assert.match(page, /累计独立访客/);
+  assert.match(page, /累计浏览次数/);
+  assert.match(page, /trackAudienceEvent\("search:submit"/);
+  assert.match(analytics, /创业者反馈仪表盘/);
+  assert.match(analytics, /热门访问路径/);
+  assert.match(analytics, /关键行为/);
 });
 
 test("keeps the resource collection complete and source-linked", async () => {
