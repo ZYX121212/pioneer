@@ -36,3 +36,20 @@ export const newsletterSubscribers = sqliteTable("newsletter_subscribers", {
   status: text("status").notNull().default("active"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const resourceSubmissions = sqliteTable("resource_submissions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  resourceType: text("resource_type").notNull(),
+  resourceName: text("resource_name").notNull(),
+  resourceUrl: text("resource_url").notNull(),
+  location: text("location"),
+  deadline: text("deadline"),
+  whyUseful: text("why_useful").notNull(),
+  submitterName: text("submitter_name").notNull(),
+  submitterEmail: text("submitter_email").notNull(),
+  relationship: text("relationship").notNull(),
+  language: text("language").notNull().default("zh"),
+  sourcePath: text("source_path").notNull().default("/submit"),
+  status: text("status").notNull().default("pending"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});

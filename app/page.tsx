@@ -299,7 +299,7 @@ export default function Home() {
         <span className="submit-kicker">KNOW A GREAT RESOURCE?</span>
         <h2>让有价值的机会与知识，被更多创业者真正理解。</h2>
         <p>可以推荐一个计划、机构、活动或公开知识来源。我们会核验后再发布。</p>
-        <button type="button" data-audience-event="submit-resource:intent" data-audience-target="home-submit">推荐一个来源 ↗</button>
+        <a href="/submit" data-audience-event="submit-resource:intent" data-audience-target="home-submit">推荐一个来源 ↗</a>
       </section>
 
       <SiteFooter />

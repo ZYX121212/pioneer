@@ -205,7 +205,7 @@ export function EnglishHome() {
         <span className="submit-kicker">KNOW A GREAT RESOURCE?</span>
         <h2>Help valuable startup opportunities become easier to understand.</h2>
           <p>Recommend a program, investor, institution, event or public resource. We review sources before publishing.</p>
-        <button type="button">Recommend a source ↗</button>
+        <a href="/en/submit" data-audience-event="submit-resource:intent" data-audience-target="home-submit-en">Recommend a source ↗</a>
       </section>
 
       <SiteFooter lang="en" />

@@ -12,6 +12,8 @@ type AudienceStats = {
   sevenDayPageViews: number;
   subscriberCount: number;
   sevenDaySubscribers: number;
+  submissionCount: number;
+  sevenDaySubmissions: number;
   topPaths: Array<{ path: string; views: number }>;
   topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
@@ -48,6 +50,8 @@ async function readAudienceStats(): Promise<AudienceStats> {
     sevenDayPageViews,
     subscriberCount,
     sevenDaySubscribers,
+    submissionCount,
+    sevenDaySubmissions,
     topPaths,
     topSources,
     topEvents,
@@ -68,6 +72,12 @@ async function readAudienceStats(): Promise<AudienceStats> {
       .first<{ count: number }>(),
     database
       .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND created_at >= datetime('now', '-7 days')")
+      .first<{ count: number }>(),
+    database
+      .prepare("SELECT COUNT(*) AS count FROM resource_submissions")
+      .first<{ count: number }>(),
+    database
+      .prepare("SELECT COUNT(*) AS count FROM resource_submissions WHERE created_at >= datetime('now', '-7 days')")
       .first<{ count: number }>(),
     database
       .prepare(`
@@ -109,6 +119,8 @@ async function readAudienceStats(): Promise<AudienceStats> {
     sevenDayPageViews: Number(sevenDayPageViews?.count ?? 0),
     subscriberCount: Number(subscriberCount?.count ?? 0),
     sevenDaySubscribers: Number(sevenDaySubscribers?.count ?? 0),
+    submissionCount: Number(submissionCount?.count ?? 0),
+    sevenDaySubmissions: Number(sevenDaySubmissions?.count ?? 0),
     topPaths: (topPaths.results ?? []).map((row) => ({ path: row.path, views: Number(row.views ?? 0) })),
     topSources: (topSources.results ?? []).map((row) => ({
       source: row.source,

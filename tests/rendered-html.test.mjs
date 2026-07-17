@@ -214,6 +214,27 @@ test("publishes the weekly brief as a calendar and RSS feed", async () => {
   assert.match(feed, /本周值得行动的 4 个创业机会/);
 });
 
+test("accepts bilingual resource recommendations into the review workflow", async () => {
+  const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
+  const api = await readFile(new URL("../app/api/submissions/route.ts", import.meta.url), "utf8");
+  assert.match(schema, /resourceSubmissions/);
+  assert.match(api, /INSERT INTO resource_submissions/);
+  assert.match(api, /pending/);
+
+  const chineseResponse = await render("/submit");
+  const chinese = await chineseResponse.text();
+  assert.equal(chineseResponse.status, 200);
+  assert.match(chinese, /让真正有用的机会/);
+  assert.match(chinese, /提交给 Pioneer 审核/);
+  assert.match(chinese, /name="resourceUrl"/);
+
+  const englishResponse = await render("/en/submit");
+  const english = await englishResponse.text();
+  assert.equal(englishResponse.status, 200);
+  assert.match(english, /Help useful opportunities/);
+  assert.match(english, /Submit for Pioneer review/);
+});
+
 test("keeps the resource collection complete and source-linked", async () => {
   const data = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);

@@ -11,6 +11,8 @@ type AudienceStats = {
   sevenDayPageViews: number;
   subscriberCount: number;
   sevenDaySubscribers: number;
+  submissionCount: number;
+  sevenDaySubmissions: number;
   topPaths: Array<{ path: string; views: number }>;
   topSources: Array<{ source: string; visits: number }>;
   topEvents: Array<{ eventName: string; count: number; target: string | null }>;
@@ -24,6 +26,8 @@ const emptyStats: AudienceStats = {
   sevenDayPageViews: 0,
   subscriberCount: 0,
   sevenDaySubscribers: 0,
+  submissionCount: 0,
+  sevenDaySubmissions: 0,
   topPaths: [],
   topSources: [],
   topEvents: [],
@@ -47,6 +51,7 @@ function eventLabel(eventName: string) {
     "search:submit": "主动搜索",
     "share:site": "分享网站",
     "submit-resource:intent": "推荐资源意向",
+    "submission:complete": "完成资源提交",
     "weekly:official": "打开本周机会官方页",
     "weekly:calendar": "保存机会截止日",
     "weekly:open": "查看本周机会",
@@ -134,6 +139,11 @@ export default function AnalyticsPage() {
               <span>7 日浏览</span>
               <strong>{status === "loading" ? "—" : formatNumber(stats.sevenDayPageViews)}</strong>
               <p>判断内容是否被继续探索</p>
+            </div>
+            <div className="analytics-card">
+              <span>待核验提交</span>
+              <strong>{status === "loading" ? "—" : formatNumber(stats.submissionCount)}</strong>
+              <p>最近 7 天新增 {formatNumber(stats.sevenDaySubmissions)} 条</p>
             </div>
           </>
         )}

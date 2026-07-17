@@ -19,6 +19,7 @@ const nav = {
       ["/startups", "创业项目"],
     ],
     submit: "提交资源",
+    submitHref: "/submit",
     languageHref: "/en",
     languageLabel: "EN",
     footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
@@ -35,6 +36,7 @@ const nav = {
       ["/en/startups", "Startups"],
     ],
     submit: "Submit resource",
+    submitHref: "/en/submit",
     languageHref: "/",
     languageLabel: "中文",
     footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
@@ -66,7 +68,7 @@ export function SiteHeader({ lang = "zh" }: SiteChromeProps) {
           <a className="language-link" href={copy.languageHref}>{copy.languageLabel}</a>
           <a
             className="submit-link"
-            href={`${homeHref.split("#")[0]}#submit`}
+            href={copy.submitHref}
             data-audience-event="submit-resource:intent"
             data-audience-target="header-submit"
           >
