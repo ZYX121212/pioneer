@@ -834,97 +834,52 @@ nav a:hover,
 .globe {
   position: absolute;
   z-index: 3;
-  width: 286px;
-  height: 286px;
+  width: 320px;
+  height: 320px;
   left: 50%;
   top: 48%;
-  overflow: hidden;
-  border: 1px solid rgba(255, 228, 179, 0.72);
+  overflow: visible;
+  border: 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 34% 27%, #ffd16b, #ff7546 48%, #db4829 76%);
+  background: transparent;
   transform: translate(-50%, -50%);
-  box-shadow: inset -34px -22px 65px rgba(75, 13, 3, 0.28), 0 20px 58px rgba(7, 27, 19, 0.28);
+  filter: drop-shadow(0 24px 34px rgba(4, 20, 14, 0.35));
 }
 
-.globe::before,
-.globe::after,
-.globe-line {
+.globe::before {
   content: "";
   position: absolute;
-  inset: 12% 4%;
-  border: 1px solid rgba(255, 238, 205, 0.32);
+  inset: 5.5%;
+  z-index: -1;
   border-radius: 50%;
+  background: rgba(255, 118, 63, 0.18);
+  box-shadow: 0 0 0 1px rgba(255, 231, 185, 0.44), 0 0 46px rgba(255, 105, 56, 0.2);
 }
 
 .globe::after {
-  inset: 4% 35%;
-}
-
-.globe-line-one {
-  inset: 31% -6%;
-}
-
-.globe-line-two {
-  inset: 15% -6%;
-}
-
-.landmass {
+  content: "";
   position: absolute;
+  inset: 7%;
   z-index: 2;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 249, 218, 0.22), transparent 30%);
+  pointer-events: none;
+}
+
+.globe-visual {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
   display: block;
-  background: rgba(23, 56, 44, 0.77);
-  box-shadow: inset 4px 4px 10px rgba(255, 255, 255, 0.07);
+  object-fit: contain;
+  animation: globe-float 7s ease-in-out infinite;
+  will-change: transform;
 }
 
-.landmass-one {
-  width: 115px;
-  height: 73px;
-  left: 18px;
-  top: 42px;
-  border-radius: 63% 32% 54% 34%;
-  transform: rotate(-13deg);
-}
-
-.landmass-one::after {
-  content: "";
-  position: absolute;
-  width: 44px;
-  height: 85px;
-  right: 5px;
-  top: 55px;
-  border-radius: 42% 48% 70% 31%;
-  background: inherit;
-  transform: rotate(-18deg);
-}
-
-.landmass-two {
-  width: 126px;
-  height: 82px;
-  right: 6px;
-  top: 46px;
-  border-radius: 36% 65% 33% 58%;
-  transform: rotate(8deg);
-}
-
-.landmass-two::after {
-  content: "";
-  position: absolute;
-  width: 60px;
-  height: 94px;
-  left: 17px;
-  top: 62px;
-  border-radius: 46% 51% 68% 32%;
-  background: inherit;
-  transform: rotate(4deg);
-}
-
-.landmass-three {
-  width: 45px;
-  height: 31px;
-  right: 18px;
-  bottom: 42px;
-  border-radius: 55% 42% 60% 40%;
-  transform: rotate(-12deg);
+@keyframes globe-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.008); }
 }
 
 .atlas-scan {
@@ -1001,6 +956,17 @@ nav a:hover,
   transform: translate(-50%, -50%);
   text-align: center;
   text-shadow: 0 2px 18px rgba(31, 11, 4, 0.5);
+}
+
+.atlas-core::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13, 38, 29, 0.68), rgba(13, 38, 29, 0.2) 58%, transparent 73%);
+  backdrop-filter: blur(1.5px);
 }
 
 .atlas-core strong {
@@ -7415,8 +7381,8 @@ footer {
   }
 
   .globe {
-    width: 224px;
-    height: 224px;
+    width: 250px;
+    height: 250px;
   }
 
   .atlas-scan {
@@ -7963,6 +7929,8 @@ footer {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

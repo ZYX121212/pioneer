@@ -99,8 +99,7 @@ export function EnglishHome() {
           <div className="atlas-topline"><span>GLOBAL SIGNAL MAP</span><span className="live-indicator">CURATED</span></div>
           <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="atlas-scan" />
           <div className="globe" aria-hidden="true">
-            <span className="globe-line globe-line-one" /><span className="globe-line globe-line-two" />
-            <span className="landmass landmass-one" /><span className="landmass landmass-two" /><span className="landmass landmass-three" />
+            <img className="globe-visual" src="/globe-editorial.png" alt="" width="960" height="960" loading="eager" />
           </div>
           <div className="atlas-core"><strong>{resources.length}</strong><span>curated briefs</span></div>
           <div className="map-pin pin-singapore"><span>Singapore</span><strong>01</strong></div>
