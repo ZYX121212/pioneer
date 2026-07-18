@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <head><link rel="alternate" type="application/rss+xml" title="Pioneer 本周创业机会" href="/feed.xml" /></head>
+      <head><link rel="alternate" type="application/rss+xml" title="Pioneer 本周创业机会" href="/feed.xml" /><link rel="alternate" type="application/rss+xml" title="Pioneer Weekly Founder Opportunities" href="/en/feed.xml" /></head>
       <body><AudienceProvider>{children}</AudienceProvider></body>
     </html>
   );

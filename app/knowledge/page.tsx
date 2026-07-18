@@ -1,13 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FounderJourney } from "../components/FounderJourney";
 import { KnowledgeExplorer } from "../components/KnowledgeExplorer";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
 import { learningPath, pioneerGuide, pioneerGuides } from "../data/knowledge";
 
+export const metadata: Metadata = { title: "创业决策指南 — Pioneer", description: "从发现真问题到融资判断，把创业知识变成下一步行动。", alternates: { canonical: "/knowledge", languages: { "zh-CN": "/knowledge", en: "/en/knowledge" } } };
+
 export default function KnowledgePage() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge" />
       <section className="knowledge-section knowledge-page" id="knowledge">
         <div className="knowledge-heading">
           <div>

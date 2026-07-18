@@ -10,23 +10,26 @@ const staticPaths = [
   "/startups",
   "/knowledge",
   "/weekly",
+  "/en/weekly",
   "/submit",
   "/waic-2026",
+  "/en/waic-2026",
   "/en",
   "/en/submit",
   "/en/programs",
   "/en/organizations",
   "/en/events",
   "/en/startups",
+  "/en/knowledge",
 ];
 
 export async function GET() {
-  const resourcePaths = resources.flatMap((resource) => [
-    resource.detailPath ?? `/resources/${resource.slug}`,
-    `/en/resources/${resource.slug}`,
-  ]);
+  const resourcePaths = resources.flatMap((resource) => resource.detailPath
+    ? [resource.detailPath, `/en${resource.detailPath}`]
+    : [`/resources/${resource.slug}`, `/en/resources/${resource.slug}`]);
   const guidePaths = pioneerGuides.map((guide) => `/knowledge/${guide.slug}`);
-  const paths = [...new Set([...staticPaths, ...resourcePaths, ...guidePaths])];
+  const englishGuidePaths = pioneerGuides.map((guide) => `/en/knowledge/${guide.slug}`);
+  const paths = [...new Set([...staticPaths, ...resourcePaths, ...guidePaths, ...englishGuidePaths])];
   const urls = paths.map((path) => {
     const frequency = path.includes("/resources/") ? "monthly" : "weekly";
     const priority = path === "" ? "1.0" : path.includes("/resources/") ? "0.7" : "0.8";

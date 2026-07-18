@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function SubmitResourcePage() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/submit" />
       <section className="submission-hero">
         <div>
           <span className="section-index light">CONTRIBUTE TO PIONEER</span>

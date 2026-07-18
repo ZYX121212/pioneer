@@ -48,7 +48,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
 
   return (
     <main>
-      <SiteHeader lang="en" />
+      <SiteHeader lang="en" languageHref={resource.detailPath ?? `/resources/${resource.slug}`} />
       <section className={`detail-hero detail-${resource.type}`}>
         <div className="detail-breadcrumbs">
           <a href="/en">Home</a><span>/</span>

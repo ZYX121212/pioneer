@@ -8,6 +8,7 @@ import { interviewGuide, pioneerGuide } from "../../data/knowledge";
 export const metadata: Metadata = {
   title: "第一次用户访谈 — Pioneer 创业指南",
   description: "从招募、开场、追问到整理证据，完成一次不推销方案的用户访谈。",
+  alternates: { canonical: "/knowledge/first-user-interview", languages: { "zh-CN": "/knowledge/first-user-interview", en: "/en/knowledge/first-user-interview" } },
 };
 
 const badQuestions = [
@@ -50,7 +51,7 @@ const evidenceSignals = [
 export default function FirstUserInterviewGuide() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge/first-user-interview" />
       <header className="guide-hero guide-hero-blue">
         <div className="guide-breadcrumbs">
           <Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>第一次用户访谈</b>

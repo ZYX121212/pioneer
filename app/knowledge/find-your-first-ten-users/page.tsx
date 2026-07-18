@@ -3,9 +3,9 @@ import Link from "next/link";
 import { FirstUsersWorkbook } from "../../components/FounderWorksheets";
 import { GuideProgress } from "../../components/GuideProgress";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
-import { firstUsersGuide, mvpGuide } from "../../data/knowledge";
+import { firstUsersGuide, mvpGuide, pricingGuide } from "../../data/knowledge";
 
-export const metadata: Metadata = { title: "找到最初十个用户 — Pioneer 创业指南", description: "定义窄人群、建立 30 人名单、手工触达并推进第一批真实用户。" };
+export const metadata: Metadata = { title: "找到最初十个用户 — Pioneer 创业指南", description: "定义窄人群、建立 30 人名单、手工触达并推进第一批真实用户。", alternates: { canonical: "/knowledge/find-your-first-ten-users", languages: { "zh-CN": "/knowledge/find-your-first-ten-users", en: "/en/knowledge/find-your-first-ten-users" } } };
 
 const channels = [
   { order: "01", name: "二度关系", use: "专业人群、高信任 B2B", move: "请认识的人介绍最近经历过目标问题的人。", signal: "介绍人愿意说明为什么对方符合条件" },
@@ -21,7 +21,7 @@ const pipeline = [
 export default function FirstTenUsersGuide() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge/find-your-first-ten-users" />
       <header className="guide-hero guide-hero-yellow"><div className="guide-breadcrumbs"><Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>找到最初十个用户</b></div><div className="guide-hero-grid"><div><span className="guide-kicker">PIONEER GUIDE 04 · {firstUsersGuide.stage}</span><h1>{firstUsersGuide.title}</h1><p>{firstUsersGuide.description}</p></div><aside className="guide-output-card"><span>完成这篇指南后</span><strong>不是等待流量，<br />而是开始真实推进。</strong><ol>{firstUsersGuide.outcome.map((item) => <li key={item}>{item}</li>)}</ol><small>{firstUsersGuide.duration} · 更新于 {firstUsersGuide.updated}</small></aside></div></header>
 
       <GuideProgress guide={firstUsersGuide} judgment="最初十个用户不是增长问题，而是学习问题。创始人需要亲自找到、招募和服务一个足够窄的人群，观察谁真正推进。" mistakes={["先做大规模投放再判断人群", "把曝光、点赞和注册当成用户", "复制同一段推销话术发送给所有人"]} action="写出一个包含角色、近期行为和触发时机的筛选条件，并建立第一批 30 人名单。" />
@@ -49,7 +49,7 @@ export default function FirstTenUsersGuide() {
         </article>
         <aside className="guide-sidecard"><span>七天完成标准</span><strong>不要只留下曝光量：</strong><ul><li>30 个具体目标名字</li><li>20 次个性化触达</li><li>明确记录回复原因</li><li>3–5 次真实体验</li><li>至少一个真实承诺</li></ul><Link href="#workbook">打开行动工具 →</Link></aside>
       </div>
-      <section className="guide-next"><span>PREVIOUS GUIDE · 产品验证</span><h2>{mvpGuide.title}</h2><p>{mvpGuide.description}</p><Link href={`/knowledge/${mvpGuide.slug}`}>回到 MVP 指南 <span aria-hidden="true">←</span></Link></section>
+      <section className="guide-next"><span>NEXT GUIDE · 商业模式</span><h2>{pricingGuide.title}</h2><p>{pricingGuide.description}</p><Link href={`/knowledge/${pricingGuide.slug}`}>进入定价指南 <span aria-hidden="true">→</span></Link><small>上一阶段：<Link href={`/knowledge/${mvpGuide.slug}`}>确定 MVP 边界</Link></small></section>
       <SiteFooter />
     </main>
   );

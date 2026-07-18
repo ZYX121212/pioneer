@@ -216,6 +216,59 @@ test("publishes the weekly brief as a calendar and RSS feed", async () => {
   assert.match(feed, /本周值得行动的 4 个创业机会/);
 });
 
+test("keeps every public editorial section available in Chinese and English", async () => {
+  const routePairs = [
+    ["/weekly", "/en/weekly"],
+    ["/waic-2026", "/en/waic-2026"],
+    ["/knowledge", "/en/knowledge"],
+    ["/knowledge/find-the-real-problem", "/en/knowledge/find-the-real-problem"],
+    ["/knowledge/first-user-interview", "/en/knowledge/first-user-interview"],
+    ["/knowledge/define-your-mvp", "/en/knowledge/define-your-mvp"],
+    ["/knowledge/find-your-first-ten-users", "/en/knowledge/find-your-first-ten-users"],
+    ["/knowledge/test-your-pricing", "/en/knowledge/test-your-pricing"],
+    ["/knowledge/close-your-first-sales", "/en/knowledge/close-your-first-sales"],
+    ["/knowledge/test-your-cofounder", "/en/knowledge/test-your-cofounder"],
+    ["/knowledge/set-up-company-and-equity", "/en/knowledge/set-up-company-and-equity"],
+    ["/knowledge/decide-whether-to-fundraise", "/en/knowledge/decide-whether-to-fundraise"],
+  ];
+
+  for (const [chinesePath, englishPath] of routePairs) {
+    const chineseResponse = await render(chinesePath);
+    const englishResponse = await render(englishPath);
+    assert.equal(chineseResponse.status, 200, chinesePath);
+    assert.equal(englishResponse.status, 200, englishPath);
+    const chinese = await chineseResponse.text();
+    const english = await englishResponse.text();
+    assert.match(chinese, new RegExp(`href="${englishPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+    assert.match(english, new RegExp(`href="${chinesePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  }
+
+  const waic = await render("/en/waic-2026");
+  const waicHtml = await waic.text();
+  assert.match(waicHtml, /THREE AREAS · FOUR VENUES/);
+  assert.match(waicHtml, /EXHIBITOR RADAR/);
+  assert.match(waicHtml, /WAIC side-event calendar/);
+  assert.ok((waicHtml.match(/Original information \/ registration/g) ?? []).length >= 37);
+  const waicEnglishData = await readFile(new URL("../app/data/waicEnglish.ts", import.meta.url), "utf8");
+  assert.equal((waicEnglishData.match(/^\s+e\(/gm) ?? []).length, 37);
+});
+
+test("provides English copy for every directory resource and English weekly syndication", async () => {
+  const resourcesSource = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
+  const englishSource = await readFile(new URL("../app/data/english.ts", import.meta.url), "utf8");
+  const resourceSlugs = [...resourcesSource.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
+  const englishBody = englishSource.slice(englishSource.indexOf("export const englishResources"), englishSource.indexOf("export function getEnglishResource"));
+  const englishSlugs = [...englishBody.matchAll(/^\s{2}(?:"([^"]+)"|([A-Za-z][\w-]*)):\s*\{/gm)].map((match) => match[1] || match[2]);
+  assert.deepEqual(resourceSlugs.filter((slug) => !englishSlugs.includes(slug)), []);
+
+  const feedResponse = await render("/en/feed.xml");
+  const calendarResponse = await render("/en/weekly/deadlines.ics");
+  assert.equal(feedResponse.status, 200);
+  assert.equal(calendarResponse.status, 200);
+  assert.match(await feedResponse.text(), /Pioneer Weekly Founder Opportunities/);
+  assert.match(await calendarResponse.text(), /Y Combinator Fall 2026 application deadline/);
+});
+
 test("accepts bilingual resource recommendations into the review workflow", async () => {
   const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
   const api = await readFile(new URL("../app/api/submissions/route.ts", import.meta.url), "utf8");
@@ -277,13 +330,16 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 33);
-  assert.equal(new Set(urls).size, 28);
+  assert.equal(urls.length, 36);
+  assert.equal(new Set(urls).size, 31);
   assert.match(data, /slug: "find-the-real-problem"/);
   assert.match(data, /slug: "first-user-interview"/);
   assert.match(data, /slug: "define-your-mvp"/);
   assert.match(data, /slug: "find-your-first-ten-users"/);
+  assert.match(data, /test-your-pricing/);
+  assert.match(data, /close-your-first-sales/);
   assert.match(data, /slug: "test-your-cofounder"/);
+  assert.match(data, /set-up-company-and-equity/);
   assert.match(data, /slug: "decide-whether-to-fundraise"/);
   assert.match(data, /第一篇：发现真问题/);
   assert.match(data, /stage: "start"/);

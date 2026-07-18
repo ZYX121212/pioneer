@@ -7,6 +7,7 @@ import { waicDays, waicFounderRoutes, waicSources, waicVenues } from "../data/wa
 export const metadata: Metadata = {
   title: "WAIC 2026 上海创业者完整参会指南 — Pioneer",
   description: "WAIC 2026 四馆选择、创业者参会路线、7 月 16–20 日周边活动与行动清单。",
+  alternates: { canonical: "/waic-2026", languages: { "zh-CN": "/waic-2026", en: "/en/waic-2026" } },
 };
 
 const quickNav = [
@@ -123,7 +124,7 @@ export default function Waic2026Page() {
 
   return (
     <main className="waic-page">
-      <SiteHeader />
+      <SiteHeader languageHref="/en/waic-2026" />
 
       <section className="waic-hero">
         <div className="waic-breadcrumbs">

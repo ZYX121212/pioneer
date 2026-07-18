@@ -8,6 +8,7 @@ import { firstUsersGuide, interviewGuide, mvpGuide } from "../../data/knowledge"
 export const metadata: Metadata = {
   title: "确定 MVP 边界 — Pioneer 创业指南",
   description: "从最危险的假设倒推第一版产品，只交付一个完整结果，并设计两周验证计划。",
+  alternates: { canonical: "/knowledge/define-your-mvp", languages: { "zh-CN": "/knowledge/define-your-mvp", en: "/en/knowledge/define-your-mvp" } },
 };
 
 const risks = [
@@ -35,7 +36,7 @@ const twoWeekPlan = [
 export default function DefineMvpGuide() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge/define-your-mvp" />
       <header className="guide-hero guide-hero-mint">
         <div className="guide-breadcrumbs"><Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>确定 MVP 边界</b></div>
         <div className="guide-hero-grid">

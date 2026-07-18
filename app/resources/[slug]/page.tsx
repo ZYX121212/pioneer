@@ -57,7 +57,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
 
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref={`/en/resources/${resource.slug}`} />
       <section className={`detail-hero detail-${resource.type}`}>
         <div className="detail-breadcrumbs">
           <a href="/">首页</a><span>/</span>

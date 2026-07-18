@@ -8,6 +8,7 @@ import { interviewGuide, pioneerGuide } from "../../data/knowledge";
 export const metadata: Metadata = {
   title: "发现真问题 — Pioneer 创业指南",
   description: "暂停做产品，用真实行为判断一个创业问题是否值得继续投入，并完成问题陈述、假设卡与三天验证计划。",
+  alternates: { canonical: "/knowledge/find-the-real-problem", languages: { "zh-CN": "/knowledge/find-the-real-problem", en: "/en/knowledge/find-the-real-problem" } },
 };
 
 const evidenceLevels = [
@@ -96,7 +97,7 @@ const caseStudies = [
 export default function FindTheRealProblemGuide() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge/find-the-real-problem" />
 
       <header className="guide-hero">
         <div className="guide-breadcrumbs">

@@ -3,11 +3,12 @@ import Link from "next/link";
 import { CofounderWorkbook } from "../../components/FounderWorksheets";
 import { GuideProgress } from "../../components/GuideProgress";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
-import { cofounderGuide, firstUsersGuide, fundingDecisionGuide } from "../../data/knowledge";
+import { cofounderGuide, companyEquityGuide, salesGuide } from "../../data/knowledge";
 
 export const metadata: Metadata = {
   title: "验证联合创始人 — Pioneer 创业指南",
   description: "判断是否需要联合创始人，用四周真实共事测试角色、投入、冲突、股权和离开机制。",
+  alternates: { canonical: "/knowledge/test-your-cofounder", languages: { "zh-CN": "/knowledge/test-your-cofounder", en: "/en/knowledge/test-your-cofounder" } },
 };
 
 const alternatives = [
@@ -36,7 +37,7 @@ const founderTopics = [
 export default function TestYourCofounderGuide() {
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/knowledge/test-your-cofounder" />
       <header className="guide-hero guide-hero-violet"><div className="guide-breadcrumbs"><Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>验证联合创始人</b></div><div className="guide-hero-grid"><div><span className="guide-kicker">PIONEER GUIDE 05 · {cofounderGuide.stage}</span><h1>{cofounderGuide.title}</h1><p>{cofounderGuide.description}</p></div><aside className="guide-output-card"><span>完成这篇指南后</span><strong>不是找到聊得来的人，<br />而是完成一次合作验证。</strong><ol>{cofounderGuide.outcome.map((item) => <li key={item}>{item}</li>)}</ol><small>{cofounderGuide.duration} · 更新于 {cofounderGuide.updated}</small></aside></div></header>
 
       <GuideProgress guide={cofounderGuide} judgment="联合创始人不是免费的高级员工，也不是为简历补齐标签的人；他需要在多年不确定性中共同承担核心决策、风险与结果。" mistakes={["因为一个人太忙就急着找联合创始人", "先按想法和过去投入分股，再测试合作", "只讨论能力互补，不讨论价值观、现金和退出"]} action="写下你真正缺少的长期核心能力，并设计一项四周内可以共同完成的真实任务。" />
@@ -62,7 +63,7 @@ export default function TestYourCofounderGuide() {
         </article>
         <aside className="guide-sidecard"><span>成为创始人之前</span><strong>至少确认：</strong><ul><li>为什么必须共同创业</li><li>完成过一次真实任务</li><li>压力下仍然透明可靠</li><li>全职、角色与现金已对齐</li><li>股权和离开机制可书面化</li></ul><Link href="#workbook">打开验证工具 →</Link></aside>
       </div>
-      <section className="guide-next"><span>NEXT GUIDE · 融资基础</span><h2>{fundingDecisionGuide.title}</h2><p>{fundingDecisionGuide.description}</p><Link href={`/knowledge/${fundingDecisionGuide.slug}`}>进入下一篇指南 <span aria-hidden="true">→</span></Link><small>上一阶段：<Link href={`/knowledge/${firstUsersGuide.slug}`}>找到最初十个用户</Link></small></section>
+      <section className="guide-next"><span>NEXT GUIDE · 公司与股权</span><h2>{companyEquityGuide.title}</h2><p>{companyEquityGuide.description}</p><Link href={`/knowledge/${companyEquityGuide.slug}`}>进入下一篇指南 <span aria-hidden="true">→</span></Link><small>上一阶段：<Link href={`/knowledge/${salesGuide.slug}`}>完成第一批销售</Link></small></section>
       <SiteFooter />
     </main>
   );

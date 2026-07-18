@@ -9,7 +9,7 @@ export function DirectoryPage({ type }: { type: ResourceType }) {
 
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref={`/en${config.path}`} />
       <section className={`directory-hero directory-hero-${type}`}>
         <div>
           <a className="breadcrumb" href="/">PIONEER / 首页</a>

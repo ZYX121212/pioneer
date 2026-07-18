@@ -21,8 +21,11 @@ const situations = [
   { signal: "我准备找人聊聊", title: "但不知道该问什么", guide: "first-user-interview", action: "完成一场不推销的访谈" },
   { signal: "我已经知道问题", title: "但第一版越做越大", guide: "define-your-mvp", action: "从最危险的假设缩小范围" },
   { signal: "产品可以试用了", title: "但没有第一批用户", guide: "find-your-first-ten-users", action: "建立名单并手工触达" },
-  { signal: "我在考虑找搭档", title: "角色、投入和股权说不清", guide: "", action: "联合创始人指南正在规划" },
-  { signal: "有人建议我融资", title: "但我不知道是否真的需要", guide: "", action: "融资判断指南正在规划" },
+  { signal: "有人愿意试用", title: "但第一版价格完全凭感觉", guide: "test-your-pricing", action: "测试价值、成本与真实报价" },
+  { signal: "开始接触客户", title: "但机会总是停在聊得不错", guide: "close-your-first-sales", action: "建立买方关系和销售阶段" },
+  { signal: "我在考虑找搭档", title: "角色、投入和股权说不清", guide: "test-your-cofounder", action: "先完成一次真实共事测试" },
+  { signal: "准备签约或收款", title: "但公司主体和所有权还没理清", guide: "set-up-company-and-equity", action: "整理设立、股权与专业咨询问题" },
+  { signal: "有人建议我融资", title: "但我不知道是否真的需要", guide: "decide-whether-to-fundraise", action: "从下一里程碑倒推资金需求" },
 ];
 
 export function FounderJourney() {

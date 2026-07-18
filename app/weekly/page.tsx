@@ -7,7 +7,7 @@ import { siteOrigin } from "../lib/site";
 export const metadata: Metadata = {
   title: "本周值得行动的创业机会｜2026.07.17 — Pioneer",
   description: "本周精选 4 个创业者值得行动的机会：WAIC 2026、Y Combinator、Entrepreneur First 与 Berkeley SkyDeck。",
-  alternates: { canonical: "/weekly" },
+  alternates: { canonical: "/weekly", languages: { "zh-CN": "/weekly", en: "/en/weekly" } },
   openGraph: {
     title: "本周值得行动的 4 个创业机会",
     description: "不是机会堆积，而是截止时间、适合人群和下一步行动。",
@@ -96,7 +96,7 @@ export default function WeeklyPage() {
 
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader languageHref="/en/weekly" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
       <section className="weekly-hero">

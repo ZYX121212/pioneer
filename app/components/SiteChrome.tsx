@@ -3,6 +3,7 @@ import { GrowthFooter } from "./GrowthFooter";
 
 type SiteChromeProps = {
   lang?: "zh" | "en";
+  languageHref?: string;
 };
 
 const nav = {
@@ -30,6 +31,8 @@ const nav = {
     visited: "visitors have explored Pioneer",
     homeLabel: "Pioneer home",
     links: [
+      ["/en/weekly", "Weekly"],
+      ["/en/knowledge", "Founder Guides"],
       ["/en/programs", "Programs"],
       ["/en/organizations", "Institutions"],
       ["/en/events", "Events"],
@@ -44,7 +47,7 @@ const nav = {
   },
 } as const;
 
-export function SiteHeader({ lang = "zh" }: SiteChromeProps) {
+export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
   const copy = nav[lang];
   const homeHref = lang === "en" ? "/en#top" : "/#top";
 
@@ -65,7 +68,7 @@ export function SiteHeader({ lang = "zh" }: SiteChromeProps) {
           ))}
         </nav>
         <div className="header-actions">
-          <a className="language-link" href={copy.languageHref}>{copy.languageLabel}</a>
+          <a className="language-link" href={languageHref ?? copy.languageHref}>{copy.languageLabel}</a>
           <a
             className="submit-link"
             href={copy.submitHref}

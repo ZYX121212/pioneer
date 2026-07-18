@@ -1,3 +1,5 @@
+import { additionalChineseGuides } from "./additionalGuides";
+
 export type KnowledgeStage = "start" | "validate" | "team" | "company" | "funding";
 
 export type KnowledgeItem = {
@@ -181,7 +183,7 @@ export const firstUsersGuide: PioneerGuide = {
 export const cofounderGuide: PioneerGuide = {
   slug: "test-your-cofounder",
   stage: "团队与股权",
-  number: "05",
+  number: "07",
   title: "先验证能不能一起创业，再讨论应该分多少股权。",
   description: "判断你是否需要联合创始人，用一次真实共事测试角色、投入、冲突与长期承诺。",
   duration: "约 32 分钟",
@@ -222,7 +224,7 @@ export const cofounderGuide: PioneerGuide = {
 export const fundingDecisionGuide: PioneerGuide = {
   slug: "decide-whether-to-fundraise",
   stage: "融资基础",
-  number: "06",
+  number: "09",
   title: "融资不是创业进度条：你的公司现在真的需要钱吗？",
   description: "先定义资金要跨越的里程碑，再比较收入、补助、债务、天使和风险投资。",
   duration: "约 34 分钟",
@@ -260,7 +262,17 @@ export const fundingDecisionGuide: PioneerGuide = {
   ],
 };
 
-export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, cofounderGuide, fundingDecisionGuide];
+const toPioneerGuide = (slug: string): PioneerGuide => {
+  const guide = additionalChineseGuides.find((entry) => entry.slug === slug);
+  if (!guide) throw new Error(`Missing additional guide: ${slug}`);
+  return { slug: guide.slug, stage: guide.stage, number: guide.number, title: guide.title, description: guide.description, duration: guide.duration, updated: guide.updated, outcome: guide.outcome, sources: guide.sources.map((source) => ({ ...source, language: "英文" })) };
+};
+
+export const pricingGuide = toPioneerGuide("test-your-pricing");
+export const salesGuide = toPioneerGuide("close-your-first-sales");
+export const companyEquityGuide = toPioneerGuide("set-up-company-and-equity");
+
+export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, pricingGuide, salesGuide, cofounderGuide, companyEquityGuide, fundingDecisionGuide];
 
 export const learningPath: Array<{
   number: string;
@@ -274,8 +286,11 @@ export const learningPath: Array<{
   { number: "02", title: "第一次用户访谈", note: "不推销方案，收集真实经历", stage: "validate", href: `/knowledge/${interviewGuide.slug}`, status: "available" },
   { number: "03", title: "确定 MVP 边界", note: "只验证当前最危险的假设", stage: "validate", href: `/knowledge/${mvpGuide.slug}`, status: "available" },
   { number: "04", title: "找到最初十个用户", note: "从名单到第一轮真实触达", stage: "validate", href: `/knowledge/${firstUsersGuide.slug}`, status: "available" },
-  { number: "05", title: "验证联合创始人", note: "先真实共事，再谈角色与股权", stage: "team", href: `/knowledge/${cofounderGuide.slug}`, status: "available" },
-  { number: "06", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", href: `/knowledge/${fundingDecisionGuide.slug}`, status: "available" },
+  { number: "05", title: "测试价格与商业模式", note: "用真实报价验证价值与成本", stage: "company", href: `/knowledge/${pricingGuide.slug}`, status: "available" },
+  { number: "06", title: "完成第一批销售", note: "从买方关系到可重复销售流程", stage: "validate", href: `/knowledge/${salesGuide.slug}`, status: "available" },
+  { number: "07", title: "验证联合创始人", note: "先真实共事，再谈角色与股权", stage: "team", href: `/knowledge/${cofounderGuide.slug}`, status: "available" },
+  { number: "08", title: "公司与股权基础", note: "判断设立时机、主体与所有权", stage: "company", href: `/knowledge/${companyEquityGuide.slug}`, status: "available" },
+  { number: "09", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", href: `/knowledge/${fundingDecisionGuide.slug}`, status: "available" },
 ];
 
 export const knowledgeStages: Array<{ key: "all" | KnowledgeStage; label: string }> = [
@@ -455,5 +470,20 @@ export const knowledgeItems: KnowledgeItem[] = [
     scope: "美国公司",
     url: "https://carta.com/learn/startups/equity-management/",
     color: "violet",
+  },
+  {
+    id: 13, stage: "company", kind: "定价方法", title: "从成本与客户价值建立价格区间", source: "Stripe",
+    description: "比较成本定价与价值定价，用交付底线、客户收益和市场替代建立第一版价格，而不是直接复制竞品。",
+    tags: ["定价", "商业模式", "英文"], duration: "约 15 分钟", level: "基础", scope: "多行业", url: "https://stripe.com/resources/more/cost-based-and-value-based-pricing", color: "yellow",
+  },
+  {
+    id: 14, stage: "validate", kind: "销售实战", title: "技术创始人的第一批销售", source: "Y Combinator",
+    description: "从目标客户研究、定向触达和理解需求开始，由创始人亲自建立最初的销售过程。",
+    tags: ["Founder-led Sales", "B2B", "英文"], duration: "约 12 分钟", level: "基础", scope: "早期 B2B", url: "https://www.ycombinator.com/blog/sales-advice-for-technical-founders", color: "mint",
+  },
+  {
+    id: 15, stage: "company", kind: "主体选择", title: "不同公司结构如何影响责任与融资", source: "U.S. Small Business Administration",
+    description: "比较独资、合伙、LLC 与公司的一般差异，理解主体会影响责任、税务、融资和持续文件要求。",
+    tags: ["公司结构", "责任", "英文"], duration: "约 18 分钟", level: "基础", scope: "美国一般信息", url: "https://www.sba.gov/business-guide/launch-your-business/choose-business-structure", color: "rose",
   },
 ];
