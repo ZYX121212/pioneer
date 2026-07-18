@@ -1,4 +1,17 @@
 export type StartupResearchProfile = {
+  showcase?: {
+    productName: string;
+    tagline: string;
+    what: string;
+    does: string;
+    heroImage: string;
+    heroAlt: string;
+    secondaryImage?: string;
+    secondaryAlt?: string;
+    mediaSource: string;
+    sourceUrl: string;
+    productUrl: string;
+  };
   snapshot: {
     problem: string;
     user: string;
@@ -407,6 +420,19 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     questions: ["核心高频用途是什么？", "量产良率和售后成本如何？", "第三方开发者能创造什么内容？", "消费与教育渠道哪个更有效？"],
   },
   "xiaoyu-robotics": {
+    showcase: {
+      productName: "小雨未来机器人",
+      tagline: "把工件识别、路径规划、稳定施焊与生产数据管理组合成一套工业产品。",
+      what: "AI 驱动的智能焊接机器人",
+      does: "识别工件、规划焊缝并完成稳定施焊",
+      heroImage: "/startups/xiaoyu-robotics/product-hero.webp",
+      heroAlt: "小雨未来智能焊接机器人产品本体",
+      secondaryImage: "/startups/xiaoyu-robotics/operations-dashboard.webp",
+      secondaryAlt: "小雨未来机器人综合运营看板界面",
+      mediaSource: "小雨智造官方产品手册",
+      sourceUrl: "https://www.xiaoyubot.com/zh/manual",
+      productUrl: "https://www.xiaoyubot.com/zh/manual",
+    },
     snapshot: { problem: "制造业需要更灵活的自动化，但传统产线改造昂贵且适应性有限。", user: "制造企业、系统集成商与生产运营团队。", wedge: "以通用机器人进入真实制造任务。", now: "劳动力成本、柔性生产和具身智能共同推动新一代自动化。" },
     product: [{ layer: "机器人产品", detail: "面向制造场景执行操作任务。", implication: "必须长期稳定而非只完成演示。" }, { layer: "智能系统", detail: "通过感知和控制适应任务变化。", implication: "柔性决定可覆盖场景。" }, { layer: "部署服务", detail: "把本体接入现场流程与设备。", implication: "集成效率影响毛利。" }],
     business: { customer: "制造企业与自动化合作伙伴", payer: "工厂、产线运营方或集成商", model: "设备、软件和部署服务收入", expansion: "从标杆产线复制到更多工厂和工序" },

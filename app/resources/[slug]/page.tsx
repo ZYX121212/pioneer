@@ -58,21 +58,59 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   return (
     <main>
       <SiteHeader languageHref={`/en/resources/${resource.slug}`} />
-      <section className={`detail-hero detail-${resource.type}`}>
+      <section className={`detail-hero detail-${resource.type}${startupProfile ? " detail-hero-with-product" : ""}`}>
         <div className="detail-breadcrumbs">
           <a href="/">首页</a><span>/</span>
           <a href={config.path}>{config.title}</a><span>/</span>
           <b>{resource.name}</b>
         </div>
-        <div className="detail-identity">
-          <span className={`resource-logo detail-logo logo-${resource.color}`}>{resource.monogram}</span>
-          <span className="resource-status"><i />{resource.status}</span>
-        </div>
-        <span className="section-index">{resource.kind} · PIONEER PROFILE</span>
-        <h1>{resource.name}</h1>
-        <p>{resource.description}</p>
-        <div className="detail-tags">
-          {resource.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        <div className={`detail-hero-body${startupProfile ? " detail-hero-body-startup" : ""}`}>
+          <div className="detail-hero-copy">
+            <div className="detail-identity">
+              <span className={`resource-logo detail-logo logo-${resource.color}`}>{resource.monogram}</span>
+              <span className="resource-status"><i />{resource.status}</span>
+            </div>
+            <span className="section-index">{resource.kind} · PIONEER PROFILE</span>
+            <h1>{resource.name}</h1>
+            <p>{resource.description}</p>
+            <div className="detail-tags">
+              {resource.tags.map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
+          </div>
+          {startupProfile ? (
+            <aside className={`startup-product-hero${startupProfile.showcase ? " startup-product-hero-media" : ""}`} aria-label={`${resource.name} 产品速览`}>
+              {startupProfile.showcase ? (
+                <figure>
+                  <img src={startupProfile.showcase.heroImage} alt={startupProfile.showcase.heroAlt} width="1600" height="1032" loading="eager" />
+                  <figcaption>
+                    <span>OFFICIAL PRODUCT VIEW</span>
+                    <a href={startupProfile.showcase.sourceUrl} target="_blank" rel="noreferrer">图片来源：{startupProfile.showcase.mediaSource} ↗</a>
+                  </figcaption>
+                </figure>
+              ) : (
+                <div className="startup-hero-system" aria-hidden="true">
+                  <span>PRODUCT SYSTEM</span>
+                  {startupProfile.product.slice(0, 3).map((item, index) => (
+                    <div key={item.layer}><small>0{index + 1}</small><strong>{item.layer}</strong></div>
+                  ))}
+                </div>
+              )}
+              <div className="startup-hero-product-copy">
+                <span>PRODUCT AT A GLANCE</span>
+                <h2>{startupProfile.showcase?.productName ?? `${resource.name} 产品结构`}</h2>
+                <p>{startupProfile.showcase?.tagline ?? startupProfile.snapshot.wedge}</p>
+                <div>
+                  <a href={startupProfile.showcase?.productUrl ?? "#startup-product"} target={startupProfile.showcase ? "_blank" : undefined} rel={startupProfile.showcase ? "noreferrer" : undefined}>{startupProfile.showcase ? "查看官方产品" : "查看产品系统"} <span aria-hidden="true">↗</span></a>
+                  <a href="#startup-overview">一分钟理解 <span aria-hidden="true">↓</span></a>
+                </div>
+              </div>
+              <div className="startup-hero-facts">
+                <div><span>它是什么</span><strong>{startupProfile.showcase?.what ?? startupProfile.product[0].layer}</strong></div>
+                <div><span>谁在使用</span><strong>{startupProfile.snapshot.user}</strong></div>
+                <div><span>完成什么</span><strong>{startupProfile.showcase?.does ?? startupProfile.snapshot.wedge}</strong></div>
+              </div>
+            </aside>
+          ) : null}
         </div>
       </section>
 

@@ -48,10 +48,10 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
         <h2>先用一分钟理解它</h2>
         <p>{resource.overview}</p>
         <div className="organization-verdict-strip startup-summary-strip">
-          <div><span>它解决什么</span><strong>{startup.snapshot.problem}</strong></div>
-          <div><span>它服务谁</span><strong>{startup.snapshot.user}</strong></div>
-          <div><span>从哪里切入</span><strong>{startup.snapshot.wedge}</strong></div>
-          <div><span>为什么是现在</span><strong>{startup.snapshot.now}</strong></div>
+          <div><span>产品是什么</span><strong>{startup.showcase?.what ?? startup.product[0].layer}</strong></div>
+          <div><span>谁会使用</span><strong>{startup.snapshot.user}</strong></div>
+          <div><span>完成什么任务</span><strong>{startup.showcase?.does ?? startup.snapshot.wedge}</strong></div>
+          <div><span>当前验证信号</span><strong>{strongestSignal.evidence}</strong></div>
         </div>
         <div className="editorial-callout startup-editorial-callout"><span>PIONEER 核心判断 · 编辑分析</span><p>{resource.editorialNote}</p></div>
       </section>
@@ -83,6 +83,12 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
 
       <section className="organization-chapter" id="startup-product">
         <header className="organization-chapter-heading"><span>04</span><div><small>PRODUCT SYSTEM</small><h2>产品不是一个功能，而是一套系统</h2><p>逐层观察核心能力如何变成产品、交付和可以持续扩张的基础设施。</p></div></header>
+        {startup.showcase?.secondaryImage ? (
+          <figure className="startup-product-interface">
+            <img src={startup.showcase.secondaryImage} alt={startup.showcase.secondaryAlt ?? `${resource.name} 产品界面`} width="1941" height="1140" loading="lazy" />
+            <figcaption><span>PRODUCT INTERFACE</span><strong>不只展示机器人本体，也展示生产效率、质量、成本与设备健康如何被管理。</strong><a href={startup.showcase.sourceUrl} target="_blank" rel="noreferrer">查看官方产品手册 ↗</a></figcaption>
+          </figure>
+        ) : null}
         <div className="startup-system-flow">
           {startup.product.map((item, index) => (
             <div className="startup-system-node" key={item.layer}>

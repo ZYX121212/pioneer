@@ -558,6 +558,17 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(researchedStartup, /最终判断，以及下一步看什么/);
   assert.match(researchedStartup, /href="#startup-verdict"/);
 
+  const productShowcaseResponse = await render("/resources/xiaoyu-robotics");
+  const productShowcase = await productShowcaseResponse.text();
+  assert.equal(productShowcaseResponse.status, 200);
+  assert.match(productShowcase, /小雨未来机器人/);
+  assert.match(productShowcase, /PRODUCT AT A GLANCE/);
+  assert.match(productShowcase, /它是什么/);
+  assert.match(productShowcase, /完成什么/);
+  assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/product-hero\.webp/);
+  assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/operations-dashboard\.webp/);
+  assert.match(productShowcase, /图片来源：(?:<!-- -->)?小雨智造官方产品手册/);
+
   const englishStartupResponse = await render("/en/resources/elevenlabs");
   const englishStartup = await englishStartupResponse.text();
   assert.equal(englishStartupResponse.status, 200);

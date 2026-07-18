@@ -1428,9 +1428,9 @@ export const resources: Resource[] = [
     tags: ["B–C轮", "中国", "机器人", "消费硬件", "具身智能"], fundingStage: "官方披露 Pre-B+", stageType: "series-bc", timing: "量产与渠道验证", status: "B 轮阶段项目", verified: "2026.07.17 核验", source: "松延动力官网", url: "https://www.noetixrobotics.com/about-us", sources: [{ label: "公司介绍", href: "https://www.noetixrobotics.com/about-us" }, { label: "Pre-B+ 融资", href: "https://noetixrobotics.com/en/news/brand-news/199" }], color: "mint", monogram: "NX", featured: true,
   },
   {
-    id: 57, slug: "xiaoyu-robotics", type: "startup", kind: "通用机器人 / 智能制造", name: "小雨智造 Xiaoyu Robotics", location: "中国 · 深圳",
-    description: "围绕通用机器人和智能制造构建产品与交付能力，进入需要稳定运行的真实工业场景。",
-    overview: "小雨智造面向通用机器人与制造场景，官网披露于 2026 年完成数亿元 B+ 轮融资。",
+    id: 57, slug: "xiaoyu-robotics", type: "startup", kind: "通用机器人 / 智能制造", name: "小雨智造 Xiaoyu Robotics", location: "中国 · 北京",
+    description: "以“小雨未来”智能焊接机器人进入真实工业场景，组合 AI 感知、路径规划、稳定施焊与生产数据管理。",
+    overview: "小雨智造以“一脑多形”技术路线构建通用具身智能机器人，首款“小雨未来”产品进入钢构等智能焊接场景；官网披露于 2026 年完成数亿元 B+ 轮融资。",
     editorialNote: "它适合用来研究机器人公司如何从技术样机走向场景部署、制造体系和客户交付。",
     whyItMatters: "机器人公司的中期竞争力往往来自部署密度、可靠性、供应链和服务能力，而不是单一模型指标。",
     bestFor: ["制造与机器人创业者", "研究 B 轮后组织能力的团队", "关注机器人交付经济性的人"],
