@@ -1018,6 +1018,90 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     alternative: "做独立产品发布、直接拜访渠道，或先参加 IFA Next 等更聚焦展区",
     }),
   },
+  "google-for-startups-accelerator": {
+    identity: { model: "按地区和主题运营的小批次无股权加速体系，以技术专家配对、冲刺项目和领导力训练解决成长阶段的具体瓶颈。", primaryValue: "让已有产品和进展的团队直接与 Google 及行业专家合作，缩短解决技术、产品和增长问题的时间。", valueCondition: "团队必须先定义一个足够具体的技术或业务挑战，并让 CTO 或核心技术负责人完整参与。" },
+    capabilities: [
+      { label: "技术专家配对", strength: "核心", detail: "围绕团队提出的技术难题匹配 Google 与行业专家，适合需要架构、AI、数据或产品深挖的公司。" },
+      { label: "产品与增长训练", strength: "强", detail: "设计冲刺、获客、领导力和 OKR 等内容帮助团队把技术问题连接到公司增长。" },
+      { label: "全球与区域网络", strength: "强", detail: "地区项目能连接本地生态，但价值取决于该批次主题与目标市场是否重合。" },
+      { label: "直接融资", strength: "有限", detail: "项目提供网络和 Demo 场景，但不是统一投资工具，也不保证后续融资。" },
+    ],
+    offers: [
+      { title: "专家技术冲刺", includes: "一对一辅导、专题深挖和围绕关键挑战的冲刺项目。", founderValue: "把一个会长期拖慢团队的问题压缩成有目标、有负责人和有产出的解决周期。" },
+      { title: "产品与领导力训练", includes: "产品设计、客户获取、领导力与公司对齐等主题。", founderValue: "避免只优化技术而忽略用户、组织和商业约束。" },
+      { title: "产品生态权益", includes: "符合资格时可获得 AI 产品早期访问、Cloud credits 或 TPU 资源。", founderValue: "降低实验成本，但所有权益都应按当期资格复核。" },
+    ],
+    entryPaths: [
+      { title: "地区加速器", forWhom: "符合国家、地区、阶段和行业要求的成长型技术公司。", prepare: "从官方目录选择唯一匹配项目，按该项目截止日与资格提交。" },
+      { title: "主题项目", forWhom: "能源、AI 或其他特定行业拥有明确产品和客户进展的团队。", prepare: "用客户证据说明为什么该技术挑战会阻碍增长。" },
+      { title: "Startup School 与其他入口", forWhom: "暂时不符合加速器阶段，但希望使用公开学习资源的团队。", prepare: "先完成基础验证，再关注新的地区项目。" },
+    ],
+    stageFit: [
+      { stage: "只有想法", fit: "暂不优先", reason: "项目通常要求产品、技术和早期进展，先完成问题与 MVP 验证。" },
+      { stage: "Pre-seed / Seed", fit: "优先考虑", reason: "如果已经出现客户证据并有明确技术瓶颈，专家协作价值最高。" },
+      { stage: "Series A", fit: "优先考虑", reason: "增长和组织问题开始具体，能够充分使用产品、领导力与技术支持。" },
+      { stage: "成熟增长期", fit: "可以考虑", reason: "只在地区项目明确接收后期公司且挑战高度匹配时值得。" },
+    ],
+    costs: [
+      { label: "股权", level: "低", detail: "官方说明计划期支持不收取股权。" },
+      { label: "核心团队时间", level: "高", detail: "CTO 与关键技术人员需要持续参加会议、冲刺和项目工作。" },
+      { label: "地区参与", level: "中", detail: "部分环节可能线下进行，应确认差旅与所在地区要求。" },
+      { label: "平台依赖", level: "中", detail: "产品权益可能提高 Google 技术采用，需要避免为了 credits 改变最合适架构。" },
+    ],
+    diligence: ["当前有哪些项目仍开放，地域和行业是否完全符合？", "项目期间唯一要解决的技术或增长挑战是什么？", "CTO 与关键成员能否保证完整参与？", "Cloud、AI 产品和专家权益中哪些已写入当期说明？"],
+    playbook: [
+      { phase: "申请前 3 周", title: "选择唯一项目", action: "按地区、行业、阶段和日期淘汰不匹配入口。", output: "一页项目匹配表" },
+      { phase: "申请前 2 周", title: "定义核心挑战", action: "把问题写成当前指标、根因假设与计划期目标。", output: "技术挑战说明" },
+      { phase: "入选后", title: "建立冲刺基线", action: "明确负责人、成功指标和专家需要提供的具体帮助。", output: "项目冲刺看板" },
+      { phase: "结项前", title: "固化能力", action: "将专家建议转化为文档、流程和团队可重复的方法。", output: "内部复盘与后续计划" },
+    ],
+    comparison: { chooseWhen: "公司已有产品和进展，且一个明确技术或增长瓶颈值得借助 Google 专家集中解决。", avoidWhen: "还没有用户问题、技术负责人无法投入，或只是为了品牌和云额度申请。", compareWith: "需要投资和融资节奏时比较 YC、Techstars；需要长期 AI 技术权益时比较 NVIDIA Inception。" },
+  },
+  "nvidia-inception": {
+    identity: { model: "面向已注册 AI 创业公司的免费持续会员计划，不按固定批次结束，以技术学习、开发资源、合作权益和生态连接支持公司成长。", primaryValue: "降低 AI 与加速计算团队获取技术知识、工具优惠、伙伴资源和特定生态机会的门槛。", valueCondition: "团队必须已经成立、至少有一名开发者，并真实需要 NVIDIA 技术或相关合作生态。" },
+    capabilities: [
+      { label: "AI 技术资源", strength: "核心", detail: "提供开发工具、培训建议、论坛和部分课程权益，适合技术团队自助使用。" },
+      { label: "软硬件与伙伴优惠", strength: "强", detail: "成员可申请特定硬件、软件、云额度和合作伙伴优惠，但供应与资格并不保证。" },
+      { label: "资本与市场连接", strength: "中", detail: "符合条件的公司可能进入 VC Alliance、活动与展示机会，不能视为标准交付。" },
+      { label: "公司建设辅导", strength: "有限", detail: "计划偏技术生态，不等同于密集产品、销售或联合创始人辅导。" },
+    ],
+    offers: [
+      { title: "技术培训与开发入口", includes: "自学课程、折扣培训、论坛与按工作负载推荐的技术内容。", founderValue: "让团队更快理解哪些 NVIDIA 工具真正适合自己的产品。" },
+      { title: "产品与合作优惠", includes: "部分硬件软件优惠、合作伙伴云额度和成员专属资源。", founderValue: "降低原型和早期部署成本，但应计算优惠结束后的真实单位经济。" },
+      { title: "生态曝光", includes: "符合条件时获得投资人连接、展示、活动和市场合作机会。", founderValue: "为技术公司增加可信入口，但需要主动经营而非等待分配。" },
+    ],
+    entryPaths: [
+      { title: "在线会员申请", forWhom: "成立少于十年、拥有官网和至少一名开发者的技术创业公司。", prepare: "准备公司资料、产品网站、融资状态和 pitch deck。" },
+      { title: "成员专项权益", forWhom: "已入会并具有明确工作负载或商业里程碑的团队。", prepare: "持续更新公司资料，并在门户中申请具体权益。" },
+      { title: "活动与资本入口", forWhom: "已有产品、进展且符合筛选标准的成员。", prepare: "建立可演示产品、融资材料和明确合作目标。" },
+    ],
+    stageFit: [
+      { stage: "未注册 / 只有想法", fit: "暂不优先", reason: "官方要求公司正式注册且至少有一名开发者。" },
+      { stage: "原型 / Pre-seed", fit: "优先考虑", reason: "免费技术学习和开发权益可降低早期试错成本。" },
+      { stage: "Seed–Series A", fit: "优先考虑", reason: "产品、融资和市场需求更具体，能使用更高价值的生态入口。" },
+      { stage: "成长阶段", fit: "可以考虑", reason: "适合仍高度依赖 AI 基础设施或需要国际生态连接的公司。" },
+    ],
+    costs: [
+      { label: "费用与股权", level: "低", detail: "官方说明无申请费、会员费和股权要求。" },
+      { label: "资料维护", level: "低", detail: "需要持续更新公司和产品资料以保持资格与获得匹配权益。" },
+      { label: "技术锁定", level: "中", detail: "优惠可能推动团队采用特定技术栈，应比较长期成本与替代方案。" },
+      { label: "机会不确定性", level: "中", detail: "投资人、市场活动和特定资源取决于资格，不是每个成员都获得。" },
+    ],
+    diligence: ["公司是否符合注册、年限、开发者和业务类型要求？", "最需要的具体权益是课程、算力优惠还是市场连接？", "优惠结束后产品单位经济是否成立？", "门户资料由谁负责持续更新和申请权益？"],
+    playbook: [
+      { phase: "申请前", title: "完成资格自检", action: "逐项核对公司类型、注册状态、开发者与网站要求。", output: "资格核对表" },
+      { phase: "加入后 1 周", title: "选择三项权益", action: "只选择能解决当前里程碑的技术、成本和连接入口。", output: "90 天权益计划" },
+      { phase: "使用中", title: "测量真实节省", action: "记录培训、credits 和技术优化带来的时间与成本变化。", output: "权益回报表" },
+      { phase: "每季度", title: "更新公司资料", action: "同步产品、融资和市场进展，重新匹配专项机会。", output: "最新成员档案" },
+    ],
+    comparison: { chooseWhen: "公司已经注册并构建 AI 产品，需要长期技术生态资源而不希望交出股权。", avoidWhen: "尚未成立公司、没有开发团队，或期望加入后自动获得 GPU、融资和客户。", compareWith: "需要密集公司辅导时比较 YC、Techstars；需要围绕具体技术难题的短期专家冲刺时比较 Google Accelerator。" },
+  },
+  "inbound-2026": {
+    ...founderEventProfile({ event: "INBOUND 2026", model: "由 HubSpot 主办、围绕营销、销售、客户成功、收入运营与 AI 的三日商业增长大会。", primaryValue: "集中接触 B2B 增长负责人、营销与销售买家，以及 HubSpot 生态中的工具与服务伙伴。", valueCondition: "团队已有可演示的 B2B 产品、明确买家画像，并能在会前预约目标客户和合作伙伴。", audience: "营销、销售、客户成功、收入运营负责人、企业创始人与增长工具提供商", meetingTarget: "目标企业增长负责人、HubSpot 生态伙伴、渠道与 B2B 投资人", preparation: "准备按买家角色拆分的演示、客户结果、集成说明和 30 天试点方案", tripCost: "现场门票、波士顿住宿和三天团队时间构成较高成本；免费内容不能替代目标会面。", alternative: "安排波士顿与纽约的定向客户拜访，或参加更垂直的 SaaS 与收入运营活动" }),
+  },
+  "dreamforce-2026": {
+    ...founderEventProfile({ event: "Dreamforce 2026", model: "Salesforce 面向客户、开发者、合作伙伴与企业管理者的全球平台生态大会，包含线下内容与 Salesforce+ 直播。", primaryValue: "验证企业 AI、CRM 和数据产品如何进入 Salesforce 生态、采购流程和大型客户工作流。", valueCondition: "目标客户明确使用 Salesforce，产品已有可演示集成，并能提前锁定买家、伙伴或平台团队会面。", audience: "企业 CIO、CRM 与数据负责人、销售和服务团队、开发者、系统集成商与 Salesforce 合作伙伴", meetingTarget: "目标行业买家、AppExchange 与平台伙伴、系统集成商和企业软件投资人", preparation: "准备 Salesforce 集成演示、客户结果、平台重叠分析和合作伙伴方案", tripCost: "现场通票、旧金山旺季住宿和多日活动成本很高；线上直播适合只获取内容的团队。", alternative: "观看 Salesforce+ 免费直播，并用预算直接拜访三个目标客户或参加垂直企业软件活动" }),
+  },
 };
 
 export function getResourceProfile(slug: string) {
