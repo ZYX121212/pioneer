@@ -30,6 +30,7 @@ const situations = [
   { signal: "数字越来越多", title: "但它们没有帮助我做决定", guide: "build-your-startup-metrics", action: "连接用户价值、单位经济与现金跑道" },
   { signal: "团队已经忙不过来", title: "但我不确定是否应该招第一个员工", guide: "hire-your-first-employee", action: "先定义持续瓶颈与角色结果" },
   { signal: "已经决定融资", title: "但故事、名单和材料还很零散", guide: "prepare-your-fundraising-process", action: "建立一次完整且有截止时间的融资过程" },
+  { signal: "项目持续投入但信号变弱", title: "我不知道该坚持、调整还是停止", guide: "learn-from-startup-failures", action: "从失败案例建立预警线与止损动作" },
 ];
 
 export function FounderJourney() {

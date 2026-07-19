@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FailureCaseSignup } from "../components/FailureCaseSignup";
 import { FounderJourney } from "../components/FounderJourney";
 import { KnowledgeExplorer } from "../components/KnowledgeExplorer";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
-import { learningPath, pioneerGuide, pioneerGuides } from "../data/knowledge";
+import { learningPath, pioneerGuide, pioneerGuides, startupFailureGuide } from "../data/knowledge";
 
 export const metadata: Metadata = { title: "创业决策指南 — Pioneer", description: "从发现真问题到融资判断，把创业知识变成下一步行动。", alternates: { canonical: "/knowledge", languages: { "zh-CN": "/knowledge", en: "/en/knowledge" } } };
 
@@ -59,9 +60,9 @@ export default function KnowledgePage() {
               </div>
               <div className="knowledge-layer-guide-grid">{pioneerGuides.map((guide) => <Link href={`/knowledge/${guide.slug}`} key={guide.slug}><b>{guide.number}</b><span>{guide.title}</span><i aria-hidden="true">→</i></Link>)}</div>
             </article>
-            <a href={`/knowledge/${pioneerGuide.slug}#cases`} className="knowledge-layer-card layer-cases">
-              <span>02 · 案例拆解</span><strong>跨类型决策案例</strong><p>B2B、消费、硬件和 AI 项目的完整判断过程。</p><b>查看案例 →</b>
-            </a>
+            <Link href={`/knowledge/${startupFailureGuide.slug}#cases`} className="knowledge-layer-card layer-cases">
+              <span>02 · 失败案例</span><strong>找到最早失效的假设</strong><p>从 Quibi、Cydoc 与 Net30 的第一方复盘中识别使用情境、商业模式和销售周期的早期信号。</p><b>开始复盘 →</b>
+            </Link>
             <a href={`/knowledge/${pioneerGuide.slug}#problem-workbook`} className="knowledge-layer-card layer-tools">
               <span>03 · 实践工具</span><strong>6 张可保存工作表</strong><p>从问题陈述、访谈记录到团队验证与融资判断，结果可保存到本地档案。</p><b>开始填写 →</b>
             </a>
@@ -70,6 +71,8 @@ export default function KnowledgePage() {
             </a>
           </div>
         </section>
+
+        <FailureCaseSignup />
 
         <div className="learning-path-shell">
           <aside className="learning-path-intro">

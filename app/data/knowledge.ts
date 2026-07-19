@@ -275,8 +275,9 @@ export const retentionGuide = toPioneerGuide("measure-retention-and-pmf");
 export const metricsGuide = toPioneerGuide("build-your-startup-metrics");
 export const hiringGuide = toPioneerGuide("hire-your-first-employee");
 export const fundraisingProcessGuide = toPioneerGuide("prepare-your-fundraising-process");
+export const startupFailureGuide = toPioneerGuide("learn-from-startup-failures");
 
-export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, pricingGuide, salesGuide, cofounderGuide, companyEquityGuide, fundingDecisionGuide, retentionGuide, metricsGuide, hiringGuide, fundraisingProcessGuide]
+export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, pricingGuide, salesGuide, cofounderGuide, companyEquityGuide, fundingDecisionGuide, retentionGuide, metricsGuide, hiringGuide, fundraisingProcessGuide, startupFailureGuide]
   .sort((a, b) => Number(a.number) - Number(b.number));
 
 export const learningPath: Array<{
@@ -300,6 +301,7 @@ export const learningPath: Array<{
   { number: "11", title: "建立核心指标与现金视图", note: "连接用户价值、单位经济与公司跑道", stage: "company", href: `/knowledge/${metricsGuide.slug}`, status: "available" },
   { number: "12", title: "招聘第一个员工", note: "从持续瓶颈定义角色、面试与入职", stage: "team", href: `/knowledge/${hiringGuide.slug}`, status: "available" },
   { number: "13", title: "准备完整融资过程", note: "组织叙事、名单、数据室与融资节奏", stage: "funding", href: `/knowledge/${fundraisingProcessGuide.slug}`, status: "available" },
+  { number: "14", title: "复盘失败案例", note: "找到最早失效的假设与可逆窗口", stage: "start", href: `/knowledge/${startupFailureGuide.slug}`, status: "available" },
 ];
 
 export const knowledgeStages: Array<{ key: "all" | KnowledgeStage; label: string }> = [

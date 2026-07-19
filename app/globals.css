@@ -5721,6 +5721,108 @@ nav a:hover,
   font-size: 10px;
 }
 
+.failure-signup {
+  margin-top: 14px;
+  padding: clamp(28px, 4vw, 54px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: clamp(40px, 7vw, 100px);
+  color: white;
+  background: #18251f;
+}
+
+.failure-signup-copy > span {
+  color: #ff8563;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.failure-signup-copy h2 {
+  max-width: 760px;
+  margin: 16px 0 18px;
+  font-family: var(--display);
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.failure-signup-copy p {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.failure-signup-action {
+  align-self: end;
+}
+
+.failure-signup-action ul {
+  margin: 0 0 24px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.failure-signup-action li {
+  padding: 14px 8px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.failure-signup-action li::before {
+  content: "●";
+  margin-right: 7px;
+  color: #83eba5;
+  font-size: 7px;
+}
+
+.failure-signup-action form {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.failure-signup-action input[type="email"] {
+  min-width: 0;
+  padding: 13px 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font: inherit;
+}
+
+.failure-signup-action input[type="email"]::placeholder { color: rgba(255, 255, 255, 0.38); }
+.failure-signup-action form:focus-within { border-color: #ff8563; }
+
+.failure-signup-action button {
+  padding: 12px 16px;
+  border: 0;
+  cursor: pointer;
+  background: #ff7550;
+  color: #102019;
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.failure-signup-action button:disabled { cursor: default; opacity: 0.65; }
+
+.failure-signup-feedback {
+  min-height: 18px;
+  padding-top: 7px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 10px;
+}
+
 .guide-hero-blue {
   background-color: #b9c8ff;
 }
@@ -7303,6 +7405,11 @@ footer {
     gap: 30px;
   }
 
+  .failure-signup {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
   .startup-timeline > div {
     grid-template-columns: 48px 115px minmax(0, 1fr);
   }
@@ -7334,6 +7441,24 @@ footer {
 }
 
 @media (max-width: 720px) {
+  .failure-signup {
+    margin-top: 10px;
+    padding: 28px 20px;
+  }
+
+  .failure-signup-copy h2 {
+    font-size: clamp(38px, 13vw, 56px);
+  }
+
+  .failure-signup-action ul {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .failure-signup-action form {
+    grid-template-columns: 1fr;
+  }
+
   .announcement {
     justify-content: center;
     overflow: hidden;

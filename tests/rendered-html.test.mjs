@@ -612,13 +612,16 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /篇已上线/);
   assert.match(html, /knowledge-layer-main-summary/);
   assert.match(html, /knowledge-layer-guide-grid/);
-  assert.match(html, /跨类型决策案例/);
+  assert.match(html, /找到最早失效的假设/);
+  assert.match(html, /每两周，拆解一个失败项目/);
+  assert.match(html, /订阅失败案例/);
   assert.match(html, /6 张可保存工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
   assert.match(html, /href="\/knowledge\/define-your-mvp"/);
   assert.match(html, /href="\/knowledge\/find-your-first-ten-users"/);
   assert.match(html, /href="\/knowledge\/test-your-cofounder"/);
   assert.match(html, /href="\/knowledge\/decide-whether-to-fundraise"/);
+  assert.match(html, /href="\/knowledge\/learn-from-startup-failures"/);
   assert.match(html, /你现在，最接近哪一种处境/);
   assert.match(html, /建立你的创业项目档案/);
   assert.match(html, /创业项目档案/);
@@ -626,6 +629,23 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /团队与股权/);
   assert.match(html, /SAFE 融资文件与说明/);
   assert.match(html, /美国公司/);
+});
+
+test("renders the startup failure review guide in Chinese and English", async () => {
+  const response = await render("/knowledge/learn-from-startup-failures");
+  const html = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(html, /创业项目为什么会失败/);
+  assert.match(html, /Quibi · 使用情境没有成立/);
+  assert.match(html, /Cydoc · 技术价值没有自动成为可持续业务/);
+  assert.match(html, /Net30 · 喜爱的产品仍可能死于销售周期/);
+  assert.match(html, /读完后，立即为自己的项目做一次事前验尸/);
+
+  const englishResponse = await render("/en/knowledge/learn-from-startup-failures");
+  const english = await englishResponse.text();
+  assert.equal(englishResponse.status, 200);
+  assert.match(english, /Why do startups fail/);
+  assert.match(english, /Three cases, three different early signals/);
 });
 
 test("renders the first Pioneer decision guide", async () => {
