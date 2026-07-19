@@ -53,7 +53,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
 
       <section className="organization-thesis startup-thesis" id="startup-overview">
         <span className="section-index">01 / ONE-MINUTE BRIEF</span>
-        <h2>先用一分钟理解它</h2>
+        <h2>项目简介</h2>
         <p>{resource.overview}</p>
         <div className="organization-verdict-strip startup-summary-strip">
           <div><span>产品是什么</span><strong>{startup.showcase?.what ?? startup.product.map((item) => item.layer).join(" + ")}</strong></div>
@@ -72,7 +72,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-timeline">
-        <header className="organization-chapter-heading"><span>02</span><div><small>FOUNDERS &amp; JOURNEY</small><h2>谁在推动它，它如何走到今天</h2><p>先理解创始团队为什么选择这个问题，再看资本、产品和经营里程碑是否沿着同一方向前进。</p></div></header>
+        <header className="organization-chapter-heading"><span>02</span><div><small>FOUNDERS &amp; JOURNEY</small><h2>创始团队与发展历程</h2><p>介绍创始团队的背景、创办公司的原因，以及公司从成立至今的重要发展节点。</p></div></header>
         <div className={`startup-founder-portrait${story ? " startup-founder-portrait-confirmed" : ""}`}>
           <div className="startup-founder-mark"><span>{resource.monogram}</span><small>{story?.founded ? `创立于 ${story.founded}` : "创始资料待确认"}</small></div>
           <div className="startup-founder-story">
@@ -82,12 +82,12 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
             {story ? <div className="startup-founder-people">{story.founders.map((founder) => <div key={founder.name}><strong>{founder.name}</strong><small>{founder.role}</small><p>{founder.background}</p></div>)}</div> : null}
           </div>
           <div className="startup-founder-thesis">
-            <span>为什么可能是他们</span>
+            <span>创始团队与项目的匹配度</span>
             <p>{story?.founderThesis ?? `需要继续确认：团队过去的经历是否与“${startup.snapshot.problem}”这一问题形成真实的 Founder–Market Fit。`}</p>
             {story ? <a href={story.founderSource.href} target="_blank" rel="noreferrer">{story.founderSource.label} ↗</a> : <small>资料不足时明确留白，不把推测写成事实。</small>}
           </div>
         </div>
-        <div className="organization-subheading startup-journey-heading"><span>PATH</span><h3>融资不是数字，而是公司换来了什么进展</h3><p>把资金节点和产品验证放在一条路径上，才能判断公司是否真正前进。</p></div>
+        <div className="organization-subheading startup-journey-heading"><span>PATH</span><h3>融资与重要发展节点</h3><p>按时间查看公司的融资、产品发布、客户验证和当前阶段。</p></div>
         <div className="startup-timeline" aria-label={`${resource.name} 阶段与证据脉络`}>
           <div><span>01</span><small>创立起点</small><h3>{story?.founded ? `${story.founded} · 公司创立` : "从问题出发"}</h3><p>{story?.origin ?? startup.snapshot.problem}</p><b>{story?.founderThesis ?? startup.snapshot.wedge}</b></div>
           {(story?.funding.length ? story.funding : fundingSignals.slice(0, 2)).map((item, index) => "round" in item ? (
@@ -104,19 +104,19 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-users">
-        <header className="organization-chapter-heading"><span>03</span><div><small>USER &amp; BUYER PORTRAIT</small><h2>谁在使用，谁在付钱</h2><p>创业项目能否成立，取决于使用者的任务、付款者的预算和两者是否指向同一价值。</p></div></header>
+        <header className="organization-chapter-heading"><span>03</span><div><small>USERS &amp; CUSTOMERS</small><h2>用户与客户</h2><p>介绍产品的主要使用者、购买者以及他们希望解决的具体问题。</p></div></header>
         <div className="startup-persona-table">
           <div className="startup-persona-head"><span>角色</span><span>是谁</span><span>核心任务或痛点</span><span>为什么会行动</span></div>
           <div><strong>核心用户</strong><p>{startup.snapshot.user}</p><p>{startup.snapshot.problem}</p><p>{startup.snapshot.wedge}</p></div>
           <div><strong>产品客户</strong><p>{startup.business.customer}</p><p>{startup.product[0].detail}</p><p>{startup.product[0].implication}</p></div>
           <div><strong>实际付款者</strong><p>{startup.business.payer}</p><p>需要用预算解决效率、增长、风险或基础设施问题。</p><p>{startup.business.model}</p></div>
         </div>
-        <div className="organization-subheading"><span>FIT</span><h3>哪些创业者最值得研究它</h3><p>不是要求你复制这个项目，而是判断其决策方法是否与你的问题相似。</p></div>
+        <div className="organization-subheading"><span>FIT</span><h3>适合参考这个项目的人</h3><p>这些项目经验更适合面临相似用户、产品或商业问题的创业者参考。</p></div>
         <div className="startup-fit-grid">{resource.bestFor.map((item, index) => <div key={item}><span>0{index + 1}</span><p>{item}</p></div>)}</div>
       </section>
 
       <section className="organization-chapter" id="startup-product">
-        <header className="organization-chapter-heading"><span>04</span><div><small>PRODUCT SYSTEM</small><h2>产品不是一个功能，而是一套系统</h2><p>逐层观察核心能力如何变成产品、交付和可以持续扩张的基础设施。</p></div></header>
+        <header className="organization-chapter-heading"><span>04</span><div><small>PRODUCT &amp; FEATURES</small><h2>产品与核心功能</h2><p>介绍产品由哪些部分组成、各部分解决什么问题，以及它们如何共同完成用户任务。</p></div></header>
         {startup.showcase?.secondaryImage ? (
           <figure className="startup-product-interface">
             <img src={startup.showcase.secondaryImage} alt={startup.showcase.secondaryAlt ?? `${resource.name} 产品界面`} width="1941" height="1140" loading="lazy" />
@@ -135,7 +135,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-business">
-        <header className="organization-chapter-heading"><span>05</span><div><small>BUSINESS MODEL &amp; GTM</small><h2>它准备如何形成商业价值</h2><p>把客户、付款者、收入模型和扩张路径放在同一个商业系统里判断。</p></div></header>
+        <header className="organization-chapter-heading"><span>05</span><div><small>BUSINESS MODEL</small><h2>商业模式</h2><p>介绍谁在使用、谁负责付费、公司如何收费，以及未来准备如何扩大业务。</p></div></header>
         <div className="startup-business-map">
           <div><span>01 / CUSTOMER</span><h3>谁使用</h3><p>{startup.business.customer}</p></div>
           <div><span>02 / PAYER</span><h3>谁付钱</h3><p>{startup.business.payer}</p></div>
@@ -150,7 +150,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-evidence">
-        <header className="organization-chapter-heading"><span>06</span><div><small>EVIDENCE, REPORTS &amp; SIGNALS</small><h2>哪些是证据，外部世界如何描述它</h2><p>融资是资本信号，产品是能力信号，客户使用与复购更接近商业质量；报道和公告必须回到原始来源阅读。</p></div></header>
+        <header className="organization-chapter-heading"><span>06</span><div><small>PROGRESS &amp; COVERAGE</small><h2>公司进展与相关报道</h2><p>汇总公司已经公开的产品、融资、客户和经营进展，并提供可以继续阅读的原始资料。</p></div></header>
         <div className="startup-evidence-grid">
           {startup.signals.map((signal, index) => (
             <div key={signal.label}><span>公开信号 0{index + 1}</span><h3>{signal.label}</h3><p>{signal.evidence}</p><strong>Pioneer 解读</strong><p>{signal.interpretation}</p></div>
@@ -176,7 +176,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-position">
-        <header className="organization-chapter-heading"><span>07</span><div><small>POSITION &amp; ALTERNATIVES</small><h2>它必须战胜什么</h2><p>早期项目真正的竞争对手通常不是另一家明星公司，而是客户继续维持现状。</p></div></header>
+        <header className="organization-chapter-heading"><span>07</span><div><small>MARKET &amp; COMPETITION</small><h2>市场与竞争</h2><p>介绍客户目前使用的替代方案、这个项目的差异，以及它仍然需要证明的优势。</p></div></header>
         <div className="startup-position-table">
           <div className="startup-position-head"><span>判断问题</span><span>客户原来的选择</span><span>这个项目的选择</span><span>仍需证明</span></div>
           {positionRows.map((row) => <div key={row.question}><strong>{row.question}</strong><p>{row.alternative}</p><p>{row.choice}</p><p>{row.proof}</p></div>)}
@@ -185,18 +185,18 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-risks">
-        <header className="organization-chapter-heading"><span>08</span><div><small>RISKS &amp; WATCHLIST</small><h2>每一项风险都要对应观察指标</h2><p>风险不是一句“竞争激烈”，而是某个关键假设失败时，应该看到什么变化。</p></div></header>
+        <header className="organization-chapter-heading"><span>08</span><div><small>RISKS &amp; WATCHLIST</small><h2>风险与挑战</h2><p>列出项目当前最重要的不确定性，以及后续可以用来判断变化的观察指标。</p></div></header>
         <div className="startup-risk-grid">
           {startup.risks.map((item, index) => (
             <div key={item.title}><div><span>R0{index + 1}</span><b>关键风险</b></div><h3>{item.title}</h3><p>{item.risk}</p><strong>继续观察</strong><p>{item.watch}</p></div>
           ))}
         </div>
-        <div className="organization-subheading"><span>!</span><h3>研究时不能忽略</h3><p>这些事项不代表项目一定失败，而是行动前需要主动复核的边界。</p></div>
+        <div className="organization-subheading"><span>!</span><h3>需要特别注意的信息</h3><p>这些事项不代表项目一定失败，但在形成判断前需要进一步核实。</p></div>
         <ul className="boundary-list startup-boundary-list">{resource.considerations.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>
 
       <section className="organization-chapter" id="startup-lessons">
-        <header className="organization-chapter-heading"><span>09</span><div><small>FOUNDER PLAYBOOK</small><h2>创业者真正可以借鉴什么</h2><p>不复制表面功能，而是把这个项目的关键选择转化成你本周可以执行的动作。</p></div></header>
+        <header className="organization-chapter-heading"><span>09</span><div><small>FOUNDER LESSONS</small><h2>创业启示</h2><p>总结这个项目在产品、市场和公司建设方面值得其他创业者参考的做法。</p></div></header>
         <div className="research-playbook startup-playbook">
           {startup.lessons.map((item, index) => (
             <div key={item.title}><span>0{index + 1}</span><div><small>可迁移原则</small><h3>{item.title}</h3><p>{item.lesson}</p></div><strong>本周行动：{item.action}</strong></div>
@@ -205,14 +205,14 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter startup-verdict-section" id="startup-verdict">
-        <header className="organization-chapter-heading"><span>10</span><div><small>FINAL VERDICT &amp; DILIGENCE</small><h2>最终判断，以及下一步看什么</h2><p>一份研究档案不负责替你下结论，而是让下一次判断更有证据。</p></div></header>
+        <header className="organization-chapter-heading"><span>10</span><div><small>SUMMARY &amp; NEXT STEPS</small><h2>总结与后续观察</h2><p>总结项目目前的阶段、优势和不确定性，以及接下来最值得关注的变化。</p></div></header>
         <div className="startup-verdict-grid">
           <div><span>当前阶段</span><strong>{currentStage}</strong></div>
           <div><span>最强信号</span><strong>{strongestSignal.label}</strong><p>{strongestSignal.evidence}</p></div>
           <div><span>最大不确定性</span><strong>{biggestRisk.title}</strong><p>{biggestRisk.risk}</p></div>
           <div><span>未来 6 个月观察</span><strong>{nextCheckpoint}</strong></div>
         </div>
-        <div className="organization-subheading"><span>Q</span><h3>继续研究时必须回答</h3><p>这些问题比新闻热度更接近项目的长期质量。</p></div>
+        <div className="organization-subheading"><span>Q</span><h3>仍需进一步确认的问题</h3><p>这些尚未公开或尚未充分验证的信息，会影响对项目长期质量的判断。</p></div>
         <div className="diligence-list">{startup.questions.map((question, index) => <div key={question}><span>Q{index + 1}</span><p>{question}</p></div>)}</div>
         <div className="organization-final-verdict startup-final-verdict"><span>PIONEER 最终判断 · {resource.verified}</span><h2>{resource.name}</h2><p>{resource.whyItMatters}</p><div><span>行动建议</span><p>先核验右侧官方来源，再用本页的用户、商业模式、证据和风险问题建立自己的判断，不把融资规模或媒体热度当作结论。</p></div></div>
       </section>
