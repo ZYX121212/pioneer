@@ -1,5 +1,6 @@
 import type { Resource } from "../data/resources";
 import type { StartupResearchProfile } from "../data/startupProfiles";
+import { getStartupStory } from "../data/startupStories";
 
 export function StartupResearchDetail({ resource, startup }: { resource: Resource; startup: StartupResearchProfile }) {
   const currentStage = resource.fundingStage ?? resource.status;
@@ -7,6 +8,13 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
   const strongestSignal = startup.signals[0];
   const biggestRisk = startup.risks[0];
   const nextCheckpoint = startup.risks[0]?.watch ?? resource.timing;
+  const story = getStartupStory(resource.slug);
+  const fundingSignals = startup.signals.filter((signal) => /融资|轮|资本|上市|IPO|公开市场/.test(`${signal.label}${signal.evidence}`));
+  const sourceLinks = [
+    ...(resource.sources ?? []),
+    { label: resource.source, href: resource.url },
+    ...(story?.coverage ?? []).map((item) => ({ label: item.title, href: item.href })),
+  ].filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index);
   const positionRows = [
     {
       question: "用户为什么改变现状",
@@ -32,7 +40,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
     <article className="detail-main organization-intelligence startup-intelligence">
       <nav className="organization-chapter-nav startup-chapter-nav" aria-label="创业项目研究章节">
         <a href="#startup-overview"><span>01</span>一分钟理解</a>
-        <a href="#startup-timeline"><span>02</span>阶段脉络</a>
+        <a href="#startup-timeline"><span>02</span>人物与历程</a>
         <a href="#startup-users"><span>03</span>用户画像</a>
         <a href="#startup-product"><span>04</span>产品系统</a>
         <a href="#startup-business"><span>05</span>商业模式</a>
@@ -64,12 +72,31 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-timeline">
-        <header className="organization-chapter-heading"><span>02</span><div><small>STAGE &amp; EVIDENCE TRAIL</small><h2>它走到了哪一步</h2><p>不把融资新闻当作全部进展，而是把问题、产品、阶段和下一项验证连接起来。</p></div></header>
+        <header className="organization-chapter-heading"><span>02</span><div><small>FOUNDERS &amp; JOURNEY</small><h2>谁在推动它，它如何走到今天</h2><p>先理解创始团队为什么选择这个问题，再看资本、产品和经营里程碑是否沿着同一方向前进。</p></div></header>
+        <div className={`startup-founder-portrait${story ? " startup-founder-portrait-confirmed" : ""}`}>
+          <div className="startup-founder-mark"><span>{resource.monogram}</span><small>{story?.founded ? `创立于 ${story.founded}` : "创始资料待确认"}</small></div>
+          <div className="startup-founder-story">
+            <span>FOUNDER PORTRAIT</span>
+            <h3>{story ? story.founders.map((founder) => founder.name).join(" · ") : "创始团队公开资料正在补充"}</h3>
+            <p>{story?.origin ?? "当前收录的官方来源尚不足以确认创始人的姓名、经历与分工。Pioneer 不根据媒体转述或搜索摘要推测填写。"}</p>
+            {story ? <div className="startup-founder-people">{story.founders.map((founder) => <div key={founder.name}><strong>{founder.name}</strong><small>{founder.role}</small><p>{founder.background}</p></div>)}</div> : null}
+          </div>
+          <div className="startup-founder-thesis">
+            <span>为什么可能是他们</span>
+            <p>{story?.founderThesis ?? `需要继续确认：团队过去的经历是否与“${startup.snapshot.problem}”这一问题形成真实的 Founder–Market Fit。`}</p>
+            {story ? <a href={story.founderSource.href} target="_blank" rel="noreferrer">{story.founderSource.label} ↗</a> : <small>资料不足时明确留白，不把推测写成事实。</small>}
+          </div>
+        </div>
+        <div className="organization-subheading startup-journey-heading"><span>PATH</span><h3>融资不是数字，而是公司换来了什么进展</h3><p>把资金节点和产品验证放在一条路径上，才能判断公司是否真正前进。</p></div>
         <div className="startup-timeline" aria-label={`${resource.name} 阶段与证据脉络`}>
-          <div><span>01</span><small>问题起点</small><h3>{startup.signals[0].label}</h3><p>{startup.signals[0].evidence}</p><b>{startup.signals[0].interpretation}</b></div>
-          <div><span>02</span><small>产品形成</small><h3>{productLayers}</h3><p>{startup.product.map((item) => item.detail).join(" ")}</p><b>判断重点：这些层次能否形成持续的数据与使用闭环。</b></div>
-          <div><span>03</span><small>当前阶段</small><h3>{currentStage}</h3><p>{resource.status} · {resource.timing}</p><b>{resource.verified}，融资、产品和经营信息仍应以官方最新披露为准。</b></div>
-          <div><span>04</span><small>下一验证</small><h3>{biggestRisk.title}</h3><p>{biggestRisk.risk}</p><b>接下来观察：{nextCheckpoint}</b></div>
+          <div><span>01</span><small>创立起点</small><h3>{story?.founded ? `${story.founded} · 公司创立` : "从问题出发"}</h3><p>{story?.origin ?? startup.snapshot.problem}</p><b>{story?.founderThesis ?? startup.snapshot.wedge}</b></div>
+          {(story?.funding.length ? story.funding : fundingSignals.slice(0, 2)).map((item, index) => "round" in item ? (
+            <div key={`${item.date}-${item.round}`}><span>0{index + 2}</span><small>{item.date}</small><h3>{item.round} · {item.amount}</h3><p>{item.detail}</p><b><a href={item.source.href} target="_blank" rel="noreferrer">{item.source.label} ↗</a></b></div>
+          ) : (
+            <div key={item.label}><span>0{index + 2}</span><small>公开融资信号</small><h3>{item.label}</h3><p>{item.evidence}</p><b>{item.interpretation}</b></div>
+          ))}
+          <div><span>→</span><small>当前阶段</small><h3>{currentStage}</h3><p>{resource.status} · {resource.timing}</p><b>{resource.verified}，融资、产品和经营信息仍应以官方最新披露为准。</b></div>
+          <div><span>?</span><small>下一验证</small><h3>{biggestRisk.title}</h3><p>{biggestRisk.risk}</p><b>接下来观察：{nextCheckpoint}</b></div>
         </div>
         <div className="startup-public-facts">
           {resource.highlights.map((fact) => <div key={fact.label}><span>{fact.label}</span><strong>{fact.value}</strong></div>)}
@@ -123,7 +150,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       </section>
 
       <section className="organization-chapter" id="startup-evidence">
-        <header className="organization-chapter-heading"><span>06</span><div><small>EVIDENCE &amp; SIGNALS</small><h2>哪些信息是证据，哪些只是故事</h2><p>融资是资本信号，产品是能力信号，客户使用与复购才更接近商业质量。</p></div></header>
+        <header className="organization-chapter-heading"><span>06</span><div><small>EVIDENCE, REPORTS &amp; SIGNALS</small><h2>哪些是证据，外部世界如何描述它</h2><p>融资是资本信号，产品是能力信号，客户使用与复购更接近商业质量；报道和公告必须回到原始来源阅读。</p></div></header>
         <div className="startup-evidence-grid">
           {startup.signals.map((signal, index) => (
             <div key={signal.label}><span>公开信号 0{index + 1}</span><h3>{signal.label}</h3><p>{signal.evidence}</p><strong>Pioneer 解读</strong><p>{signal.interpretation}</p></div>
@@ -134,6 +161,18 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
           <div><span>编辑判断</span><p>阶段归类、产品含义、竞争位置和风险优先级由 Pioneer 整理。</p></div>
           <div><span>仍然未知</span><p>未公开收入、毛利、复购和交付数据时，会把它们保留为尽调问题。</p></div>
         </div>
+        <div className="organization-subheading startup-coverage-heading"><span>READ</span><h3>相关报道与原始信息</h3><p>不是堆积新闻，而是告诉你每一条资料能帮助判断什么。</p></div>
+        <div className="startup-coverage-grid">
+          {(story?.coverage ?? sourceLinks.map((source) => ({ type: /融资|轮/.test(source.label) ? "融资披露" as const : "官方公告" as const, date: resource.verified.replace(" 核验", ""), title: source.label, summary: "查看项目的原始公开资料，核对产品、融资、经营或公司阶段的具体表述。", href: source.href }))).map((item, index) => (
+            <a href={item.href} target="_blank" rel="noreferrer" key={`${item.href}-${index}`}>
+              <div><span>{item.type}</span><small>{item.date}</small></div>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+              <strong>阅读原始信息 ↗</strong>
+            </a>
+          ))}
+        </div>
+        <p className="startup-coverage-note">Pioneer 优先展示公司公告、产品资料和创始人原始访谈。媒体报道只有在能够补充独立验证或不同观点时才值得加入。</p>
       </section>
 
       <section className="organization-chapter" id="startup-position">

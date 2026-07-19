@@ -552,10 +552,15 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.equal(researchedStartupResponse.status, 200);
   assert.match(researchedStartup, /创业项目研究章节/);
   assert.match(researchedStartup, /先用一分钟理解它/);
-  assert.match(researchedStartup, /它走到了哪一步/);
+  assert.match(researchedStartup, /谁在推动它，它如何走到今天/);
+  assert.match(researchedStartup, /Dario Amodei/);
+  assert.match(researchedStartup, /Daniela Amodei/);
+  assert.match(researchedStartup, /融资不是数字，而是公司换来了什么进展/);
+  assert.match(researchedStartup, /相关报道与原始信息/);
+  assert.match(researchedStartup, /从研究路线开始的 A 轮/);
   assert.match(researchedStartup, /谁在使用，谁在付钱/);
   assert.match(researchedStartup, /产品不是一个功能，而是一套系统/);
-  assert.match(researchedStartup, /哪些信息是证据，哪些只是故事/);
+  assert.match(researchedStartup, /哪些是证据，外部世界如何描述它/);
   assert.match(researchedStartup, /它必须战胜什么/);
   assert.match(researchedStartup, /每一项风险都要对应观察指标/);
   assert.match(researchedStartup, /创业者真正可以借鉴什么/);
@@ -577,6 +582,9 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(productShowcase, /产品形态/);
   assert.match(productShowcase, /具体做什么/);
   assert.match(productShowcase, /怎么赚钱/);
+  assert.match(productShowcase, /创始团队公开资料正在补充/);
+  assert.match(productShowcase, /资料不足时明确留白/);
+  assert.match(productShowcase, /相关报道与原始信息/);
   assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/product-hero\.webp/);
   assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/operations-dashboard\.webp/);
   assert.match(productShowcase, /图片来源：(?:<!-- -->)?小雨智造官方产品手册/);
