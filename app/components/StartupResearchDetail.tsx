@@ -48,10 +48,17 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
         <h2>先用一分钟理解它</h2>
         <p>{resource.overview}</p>
         <div className="organization-verdict-strip startup-summary-strip">
-          <div><span>产品是什么</span><strong>{startup.showcase?.what ?? startup.product[0].layer}</strong></div>
+          <div><span>产品是什么</span><strong>{startup.showcase?.what ?? startup.product.map((item) => item.layer).join(" + ")}</strong></div>
           <div><span>谁会使用</span><strong>{startup.snapshot.user}</strong></div>
           <div><span>完成什么任务</span><strong>{startup.showcase?.does ?? startup.snapshot.wedge}</strong></div>
           <div><span>当前验证信号</span><strong>{strongestSignal.evidence}</strong></div>
+        </div>
+        <div className="startup-purpose-map" aria-label={`${resource.name} 使用前后变化`}>
+          <div><span>使用前</span><h3>用户正被什么困住</h3><p>{startup.snapshot.problem}</p></div>
+          <i aria-hidden="true">→</i>
+          <div><span>产品介入</span><h3>这个产品具体做什么</h3><p>{startup.showcase?.does ?? startup.snapshot.wedge}</p></div>
+          <i aria-hidden="true">→</i>
+          <div><span>业务结果</span><h3>为什么有人愿意付钱</h3><p>{startup.business.model}</p></div>
         </div>
         <div className="editorial-callout startup-editorial-callout"><span>PIONEER 核心判断 · 编辑分析</span><p>{resource.editorialNote}</p></div>
       </section>

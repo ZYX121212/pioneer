@@ -230,6 +230,10 @@ test("keeps every public editorial section available in Chinese and English", as
     ["/knowledge/test-your-cofounder", "/en/knowledge/test-your-cofounder"],
     ["/knowledge/set-up-company-and-equity", "/en/knowledge/set-up-company-and-equity"],
     ["/knowledge/decide-whether-to-fundraise", "/en/knowledge/decide-whether-to-fundraise"],
+    ["/knowledge/measure-retention-and-pmf", "/en/knowledge/measure-retention-and-pmf"],
+    ["/knowledge/build-your-startup-metrics", "/en/knowledge/build-your-startup-metrics"],
+    ["/knowledge/hire-your-first-employee", "/en/knowledge/hire-your-first-employee"],
+    ["/knowledge/prepare-your-fundraising-process", "/en/knowledge/prepare-your-fundraising-process"],
   ];
 
   for (const [chinesePath, englishPath] of routePairs) {
@@ -557,14 +561,22 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(researchedStartup, /创业者真正可以借鉴什么/);
   assert.match(researchedStartup, /最终判断，以及下一步看什么/);
   assert.match(researchedStartup, /href="#startup-verdict"/);
+  assert.match(researchedStartup, /ONE-SENTENCE PRODUCT/);
+  assert.match(researchedStartup, /使用前的问题/);
+  assert.match(researchedStartup, /产品怎么介入/);
+  assert.match(researchedStartup, /用户得到什么/);
+  assert.match(researchedStartup, /产品形态/);
+  assert.match(researchedStartup, /怎么赚钱/);
+  assert.match(researchedStartup, /为什么有人愿意付钱/);
 
   const productShowcaseResponse = await render("/resources/xiaoyu-robotics");
   const productShowcase = await productShowcaseResponse.text();
   assert.equal(productShowcaseResponse.status, 200);
   assert.match(productShowcase, /小雨未来机器人/);
   assert.match(productShowcase, /PRODUCT AT A GLANCE/);
-  assert.match(productShowcase, /它是什么/);
-  assert.match(productShowcase, /完成什么/);
+  assert.match(productShowcase, /产品形态/);
+  assert.match(productShowcase, /具体做什么/);
+  assert.match(productShowcase, /怎么赚钱/);
   assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/product-hero\.webp/);
   assert.match(productShowcase, /\/startups\/xiaoyu-robotics\/operations-dashboard\.webp/);
   assert.match(productShowcase, /图片来源：(?:<!-- -->)?小雨智造官方产品手册/);

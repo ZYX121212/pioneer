@@ -88,26 +88,32 @@ export default async function ResourceDetailPage({ params }: PageProps) {
                   </figcaption>
                 </figure>
               ) : (
-                <div className="startup-hero-system" aria-hidden="true">
-                  <span>PRODUCT SYSTEM</span>
-                  {startupProfile.product.slice(0, 3).map((item, index) => (
-                    <div key={item.layer}><small>0{index + 1}</small><strong>{item.layer}</strong></div>
-                  ))}
+                <div className="startup-hero-use-case">
+                  <span>ONE-SENTENCE PRODUCT</span>
+                  <strong>{resource.description}</strong>
+                  <div className="startup-use-flow" aria-label={`${resource.name} 产品使用流程`}>
+                    <div><small>使用前的问题</small><p>{startupProfile.snapshot.problem}</p></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small>产品怎么介入</small><p>{startupProfile.product.map((item) => item.layer).join(" + ")}</p></div>
+                    <i aria-hidden="true">→</i>
+                    <div><small>用户得到什么</small><p>{startupProfile.snapshot.wedge}</p></div>
+                  </div>
                 </div>
               )}
               <div className="startup-hero-product-copy">
                 <span>PRODUCT AT A GLANCE</span>
-                <h2>{startupProfile.showcase?.productName ?? `${resource.name} 产品结构`}</h2>
-                <p>{startupProfile.showcase?.tagline ?? startupProfile.snapshot.wedge}</p>
+                <h2>{startupProfile.showcase?.productName ?? resource.name}</h2>
+                <p>{startupProfile.showcase?.tagline ?? resource.description}</p>
                 <div>
-                  <a href={startupProfile.showcase?.productUrl ?? "#startup-product"} target={startupProfile.showcase ? "_blank" : undefined} rel={startupProfile.showcase ? "noreferrer" : undefined}>{startupProfile.showcase ? "查看官方产品" : "查看产品系统"} <span aria-hidden="true">↗</span></a>
+                  <a href={startupProfile.showcase?.productUrl ?? "#startup-product"} target={startupProfile.showcase ? "_blank" : undefined} rel={startupProfile.showcase ? "noreferrer" : undefined}>{startupProfile.showcase ? "查看官方产品" : "看懂产品怎么工作"} <span aria-hidden="true">↗</span></a>
                   <a href="#startup-overview">一分钟理解 <span aria-hidden="true">↓</span></a>
                 </div>
               </div>
               <div className="startup-hero-facts">
-                <div><span>它是什么</span><strong>{startupProfile.showcase?.what ?? startupProfile.product[0].layer}</strong></div>
-                <div><span>谁在使用</span><strong>{startupProfile.snapshot.user}</strong></div>
-                <div><span>完成什么</span><strong>{startupProfile.showcase?.does ?? startupProfile.snapshot.wedge}</strong></div>
+                <div><span>产品形态</span><strong>{startupProfile.showcase?.what ?? startupProfile.product.map((item) => item.layer).join(" + ")}</strong></div>
+                <div><span>给谁使用</span><strong>{startupProfile.snapshot.user}</strong></div>
+                <div><span>具体做什么</span><strong>{startupProfile.showcase?.does ?? startupProfile.snapshot.wedge}</strong></div>
+                <div><span>怎么赚钱</span><strong>{startupProfile.business.model}</strong></div>
               </div>
             </aside>
           ) : null}
