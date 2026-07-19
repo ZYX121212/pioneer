@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { englishGuides } from "../../data/knowledgeEnglish";
 
-export const metadata: Metadata = { title: "Founder Decision Guides — Pioneer", description: "Nine practical guides from problem discovery to pricing, sales, company formation and fundraising.", alternates: { canonical: "/en/knowledge", languages: { "zh-CN": "/knowledge", en: "/en/knowledge" } } };
+export const metadata: Metadata = { title: "Founder Decision Guides — Pioneer", description: "Thirteen practical guides from problem discovery to retention, hiring, operating metrics and fundraising.", alternates: { canonical: "/en/knowledge", languages: { "zh-CN": "/knowledge", en: "/en/knowledge" } } };
 
 export default function EnglishKnowledgePage() {
   const first = englishGuides[0];
@@ -21,7 +21,7 @@ export default function EnglishKnowledgePage() {
           <div className="guide-spotlight-outcome"><span>YOU WILL LEAVE WITH</span><ul>{first.outcome.map((item) => <li key={item}>{item}</li>)}</ul></div>
         </article>
         <section className="knowledge-system-overview">
-          <div className="knowledge-system-heading"><div><span>GUIDES · CASES · TOOLS · SOURCES</span><h2>From first evidence<br />to a funding decision.</h2></div><p>Nine connected guides cover discovery, research, MVP scope, acquisition, pricing, sales, cofounders, company structure and fundraising.</p></div>
+          <div className="knowledge-system-heading"><div><span>GUIDES · CASES · TOOLS · SOURCES</span><h2>From first evidence<br />to operating the company.</h2></div><p>Thirteen connected guides now cover discovery, product, sales, retention, metrics, hiring, company structure and a complete fundraising process.</p></div>
           <div className="knowledge-layer-grid">
             <article className="knowledge-layer-main"><div className="knowledge-layer-main-summary"><span>01 · DEPTH GUIDES</span><strong>{englishGuides.length} guides live</strong><p>Use the sequence from beginning to end, or enter at the decision currently blocking your company.</p></div><div className="knowledge-layer-guide-grid">{englishGuides.map((guide) => <Link href={`/en/knowledge/${guide.slug}`} key={guide.slug}><b>{guide.number}</b><span>{guide.title}</span><i aria-hidden="true">→</i></Link>)}</div></article>
             <Link href={`/en/knowledge/${first.slug}#worksheet`} className="knowledge-layer-card layer-tools"><span>02 · WORKSHEETS</span><strong>Save the decision</strong><p>Turn reading into a written assumption, test, threshold and next action.</p><b>Open a worksheet →</b></Link>

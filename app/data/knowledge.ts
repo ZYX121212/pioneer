@@ -271,8 +271,13 @@ const toPioneerGuide = (slug: string): PioneerGuide => {
 export const pricingGuide = toPioneerGuide("test-your-pricing");
 export const salesGuide = toPioneerGuide("close-your-first-sales");
 export const companyEquityGuide = toPioneerGuide("set-up-company-and-equity");
+export const retentionGuide = toPioneerGuide("measure-retention-and-pmf");
+export const metricsGuide = toPioneerGuide("build-your-startup-metrics");
+export const hiringGuide = toPioneerGuide("hire-your-first-employee");
+export const fundraisingProcessGuide = toPioneerGuide("prepare-your-fundraising-process");
 
-export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, pricingGuide, salesGuide, cofounderGuide, companyEquityGuide, fundingDecisionGuide];
+export const pioneerGuides = [pioneerGuide, interviewGuide, mvpGuide, firstUsersGuide, pricingGuide, salesGuide, cofounderGuide, companyEquityGuide, fundingDecisionGuide, retentionGuide, metricsGuide, hiringGuide, fundraisingProcessGuide]
+  .sort((a, b) => Number(a.number) - Number(b.number));
 
 export const learningPath: Array<{
   number: string;
@@ -291,6 +296,10 @@ export const learningPath: Array<{
   { number: "07", title: "验证联合创始人", note: "先真实共事，再谈角色与股权", stage: "team", href: `/knowledge/${cofounderGuide.slug}`, status: "available" },
   { number: "08", title: "公司与股权基础", note: "判断设立时机、主体与所有权", stage: "company", href: `/knowledge/${companyEquityGuide.slug}`, status: "available" },
   { number: "09", title: "判断是否需要融资", note: "从里程碑倒推资金需求", stage: "funding", href: `/knowledge/${fundingDecisionGuide.slug}`, status: "available" },
+  { number: "10", title: "验证留存与市场匹配", note: "判断用户是否持续回来并主动拉动产品", stage: "validate", href: `/knowledge/${retentionGuide.slug}`, status: "available" },
+  { number: "11", title: "建立核心指标与现金视图", note: "连接用户价值、单位经济与公司跑道", stage: "company", href: `/knowledge/${metricsGuide.slug}`, status: "available" },
+  { number: "12", title: "招聘第一个员工", note: "从持续瓶颈定义角色、面试与入职", stage: "team", href: `/knowledge/${hiringGuide.slug}`, status: "available" },
+  { number: "13", title: "准备完整融资过程", note: "组织叙事、名单、数据室与融资节奏", stage: "funding", href: `/knowledge/${fundraisingProcessGuide.slug}`, status: "available" },
 ];
 
 export const knowledgeStages: Array<{ key: "all" | KnowledgeStage; label: string }> = [

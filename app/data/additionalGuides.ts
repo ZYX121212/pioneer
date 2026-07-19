@@ -1,4 +1,5 @@
 import type { EnglishGuide } from "./knowledgeEnglish";
+import { expandedChineseGuides, expandedEnglishGuides } from "./expandedGuides";
 
 export type ChineseAdditionalGuide = Omit<EnglishGuide, "decision"> & {
   decision: { continue: string; adjust: string; stop: string };
@@ -99,6 +100,7 @@ export const additionalChineseGuides: ChineseAdditionalGuide[] = [
       { publisher: "Cooley GO", title: "Founder’s Stock, Vesting and Founder Departures", use: "用于理解美国创业公司常见的创始人股份与离开机制。", url: "https://www.cooleygo.com/founder-basics-founders-stock/" },
     ],
   },
+  ...expandedChineseGuides,
 ];
 
 export const additionalEnglishGuides: EnglishGuide[] = [
@@ -138,6 +140,7 @@ export const additionalEnglishGuides: EnglishGuide[] = [
     ], worksheet: ["Why an entity is needed now", "Operating, team and target markets", "Funding and equity plan", "Founder roles and departure cases", "IP, contracts and promises", "Questions for legal / tax / accounting advisers"], decision: { continue: "Operating, liability or financing triggers are clear and jurisdiction-specific advice is available.", adjust: "Formal structure is needed, but entity, jurisdiction, equity or timing must be compared.", stop: "The project remains low-risk exploration with no contracts, assets, hiring or funding; keep records and define a review trigger." },
     sources: [{ publisher: "U.S. Small Business Administration", title: "Choose a business structure", use: "How entity choice affects liability, tax, fundraising and maintenance; US context only.", url: "https://www.sba.gov/business-guide/launch-your-business/choose-business-structure" }, { publisher: "Stripe Atlas", title: "Equity for founders", use: "Founder stock, vesting, cap tables, IP assignment and US tax prompts.", url: "https://stripe.com/guides/atlas/equity" }, { publisher: "Cooley GO", title: "Founder’s Stock, Vesting and Founder Departures", use: "Common US founder-stock and departure mechanics.", url: "https://www.cooleygo.com/founder-basics-founders-stock/" }],
   },
+  ...expandedEnglishGuides,
 ];
 
 export const getAdditionalChineseGuide = (slug: string) => additionalChineseGuides.find((guide) => guide.slug === slug);

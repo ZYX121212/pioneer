@@ -55,7 +55,7 @@ export default function KnowledgePage() {
               <div className="knowledge-layer-main-summary">
                 <span>01 · 深度指南</span>
                 <strong>{pioneerGuides.length} 篇已上线</strong>
-                <p>从发现问题、完成访谈、确定 MVP、找到首批用户，到验证联合创始人与判断融资，已经形成连续路径。</p>
+                <p>从发现问题、完成访谈和首批销售，到留存、指标、招聘与融资执行，已经形成连续决策路径。</p>
               </div>
               <div className="knowledge-layer-guide-grid">{pioneerGuides.map((guide) => <Link href={`/knowledge/${guide.slug}`} key={guide.slug}><b>{guide.number}</b><span>{guide.title}</span><i aria-hidden="true">→</i></Link>)}</div>
             </article>

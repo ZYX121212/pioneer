@@ -26,6 +26,10 @@ const situations = [
   { signal: "我在考虑找搭档", title: "角色、投入和股权说不清", guide: "test-your-cofounder", action: "先完成一次真实共事测试" },
   { signal: "准备签约或收款", title: "但公司主体和所有权还没理清", guide: "set-up-company-and-equity", action: "整理设立、股权与专业咨询问题" },
   { signal: "有人建议我融资", title: "但我不知道是否真的需要", guide: "decide-whether-to-fundraise", action: "从下一里程碑倒推资金需求" },
+  { signal: "用户已经开始使用", title: "但我不知道他们会不会持续回来", guide: "measure-retention-and-pmf", action: "定义核心行为并观察同期群留存" },
+  { signal: "数字越来越多", title: "但它们没有帮助我做决定", guide: "build-your-startup-metrics", action: "连接用户价值、单位经济与现金跑道" },
+  { signal: "团队已经忙不过来", title: "但我不确定是否应该招第一个员工", guide: "hire-your-first-employee", action: "先定义持续瓶颈与角色结果" },
+  { signal: "已经决定融资", title: "但故事、名单和材料还很零散", guide: "prepare-your-fundraising-process", action: "建立一次完整且有截止时间的融资过程" },
 ];
 
 export function FounderJourney() {

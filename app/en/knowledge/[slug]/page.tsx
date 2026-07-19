@@ -31,7 +31,7 @@ export default async function EnglishGuidePage({ params }: PageProps) {
         </article>
         <aside className="guide-sidecard"><span>COMPLETION STANDARD</span><strong>You should be able to state:</strong><ul>{guide.worksheet.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul><Link href="#worksheet">Open the worksheet →</Link></aside>
       </div>
-      <section className="guide-next"><span>{next ? "NEXT GUIDE" : "COMPLETE PATH"}</span><h2>{next?.title ?? "Return to the founder library"}</h2><p>{next?.description ?? "Review the nine decisions and return to the one with the weakest evidence."}</p><Link href={next ? `/en/knowledge/${next.slug}` : "/en/knowledge"}>{next ? "Continue to the next guide" : "View all founder guides"} <span aria-hidden="true">→</span></Link>{previous ? <small>Previous: <Link href={`/en/knowledge/${previous.slug}`}>{previous.title}</Link></small> : null}</section>
+      <section className="guide-next"><span>{next ? "NEXT GUIDE" : "COMPLETE PATH"}</span><h2>{next?.title ?? "Return to the founder library"}</h2><p>{next?.description ?? "Review the thirteen decisions and return to the one with the weakest evidence."}</p><Link href={next ? `/en/knowledge/${next.slug}` : "/en/knowledge"}>{next ? "Continue to the next guide" : "View all founder guides"} <span aria-hidden="true">→</span></Link>{previous ? <small>Previous: <Link href={`/en/knowledge/${previous.slug}`}>{previous.title}</Link></small> : null}</section>
       <SiteFooter lang="en" />
     </main>
   );
