@@ -56,13 +56,18 @@
 .institution-v2-position p { margin: 7px 0 0; color: rgba(255,255,255,.65); font-size: 9px; line-height: 1.6; }
 .institution-v2-position small { margin-top: 13px; display: block; color: var(--orange); font-size: 8px; font-weight: 850; }
 .institution-v2-programs { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
-.institution-v2-programs article { min-height: 310px; padding: 22px; display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--institution-paper); }
+.institution-v2-program-intro { margin: 58px 0 20px; padding: 25px 28px; display: grid; grid-template-columns: 130px 1fr; gap: 28px; border: 1px solid var(--ink); background: #fff8e8; }
+.institution-v2-program-intro > span { align-self: start; padding: 8px 11px; border-radius: 999px; background: var(--orange); color: white; font-size: 9px; font-weight: 900; text-align: center; }
+.institution-v2-program-intro h3 { margin: 0 0 8px; font-family: var(--display); font-size: 27px; }
+.institution-v2-program-intro p { max-width: 760px; margin: 0; color: #536059; font-size: 11px; line-height: 1.75; }
+.institution-v2-programs article { min-height: 350px; padding: 22px; display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--institution-paper); }
 .institution-v2-programs article > span { color: var(--orange); font-size: 9px; font-weight: 900; }
 .institution-v2-programs small { margin-top: 24px; color: var(--muted); font-size: 8px; }
 .institution-v2-programs h3 { margin: 7px 0 14px; font-family: var(--display); font-size: 22px; line-height: 1.15; }
 .institution-v2-programs p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.65; }
-.institution-v2-programs article > div { margin-top: auto; padding-top: 17px; border-top: 1px solid var(--line); }
-.institution-v2-programs b { display: block; margin-bottom: 6px; color: var(--orange); font-size: 8px; }
+.institution-v2-program-answer { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
+.institution-v2-program-answer:last-child { margin-top: auto; }
+.institution-v2-programs b { display: block; margin-bottom: 7px; color: var(--orange); font-size: 8px; }
 
 .institution-v2-fit-columns { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
 .institution-v2-fit-columns > div { min-height: 400px; padding: 24px; border: 1px solid var(--line); }
@@ -183,6 +188,8 @@
   .institution-v2-heading { grid-template-columns: 1fr; gap: 15px; }
   .institution-v2-heading h2 { font-size: 43px; }
   .institution-v2-subhead { grid-template-columns: 1fr; gap: 8px; }
+  .institution-v2-program-intro { grid-template-columns: 1fr; gap: 16px; }
+  .institution-v2-program-intro > span { justify-self: start; }
   .institution-v2-position { display: block; }
   .institution-v2-economics-list article { grid-template-columns: 1fr; gap: 13px; }
   .institution-v2-deep-dive summary { grid-template-columns: 1fr 28px; }
