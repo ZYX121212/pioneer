@@ -1,7 +1,9 @@
 {
-  "name": "site-creator-vinext-starter",
+  "name": "pioneer-global-resources",
   "version": "0.1.0",
   "private": true,
+  "description": "A bilingual, curated directory of global startup programs, institutions, events, projects, and founder guides.",
+  "license": "MIT",
   "engines": {
     "node": ">=22.13.0"
   },

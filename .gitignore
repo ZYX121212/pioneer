@@ -30,6 +30,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,3 +41,8 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# local exports and unrelated working materials
+/exports/
+/tmp/
+/自媒体剪辑_普通话版/
