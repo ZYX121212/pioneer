@@ -179,16 +179,16 @@ test("publishes search discovery files for public pages", async () => {
   assert.match(robots, /Sitemap: .*\/sitemap\.xml/);
 });
 
-test("renders the first weekly opportunity brief with actionable official links", async () => {
+test("renders the current weekly opportunity brief with actionable official links", async () => {
   const response = await render("/weekly");
   const html = await response.text();
 
   assert.equal(response.status, 200);
   assert.match(html, /本周值得行动的/);
-  assert.match(html, /WAIC 2026 世界人工智能大会/);
-  assert.match(html, /Y Combinator/);
   assert.match(html, /Entrepreneur First London/);
   assert.match(html, /Berkeley SkyDeck Batch 23/);
+  assert.match(html, /AWS Activate/);
+  assert.match(html, /TechBBQ 2026/);
   assert.match(html, /今天完成这三步/);
   assert.match(html, /打开官方页面/);
   assert.match(html, /data-audience-event="weekly:official"/);
@@ -205,8 +205,9 @@ test("publishes the weekly brief as a calendar and RSS feed", async () => {
   assert.equal(calendarResponse.status, 200);
   assert.match(calendarResponse.headers.get("content-type") ?? "", /text\/calendar/);
   assert.match(calendar, /BEGIN:VCALENDAR/);
-  assert.match(calendar, /Y Combinator Fall 2026/);
+  assert.match(calendar, /Entrepreneur First London/);
   assert.match(calendar, /20260821/);
+  assert.match(calendar, /TechBBQ 2026/);
 
   const feedResponse = await render("/feed.xml");
   const feed = await feedResponse.text();
@@ -270,7 +271,7 @@ test("provides English copy for every directory resource and English weekly synd
   assert.equal(feedResponse.status, 200);
   assert.equal(calendarResponse.status, 200);
   assert.match(await feedResponse.text(), /Pioneer Weekly Founder Opportunities/);
-  assert.match(await calendarResponse.text(), /Y Combinator Fall 2026 application deadline/);
+  assert.match(await calendarResponse.text(), /Entrepreneur First London final deadline/);
 });
 
 test("accepts bilingual resource recommendations into the review workflow", async () => {
@@ -360,14 +361,14 @@ test("keeps every resource backed by an individually authored research profile",
   const investmentProfilesData = await readFile(new URL("../app/data/investmentProfiles.ts", import.meta.url), "utf8");
   const startupProfilesData = await readFile(new URL("../app/data/startupProfiles.ts", import.meta.url), "utf8");
   const resourceSlugs = [...resourcesData.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
-  const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)": \{$/gm)].map((match) => match[1]);
+  const profileSlugs = [...profilesData.matchAll(/^  "([^"]+)":/gm)].map((match) => match[1]);
   const investmentProfileSlugs = [...investmentProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)].map((match) => match[1] ?? match[2]);
   const startupProfileSlugs = [...startupProfilesData.matchAll(/^  (?:"([^"]+)"|([a-z]+)): \{$/gm)]
     .map((match) => match[1] ?? match[2])
     .filter((slug) => slug !== "snapshot" && slug !== "business");
 
   assert.ok(resourceSlugs.length >= 53);
-  assert.equal(profileSlugs.length, 30);
+  assert.equal(profileSlugs.length, 33);
   assert.equal(investmentProfileSlugs.length, 26);
   assert.ok(startupProfileSlugs.length >= 12);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));
@@ -524,7 +525,7 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(waic, /Future Tech 与 OPC/);
   assert.match(waic, /AI 时代创业者闭门交流会/);
   assert.match(waic, /KEY FACTS/);
-  assert.match(waic, /SOURCE &amp; ACTION/);
+  assert.match(waic, /SOURCE &amp; ARCHIVE/);
   assert.match(waic, /前往官方页面/);
   assert.match(waic, /中国 · 上海 · 三地四馆/);
   assert.match(waic, /7 月 16 日/);
@@ -533,7 +534,7 @@ test("renders type-specific research depth for events and startup projects", asy
   assert.match(waic, /GO SUMMIT × WAIC 上海/);
   assert.match(waic, /第二届 AI 研究者派对之夏/);
   assert.match(waic, /Creator Night/);
-  assert.match(waic, /信息最后核验：2026.07.17/);
+  assert.match(waic, /归档状态核验：2026.07.30/);
   assert.match(waic, /原始参考来源/);
 
   const startupResponse = await render("/resources/cerenovus");

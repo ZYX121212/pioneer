@@ -23,6 +23,10 @@ const categoryNotes: Record<ResourceType, string> = {
   startup: "发现来自世界各地的新产品与团队",
 };
 
+function locationCount(term: string) {
+  return String(resources.filter((resource) => resource.location.includes(term)).length).padStart(2, "0");
+}
+
 export default function Home() {
   const [query, setQuery] = useState("");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
@@ -115,11 +119,11 @@ export default function Home() {
             <img className="globe-visual" src="/globe-editorial.png" alt="" width="960" height="960" loading="eager" />
           </div>
           <div className="atlas-core"><strong>{resources.length}</strong><span>站内整理档案</span></div>
-          <div className="map-pin pin-singapore"><span>新加坡</span><strong>01</strong></div>
-          <div className="map-pin pin-london"><span>伦敦</span><strong>02</strong></div>
-          <div className="map-pin pin-berlin"><span>巴黎</span><strong>02</strong></div>
-          <div className="map-pin pin-sf"><span>旧金山</span><strong>05</strong></div>
-          <div className="atlas-footer"><span>8 个国家与地区</span><span>全部附官方来源</span></div>
+          <div className="map-pin pin-singapore"><span>新加坡</span><strong>{locationCount("新加坡")}</strong></div>
+          <div className="map-pin pin-london"><span>伦敦</span><strong>{locationCount("London")}</strong></div>
+          <div className="map-pin pin-berlin"><span>巴黎</span><strong>{locationCount("Paris")}</strong></div>
+          <div className="map-pin pin-sf"><span>旧金山</span><strong>{locationCount("San Francisco")}</strong></div>
+          <div className="atlas-footer"><span>覆盖全球多地</span><span>全部附官方来源</span></div>
         </aside>
       </section>
 
@@ -132,11 +136,11 @@ export default function Home() {
       </section>
 
       <section className="weekly-home-spotlight" aria-label="本周创业机会">
-        <div className="weekly-home-index"><span>WEEKLY SIGNAL</span><strong>001</strong></div>
+        <div className="weekly-home-index"><span>WEEKLY SIGNAL</span><strong>002</strong></div>
         <div>
-          <span>2026.07.17—07.23 · 已按官方来源核验</span>
+          <span>2026.07.30—08.05 · 已按官方来源核验</span>
           <h2>本周值得行动的 4 个创业机会</h2>
-          <p>WAIC 正在举行；YC、Entrepreneur First 与 Berkeley SkyDeck 即将截止申请。</p>
+          <p>EF 与 Berkeley SkyDeck 即将截止；AWS Activate 持续开放；TechBBQ 进入会前准备窗口。</p>
         </div>
         <a
           href="/weekly"

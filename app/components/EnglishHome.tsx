@@ -16,6 +16,10 @@ const categoryStyles: Record<ResourceType, string> = {
   startup: "category-lilac",
 };
 
+function locationCount(term: string) {
+  return String(resources.filter((resource) => resource.location.includes(term)).length).padStart(2, "0");
+}
+
 export function EnglishHome() {
   const [query, setQuery] = useState("");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
@@ -102,11 +106,11 @@ export function EnglishHome() {
             <img className="globe-visual" src="/globe-editorial.png" alt="" width="960" height="960" loading="eager" />
           </div>
           <div className="atlas-core"><strong>{resources.length}</strong><span>curated briefs</span></div>
-          <div className="map-pin pin-singapore"><span>Singapore</span><strong>01</strong></div>
-          <div className="map-pin pin-london"><span>London</span><strong>02</strong></div>
-          <div className="map-pin pin-berlin"><span>Paris</span><strong>02</strong></div>
-          <div className="map-pin pin-sf"><span>San Francisco</span><strong>05</strong></div>
-          <div className="atlas-footer"><span>8 countries and regions</span><span>official sources linked</span></div>
+          <div className="map-pin pin-singapore"><span>Singapore</span><strong>{locationCount("新加坡")}</strong></div>
+          <div className="map-pin pin-london"><span>London</span><strong>{locationCount("London")}</strong></div>
+          <div className="map-pin pin-berlin"><span>Paris</span><strong>{locationCount("Paris")}</strong></div>
+          <div className="map-pin pin-sf"><span>San Francisco</span><strong>{locationCount("San Francisco")}</strong></div>
+          <div className="atlas-footer"><span>global coverage</span><span>official sources linked</span></div>
         </aside>
       </section>
 
@@ -116,6 +120,18 @@ export function EnglishHome() {
         <div><strong>4</strong><span>resource directories</span></div>
         <div><strong>6</strong><span>editor&apos;s picks</span></div>
         <p>The homepage helps you discover. The directories help you understand, compare and act.</p>
+      </section>
+
+      <section className="weekly-home-spotlight" aria-label="This week&apos;s startup opportunities">
+        <div className="weekly-home-index"><span>WEEKLY SIGNAL</span><strong>002</strong></div>
+        <div>
+          <span>2026.07.30—08.05 · CHECKED AGAINST OFFICIAL SOURCES</span>
+          <h2>4 startup opportunities worth acting on</h2>
+          <p>EF and Berkeley SkyDeck are approaching deadlines; AWS Activate remains open; TechBBQ is in its meeting-planning window.</p>
+        </div>
+        <a href="/en/weekly">
+          Read this week&apos;s brief <span aria-hidden="true">→</span>
+        </a>
       </section>
 
       <section className="section categories-section" id="categories">

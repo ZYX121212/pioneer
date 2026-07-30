@@ -114,6 +114,73 @@ function founderEventProfile(input: FounderEventProfileInput): ResourceResearchP
   };
 }
 
+type CloudProgramProfileInput = {
+  name: string;
+  platform: string;
+  audience: string;
+  access: string;
+  maxBenefit: string;
+  technicalValue: string;
+  marketValue: string;
+  lockInRisk: string;
+  compareWith: string;
+};
+
+function cloudProgramProfile(input: CloudProgramProfileInput): ResourceResearchProfile {
+  return {
+    identity: {
+      model: `${input.name} 是持续开放的创业公司云资源计划，不是固定时间、统一课程和统一录取批次的传统加速器。`,
+      primaryValue: `通过 ${input.maxBenefit}、技术支持与生态权益，降低团队在 ${input.platform} 上完成原型、上线和早期扩张的现金成本。`,
+      valueCondition: `团队需要符合 ${input.audience}，并能把 credits 与未来 6–18 个月的产品里程碑、预算和退出优惠后的正常成本对应起来。`,
+    },
+    capabilities: [
+      { label: "云成本支持", strength: "核心", detail: `${input.maxBenefit} 可以降低早期基础设施现金支出，但具体额度、有效期和可用服务取决于申请档位。` },
+      { label: "技术与架构支持", strength: "强", detail: input.technicalValue },
+      { label: "市场与生态连接", strength: "中", detail: input.marketValue },
+      { label: "公司加速辅导", strength: "有限", detail: "这类计划重点是技术平台和权益，不提供与传统加速器相同的高频公司建设、联合创始人或融资辅导。" },
+    ],
+    offers: [
+      { title: "基础设施 credits", includes: `用于抵扣符合条件的 ${input.platform} 服务费用，具体范围、额度与到期时间以获批账户为准。`, founderValue: "把有限现金优先用于产品、人才和客户验证，同时扩大可完成的技术实验。" },
+      { title: "技术学习与专家资源", includes: input.technicalValue, founderValue: "减少架构、AI、数据、安全和成本管理上的低级试错。" },
+      { title: "生态与合作权益", includes: input.marketValue, founderValue: "在产品成熟后获得合作伙伴、市场或企业生态入口，但连接不等于成交。" },
+    ],
+    entryPaths: [
+      { title: "直接申请", forWhom: "符合基础资格、尚未获得合作机构推荐的早期公司。", prepare: "公司注册信息、官网、产品说明、融资阶段、云账户和未来 12 个月使用计划。" },
+      { title: "合作机构推荐", forWhom: "获得投资机构、加速器或计划合作伙伴支持的团队。", prepare: input.access },
+      { title: "更高额度或专项路径", forWhom: "已经证明产品与用量、需要更高基础设施支持的 AI 或成长团队。", prepare: "当前用量、架构、增长计划、单位成本和获批额度如何转化为产品里程碑。" },
+    ],
+    stageFit: [
+      { stage: "只有想法", fit: "暂不优先", reason: "在没有产品和使用计划时，credits 很容易变成没有被使用的账面权益。" },
+      { stage: "已有 MVP", fit: "优先考虑", reason: "可以把 credits 直接绑定到上线、用户测试、推理和数据等具体成本。" },
+      { stage: "Seed–Series A", fit: "优先考虑", reason: "用量和架构需求已经更清楚，也更容易获得合作机构或专项档位支持。" },
+      { stage: "成长阶段", fit: "可以考虑", reason: "只有在仍符合阶段资格且优惠能明显改善单位经济时才有增量价值。" },
+    ],
+    costs: [
+      { label: "申请与资料维护", level: "低", detail: "通常不收取申请费或股权，但需要提交和持续维护真实公司、融资与产品资料。" },
+      { label: "技术锁定", level: "高", detail: input.lockInRisk },
+      { label: "优惠到期成本", level: "高", detail: "credits 耗尽或到期后恢复正常计费；迁移、出网、数据与团队学习成本可能限制快速切换。" },
+      { label: "虚假经济信号", level: "中", detail: "被 credits 抵扣后的毛利和单位成本不能代表长期商业模型，必须同时维护正常价格口径。" },
+    ],
+    diligence: [
+      "公司、融资阶段、成立年限、地区和业务类型是否完全符合当期资格？",
+      "哪些服务可被 credits 抵扣，哪些费用、支持或第三方产品明确不在范围内？",
+      "credits 的额度、有效期、累计上限和升级规则是什么？",
+      "按正常价格计算，未来 12 个月每位用户或每次任务的基础设施成本是多少？",
+    ],
+    playbook: [
+      { phase: "申请前", title: "建立正常价格基线", action: "按当前架构和未来三档用量估算不使用优惠时的月度成本。", output: "云成本基线" },
+      { phase: "申请时", title: "绑定产品里程碑", action: "说明 credits 将支持哪一次上线、模型实验、客户试点或可靠性建设。", output: "12 个月使用计划" },
+      { phase: "获批后", title: "设置预算与告警", action: "启用成本归集、限额、到期提醒和每月正常价格复盘。", output: "成本监控看板" },
+      { phase: "到期前 6 个月", title: "验证可持续架构", action: "重新比较承诺折扣、架构优化、多云或迁移方案。", output: "优惠退出方案" },
+    ],
+    comparison: {
+      chooseWhen: `你的产品明确依赖 ${input.platform}，并且 ${input.maxBenefit} 能直接支持一项可验证的产品或客户里程碑。`,
+      avoidWhen: "你只是因为免费额度而选择技术栈，尚未形成产品使用计划，或正常价格下的单位经济无法成立。",
+      compareWith: input.compareWith,
+    },
+  };
+}
+
 export const resourceProfiles: Record<string, ResourceResearchProfile> = {
   "y-combinator": {
     identity: {
@@ -1101,6 +1168,45 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
   },
   "dreamforce-2026": {
     ...founderEventProfile({ event: "Dreamforce 2026", model: "Salesforce 面向客户、开发者、合作伙伴与企业管理者的全球平台生态大会，包含线下内容与 Salesforce+ 直播。", primaryValue: "验证企业 AI、CRM 和数据产品如何进入 Salesforce 生态、采购流程和大型客户工作流。", valueCondition: "目标客户明确使用 Salesforce，产品已有可演示集成，并能提前锁定买家、伙伴或平台团队会面。", audience: "企业 CIO、CRM 与数据负责人、销售和服务团队、开发者、系统集成商与 Salesforce 合作伙伴", meetingTarget: "目标行业买家、AppExchange 与平台伙伴、系统集成商和企业软件投资人", preparation: "准备 Salesforce 集成演示、客户结果、平台重叠分析和合作伙伴方案", tripCost: "现场通票、旧金山旺季住宿和多日活动成本很高；线上直播适合只获取内容的团队。", alternative: "观看 Salesforce+ 免费直播，并用预算直接拜访三个目标客户或参加垂直企业软件活动" }),
+  },
+  "aws-activate": {
+    ...cloudProgramProfile({
+      name: "AWS Activate",
+      platform: "AWS、Amazon Bedrock 与相关云服务",
+      audience: "成立不超过十年、通常处于 Pre-Series B 的合格创业公司",
+      access: "如果申请 Portfolio 档，需要由 Activate Provider 提供保密 Org ID，并核对历史领取额度。",
+      maxBenefit: "Founders 最高 5,000 美元、Portfolio 最高 200,000 美元的官方标示 credits",
+      technicalValue: "AWS 提供架构学习、支持和面向创业公司的技术内容，credits 可用于包括 Amazon Bedrock 在内的合格服务。",
+      marketValue: "Activate Provider、AWS 创业社区与部分市场活动可提供生态连接，但不保证融资、客户或专项资源。",
+      lockInRisk: "大额 credits 可能推动团队过早依赖 AWS 专有服务；必须比较 Bedrock、数据、出网和长期承诺价格。",
+      compareWith: "与 Google Cloud Program、Microsoft for Startups 比较 AI 栈、额度结构、到期成本和目标客户生态。",
+    }),
+  },
+  "microsoft-for-startups": {
+    ...cloudProgramProfile({
+      name: "Microsoft for Startups",
+      platform: "Azure、Microsoft Foundry、GitHub 与企业 Microsoft 技术生态",
+      audience: "私营营利、拥有自有软件产品、未进入 Series C 或更后期的合格公司",
+      access: "准备公司注册、业务验证、产品说明与 Azure 信息；投资机构推荐码可能解锁额外权益。",
+      maxBenefit: "随阶段和资格增长的 Azure startup credits 与计划权益",
+      technicalValue: "通过 Azure Portal 管理 credits，并获得面向 AI、云架构、安全和企业就绪度的技术指导。",
+      marketValue: "Microsoft Marketplace、企业生态和可能的 go-to-market 支持，为成熟 B2B 产品提供采购与分发路径。",
+      lockInRisk: "企业集成、Azure 服务和 Marketplace 上架会提高切换成本，应区分真正的客户需求与平台权益驱动。",
+      compareWith: "与 AWS Activate、Google Cloud Program 比较云技术；与企业加速器比较真实客户与销售辅导深度。",
+    }),
+  },
+  "google-cloud-for-startups": {
+    ...cloudProgramProfile({
+      name: "Google for Startups Cloud Program",
+      platform: "Google Cloud、Firebase、Vertex AI 与相关 AI 基础设施",
+      audience: "Pre-seed 至 Series A 的合格技术创业公司",
+      access: "更高层级通常需要符合融资、合作机构或 AI 资格；应准备公司、融资、产品与用量材料。",
+      maxBenefit: "标准路径最高 200,000 美元、AI 路径最高 350,000 美元的两年 credits",
+      technicalValue: "提供 Google Cloud 与 Firebase credits、技术培训、hands-on labs、专家指导和 AI 基础设施支持。",
+      marketValue: "Google 生态和合作伙伴 perks 可补充开发、数据、监控与市场资源，但具体权益由服务商决定。",
+      lockInRisk: "Vertex AI、Firebase、数据与网络架构可能形成明显迁移成本，最高额度不应替代技术适配判断。",
+      compareWith: "与 AWS Activate、Microsoft for Startups 比较模型生态、开发体验、两年总成本与企业市场路径。",
+    }),
   },
 };
 

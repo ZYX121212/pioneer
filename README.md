@@ -20,7 +20,7 @@ Pioneer is a bilingual, curated directory of global startup programs, institutio
 
 当前资料规模：
 
-- 107 条中英文创业资源
+- 110 条中英文创业资源
 - 14 篇中英文创业指南
 - 公开计划、机构、活动和项目的独立详情页
 

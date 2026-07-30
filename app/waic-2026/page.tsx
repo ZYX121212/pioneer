@@ -5,8 +5,8 @@ import { WaicExhibitorRadar } from "../components/WaicExhibitorRadar";
 import { waicDays, waicFounderRoutes, waicSources, waicVenues } from "../data/waicGuide";
 
 export const metadata: Metadata = {
-  title: "WAIC 2026 上海创业者完整参会指南 — Pioneer",
-  description: "WAIC 2026 四馆选择、创业者参会路线、7 月 16–20 日周边活动与行动清单。",
+  title: "WAIC 2026 上海创业者资料归档 — Pioneer",
+  description: "WAIC 2026 已结束。本页归档四馆结构、创业者参会路线、周边活动与会后复盘框架。",
   alternates: { canonical: "/waic-2026", languages: { "zh-CN": "/waic-2026", en: "/en/waic-2026" } },
 };
 
@@ -150,6 +150,10 @@ export default function Waic2026Page() {
             <p>官方数据与活动安排可能继续变化，出发前务必点击原始链接复核。</p>
           </aside>
         </div>
+      </section>
+      <section className="waic-event-notice">
+        <strong>大会已于 2026 年 7 月 20 日结束</strong>
+        <p>本页作为资料归档保留。报名、日程、周边活动名额和现场交通信息均不再代表当前状态；请把它用于会后复盘、机构研究和下一届参会准备。</p>
       </section>
 
       <nav className="waic-quick-nav" aria-label="WAIC 专题快速导航">
@@ -390,8 +394,8 @@ export default function Waic2026Page() {
           ))}
         </div>
         <div className="waic-verification-note">
-          <strong>信息最后核验：2026.07.17</strong>
-          <p>活动临时变更很常见。出发前请再次核对日期、时间、地址、费用、审核结果与入场凭证；没有收到确认通知的审核制活动，请勿直接前往。</p>
+          <strong>归档状态核验：2026.07.30</strong>
+          <p>页面中的报名、日程、地址与票证信息均为历史记录。下一届行动前，请重新查看官方页面。</p>
         </div>
       </section>
         </div>
@@ -402,13 +406,13 @@ export default function Waic2026Page() {
             <div><span>活动日期</span><strong>2026.07.17–07.20</strong></div>
             <div><span>举办城市</span><strong>Shanghai</strong></div>
             <div><span>活动特点</span><strong>世界人工智能大会</strong></div>
-            <div><span>当前状态</span><strong>正在举行</strong></div>
+            <div><span>当前状态</span><strong>已结束 · 资料归档</strong></div>
             <div><span>地点</span><strong>中国 · 上海 · 三地四馆</strong></div>
           </div>
           <div className="source-card">
-            <span className="section-index">SOURCE &amp; ACTION</span>
+            <span className="section-index">SOURCE &amp; ARCHIVE</span>
             <strong>WAIC 官方网站</strong>
-            <p>2026.07.17 核验。论坛、展览、票证和活动时间可能变化，行动前请在官方页面再次确认。</p>
+            <p>2026.07.30 核验归档状态。报名、票证和活动时间信息不再代表当前安排。</p>
             <a href="https://www.worldaic.com.cn/" target="_blank" rel="noreferrer">前往官方页面 <span aria-hidden="true">↗</span></a>
           </div>
           <p className="editorial-disclaimer">Pioneer 的判断用于帮助你缩小选择范围，不构成投资、录取或商业结果保证。</p>

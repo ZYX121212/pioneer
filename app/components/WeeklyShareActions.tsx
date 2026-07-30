@@ -13,7 +13,7 @@ export function WeeklyShareActions({ lang = "zh" }: { lang?: "zh" | "en" }) {
       if (navigator.share) {
         await navigator.share({
           title: lang === "en" ? "4 startup opportunities worth acting on this week | Pioneer" : "本周值得行动的 4 个创业机会｜Pioneer",
-          text: lang === "en" ? "WAIC, YC, EF and Berkeley SkyDeck: deadlines, fit and the action to take today." : "WAIC、YC、EF、Berkeley SkyDeck：截止时间、适合谁，以及今天应该完成什么。",
+          text: lang === "en" ? "EF, Berkeley SkyDeck, AWS Activate and TechBBQ: timing, fit and the action to take today." : "EF、Berkeley SkyDeck、AWS Activate、TechBBQ：时间、适合谁，以及今天应该完成什么。",
           url,
         });
         trackAudienceEvent("weekly:share", "native");
@@ -39,14 +39,14 @@ export function WeeklyShareActions({ lang = "zh" }: { lang?: "zh" | "en" }) {
       <a
         href={lang === "en" ? "/en/weekly/deadlines.ics" : "/weekly/deadlines.ics"}
         data-audience-event="weekly:calendar"
-        data-audience-target="issue-001"
+        data-audience-target="issue-002"
       >
         {lang === "en" ? "Add deadlines" : "加入日历"} <span aria-hidden="true">↓</span>
       </a>
       <a
         href={lang === "en" ? "/en/feed.xml" : "/feed.xml"}
         data-audience-event="weekly:rss"
-        data-audience-target="issue-001"
+        data-audience-target="issue-002"
       >
         {lang === "en" ? "RSS feed" : "RSS 订阅"} <span aria-hidden="true">＋</span>
       </a>

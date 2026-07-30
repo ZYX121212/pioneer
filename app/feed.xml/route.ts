@@ -9,11 +9,11 @@ const feed = `<?xml version="1.0" encoding="UTF-8"?>
     <language>zh-CN</language>
     <atom:link href="${siteOrigin}/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>本周值得行动的 4 个创业机会｜2026.07.17</title>
+      <title>本周值得行动的 4 个创业机会｜2026.07.30</title>
       <link>${siteOrigin}/weekly</link>
       <guid isPermaLink="true">${siteOrigin}/weekly</guid>
-      <pubDate>Fri, 17 Jul 2026 00:00:00 GMT</pubDate>
-      <description>WAIC、Y Combinator、Entrepreneur First 与 Berkeley SkyDeck：为什么现在值得看、适合谁，以及今天应该完成什么。</description>
+      <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Entrepreneur First、Berkeley SkyDeck、AWS Activate 与 TechBBQ：为什么现在值得看、适合谁，以及今天应该完成什么。</description>
     </item>
   </channel>
 </rss>`;
