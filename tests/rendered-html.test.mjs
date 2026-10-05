@@ -143,8 +143,8 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   assert.match(analytics, /热门访问路径/);
   assert.match(analytics, /关键行为/);
   assert.match(analytics, /访问来源/);
-  assert.match(analytics, /累计订阅/);
-  assert.match(newsletter, /INSERT INTO newsletter_subscribers/);
+  assert.match(analytics, /已确认通知主题/);
+  assert.match(newsletter, /registerNewsletterInterest/);
   assert.match(sitemap, /sitemaps\.org\/schemas\/sitemap/);
   assert.match(robots, /sitemap\.xml/);
 });
@@ -809,4 +809,15 @@ test("offers bilingual private workspace sign-in with top-level navigation", asy
 test("English guide worksheets expose real evidence and decision inputs", async () => {
   const response = await render('/en/knowledge/test-your-pricing'); assert.equal(response.status, 200);
   const html = await response.text(); assert.match(html, /Save evidence and decision/); assert.match(html, /Supporting evidence, including counter-evidence/); assert.match(html, /<textarea/); assert.match(html, /Open workspace/);
+});
+
+test('notification management and unsubscribe pages provide bilingual login, truthful delivery state and safe links', async () => {
+  for (const [path, title, login] of [['/notifications', '你的通知偏好', '使用 ChatGPT 登录'], ['/en/notifications', 'Your notification preferences', 'Sign in with ChatGPT']]) {
+    const response = await render(path); assert.equal(response.status, 200); const html = await response.text();
+    assert.ok(html.includes(title)); assert.ok(html.includes(login)); assert.ok(html.includes('target="_top"')); assert.match(html, /noindex/); assert.ok(html.includes(path.startsWith('/en') ? 'Email delivery is currently paused' : '邮件发送当前暂停'));
+    assert.ok(html.includes(path.startsWith('/en') ? '/en/feed.xml' : '/feed.xml')); assert.ok(html.includes(path.startsWith('/en') ? '/en/weekly/deadlines.ics' : '/weekly/deadlines.ics'));
+  }
+  for (const path of ['/unsubscribe', '/en/unsubscribe']) {
+    const response = await render(path); assert.equal(response.status, 200); const html = await response.text(); assert.match(html, /no-referrer/); assert.match(html, /noindex/); assert.ok(html.includes(path.startsWith('/en') ? 'Opening this page does not change your preferences' : '打开此页面不会修改偏好'));
+  }
 });

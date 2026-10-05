@@ -12,7 +12,7 @@ const copy = {
     description: "开放计划、科技大会、创业机构与实用指南。邮件发送尚未启用；先登记意向，当前可通过 RSS 和日历获取更新。",
     placeholder: "你的邮箱",
     submit: "登记邮件通知",
-    success: "通知意向已保存。邮件发送尚未启用，请先使用 RSS 或日历。",
+    success: "已收到登记；已有偏好与退出选择会保留。邮件发送尚未启用，请先使用 RSS 或日历。",
     error: "暂时无法订阅，请稍后再试。",
     invalid: "请填写有效邮箱。",
     share: "分享 Pioneer",
@@ -24,7 +24,7 @@ const copy = {
     description: "Programs, events, institutions and practical guides. Email delivery is not enabled yet; register your interest and use RSS or the calendar for updates.",
     placeholder: "Your email",
     submit: "Register for email updates",
-    success: "Your interest is saved. Email delivery is not enabled yet; use RSS or the calendar.",
+    success: "Registration received; existing preferences and opt-outs are preserved. Email delivery is not enabled yet; use RSS or the calendar.",
     error: "Subscription is temporarily unavailable. Please try again.",
     invalid: "Enter a valid email address.",
     share: "Share Pioneer",
@@ -120,6 +120,7 @@ export function GrowthFooter({ lang }: GrowthFooterProps) {
           </button>
         </form>
         <div className="growth-footer-feedback" aria-live="polite">{message}</div>
+        <p><a href={lang === "en" ? "/en/notifications" : "/notifications"}>{lang === "en" ? "Manage notification preferences / unsubscribe" : "管理通知偏好 / 退出订阅"}</a></p>
         <button className="share-site-button" type="button" onClick={handleShare}>{text.share} ↗</button>
       </div>
     </section>

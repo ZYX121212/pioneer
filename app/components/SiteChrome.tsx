@@ -104,6 +104,7 @@ export function SiteFooter({ lang = "zh" }: SiteChromeProps) {
         {copy.links.map(([href, label]) => (
           <a href={href} key={href} data-audience-event="footer:open" data-audience-target={label}>{label}</a>
         ))}
+        <a href={lang === "en" ? "/en/notifications" : "/notifications"}>{lang === "en" ? "Notification preferences" : "通知偏好"}</a>
       </div>
       <p className="copyright">{copy.copyright}</p>
     </footer>

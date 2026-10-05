@@ -10,6 +10,7 @@ type AudienceStats = {
   sevenDayVisitors: number;
   sevenDayPageViews: number;
   subscriberCount: number;
+  interestCount: number;
   sevenDaySubscribers: number;
   submissionCount: number;
   sevenDaySubmissions: number;
@@ -26,6 +27,7 @@ const emptyStats: AudienceStats = {
   sevenDayVisitors: 0,
   sevenDayPageViews: 0,
   subscriberCount: 0,
+  interestCount: 0,
   sevenDaySubscribers: 0,
   submissionCount: 0,
   sevenDaySubmissions: 0,
@@ -46,7 +48,7 @@ function eventLabel(eventName: string) {
     "footer:open": "页脚导航",
     "guide:open": "阅读指南",
     "nav:open": "顶部导航",
-    "newsletter:subscribe": "订阅每周机会",
+    "newsletter:subscribe": "通知意向登记",
     "newsletter:intent": "查看订阅入口",
     "resource:open": "查看资源详情",
     "search:quick": "热门搜索",
@@ -95,8 +97,8 @@ export default function AnalyticsPage() {
 
   const conversionHint = useMemo(() => {
     if (stats.sevenDayVisitors === 0) return "等待第一批真实访问";
-    if (stats.sevenDaySubscribers === 0) return "最近 7 天有访问，还没有新增订阅";
-    return `最近 7 天约 ${Math.round((stats.sevenDaySubscribers / stats.sevenDayVisitors) * 100)}% 访客完成订阅`;
+    if (stats.sevenDaySubscribers === 0) return "最近 7 天有访问，还没有确认通知偏好的账号";
+    return `最近 7 天有 ${formatNumber(stats.sevenDaySubscribers)} 位账号确认通知偏好，目前仍开启`;
   }, [stats.sevenDaySubscribers, stats.sevenDayVisitors]);
 
   return (
@@ -134,9 +136,9 @@ export default function AnalyticsPage() {
               <p>{conversionHint}</p>
             </div>
             <div className="analytics-card">
-              <span>累计订阅</span>
+              <span>已确认通知主题</span>
               <strong>{status === "loading" ? "—" : formatNumber(stats.subscriberCount)}</strong>
-              <p>愿意持续接收每周机会的人</p>
+              <p>意向登记另有 {formatNumber(stats.interestCount)} 条，尚未确认主题；当前未发信</p>
             </div>
             <div className="analytics-card">
               <span>7 日浏览</span>
@@ -144,7 +146,7 @@ export default function AnalyticsPage() {
               <p>判断内容是否被继续探索</p>
             </div>
             <div className="analytics-card">
-              <span>待核验提交</span>
+              <span>资源提交总数</span>
               <strong>{status === "loading" ? "—" : formatNumber(stats.submissionCount)}</strong>
               <p>最近 7 天新增 {formatNumber(stats.sevenDaySubmissions)} 条</p>
             </div>
@@ -223,7 +225,7 @@ export default function AnalyticsPage() {
 
       <section className="analytics-note">
         <strong>当前统计口径</strong>
-        <p>人数按匿名设备去重；浏览次数记录页面访问；来源优先读取推广链接参数，其次读取外部来源网站。订阅邮箱只用于每周机会通讯，不会出现在行为统计中。</p>
+        <p>人数按匿名设备去重；浏览次数记录页面访问；来源优先读取推广链接参数，其次读取外部来源网站。通知人数区分未确认的意向登记与账号确认的主题，均不表示邮件已发送。邮箱不会出现在行为统计中。</p>
       </section>
 
       <SiteFooter />

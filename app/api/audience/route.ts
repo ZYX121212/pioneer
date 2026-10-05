@@ -12,6 +12,7 @@ type AudienceStats = {
   sevenDayVisitors: number;
   sevenDayPageViews: number;
   subscriberCount: number;
+  interestCount: number;
   sevenDaySubscribers: number;
   submissionCount: number;
   sevenDaySubmissions: number;
@@ -51,6 +52,7 @@ async function readAudienceStats(): Promise<AudienceStats> {
     sevenDayVisitors,
     sevenDayPageViews,
     subscriberCount,
+    interestCount,
     sevenDaySubscribers,
     submissionCount,
     sevenDaySubmissions,
@@ -71,10 +73,11 @@ async function readAudienceStats(): Promise<AudienceStats> {
       .prepare("SELECT COUNT(*) AS count FROM site_page_views WHERE viewed_at >= datetime('now', '-7 days')")
       .first<{ count: number }>(),
     database
-      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active'")
+      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND verified_at IS NOT NULL AND (weekly = 1 OR cases = 1)")
       .first<{ count: number }>(),
+    database.prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND verified_at IS NULL").first<{ count: number }>(),
     database
-      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND created_at >= datetime('now', '-7 days')")
+      .prepare("SELECT COUNT(*) AS count FROM newsletter_subscribers WHERE status = 'active' AND verified_at IS NOT NULL AND (weekly = 1 OR cases = 1) AND verified_at >= datetime('now', '-7 days')")
       .first<{ count: number }>(),
     database
       .prepare("SELECT COUNT(*) AS count FROM resource_submissions")
@@ -133,6 +136,7 @@ async function readAudienceStats(): Promise<AudienceStats> {
     sevenDayVisitors: Number(sevenDayVisitors?.count ?? 0),
     sevenDayPageViews: Number(sevenDayPageViews?.count ?? 0),
     subscriberCount: Number(subscriberCount?.count ?? 0),
+    interestCount: Number(interestCount?.count ?? 0),
     sevenDaySubscribers: Number(sevenDaySubscribers?.count ?? 0),
     submissionCount: Number(submissionCount?.count ?? 0),
     sevenDaySubmissions: Number(sevenDaySubmissions?.count ?? 0),

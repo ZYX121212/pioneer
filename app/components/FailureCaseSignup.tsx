@@ -13,7 +13,7 @@ const copy = {
     items: ["失败时间线", "关键证据", "可执行预警"],
     placeholder: "你的邮箱",
     submit: "登记案例通知",
-    success: "通知意向已保存，邮件发送尚未启用。",
+    success: "已收到登记；已有偏好与退出选择会保留。邮件发送尚未启用。",
     invalid: "请填写有效邮箱。",
     error: "暂时无法订阅，请稍后再试。",
   },
@@ -24,7 +24,7 @@ const copy = {
     items: ["Failure timeline", "Key evidence", "Actionable warning"],
     placeholder: "Your email",
     submit: "Register for case updates",
-    success: "Your interest is saved. Email delivery is not enabled yet.",
+    success: "Registration received; existing preferences and opt-outs are preserved. Email delivery is not enabled yet.",
     invalid: "Enter a valid email address.",
     error: "Subscription is temporarily unavailable. Please try again.",
   },
@@ -86,6 +86,7 @@ export function FailureCaseSignup({ lang = "zh" }: FailureCaseSignupProps) {
           <button type="submit" disabled={status === "submitting" || status === "success"}>{status === "submitting" ? "…" : text.submit}</button>
         </form>
         <div className="failure-signup-feedback" aria-live="polite">{message}</div>
+        <p><a href={lang === "en" ? "/en/notifications" : "/notifications"}>{lang === "en" ? "Manage notification preferences / unsubscribe" : "管理通知偏好 / 退出订阅"}</a></p>
       </div>
     </section>
   );

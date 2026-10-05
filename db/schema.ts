@@ -34,6 +34,19 @@ export const newsletterSubscribers = sqliteTable("newsletter_subscribers", {
   language: text("language").notNull().default("zh"),
   sourcePath: text("source_path").notNull().default("/"),
   status: text("status").notNull().default("active"),
+  userId: text("user_id").unique(),
+  weekly: integer("weekly").notNull().default(0),
+  cases: integer("cases").notNull().default(0),
+  verifiedAt: text("verified_at"),
+  version: integer("version").notNull().default(1),
+  requesterHash: text("requester_hash"),
+  updatedAt: text("updated_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const newsletterUnsubscribeTokens = sqliteTable("newsletter_unsubscribe_tokens", {
+  tokenHash: text("token_hash").primaryKey(),
+  subscriberId: integer("subscriber_id").notNull(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 

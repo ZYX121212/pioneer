@@ -10539,3 +10539,23 @@ footer {
 .mobile-nav summary::-webkit-details-marker { display:none; }
 .product-heading p { overflow-wrap:anywhere; }
 @media(max-width:1100px) { .mobile-nav { display:block; position:static; } .mobile-nav nav { display:grid !important; position:absolute; top:100%; left:16px; right:16px; z-index:100; width:auto; padding:20px; background:#fff; border:1px solid #aaa; box-shadow:0 12px 28px #0002; gap:16px; } .site-header .header-actions { gap:8px; } }
+
+.notification-preferences { max-width: 860px; margin-inline: auto; }
+.notification-preferences h1 { font-size: clamp(30px, 5vw, 48px); letter-spacing: -.04em; line-height: 1.15; }
+.notification-preferences > p { line-height: 1.8; margin-block: 20px; }
+.notification-preferences fieldset { border: 1px solid var(--line); padding: 24px; margin: 28px 0; }
+.notification-preferences legend { padding-inline: 8px; font-weight: 700; }
+.notification-choice { display: flex; gap: 12px; align-items: start; line-height: 1.7; margin-bottom: 22px; }
+.notification-choice input { flex-shrink: 0; width: 20px; height: 20px; margin-top: 4px; accent-color: var(--green); }
+.notification-language { display: grid; gap: 8px; max-width: 240px; }
+.notification-language select { padding: 10px; border: 1px solid var(--line); background: var(--paper); }
+.notification-preferences fieldset p { line-height: 1.8; font-size: 14px; }
+.notification-preferences button { margin: 8px 12px 8px 0; cursor: pointer; }
+.notification-preferences button:disabled { opacity: .55; cursor: wait; }
+.notification-account { padding: 18px; background: rgba(255,255,255,.5); overflow-wrap: anywhere; }
+.notification-alternatives { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 20px; }
+@media (max-width: 600px) { .notification-preferences fieldset { padding: 16px; } .notification-preferences button { max-width: 100%; white-space: normal; } }
+
+.notification-preferences .primary-action, .notification-preferences .secondary-action { display: inline-flex; align-items: center; justify-content: center; padding: 13px 18px; border: 1px solid var(--ink); font: inherit; font-weight: 700; line-height: 1.5; }
+.notification-preferences .primary-action { background: var(--green); color: white; }
+.notification-preferences .secondary-action { background: transparent; color: var(--ink); }
