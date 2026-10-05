@@ -10559,3 +10559,8 @@ footer {
 .notification-preferences .primary-action, .notification-preferences .secondary-action { display: inline-flex; align-items: center; justify-content: center; padding: 13px 18px; border: 1px solid var(--ink); font: inherit; font-weight: 700; line-height: 1.5; }
 .notification-preferences .primary-action { background: var(--green); color: white; }
 .notification-preferences .secondary-action { background: transparent; color: var(--ink); }
+
+.mail-preview { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; padding: 18px; background: rgba(255,255,255,.5); font: inherit; }
+.mail-campaign-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.mail-delivery-list { padding-left: 20px; overflow-wrap: anywhere; line-height: 1.8; }
+.mail-delivery-list li { margin-block: 12px; }

@@ -9,7 +9,7 @@ const copy = {
   zh: {
     eyebrow: "WEEKLY OPPORTUNITY SIGNAL",
     title: "从官方来源，找到值得行动的创业机会。",
-    description: "开放计划、科技大会、创业机构与实用指南。邮件发送尚未启用；先登记意向，当前可通过 RSS 和日历获取更新。",
+    description: "开放计划、科技大会、创业机构与实用指南。登记通知意向并在账号中确认主题；RSS 与日历可立即使用，发信状态见通知管理。",
     placeholder: "你的邮箱",
     submit: "登记邮件通知",
     success: "已收到登记；已有偏好与退出选择会保留。邮件发送尚未启用，请先使用 RSS 或日历。",
@@ -21,7 +21,7 @@ const copy = {
   en: {
     eyebrow: "WEEKLY OPPORTUNITY SIGNAL",
     title: "Find founder opportunities through official sources.",
-    description: "Programs, events, institutions and practical guides. Email delivery is not enabled yet; register your interest and use RSS or the calendar for updates.",
+    description: "Programs, events, institutions and practical guides. Register your interest and confirm topics in your account. RSS and the calendar are available now; check email status in notification preferences.",
     placeholder: "Your email",
     submit: "Register for email updates",
     success: "Registration received; existing preferences and opt-outs are preserved. Email delivery is not enabled yet; use RSS or the calendar.",
@@ -63,8 +63,9 @@ export function GrowthFooter({ lang }: GrowthFooterProps) {
       });
 
       if (!response.ok) throw new Error("Unable to subscribe");
+      const result = await response.json();
       setStatus("success");
-      setMessage(text.success);
+      setMessage(result.deliveryEnabled ? (lang === "en" ? "Registration received. Sign in to confirm your notification topics; existing opt-outs are preserved." : "已收到登记，请登录确认通知主题；已有退出选择会保留。") : text.success);
       setEmail("");
       trackAudienceEvent("newsletter:subscribe", lang);
     } catch {

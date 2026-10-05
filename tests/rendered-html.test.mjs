@@ -821,3 +821,9 @@ test('notification management and unsubscribe pages provide bilingual login, tru
     const response = await render(path); assert.equal(response.status, 200); const html = await response.text(); assert.match(html, /no-referrer/); assert.match(html, /noindex/); assert.ok(html.includes(path.startsWith('/en') ? 'Opening this page does not change your preferences' : '打开此页面不会修改偏好'));
   }
 });
+
+test('mail publishing stays private and its setup and queue semantics are truthful', async () => {
+ const page = await readFile(new URL('../app/admin/mail/page.tsx',import.meta.url),'utf8');assert.match(page,/requireChatGPTUser/);assert.match(page,/isSiteAdmin/);
+ const response = await render('/admin/mail'); assert.ok([302,303,307].includes(response.status));assert.match(response.headers.get('location')??'',/signin-with-chatgpt/);
+ const dashboard = await readFile(new URL('../app/components/MailDashboard.tsx',import.meta.url),'utf8');assert.match(dashboard,/加入队列不代表已发出/);assert.match(dashboard,/服务商已接收，投递未确认/);assert.match(dashboard,/window.confirm/);
+});

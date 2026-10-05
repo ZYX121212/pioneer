@@ -127,3 +127,28 @@ export const resourceReports = sqliteTable("resource_reports", {
   requesterHash: text("requester_hash").notNull(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 }, table => [index("idx_reports_status_created").on(table.status, table.createdAt)]);
+
+export const mailCampaigns = sqliteTable("mail_campaigns", {
+  id: text("id").primaryKey(),
+  topic: text("topic").notNull(),
+  content: text("content").notNull(),
+  validUntil: text("valid_until"),
+  actor: text("actor").notNull(),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+export const mailDeliveries = sqliteTable("mail_deliveries", {
+  id: text("id").primaryKey(),
+  campaignId: text("campaign_id").notNull(),
+  subscriberId: integer("subscriber_id").notNull(),
+  subscriberVersion: integer("subscriber_version").notNull(),
+  payload: text("payload").notNull(),
+  status: text("status").notNull().default("queued"),
+  attempts: integer("attempts").notNull().default(0),
+  firstAttemptAt: integer("first_attempt_at"),
+  nextAttemptAt: integer("next_attempt_at").notNull().default(0),
+  leaseUntil: integer("lease_until").notNull().default(0),
+  providerId: text("provider_id"),
+  error: text("error"),
+  checkedAt: text("checked_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, table => [index("idx_mail_campaign_status").on(table.campaignId, table.status)]);

@@ -46,3 +46,6 @@ next-env.d.ts
 /exports/
 /tmp/
 /自媒体剪辑_普通话版/
+
+# Local Cloudflare variables and secrets
+.dev.vars*

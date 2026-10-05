@@ -60,8 +60,9 @@ export function FailureCaseSignup({ lang = "zh" }: FailureCaseSignupProps) {
         }),
       });
       if (!response.ok) throw new Error("Unable to subscribe");
+      const result = await response.json();
       setStatus("success");
-      setMessage(text.success);
+      setMessage(result.deliveryEnabled ? (lang === "en" ? "Registration received. Sign in to confirm your notification topics; existing opt-outs are preserved." : "已收到登记，请登录确认通知主题；已有退出选择会保留。") : text.success);
       setEmail("");
       trackAudienceEvent("newsletter:subscribe", `failure-cases:${lang}`);
     } catch {
@@ -75,7 +76,7 @@ export function FailureCaseSignup({ lang = "zh" }: FailureCaseSignupProps) {
       <div className="failure-signup-copy">
         <span>{text.eyebrow}</span>
         <h2 id={`failure-signup-${lang}`}>{text.title}</h2>
-        <p>{text.description}</p><p>{lang === "en" ? "Email delivery is not enabled yet." : "邮件发送尚未启用，此处仅登记通知意向。"}</p>
+        <p>{text.description}</p><p>{lang === "en" ? "Register your interest here, then confirm topics and check delivery status in notification preferences." : "此处登记通知意向，请在通知管理中确认主题并查看发信状态。"}</p>
       </div>
       <div className="failure-signup-action">
         <ul>{text.items.map((item) => <li key={item}>{item}</li>)}</ul>

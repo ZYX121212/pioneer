@@ -106,7 +106,7 @@ export default function AnalyticsPage() {
       <SiteHeader />
       <section className="analytics-hero">
         <span className="section-index">INTERNAL SIGNALS</span>
-        <h1>创业者反馈仪表盘</h1>
+        <h1>创业者反馈仪表盘</h1><p><a href="/admin/reviews">资源审核</a> · <a href="/admin/mail">通知发布与投递</a></p>
         <p>这里看的是访问、兴趣和行动意图。公开页面展示热度，内部页面帮助判断下一步该优化哪里。</p>
       </section>
 
