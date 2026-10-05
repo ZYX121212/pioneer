@@ -64,7 +64,7 @@ export default function KnowledgePage() {
               <span>02 · 失败案例</span><strong>找到最早失效的假设</strong><p>从 Quibi、Cydoc 与 Net30 的第一方复盘中识别使用情境、商业模式和销售周期的早期信号。</p><b>开始复盘 →</b>
             </Link>
             <a href={`/knowledge/${pioneerGuide.slug}#problem-workbook`} className="knowledge-layer-card layer-tools">
-              <span>03 · 实践工具</span><strong>6 张可保存工作表</strong><p>从问题陈述、访谈记录到团队验证与融资判断，结果可保存到本地档案。</p><b>开始填写 →</b>
+              <span>03 · 实践工具</span><strong>可保存的实践工作表</strong><p>从问题陈述、访谈记录到团队验证与融资判断，登录后可将结果保存到私密工作台，在不同设备继续推进。</p><b>开始填写 →</b>
             </a>
             <a href="#source-library" className="knowledge-layer-card layer-sources">
               <span>04 · 原始来源</span><strong>观点可以追溯</strong><p>保留原作者、适用范围与 Pioneer 的具体使用方式。</p><b>查阅来源 ↓</b>

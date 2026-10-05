@@ -10567,3 +10567,6 @@ footer {
 
 .report-fields, .form-fields { display: contents; }
 .report-fields > label { min-width: 220px; }
+
+.journey-project-fields { border: 0; min-width: 0; margin: 24px 0 0; padding: 0; }
+.founder-workspace > .workspace-message { grid-column: 1 / -1; }

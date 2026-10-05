@@ -646,7 +646,7 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /找到最早失效的假设/);
   assert.match(html, /通过失败案例，提早识别创业风险/);
   assert.match(html, /登记案例通知/);
-  assert.match(html, /6 张可保存工作表/);
+  assert.match(html, /可保存的实践工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
   assert.match(html, /href="\/knowledge\/define-your-mvp"/);
   assert.match(html, /href="\/knowledge\/find-your-first-ten-users"/);

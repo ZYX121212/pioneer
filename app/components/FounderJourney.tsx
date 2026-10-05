@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { pioneerGuides } from "../data/knowledge";
 import {
   ARCHIVE_EVENT,
@@ -45,6 +45,14 @@ export function FounderJourney() {
   const [busy, setBusy] = useState(false);
   const [projectSaved, setProjectSaved] = useState(false);
 
+  const draftDirty = useRef(new Set<keyof typeof draft>());
+
+  function changeDraft(field: keyof typeof draft, value: string) {
+    draftDirty.current.add(field);
+    setProjectSaved(false);
+    setDraft(current => ({ ...current, [field]: value }));
+  }
+
   useEffect(() => {
     const refresh = () => {
       setCompleted(readCompletions());
@@ -52,15 +60,16 @@ export function FounderJourney() {
       setDecisions(readDecisions());
       const savedProject = readProject();
       setProject(savedProject);
-      if (savedProject) {
-        setDraft({
-          name: savedProject.name,
-          oneLine: savedProject.oneLine,
-          targetUser: savedProject.targetUser,
-          currentRisk: savedProject.currentRisk,
-          nextAction: savedProject.nextAction,
-        });
-      }
+      setDraft(current => {
+        const saved = {
+          name: savedProject?.name ?? "",
+          oneLine: savedProject?.oneLine ?? "",
+          targetUser: savedProject?.targetUser ?? "",
+          currentRisk: savedProject?.currentRisk ?? "",
+          nextAction: savedProject?.nextAction ?? "",
+        };
+        return Object.fromEntries(Object.entries(saved).map(([key, value]) => [key, draftDirty.current.has(key as keyof typeof draft) ? current[key as keyof typeof draft] : value])) as typeof draft;
+      });
     };
     void initializeWorkspace().then(refresh).catch(error => setMessage(workspaceError(error)));
     window.addEventListener(ARCHIVE_EVENT, refresh);
@@ -82,7 +91,7 @@ export function FounderJourney() {
 
   async function submitProject() {
     setBusy(true); setMessage("");
-    try { await saveProject(draft); setProjectSaved(true); window.setTimeout(() => setProjectSaved(false), 1800); }
+    try { await saveProject(draft); draftDirty.current.clear(); setProjectSaved(true); window.setTimeout(() => setProjectSaved(false), 1800); }
     catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); }
   }
 
@@ -136,14 +145,14 @@ export function FounderJourney() {
             <div><span>创业项目档案</span><strong>{archive.length ? `${archive.length} 份证据 · ${decisions.length} 个阶段判断` : "先建立项目，再沉淀证据"}</strong></div>
             {archive.length > 0 && <button type="button" onClick={clearArchive} disabled={busy}>清空证据档案</button>}
           </div>
-          <div className="project-form">
-            <label><span>项目名称</span><input value={draft.name} placeholder="例如：餐饮门店临时换班助手" onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))} /></label>
-            <label><span>一句话方向</span><textarea rows={2} value={draft.oneLine} placeholder="为谁，在什么场景下，交付什么结果？" onChange={(event) => setDraft((current) => ({ ...current, oneLine: event.target.value }))} /></label>
-            <label><span>目标用户</span><input value={draft.targetUser} placeholder="尽量写角色、近期行为和触发时机" onChange={(event) => setDraft((current) => ({ ...current, targetUser: event.target.value }))} /></label>
-            <label><span>当前最危险假设</span><input value={draft.currentRisk} placeholder="例如：店长愿意为减少临时协调付费" onChange={(event) => setDraft((current) => ({ ...current, currentRisk: event.target.value }))} /></label>
-            <label><span>本周下一步</span><input value={draft.nextAction} placeholder={`例如：完成 ${nextGuide.title}`} onChange={(event) => setDraft((current) => ({ ...current, nextAction: event.target.value }))} /></label>
+          <fieldset className="project-form journey-project-fields" disabled={busy}>
+            <label><span>项目名称</span><input maxLength={120} value={draft.name} placeholder="例如：餐饮门店临时换班助手" onChange={(event) => changeDraft("name", event.target.value)} /></label>
+            <label><span>一句话方向</span><textarea maxLength={1200} rows={2} value={draft.oneLine} placeholder="为谁，在什么场景下，交付什么结果？" onChange={(event) => changeDraft("oneLine", event.target.value)} /></label>
+            <label><span>目标用户</span><input maxLength={1200} value={draft.targetUser} placeholder="尽量写角色、近期行为和触发时机" onChange={(event) => changeDraft("targetUser", event.target.value)} /></label>
+            <label><span>当前最危险假设</span><input maxLength={1200} value={draft.currentRisk} placeholder="例如：店长愿意为减少临时协调付费" onChange={(event) => changeDraft("currentRisk", event.target.value)} /></label>
+            <label><span>本周下一步</span><input maxLength={1200} value={draft.nextAction} placeholder={`例如：完成 ${nextGuide.title}`} onChange={(event) => changeDraft("nextAction", event.target.value)} /></label>
             <button type="button" onClick={submitProject} disabled={busy}>{projectSaved ? "项目档案已保存 ✓" : "保存项目档案"}</button>
-          </div>
+          </fieldset>
           <div className="decision-strip">
             <div><span>最近阶段判断</span><strong>{latestDecision ? decisionLabels[latestDecision.decision] : "还没有判断"}</strong><p>{latestDecision?.reason || "每篇指南完成后，选择继续、缩小、调整或停止，并写下理由。"}</p></div>
             <Link href={`/knowledge/${nextGuide.slug}`}>继续下一步：{nextGuide.number}</Link>
