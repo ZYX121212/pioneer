@@ -1,3 +1,4 @@
+import { ResourceReport } from "../../components/ResourceReport";
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -338,6 +339,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
           {related.map((entry) => entry && <ResourceCard resource={entry} key={entry.id} />)}
         </div>
       </section>
+      <ResourceReport resourceKey={resource.slug} lang="zh" />
       <SiteFooter />
     </main>
   );

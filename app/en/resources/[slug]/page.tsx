@@ -1,3 +1,4 @@
+import { ResourceReport } from "../../../components/ResourceReport";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getEnglishResource, englishTypeConfig } from "../../../data/english";
@@ -151,6 +152,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
           {related.map((entry) => entry && <ResourceCard resource={entry} lang="en" key={entry.id} />)}
         </div>
       </section>
+      <ResourceReport resourceKey={resource.slug} lang="en" />
       <SiteFooter lang="en" />
     </main>
   );

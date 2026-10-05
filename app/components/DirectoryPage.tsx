@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { getResourcesByType, type ResourceType, typeConfig } from "../data/resources";
+import { communityEntries } from "../lib/community";
 import { DirectoryExplorer } from "./DirectoryExplorer";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
 
-export function DirectoryPage({ type }: { type: ResourceType }) {
+export async function DirectoryPage({ type }: { type: ResourceType }) {
   const config = typeConfig[type];
-  const entries = getResourcesByType(type);
+  const community = await communityEntries(type, "zh");
+  const entries = [...getResourcesByType(type), ...community.resources];
 
   return (
     <main>
@@ -33,6 +35,8 @@ export function DirectoryPage({ type }: { type: ResourceType }) {
           </div>
           <p>进入详情查看适合人群、注意事项、关键事实、Pioneer 判断与官方来源。</p>
         </div>
+        {community.unavailable && <p role="status">{"社区新增资源暂时无法加载，已有整理档案仍可使用。"}</p>}
+        <p><a href="/community">查看社区资源与核验依据</a></p>
         <DirectoryExplorer resources={entries} />
       </section>
       <SiteFooter />

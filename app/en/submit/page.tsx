@@ -30,7 +30,7 @@ export default function EnglishSubmitResourcePage() {
         <header>
           <span>01 / RECOMMEND A RESOURCE</span>
           <h2>Tell us why founders should pay attention.</h2>
-          <p>It takes about three minutes. Every submission is reviewed before it can appear on Pioneer.</p>
+          <p>It takes about three minutes. Source, name and date checks run automatically. Passing submissions join the community directory; uncertain ones enter editor review with a private status link.</p>
         </header>
         <ResourceSubmissionForm lang="en" />
       </section>

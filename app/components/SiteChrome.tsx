@@ -13,6 +13,7 @@ const nav = {
     homeLabel: "Pioneer 首页",
     links: [
       ["/weekly", "本周机会"],
+      ["/community", "社区资源"],
       ["/knowledge", "创业指南"],
       ["/programs", "开放计划"],
       ["/organizations", "创业机构"],
@@ -24,7 +25,7 @@ const nav = {
     languageHref: "/en",
     languageLabel: "EN",
     footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
-    copyright: "© 2026 Pioneer. 内容最近核验：2026.07.15",
+    copyright: "© 2026 Pioneer. 每条资源显示独立核验日期",
   },
   en: {
     announcement: "Curated resources are live",
@@ -32,6 +33,7 @@ const nav = {
     homeLabel: "Pioneer home",
     links: [
       ["/en/weekly", "Weekly"],
+      ["/en/community", "Community"],
       ["/en/knowledge", "Founder Guides"],
       ["/en/programs", "Programs"],
       ["/en/organizations", "Institutions"],
@@ -43,7 +45,7 @@ const nav = {
     languageHref: "/",
     languageLabel: "中文",
     footerLine: "GLOBAL STARTUP DIRECTORY & FOUNDER GUIDE",
-    copyright: "© 2026 Pioneer. Last reviewed: 2026.07.16",
+    copyright: "© 2026 Pioneer. Check each resource’s individual review date",
   },
 } as const;
 

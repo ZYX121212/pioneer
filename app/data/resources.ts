@@ -26,6 +26,7 @@ export type Resource = {
   monogram: string;
   featured?: boolean;
   relatedSlugs?: string[];
+  verification?: "link-only";
   fundingStage?: string;
   stageType?: "seed" | "series-a" | "series-bc" | "growth" | "scale";
 };

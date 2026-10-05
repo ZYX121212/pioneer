@@ -1,8 +1,12 @@
+import { getD1 } from "../../db/d1";
+import { listCommunity } from "../lib/submissionService";
 import { pioneerGuides } from "../data/knowledge";
 import { resources } from "../data/resources";
 import { siteOrigin } from "../lib/site";
 
 const staticPaths = [
+  "/community",
+  "/en/community",
   "/weekly/archive/002",
   "/en/weekly/archive/002",
   "/weekly/archive/003",
@@ -33,7 +37,9 @@ export async function GET() {
     : [`/resources/${resource.slug}`, `/en/resources/${resource.slug}`]);
   const guidePaths = pioneerGuides.map((guide) => `/knowledge/${guide.slug}`);
   const englishGuidePaths = pioneerGuides.map((guide) => `/en/knowledge/${guide.slug}`);
-  const paths = [...new Set([...staticPaths, ...resourcePaths, ...guidePaths, ...englishGuidePaths])];
+  let communityPaths: string[] = [];
+  try { communityPaths = (await listCommunity(await getD1())).flatMap(row => [`/community/${row.slug}`, `/en/community/${row.slug}`]); } catch { /* Keep the curated sitemap available during a database outage. */ }
+  const paths = [...new Set([...staticPaths, ...communityPaths, ...resourcePaths, ...guidePaths, ...englishGuidePaths])];
   const urls = paths.map((path) => {
     const frequency = path.includes("/resources/") ? "monthly" : "weekly";
     const priority = path === "" ? "1.0" : path.includes("/resources/") ? "0.7" : "0.8";

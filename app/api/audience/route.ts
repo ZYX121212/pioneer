@@ -1,3 +1,4 @@
+import { isSiteAdmin } from "../../lib/admin";
 import { getD1 } from "../../../db/d1";
 
 const VISITOR_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -152,12 +153,21 @@ async function readAudienceStats(): Promise<AudienceStats> {
   };
 }
 
-export async function GET() {
+async function readPublicCounts() {
+  const db = await getD1();
+  const result = await db.prepare("SELECT (SELECT count(*) FROM site_visitors) AS visitorCount, (SELECT count(*) FROM site_page_views) AS pageViewCount").first<{ visitorCount: number; pageViewCount: number }>();
+  return { visitorCount: Number(result?.visitorCount ?? 0), pageViewCount: Number(result?.pageViewCount ?? 0) };
+}
+export async function GET(request: Request) {
   try {
-    return json(await readAudienceStats());
+    if (new URL(request.url).searchParams.get("full") === "1") {
+      if (!await isSiteAdmin()) return json({ error: "Administrator access required" }, 403);
+      return json(await readAudienceStats());
+    }
+    return json(await readPublicCounts());
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to read audience count";
-    return json({ error: message }, 500);
+    console.error("Audience statistics unavailable", error);
+    return json({ error: "Statistics temporarily unavailable" }, 503);
   }
 }
 
@@ -196,7 +206,7 @@ export async function POST(request: Request) {
         .bind(visitorId, eventName, path, cleanTarget(payload.target))
         .run();
 
-      return json(await readAudienceStats());
+      return json(await readPublicCounts());
     }
 
     await database.batch([
@@ -224,9 +234,9 @@ export async function POST(request: Request) {
         ),
     ]);
 
-    return json(await readAudienceStats());
+    return json(await readPublicCounts());
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to record audience count";
-    return json({ error: message }, 500);
+    console.error("Audience recording unavailable", error);
+    return json({ error: "Unable to record audience count" }, 503);
   }
 }

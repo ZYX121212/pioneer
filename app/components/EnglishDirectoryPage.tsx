@@ -1,11 +1,14 @@
+import Link from "next/link";
 import { englishTypeConfig } from "../data/english";
 import { getResourcesByType, type ResourceType } from "../data/resources";
+import { communityEntries } from "../lib/community";
 import { DirectoryExplorer } from "./DirectoryExplorer";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
 
-export function EnglishDirectoryPage({ type }: { type: ResourceType }) {
+export async function EnglishDirectoryPage({ type }: { type: ResourceType }) {
   const config = englishTypeConfig[type];
-  const entries = getResourcesByType(type);
+  const community = await communityEntries(type, "en");
+  const entries = [...getResourcesByType(type), ...community.resources];
 
   return (
     <main>
@@ -33,6 +36,8 @@ export function EnglishDirectoryPage({ type }: { type: ResourceType }) {
           </div>
           <p>Open each brief to see fit, trade-offs, key facts, Pioneer&apos;s editorial judgment and the official source.</p>
         </div>
+        {community.unavailable && <p role="status">{"Community additions are temporarily unavailable; curated briefs remain accessible."}</p>}
+        <p><Link href="/en/community">Explore community resources and source checks</Link></p>
         <DirectoryExplorer resources={entries} lang="en" />
       </section>
       <SiteFooter lang="en" />

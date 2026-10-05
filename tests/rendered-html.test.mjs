@@ -115,7 +115,7 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   const route = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
   const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-  const analytics = await readFile(new URL("../app/admin/analytics/page.tsx", import.meta.url), "utf8");
+  const analytics = await readFile(new URL("../app/components/AdminAnalytics.tsx", import.meta.url), "utf8");
   const newsletter = await readFile(new URL("../app/api/newsletter/route.ts", import.meta.url), "utf8");
   const sitemap = await readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8");
   const robots = await readFile(new URL("../app/robots.txt/route.ts", import.meta.url), "utf8");
@@ -154,14 +154,14 @@ test("renders the weekly opportunity signup and share action sitewide", async ()
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /每周一次，把真正值得关注的创业机会发给你/);
-  assert.match(html, /订阅每周机会/);
+  assert.match(html, /从官方来源，找到值得行动的创业机会/);
+  assert.match(html, /登记邮件通知/);
   assert.match(html, /分享 Pioneer/);
 
   const englishResponse = await render("/en");
   const english = await englishResponse.text();
-  assert.match(english, /One useful startup opportunity briefing, every week/);
-  assert.match(english, /Get the weekly brief/);
+  assert.match(english, /Find founder opportunities through official sources/);
+  assert.match(english, /Register for email updates/);
 });
 
 test("publishes search discovery files for public pages", async () => {
@@ -210,12 +210,12 @@ test("archives issue 002 without active calendar or official action tracking", a
     assert.match(html, /2026.07.30—08.05/);
     assert.match(html, /Entrepreneur First London/);
     assert.match(html, /TechBBQ 2026/);
-    assert.doesNotMatch(html, /DAYS LEFT|剩余 \d+ 天|weekly:calendar|deadlines\.ics/);
+    assert.doesNotMatch(html.split('<section class="growth-footer"')[0], /DAYS LEFT|剩余 \d+ 天|weekly:calendar|deadlines\.ics/);
     assert.match(html, /历史归档|Historical archive/);
     const archive003 = await render(`${prefix}/weekly/archive/003`);
     const body = await archive003.text();
     assert.equal(archive003.status, 200);
-    assert.doesNotMatch(body, /weekly:official|deadlines\.ics/);
+    assert.doesNotMatch(body.split('<section class="growth-footer"')[0], /weekly:official|deadlines\.ics/);
   }
 });
 
@@ -306,7 +306,7 @@ test("accepts bilingual resource recommendations into the review workflow", asyn
   const api = await readFile(new URL("../app/api/submissions/route.ts", import.meta.url), "utf8");
   assert.match(schema, /resourceSubmissions/);
   assert.match(api, /INSERT INTO resource_submissions/);
-  assert.match(api, /pending/);
+  assert.match(api, /processSubmission/);
   assert.match(api, /shareToken/);
 
   const chineseResponse = await render("/submit");
@@ -644,8 +644,8 @@ test("renders the founder learning path and knowledge filters", async () => {
   assert.match(html, /knowledge-layer-main-summary/);
   assert.match(html, /knowledge-layer-guide-grid/);
   assert.match(html, /找到最早失效的假设/);
-  assert.match(html, /每两周，拆解一个失败项目/);
-  assert.match(html, /订阅失败案例/);
+  assert.match(html, /通过失败案例，提早识别创业风险/);
+  assert.match(html, /登记案例通知/);
   assert.match(html, /6 张可保存工作表/);
   assert.match(html, /href="\/knowledge\/first-user-interview"/);
   assert.match(html, /href="\/knowledge\/define-your-mvp"/);

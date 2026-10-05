@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { reviewReasons } from "../lib/resourceReview";
+import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { trackAudienceEvent } from "./AudienceCounter";
 
@@ -45,8 +46,8 @@ const copy: Record<"zh" | "en", Copy> = {
     relationship: "你与这个资源的关系", relationshipOptions: [["official", "我是官方团队成员"], ["participant", "我参加或使用过"], ["community", "我来自相关社区"], ["other", "其他"]],
     yourName: "你的称呼", email: "联系邮箱",
     privacy: "邮箱只用于核验和必要沟通，不会公开。Pioneer 会独立核验信息，不承诺收录。",
-    submit: "提交给 Pioneer 审核", submitting: "正在提交…",
-    successTitle: "已经收到，感谢你让好资源更容易被发现。",
+    submit: "提交给 Pioneer 审核", submitting: "提交并核验中…",
+    successTitle: "提交已保存，以下是核验结果。",
     successBody: "Pioneer 会先检查官方网站、适用人群与时间信息，再决定是否收录。",
     shareHeading: "现在，把 Pioneer 转给同样需要它的人。",
     shareBody: "下面是你的专属来源链接。通过它进入 Pioneer 的访问，会被单独计入资源方传播数据。",
@@ -63,8 +64,8 @@ const copy: Record<"zh" | "en", Copy> = {
     relationship: "Your relationship to this resource", relationshipOptions: [["official", "I am on the official team"], ["participant", "I participated or used it"], ["community", "I am part of a related community"], ["other", "Other"]],
     yourName: "Your name", email: "Contact email",
     privacy: "Your email is only used for verification and necessary follow-up. It will not be published. Inclusion is not guaranteed.",
-    submit: "Submit for Pioneer review", submitting: "Submitting…",
-    successTitle: "Received. Thank you for helping founders discover a useful resource.",
+    submit: "Submit for Pioneer review", submitting: "Submitting and checking…",
+    successTitle: "Submission saved. Here is the review result.",
     successBody: "Pioneer will verify the official source, audience and timing before deciding whether to publish it.",
     shareHeading: "Now help the right founders discover Pioneer.",
     shareBody: "This is your unique referral link. Visits through it are counted as community referrals from your submission.",
@@ -80,6 +81,8 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
   const [message, setMessage] = useState("");
   const [shareUrl, setShareUrl] = useState("");
   const [shareCopy, setShareCopy] = useState("");
+  const idempotencyKey = useRef("");
+  const [receipt, setReceipt] = useState<{ status: string; reason: string; reviewToken: string; resourcePath?: string | null } | null>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -88,19 +91,21 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
     setMessage("");
     const form = event.currentTarget;
     const values = Object.fromEntries(new FormData(form).entries());
+    idempotencyKey.current ||= crypto.randomUUID().replace(/-/g, "");
 
     try {
       const response = await fetch("/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, language: lang, sourcePath: window.location.pathname }),
+        body: JSON.stringify({ ...values, idempotencyKey: idempotencyKey.current, language: lang, sourcePath: window.location.pathname }),
       });
-      const result = (await response.json()) as { ok?: boolean; error?: string; shareToken?: string };
+      const result = (await response.json()) as { ok?: boolean; error?: string; shareToken?: string; reviewToken: string; status: string; reason: string; resourcePath?: string | null };
       if (!response.ok || !result.ok) throw new Error(result.error || text.fallbackError);
       const resourceName = String(values.resourceName ?? "Pioneer");
       const referralUrl = result.shareToken
         ? `${window.location.origin}/?ref=${encodeURIComponent(result.shareToken)}`
         : window.location.origin;
+      setReceipt(result);
       setShareUrl(referralUrl);
       setShareCopy(text.shareText(resourceName));
       form.reset();
@@ -142,7 +147,12 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
       <section className="submission-success" aria-live="polite">
         <span aria-hidden="true">✓</span>
         <h2>{text.successTitle}</h2>
-        <p>{text.successBody}</p>
+        <p>{receipt?.reason ? reviewReasons[receipt.reason]?.[lang] ?? receipt.reason : text.successBody}</p>
+        {receipt && <div className="submission-receipt"><strong>{lang === "en" ? "Review result" : "审核结果"}: {({ approved: lang === "en" ? "Published" : "已收录", pending: lang === "en" ? "Editor review" : "待人工复核", rejected: lang === "en" ? "Not published" : "未收录", duplicate: lang === "en" ? "Already listed" : "已有档案", reviewing: lang === "en" ? "Checking" : "核验中" } as Record<string, string>)[receipt.status]}</strong>
+          <p><a href={`${lang === "en" ? "/en" : ""}/submissions/${receipt.reviewToken}`}>{lang === "en" ? "Save your private status link" : "保存私密进度查询链接"}</a></p>
+          {receipt.resourcePath && <a href={`${lang === "en" ? "/en" : ""}${receipt.resourcePath}`}>{lang === "en" ? "Open the listed resource" : "查看已收录资源"}</a>}
+          <p>{lang === "en" ? "Keep your status link private. You can return to check updates." : "进度链接仅供自己保存，可以随时回来查看结果。"}</p>
+        </div>}
         <div className="submission-referral-kit">
           <span>SHARE · REFER · GROW</span>
           <h3>{text.shareHeading}</h3>
@@ -163,6 +173,8 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
           </div>
         </div>
         <button type="button" className="submission-again" onClick={() => {
+          idempotencyKey.current = "";
+          setReceipt(null);
           setStatus("idle");
           setCopyStatus("idle");
         }}>{text.again}</button>
@@ -192,8 +204,9 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
       </div>
       <div className="submission-field">
         <label htmlFor="resource-deadline">{text.deadline}</label>
-        <input id="resource-deadline" name="deadline" placeholder={text.deadlinePlaceholder} maxLength={100} />
+        <input id="resource-deadline" name="deadline" type="date" maxLength={100} />
       </div>
+      <div className="submission-field wide"><label htmlFor="resource-stage">{lang === "en" ? "Best-fit founder stage" : "适合的创业阶段"}</label><select id="resource-stage" name="stage" defaultValue="any"><option value="any">{lang === "en" ? "Any stage / unsure" : "不限 / 暂不确定"}</option><option value="idea">{lang === "en" ? "Idea" : "想法探索"}</option><option value="validation">{lang === "en" ? "Validation" : "产品验证"}</option><option value="traction">{lang === "en" ? "Early traction" : "早期增长"}</option><option value="growth">{lang === "en" ? "Growth" : "规模增长"}</option></select></div>
       <div className="submission-field wide">
         <label htmlFor="resource-why">{text.why}</label>
         <textarea id="resource-why" name="whyUseful" placeholder={text.whyPlaceholder} minLength={20} maxLength={1200} rows={6} required />

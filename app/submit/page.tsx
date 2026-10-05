@@ -30,7 +30,7 @@ export default function SubmitResourcePage() {
         <header>
           <span>01 / RECOMMEND A RESOURCE</span>
           <h2>告诉我们，它为什么值得被认真理解。</h2>
-          <p>填写大约需要 3 分钟。资料会进入待核验清单，不会未经检查直接发布。</p>
+          <p>填写大约需要 3 分钟。系统会检查官方来源、名称与日期。通过后自动加入社区资源目录；证据不足进入人工复核，并提供私密进度链接。</p>
         </header>
         <ResourceSubmissionForm />
       </section>

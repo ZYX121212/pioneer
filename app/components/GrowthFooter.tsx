@@ -8,11 +8,11 @@ type GrowthFooterProps = { lang: "zh" | "en" };
 const copy = {
   zh: {
     eyebrow: "WEEKLY OPPORTUNITY SIGNAL",
-    title: "每周一次，把真正值得关注的创业机会发给你。",
-    description: "开放计划、科技大会、创业机构与实用指南。只发送经过整理的内容。",
+    title: "从官方来源，找到值得行动的创业机会。",
+    description: "开放计划、科技大会、创业机构与实用指南。邮件发送尚未启用；先登记意向，当前可通过 RSS 和日历获取更新。",
     placeholder: "你的邮箱",
-    submit: "订阅每周机会",
-    success: "订阅成功，下一期见。",
+    submit: "登记邮件通知",
+    success: "通知意向已保存。邮件发送尚未启用，请先使用 RSS 或日历。",
     error: "暂时无法订阅，请稍后再试。",
     invalid: "请填写有效邮箱。",
     share: "分享 Pioneer",
@@ -20,11 +20,11 @@ const copy = {
   },
   en: {
     eyebrow: "WEEKLY OPPORTUNITY SIGNAL",
-    title: "One useful startup opportunity briefing, every week.",
-    description: "Programs, events, institutions and practical founder guides — curated before we send.",
+    title: "Find founder opportunities through official sources.",
+    description: "Programs, events, institutions and practical guides. Email delivery is not enabled yet; register your interest and use RSS or the calendar for updates.",
     placeholder: "Your email",
-    submit: "Get the weekly brief",
-    success: "You're subscribed. See you next issue.",
+    submit: "Register for email updates",
+    success: "Your interest is saved. Email delivery is not enabled yet; use RSS or the calendar.",
     error: "Subscription is temporarily unavailable. Please try again.",
     invalid: "Enter a valid email address.",
     share: "Share Pioneer",
@@ -98,7 +98,7 @@ export function GrowthFooter({ lang }: GrowthFooterProps) {
       <div className="growth-footer-copy">
         <span>{text.eyebrow}</span>
         <h2 id={`growth-footer-${lang}`}>{text.title}</h2>
-        <p>{text.description}</p>
+        <p>{text.description}</p><p><a href={lang === "en" ? "/en/feed.xml" : "/feed.xml"}>RSS</a> · <a href={lang === "en" ? "/en/weekly/deadlines.ics" : "/weekly/deadlines.ics"}>{lang === "en" ? "Deadline calendar" : "截止日历"}</a></p>
       </div>
       <div className="growth-footer-actions">
         <form onSubmit={handleSubmit}>

@@ -1,3 +1,4 @@
+import { sameOrigin } from "../../lib/http";
 import { getD1 } from "../../../db/d1";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -10,6 +11,7 @@ function json(data: unknown, status = 200) {
 }
 
 export async function POST(request: Request) {
+  if (!sameOrigin(request)) return json({ error: "Invalid request origin" }, 403);
   try {
     const payload = (await request.json()) as {
       email?: string;
@@ -18,7 +20,7 @@ export async function POST(request: Request) {
       website?: string;
     };
 
-    if (payload.website) return json({ ok: true });
+    if (payload.website) return json({ error: "Registration could not be accepted" }, 400);
 
     const email = payload.email?.trim().toLowerCase() ?? "";
     if (email.length > 254 || !EMAIL_PATTERN.test(email)) {
@@ -45,7 +47,7 @@ export async function POST(request: Request) {
 
     return json({ ok: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to subscribe";
-    return json({ error: message }, 500);
+    console.error("Notification registration failed", error);
+    return json({ error: "Notification registration unavailable" }, 503);
   }
 }

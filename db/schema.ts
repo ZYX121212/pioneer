@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const siteVisitors = sqliteTable("site_visitors", {
   visitorId: text("visitor_id").primaryKey(),
@@ -52,5 +52,65 @@ export const resourceSubmissions = sqliteTable("resource_submissions", {
   sourcePath: text("source_path").notNull().default("/submit"),
   status: text("status").notNull().default("pending"),
   shareToken: text("share_token").unique(),
+  reviewToken: text("review_token").unique(),
+  canonicalUrl: text("canonical_url"),
+  idempotencyKey: text("idempotency_key").unique(),
+  requesterHash: text("requester_hash"),
+  stage: text("stage").notNull().default("any"),
+  reviewEvidence: text("review_evidence"),
+  reviewReason: text("review_reason"),
+  reviewedAt: text("reviewed_at"),
+  reviewer: text("reviewer"),
+  publishedSlug: text("published_slug"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, table => [index("idx_submissions_status_created").on(table.status, table.createdAt), index("idx_submissions_requester_created").on(table.requesterHash, table.createdAt)]);
+
+
+export const communityResources = sqliteTable("community_resources", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  slug: text("slug").notNull().unique(),
+  submissionId: integer("submission_id").notNull().unique(),
+  canonicalUrl: text("canonical_url").notNull().unique(),
+  resourceType: text("resource_type").notNull(),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  location: text("location"),
+  deadline: text("deadline"),
+  stage: text("stage").notNull().default("any"),
+  contributorReason: text("contributor_reason").notNull(),
+  sourceTitle: text("source_title").notNull(),
+  sourceExcerpt: text("source_excerpt").notNull(),
+  evidence: text("evidence").notNull(),
+  status: text("status").notNull().default("published"),
+  verifiedAt: text("verified_at").notNull(),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, table => [index("idx_community_status_type_created").on(table.status, table.resourceType, table.createdAt)]);
+
+export const moderationActions = sqliteTable("moderation_actions", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  submissionId: integer("submission_id").notNull(),
+  actor: text("actor").notNull(),
+  action: text("action").notNull(),
+  reason: text("reason").notNull(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const founderWorkspaces = sqliteTable("founder_workspaces", {
+  userId: text("user_id").primaryKey(),
+  state: text("state").notNull().default("{}"),
+  version: integer("version").notNull().default(1),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const resourceReports = sqliteTable("resource_reports", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  resourceKey: text("resource_key").notNull(),
+  reason: text("reason").notNull(),
+  details: text("details").notNull(),
+  status: text("status").notNull().default("pending"),
+  resolutionNote: text("resolution_note"),
+  resolvedBy: text("resolved_by"),
+  resolvedAt: text("resolved_at"),
+  requesterHash: text("requester_hash").notNull(),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, table => [index("idx_reports_status_created").on(table.status, table.createdAt)]);

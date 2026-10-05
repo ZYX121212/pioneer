@@ -8,7 +8,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
     ? (resource.detailPath ? `/en${resource.detailPath}` : `/en/resources/${resource.slug}`)
     : resource.detailPath ?? `/resources/${resource.slug}`;
   const detailLabel = lang === "en" ? "Research brief" : "整理详情";
-  const sourceLine = lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
+  const sourceLine = resource.verification === "link-only" ? (lang === "en" ? `${resource.verified} · Community source check` : `${resource.verified} · 社区来源核验`) : lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
   const stageLabels = {
     seed: lang === "en" ? "Seed / early" : "种子 / 早期",
     "series-a": lang === "en" ? "Series A" : "A 轮",
