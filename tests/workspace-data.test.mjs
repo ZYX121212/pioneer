@@ -105,3 +105,36 @@ test('community freshness shares historical, thirty-day and weekly cutoffs acros
   assert.equal(communityFreshness.communityStatus({ ...row, verified_at: 'invalid' }, 'en', date), 'Current window needs rechecking');
   assert.equal(freshness.resourceFreshness({ status: 'Open', verified: '2026-02-30', url: row.url }, date), 'needs-review');
 });
+
+const eventCatalogUrl = `data:text/javascript;base64,${Buffer.from(await compile('../app/data/resources.ts')).toString('base64')}`;
+const { resources: eventCatalog } = await import(eventCatalogUrl);
+test('every dated event has a venue window; past editions archive without renewing old verification', () => {
+  const events = eventCatalog.filter(row => row.type === 'event');
+  assert.equal(events.length, 15);
+  for (const row of events) {
+    assert.ok(row.eventWindow, row.slug);
+    assert.equal(freshness.resourceFreshness(row, new Date('2027-01-11T12:00:00Z')), 'historical', row.slug);
+  }
+  const now = new Date('2026-10-05T12:00:00Z');
+  for (const slug of ['ifa-berlin-2026', 'bits-and-pretzels-2026', 'sifted-summit-2026', 'inbound-2026', 'dreamforce-2026']) {
+    assert.equal(freshness.resourceFreshness(eventCatalog.find(row => row.slug === slug), now), 'historical', slug);
+  }
+  assert.equal(freshness.resourceFreshness(eventCatalog.find(row => row.slug === 'switch-singapore-2026'), now), 'needs-review');
+  for (const mode of ['featured', 'event', 'program', 'organization', 'startup', 'knowledge']) {
+    const selected = freshness.resourcePreview(eventCatalog, mode, now);
+    assert.ok(selected.length <= 6);
+    assert.ok(selected.every(row => mode === "featured" || mode === "knowledge" ? row.featured : row.type === mode));
+    assert.ok(selected.every(row => freshness.resourceFreshness(row, now) !== 'historical'));
+  }
+});
+test('event end days expire at venue midnight, including DST, and never invent a precise closing hour', () => {
+  const row = { status: 'Open', verified: '2026.10.05', url: 'https://example.org/', eventWindow: { lastDay: '2026-10-25', timeZone: 'Europe/London' } };
+  assert.equal(freshness.resourceFreshness(row, new Date('2026-10-25T23:59:59Z')), 'reviewed');
+  assert.equal(freshness.resourceFreshness(row, new Date('2026-10-26T00:00:00Z')), 'historical');
+  const sf = { ...row, eventWindow: { lastDay: '2026-10-15', timeZone: 'America/Los_Angeles' } };
+  assert.equal(freshness.resourceFreshness(sf, new Date('2026-10-16T06:59:59Z')), 'reviewed');
+  assert.equal(freshness.resourceFreshness(sf, new Date('2026-10-16T07:00:00Z')), 'historical');
+  for (const window of [{ lastDay: '2026-02-30', timeZone: 'Europe/London' }, { lastDay: '2026-10-25', timeZone: 'Invalid/Zone' }, { lastDay: '2026-10-25' }]) {
+    assert.equal(freshness.resourceFreshness({ ...row, eventWindow: window }), 'needs-review');
+  }
+});

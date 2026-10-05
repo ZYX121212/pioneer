@@ -16,6 +16,8 @@ export type Resource = {
   highlights: { label: string; value: string }[];
   tags: string[];
   timing: string;
+  /** Last event day in its venue timezone; not an application deadline or closing hour. */
+  eventWindow?: { lastDay: string; timeZone: string };
   status: string;
   verified: string;
   source: string;
@@ -276,6 +278,7 @@ export const resources: Resource[] = [
   {
     id: 11,
     slug: "techcrunch-disrupt-2026",
+    eventWindow: { lastDay: "2026-10-15", timeZone: "America/Los_Angeles" },
     type: "event",
     kind: "科技大会",
     name: "TechCrunch Disrupt 2026",
@@ -299,6 +302,7 @@ export const resources: Resource[] = [
   {
     id: 12,
     slug: "web-summit-lisbon-2026",
+    eventWindow: { lastDay: "2026-11-12", timeZone: "Europe/Lisbon" },
     type: "event",
     kind: "创业大会",
     name: "Web Summit Lisbon 2026",
@@ -322,6 +326,7 @@ export const resources: Resource[] = [
   {
     id: 13,
     slug: "slush-2026",
+    eventWindow: { lastDay: "2026-11-19", timeZone: "Europe/Helsinki" },
     type: "event",
     kind: "创业大会",
     name: "Slush 2026",
@@ -346,6 +351,7 @@ export const resources: Resource[] = [
   {
     id: 17,
     slug: "waic-shanghai-2026",
+    eventWindow: { lastDay: "2026-07-20", timeZone: "Asia/Shanghai" },
     type: "event",
     kind: "人工智能大会",
     name: "WAIC 2026 世界人工智能大会",
@@ -379,6 +385,7 @@ export const resources: Resource[] = [
   {
     id: 62,
     slug: "techbbq-2026",
+    eventWindow: { lastDay: "2026-08-27", timeZone: "Europe/Copenhagen" },
     type: "event",
     kind: "北欧创业大会",
     name: "TechBBQ 2026",
@@ -405,6 +412,7 @@ export const resources: Resource[] = [
   {
     id: 63,
     slug: "ifa-berlin-2026",
+    eventWindow: { lastDay: "2026-09-08", timeZone: "Europe/Berlin" },
     type: "event",
     kind: "消费科技展",
     name: "IFA Berlin 2026",
@@ -430,6 +438,7 @@ export const resources: Resource[] = [
   {
     id: 64,
     slug: "bits-and-pretzels-2026",
+    eventWindow: { lastDay: "2026-09-30", timeZone: "Europe/Berlin" },
     type: "event",
     kind: "创始人大会",
     name: "Bits & Pretzels 2026",
@@ -456,6 +465,7 @@ export const resources: Resource[] = [
   {
     id: 65,
     slug: "sifted-summit-2026",
+    eventWindow: { lastDay: "2026-10-01", timeZone: "Europe/London" },
     type: "event",
     kind: "欧洲科技峰会",
     name: "Sifted Summit 2026",
@@ -481,6 +491,7 @@ export const resources: Resource[] = [
   {
     id: 66,
     slug: "switch-singapore-2026",
+    eventWindow: { lastDay: "2026-10-29", timeZone: "Asia/Singapore" },
     type: "event",
     kind: "深科技创业大会",
     name: "SWITCH 2026",
@@ -507,6 +518,7 @@ export const resources: Resource[] = [
   {
     id: 67,
     slug: "hong-kong-fintech-week-2026",
+    eventWindow: { lastDay: "2026-11-06", timeZone: "Asia/Hong_Kong" },
     type: "event",
     kind: "金融科技与创业周",
     name: "Hong Kong FinTech Week × StartmeupHK 2026",
@@ -532,6 +544,7 @@ export const resources: Resource[] = [
   {
     id: 68,
     slug: "singapore-fintech-festival-2026",
+    eventWindow: { lastDay: "2026-11-20", timeZone: "Asia/Singapore" },
     type: "event",
     kind: "金融科技大会",
     name: "Singapore FinTech Festival 2026",
@@ -558,6 +571,7 @@ export const resources: Resource[] = [
   {
     id: 69,
     slug: "gitex-global-2026",
+    eventWindow: { lastDay: "2026-12-11", timeZone: "Asia/Dubai" },
     type: "event",
     kind: "全球科技与创业展",
     name: "GITEX GLOBAL × Expand North Star 2026",
@@ -584,6 +598,7 @@ export const resources: Resource[] = [
   {
     id: 70,
     slug: "ces-2027-eureka-park",
+    eventWindow: { lastDay: "2027-01-09", timeZone: "America/Los_Angeles" },
     type: "event",
     kind: "全球消费科技展",
     name: "CES 2027 · Eureka Park",
@@ -1606,7 +1621,8 @@ export const resources: Resource[] = [
     tags: ["美国", "全球网络", "企业创新", "风险投资"], timing: "按城市与行业查看项目", status: "多地项目开放", verified: "2026.07.18 核验", source: "Plug and Play 官网", url: "https://www.plugandplaytechcenter.com/innovation-services/startups/investment-opportunities", sources: [{ label: "创业公司投资机会", href: "https://www.plugandplaytechcenter.com/innovation-services/startups/investment-opportunities" }, { label: "加速项目机制", href: "https://www.plugandplaytechcenter.com/innovation-services/corporations/accelerator-programs" }], color: "violet", monogram: "PNP", featured: true,
   },
   {
-    id: 73, slug: "inbound-2026", type: "event", kind: "增长与商业大会", name: "INBOUND 2026", location: "美国 · Boston / Online",
+    id: 73, slug: "inbound-2026",
+    eventWindow: { lastDay: "2026-09-18", timeZone: "America/New_York" }, type: "event", kind: "增长与商业大会", name: "INBOUND 2026", location: "美国 · Boston / Online",
     description: "HubSpot 主办的营销、销售、客户成功与收入运营大会，适合研究 AI 时代增长和企业获客。",
     overview: "INBOUND 聚集营销、销售、客户成功、收入运营和 AI 领域的企业领导者。2026 年大会在波士顿举行，并提供部分线上内容，重点是增长方法、产品实践、合作网络和 HubSpot 生态。",
     editorialNote: "对 B2B SaaS、营销科技和销售工具团队，它的客户密度可能高于泛科技大会；对没有明确买家画像的团队，昂贵门票和差旅很容易只换来内容消费。",
@@ -1617,7 +1633,8 @@ export const resources: Resource[] = [
     tags: ["B2B", "增长", "销售", "美国市场"], timing: "2026.09.16–18", status: "门票开放", verified: "2026.07.18 核验", source: "INBOUND 官方页", url: "https://www.inbound.com/", sources: [{ label: "大会与门票", href: "https://www.inbound.com/" }, { label: "官方活动说明", href: "https://help.inbound.com/article/306-about-inbound" }], color: "rose", monogram: "IN", featured: true,
   },
   {
-    id: 74, slug: "dreamforce-2026", type: "event", kind: "企业软件 / AI 大会", name: "Dreamforce 2026", location: "美国 · San Francisco / Online",
+    id: 74, slug: "dreamforce-2026",
+    eventWindow: { lastDay: "2026-09-17", timeZone: "America/Los_Angeles" }, type: "event", kind: "企业软件 / AI 大会", name: "Dreamforce 2026", location: "美国 · San Francisco / Online",
     description: "Salesforce 全球社区大会，集中呈现企业 AI、CRM、数据平台、客户案例和生态合作机会。",
     overview: "Dreamforce 是 Salesforce 面向客户、开发者、合作伙伴和企业管理者的大型年度大会。2026 年提供大量主题演讲、分会场、实操培训、圆桌和线上直播，核心议题围绕 Agentic Enterprise、CRM 与数据。",
     editorialNote: "最适合产品已经能接入 Salesforce 生态、并且目标客户明确使用其 CRM 或数据工具的创业公司；若只是想理解 AI 趋势，免费线上直播可能比现场更划算。",

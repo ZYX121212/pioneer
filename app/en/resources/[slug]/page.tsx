@@ -66,7 +66,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
         <span className="section-index">{english.kind} · PIONEER BRIEF</span>
         <h1>{resource.name}</h1>
         <p>{english.description}</p>
-        {freshness !== "reviewed" && <p className="workspace-message">This brief reflects its last review. The current window has not been reverified; confirm eligibility, dates, capacity and costs on the official source.</p>}
+        {freshness !== "reviewed" && <p className="workspace-message">{freshness === "historical" ? "This edition or action window has ended. Keep this brief for retrospective research and planning a future edition. The original website may now show a new edition whose dates and eligibility have not been checked." : "This brief reflects its last review. The current window has not been reverified; confirm eligibility, dates, capacity and costs on the official source."}</p>}
         <div className="detail-tags">
           {english.tags.map((tag) => <span key={tag}>{tag}</span>)}
         </div>
@@ -113,8 +113,8 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
           <section className="detail-section">
             <span className="detail-index">04</span>
             <div>
-              <span className="section-index">NEXT ACTION</span>
-              <h2>Before You Click Apply</h2>
+              <span className="section-index">{freshness === "historical" ? "ARCHIVE RESEARCH" : "NEXT ACTION"}</span>
+              <h2>{freshness === "historical" ? "Review the Past Window" : "Before You Click Apply"}</h2>
               <div className="diligence-list">
                 <div><span>Q1</span><p>Does this resource match your current stage, not just your ambition?</p></div>
                 <div><span>Q2</span><p>Can you name the exact outcome you want from it: customers, capital, talent, learning or market entry?</p></div>
@@ -133,11 +133,11 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
             <div><span>Location</span><strong>{english.location}</strong></div>
           </div>
           <div className="source-card">
-            <span className="section-index">SOURCE & ACTION</span>
+            <span className="section-index">{freshness === "historical" ? "SOURCE ARCHIVE" : "SOURCE & ACTION"}</span>
             <strong>{english.source}</strong>
-            <p>{resource.verified.replace("核验", "reviewed")}. Eligibility, pricing, terms and dates can change. Recheck the official page before acting.</p>
+            <p>{resource.verified.replace("核验", "reviewed")}. {freshness === "historical" ? "These are original archive sources, not confirmation that the old window remains open." : "Eligibility, pricing, terms and dates can change. Recheck the official page before acting."}</p>
             <a href={resource.url} target="_blank" rel="noreferrer">
-              Open official page <span aria-hidden="true">↗</span>
+              {freshness === "historical" ? "View historical official source" : "Open official page"} <span aria-hidden="true">↗</span>
             </a>
           </div>
           <p className="editorial-disclaimer">Pioneer briefs help narrow your choices. They are not admission, investment or business outcome guarantees.</p>

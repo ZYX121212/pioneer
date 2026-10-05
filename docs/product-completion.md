@@ -95,3 +95,27 @@
 - 实际 390px 浏览器验证：社区搜索失败/重试恢复、中英文新资源搜索、空结果清除、键盘 Enter 提交、发送期间字段禁用、提交与纠错失去成功响应后草稿保留及原样重试。底层查询确认各只写入一条记录。所有故障代理和身份只在本机，未修改生产用户数据或向生产添加测试资源。
 
 整体目标尚未验收完成。生产邮件服务与已验证发信身份仍缺失；全站最终审计仍要覆盖其余旧功能，并复核固定活动档案对已过去窗口的动态归档是否完整。不能用本轮接口覆盖替代所有旧交互的验收，也不能用受控邮件响应替代真实收件证据。
+
+
+## 2026-10-06 固定活动档案复核
+
+- 全部 15 个固定活动档案增加结构化末日与举办地 IANA 时区。按举办地日历日期判断是否结束，适配夏令时；日期粒度不冒充官方精确关门时间，也不等同报名或参展申请截止。无效日期或时区退回待核验。
+- IFA、Bits & Pretzels、Sifted Summit、INBOUND、Dreamforce 的 2026 年 9 月/10 月初旧窗口自动进入历史档案。双语目录、卡片和工作台沿用同一时效判断；首页默认精选和分类样例排除历史，主动搜索仍可找到档案。
+- 双语详情区分已结束和尚未复核，历史来源按钮及行动标题改为复盘/下一届准备。说明滚动官网可能显示下一届，旧档案不证明下一届仍开放。保留历史研究内容与原核验日期，没有把日期核查冒充完整价格或资格更新。
+- 新增测试覆盖全部活动、五个遗漏旧活动、未来活动不误归档、举办地午夜/夏令时、无效日期/时区、六种首页样例和双语实际 Worker 页面渲染。邮件真实投递及其余旧交互最终验收仍未完成。
+
+日期证据（仅日期，2026-10-06 查阅）：
+- [IFA 官方 2026 新闻](https://www.ifa-berlin.com/press-releases/ifa-visitor-tickets-05-2026)：9 月 4–8 日。
+- [Bits & Pretzels 官方主题](https://www.bitsandpretzels.com/theme)：9 月 28–30 日。
+- [Sifted Summit FAQ](https://summit.sifted.eu/welcome/faqs)：9 月 30 日–10 月 1 日，伦敦。
+- [INBOUND 官方](https://www.inbound.com/?eco_language=english)：9 月 16–18 日，波士顿。
+- [Salesforce 官方 Dreamforce 指南](https://admin.salesforce.com/blog/2026/salesforce-admins-guide-to-dreamforce-2026)：9 月 15–17 日，旧金山。
+- [Disrupt 2026 官方门户](https://techcrunch.com/events/techcrunch-disrupt/attendee-portal/)：10 月 13–15 日，旧金山。
+- [Web Summit 官方支持](https://support.websummit.com/support/solutions/folders/44001245489)：11 月 9–12 日，里斯本。
+- [Slush FAQ](https://slush.org/faq)：11 月 18–19 日，赫尔辛基。
+- [SWITCH 官方](https://www.switchsg.org/)：10 月 27–29 日，新加坡。
+- [香港金融科技周 FAQ](https://www.fintechweek.hk/cn/faq)：11 月 2–6 日。
+- [SFF 官方](https://www.fintechfestival.sg/)：11 月 18–20 日，新加坡。
+- [GITEX 官方](https://www.gitex.com/about)：12 月 7–11 日，迪拜。
+- [CES 官方](https://www.ces.tech/exhibit/contact-a-sales-representative/)：2027 年 1 月 6–9 日，拉斯维加斯。
+- [TechBBQ 历史节目](https://techbbq.dk/program/)：8 月 26–27 日。WAIC 保留已有明确历史档案日期，本轮未获得新的官网日期证据，不更改原核验标签。

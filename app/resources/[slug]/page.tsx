@@ -77,7 +77,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="section-index">{resource.kind} · PIONEER PROFILE</span>
             <h1>{resource.name}</h1>
             <p>{resource.description}</p>
-            {freshness !== "reviewed" && <p className="workspace-message">档案内容反映上次整理时的信息；当前窗口尚未重新核验，请在官方来源确认资格、日期、名额与费用。</p>}
+            {freshness !== "reviewed" && <p className="workspace-message">{freshness === "historical" ? "本届活动或行动窗口已结束。本页保留历史资料供复盘与下一届准备；原官网可能已切换到新一届，新一届资格与日期尚未核验。" : "档案内容反映上次整理时的信息；当前窗口尚未重新核验，请在官方来源确认资格、日期、名额与费用。"}</p>}
         <div className="detail-tags">
               {resource.tags.map((tag) => <span key={tag}>{tag}</span>)}
             </div>
@@ -263,7 +263,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">08</span>
             <div>
               <span className="section-index">FOUNDER PLAYBOOK</span>
-              <h2>从研究变成下一步行动</h2>
+              <h2>{freshness === "historical" ? "用于复盘与下一届准备" : "从研究变成下一步行动"}</h2>
               <div className="research-playbook">
                 {profile.playbook.map((step, index) => (
                   <div key={step.title}>
@@ -310,11 +310,11 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <div><span>地点</span><strong>{resource.location}</strong></div>
           </div>
           <div className="source-card">
-            <span className="section-index">SOURCE & ACTION</span>
+            <span className="section-index">{freshness === "historical" ? "SOURCE ARCHIVE" : "SOURCE & ACTION"}</span>
             <strong>{resource.source}</strong>
-            <p>{resource.verified}。申请条件、价格与时间可能变化，行动前请在官方页面再次确认。</p>
+            <p>{resource.verified}。{freshness === "historical" ? "以下链接是本档案的原始来源，不代表旧窗口仍可报名。" : "申请条件、价格与时间可能变化，行动前请在官方页面再次确认。"}</p>
             <a href={resource.url} target="_blank" rel="noreferrer">
-              前往官方页面 <span aria-hidden="true">↗</span>
+              {freshness === "historical" ? "查看历史官方来源" : "前往官方页面"} <span aria-hidden="true">↗</span>
             </a>
             {resource.sources && resource.sources.length > 1 ? (
               <div className="source-reference-list">

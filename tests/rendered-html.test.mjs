@@ -105,7 +105,6 @@ test("switches homepage samples in place while keeping directory links separate"
 
   assert.match(page, /useState<PreviewMode>\("featured"\)/);
   assert.match(page, /setActivePreview\(mode\)/);
-  assert.match(page, /resource\.type === activePreview/);
   assert.match(page, /activePreview === "knowledge"/);
   assert.match(page, /href=\{directoryTarget\.href\}/);
 });
@@ -826,4 +825,27 @@ test('mail publishing stays private and its setup and queue semantics are truthf
  const page = await readFile(new URL('../app/admin/mail/page.tsx',import.meta.url),'utf8');assert.match(page,/requireChatGPTUser/);assert.match(page,/isSiteAdmin/);
  const response = await render('/admin/mail'); assert.ok([302,303,307].includes(response.status));assert.match(response.headers.get('location')??'',/signin-with-chatgpt/);
  const dashboard = await readFile(new URL('../app/components/MailDashboard.tsx',import.meta.url),'utf8');assert.match(dashboard,/加入队列不代表已发出/);assert.match(dashboard,/服务商已接收，投递未确认/);assert.match(dashboard,/window.confirm/);
+});
+
+test("ended event briefs expose archive sources in both languages and leave default home discovery", async () => {
+  for (const slug of ["ifa-berlin-2026", "bits-and-pretzels-2026", "sifted-summit-2026", "inbound-2026", "dreamforce-2026"]) {
+    const zh = await (await render(`/resources/${slug}`)).text();
+    const en = await (await render(`/en/resources/${slug}`)).text();
+    assert.match(zh, /历史归档/);
+    assert.match(zh, /本届活动或行动窗口已结束/);
+    assert.match(zh, /查看历史官方来源/);
+    assert.match(en, /Historical · archived/);
+    assert.match(en, /This edition or action window has ended/);
+    assert.match(en, /View historical official source/);
+    assert.match(en, /Review the Past Window/);
+    assert.doesNotMatch(en, /Before You Click Apply/);
+  }
+  for (const path of ["/", "/en"]) {
+    const home = await (await render(path)).text();
+    assert.doesNotMatch(home, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
+    assert.doesNotMatch(home, /href="(?:\/en)?\/waic-2026"/);
+  }
+  const upcoming = await (await render('/en/resources/switch-singapore-2026')).text();
+  assert.match(upcoming, /Current window needs rechecking/);
+  assert.doesNotMatch(upcoming, /This edition or action window has ended/);
 });

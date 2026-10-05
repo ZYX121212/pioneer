@@ -1,5 +1,6 @@
 "use client";
 
+import { resourcePreview } from "../lib/resourceFreshness";
 import { useCommunityResources } from "../lib/useCommunityResources";
 import { WeeklySpotlight } from "./WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
@@ -30,8 +31,7 @@ export function EnglishHome() {
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
-      if (activePreview === "featured") return resources.filter((resource) => resource.featured).slice(0, 6);
-      return resources.filter((resource) => resource.type === activePreview).slice(0, 6);
+      return resourcePreview(resources, activePreview);
     }
     return [...resources, ...community.resources].filter((resource) => {
       const english = getEnglishResource(resource.slug);
