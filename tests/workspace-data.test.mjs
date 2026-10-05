@@ -66,6 +66,36 @@ test('client reports save failure and version conflict without losing the last c
     mode = 'ok'; await client.toggleResource('y-combinator'); assert.deepEqual(client.workspaceSnapshot().state.shortlist, ['y-combinator']);
   } finally { globalThis.fetch = originalFetch; }
 });
+test('clearing refuses a changed confirmation version and preserves saved content on failed deletion', async () => {
+  const originalFetch = globalThis.fetch; const client = await clientModule();
+  let savedState = model.emptyWorkspace(), savedVersion = 0, deleteCalls = 0, failDelete = false;
+  savedState.project = project;
+  globalThis.fetch = async (_url, options = {}) => {
+    if (!options.method) return Response.json({ state: savedState, version: savedVersion, updatedAt: null });
+    if (options.method === 'DELETE') {
+      deleteCalls++;
+      assert.equal(JSON.parse(options.body).version, savedVersion);
+      if (failDelete) return Response.json({ error: 'Unavailable' }, { status: 503 });
+      savedState = model.emptyWorkspace(); savedVersion++;
+    } else { savedState = JSON.parse(options.body).state; savedVersion++; }
+    return Response.json({ state: savedState, version: savedVersion, updatedAt: null });
+  };
+  try {
+    await client.initializeWorkspace();
+    const reviewedVersion = client.workspaceSnapshot().version;
+    const queuedSave = client.saveProject({ ...project, name: 'Changed after review' });
+    const staleClear = client.clearWorkspaceData(reviewedVersion);
+    await queuedSave;
+    await assert.rejects(staleClear, error => error.code === 'version_conflict');
+    assert.equal(deleteCalls, 0); assert.equal(client.readProject().name, 'Changed after review');
+    failDelete = true;
+    await assert.rejects(client.clearWorkspaceData(client.workspaceSnapshot().version));
+    assert.equal(client.readProject().name, 'Changed after review'); assert.equal(client.workspaceSnapshot().version, 1);
+    failDelete = false;
+    await client.clearWorkspaceData(client.workspaceSnapshot().version);
+    assert.deepEqual(client.workspaceSnapshot().state, model.emptyWorkspace()); assert.equal(client.workspaceSnapshot().version, 2);
+  } finally { globalThis.fetch = originalFetch; }
+});
 test('legacy evidence is never uploaded automatically and explicit migration preserves both archives', async () => {
   const originalFetch = globalThis.fetch, originalWindow = globalThis.window; const client = await clientModule();
   const legacyEntry = { id: 'legacy-1', guide: 'first-user-interview', title: 'Local evidence', type: 'Interview', summary: 'Observed', content: 'Legacy record', savedAt: project.updatedAt };

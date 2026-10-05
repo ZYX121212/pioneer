@@ -37,8 +37,8 @@ export async function updateWorkspace(change: (state: WorkspaceState) => void | 
   });
   queue = operation; return operation;
 }
-export async function clearWorkspaceData() {
-  const operation = queue.catch(() => {}).then(async () => { await initializeWorkspace(); cached = await responseRecord(await fetch("/api/workspace", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ version: cached.version }) })); notify(); return cached; });
+export async function clearWorkspaceData(expectedVersion?: number) {
+  const operation = queue.catch(() => {}).then(async () => { await initializeWorkspace(); if (expectedVersion !== undefined && cached.version !== expectedVersion) throw new WorkspaceError("version_conflict", 409, "Workspace changed after confirmation opened"); cached = await responseRecord(await fetch("/api/workspace", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ version: cached.version }) })); notify(); return cached; });
   queue = operation; return operation;
 }
 export function workspaceError(error: unknown, lang: "zh" | "en" = "zh") {
