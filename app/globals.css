@@ -10570,3 +10570,6 @@ footer {
 
 .journey-project-fields { border: 0; min-width: 0; margin: 24px 0 0; padding: 0; }
 .founder-workspace > .workspace-message { grid-column: 1 / -1; }
+
+.workspace-backup-preview { flex-basis:100%; min-width:0; width:100%; margin-top:16px; }
+.workspace-backup-preview textarea { display:block; width:100%; box-sizing:border-box; padding:12px; margin:8px 0 16px; border:1px solid #bbb; background:#f4f1e8; color:#182033; font-family:monospace; font-size:.875rem; resize:vertical; }

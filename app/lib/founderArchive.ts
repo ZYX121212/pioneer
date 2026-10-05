@@ -74,4 +74,4 @@ export async function importLegacyWorkspace(replaceProject = false) {
     state.completions = [...new Set([...state.completions, ...legacy.completions])];
   });
 }
-export function downloadWorkspace(state: unknown, filename = "pioneer-workspace.json") { const url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], { type: "application/json" })); const link = document.createElement("a"); link.href = url; link.download = filename; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
+export function downloadWorkspace(state: unknown, filename = "pioneer-workspace.json") { const url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], { type: "application/json" })); const link = document.createElement("a"); link.href = url; link.download = filename; document.body.append(link); try { link.click(); } finally { link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); } }
