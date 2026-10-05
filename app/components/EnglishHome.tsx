@@ -1,5 +1,6 @@
 "use client";
 
+import { useCommunityResources } from "../lib/useCommunityResources";
 import { WeeklySpotlight } from "./WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
 import { AudienceCount } from "./AudienceCounter";
@@ -22,30 +23,31 @@ function locationCount(term: string) {
 }
 
 export function EnglishHome() {
+  const community = useCommunityResources("en");
   const [query, setQuery] = useState("");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
 
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
-      if (activePreview === "featured") return resources.filter((resource) => resource.featured);
-      return resources.filter((resource) => resource.type === activePreview);
+      if (activePreview === "featured") return resources.filter((resource) => resource.featured).slice(0, 6);
+      return resources.filter((resource) => resource.type === activePreview).slice(0, 6);
     }
-    return resources.filter((resource) => {
+    return [...resources, ...community.resources].filter((resource) => {
       const english = getEnglishResource(resource.slug);
       const searchable = [
         resource.name,
-        english?.location,
-        english?.description,
-        english?.kind,
-        ...(english?.tags ?? []),
+        english?.location ?? resource.location,
+        english?.description ?? resource.description,
+        english?.kind ?? resource.kind,
+        ...(english?.tags ?? resource.tags),
       ].join(" ").toLowerCase();
       return searchable.includes(normalized);
     });
-  }, [activePreview, query]);
+  }, [activePreview, query, community.resources]);
 
   const previewTitles: Record<PreviewMode, string> = {
-    featured: "Editor&apos;s Picks",
+    featured: "Editor's Picks",
     program: "Open Program Samples",
     organization: "Institution Samples",
     event: "Event Samples",
@@ -179,6 +181,8 @@ export function EnglishHome() {
           <a className="result-directory-link" href={directoryTarget.href}>{directoryTarget.label} →</a>
         </div>
 
+        {query.trim() && community.state === "loading" && <p role="status">Loading community resources; curated matches are shown below.</p>}
+        {query.trim() && community.state === "error" && <p role="alert">Community resources could not be loaded. These results cover curated briefs only. <button type="button" onClick={community.retry}>Retry community search</button></p>}
         {searchResults.length ? (
           <div className="resource-grid">
             {searchResults.map((resource) => <ResourceCard resource={resource} lang="en" key={resource.id} />)}

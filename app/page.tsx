@@ -1,5 +1,6 @@
 "use client";
 
+import { useCommunityResources } from "./lib/useCommunityResources";
 import { WeeklySpotlight } from "./components/WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
 import { AudienceCount, PageViewCount, trackAudienceEvent } from "./components/AudienceCounter";
@@ -29,6 +30,7 @@ function locationCount(term: string) {
 }
 
 export default function Home() {
+  const community = useCommunityResources("zh");
   const [query, setQuery] = useState("");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
 
@@ -36,11 +38,11 @@ export default function Home() {
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
       if (activePreview === "featured" || activePreview === "knowledge") {
-        return resources.filter((resource) => resource.featured);
+        return resources.filter((resource) => resource.featured).slice(0, 6);
       }
-      return resources.filter((resource) => resource.type === activePreview);
+      return resources.filter((resource) => resource.type === activePreview).slice(0, 6);
     }
-    return resources.filter((resource) => {
+    return [...resources, ...community.resources].filter((resource) => {
       const searchable = [
         resource.name,
         resource.location,
@@ -50,7 +52,7 @@ export default function Home() {
       ].join(" ").toLowerCase();
       return searchable.includes(normalized);
     });
-  }, [activePreview, query]);
+  }, [activePreview, query, community.resources]);
 
   const previewTitles: Record<PreviewMode, string> = {
     featured: "最近值得关注",
@@ -218,6 +220,8 @@ export default function Home() {
           </a>
         </div>
 
+        {query.trim() && community.state === "loading" && <p role="status">正在加载社区资源，下方先显示站内整理的匹配档案。</p>}
+        {query.trim() && community.state === "error" && <p role="alert">社区资源暂时无法加载，当前结果仅覆盖站内整理档案。<button type="button" onClick={community.retry}>重试加载社区资源</button></p>}
         {activePreview === "knowledge" && !query ? (
           <article className="home-guide-feature">
             <div className="home-guide-number"><span>PIONEER GUIDE</span><strong>{pioneerGuide.number}</strong></div>

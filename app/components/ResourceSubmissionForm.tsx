@@ -183,7 +183,7 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
   }
 
   return (
-    <form className="resource-submission-form" onSubmit={submit}>
+    <form className="resource-submission-form" onSubmit={submit} onChange={() => { if (status !== "submitting") idempotencyKey.current = ""; }}><fieldset className="form-fields" disabled={status === "submitting"}>
       <div className="submission-field wide">
         <label htmlFor="resource-type">{text.type}</label>
         <select id="resource-type" name="resourceType" defaultValue="program" required>
@@ -236,6 +236,6 @@ export function ResourceSubmissionForm({ lang = "zh" }: { lang?: "zh" | "en" }) 
         </button>
         {status === "error" ? <span role="alert">{message}</span> : null}
       </div>
-    </form>
+    </fieldset></form>
   );
 }

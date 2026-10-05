@@ -44,7 +44,7 @@ export async function processSubmission(db: Database, row: SubmissionRow, source
 }
 
 export async function listCommunity(db: Database, type?: string): Promise<CommunityRow[]> {
-  const query = type ? "SELECT * FROM community_resources WHERE status IN ('published','archived') AND resource_type = ? ORDER BY created_at DESC LIMIT 200" : "SELECT * FROM community_resources WHERE status IN ('published','archived') ORDER BY created_at DESC LIMIT 200";
+  const query = type ? "SELECT * FROM community_resources WHERE status IN ('published','archived') AND resource_type = ? ORDER BY created_at DESC, id DESC" : "SELECT * FROM community_resources WHERE status IN ('published','archived') ORDER BY created_at DESC, id DESC";
   const statement = db.prepare(query);
   return (await (type ? statement.bind(type) : statement).all<CommunityRow>()).results;
 }

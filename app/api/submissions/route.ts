@@ -42,8 +42,12 @@ export async function POST(request: Request) {
   if (!ALLOWED_TYPES.has(resourceType) || !ALLOWED_RELATIONSHIPS.has(relationship) || resourceName.length < 2 || whyUseful.length < 20 || !submitterName || !EMAIL_PATTERN.test(submitterEmail) || !validDeadline(deadline) || !TOKEN.test(idempotencyKey)) return json({ error: language === "en" ? "Complete the required fields and use YYYY-MM-DD for dates" : "请完整填写必填信息，日期使用 YYYY-MM-DD" }, 400);
   try {
     const database = await getD1();
+    const input = { resource_type: resourceType, resource_name: resourceName, canonical_url: canonicalUrl, location: location || null, deadline: deadline || null, why_useful: whyUseful, submitter_name: submitterName, submitter_email: submitterEmail, relationship, language, stage };
+    const matches = (row: SubmissionRow) => Object.entries(input).every(([key, value]) => (row as unknown as Record<string, unknown>)[key] === value);
+    const conflict = () => json({ error: language === "en" ? "This retry belongs to a different submission. Start a new submission for changed details." : "这次重试对应另一份提交，请使用新提交保存更改后的内容。" }, 409);
     const existing = await database.prepare("SELECT * FROM resource_submissions WHERE idempotency_key = ?").bind(idempotencyKey).first<SubmissionRow>();
     if (existing) {
+      if (!matches(existing)) return conflict();
       if (existing.status === "reviewing") {
         const urls = resources.map(resource => resource.url);
         await processSubmission(database, existing, urls, officialHosts(urls));
@@ -55,9 +59,10 @@ export async function POST(request: Request) {
     const quota = await database.prepare("SELECT count(*) AS count FROM resource_submissions WHERE requester_hash = ? AND created_at > datetime('now', '-1 hour')").bind(hash).first<{ count: number }>();
     if ((quota?.count ?? 0) >= 5) return json({ error: language === "en" ? "Please wait before submitting again" : "提交过于频繁，请稍后重试" }, 429);
     const shareToken = crypto.randomUUID().replace(/-/g, "").slice(0, 12), reviewToken = crypto.randomUUID().replace(/-/g, "");
-    await database.prepare(`INSERT INTO resource_submissions (resource_type, resource_name, resource_url, canonical_url, location, deadline, why_useful, submitter_name, submitter_email, relationship, language, source_path, status, share_token, review_token, idempotency_key, requester_hash, stage, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'reviewing', ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) ON CONFLICT(idempotency_key) DO NOTHING`).bind(resourceType, resourceName, resourceUrl, canonicalUrl, location || null, deadline || null, whyUseful, submitterName, submitterEmail, relationship, language, sourcePath.startsWith("/") ? sourcePath : language === "en" ? "/en/submit" : "/submit", shareToken, reviewToken, idempotencyKey, hash, stage).run();
+    await database.prepare(`INSERT INTO resource_submissions (resource_type, resource_name, resource_url, canonical_url, location, deadline, why_useful, submitter_name, submitter_email, relationship, language, source_path, status, share_token, review_token, idempotency_key, requester_hash, stage, created_at) SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'reviewing', ?, ?, ?, ?, ?, CURRENT_TIMESTAMP WHERE (SELECT count(*) FROM resource_submissions WHERE requester_hash = ? AND created_at >= datetime('now', '-1 hour')) < 5 ON CONFLICT(idempotency_key) DO NOTHING`).bind(resourceType, resourceName, resourceUrl, canonicalUrl, location || null, deadline || null, whyUseful, submitterName, submitterEmail, relationship, language, sourcePath.startsWith("/") ? sourcePath : language === "en" ? "/en/submit" : "/submit", shareToken, reviewToken, idempotencyKey, hash, stage, hash).run();
     let row = await database.prepare("SELECT * FROM resource_submissions WHERE idempotency_key = ?").bind(idempotencyKey).first<SubmissionRow>();
-    if (!row) throw new Error("Submission was not persisted");
+    if (!row) return json({ error: language === "en" ? "Please wait before submitting again" : "提交过于频繁，请稍后重试" }, 429);
+    if (!matches(row)) return conflict();
     if (row.review_token !== reviewToken) return json(submissionResult(row));
     const sourceUrls = resources.map(resource => resource.url);
     const match = resources.find(resource => normalizePublicUrl(resource.url) === canonicalUrl);

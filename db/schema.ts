@@ -117,6 +117,7 @@ export const founderWorkspaces = sqliteTable("founder_workspaces", {
 
 export const resourceReports = sqliteTable("resource_reports", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  idempotencyKey: text("idempotency_key").unique(),
   resourceKey: text("resource_key").notNull(),
   reason: text("reason").notNull(),
   details: text("details").notNull(),
@@ -126,7 +127,7 @@ export const resourceReports = sqliteTable("resource_reports", {
   resolvedAt: text("resolved_at"),
   requesterHash: text("requester_hash").notNull(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-}, table => [index("idx_reports_status_created").on(table.status, table.createdAt)]);
+}, table => [index("idx_reports_status_created").on(table.status, table.createdAt), index("idx_reports_requester_created").on(table.requesterHash, table.createdAt)]);
 
 export const mailCampaigns = sqliteTable("mail_campaigns", {
   id: text("id").primaryKey(),

@@ -57,6 +57,13 @@
       "when": 1791214348189,
       "tag": "0007_cool_nekra",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1791217527497,
+      "tag": "0008_wooden_vengeance",
+      "breakpoints": true
     }
   ]
 }

@@ -186,3 +186,15 @@ test("report resolution requires a pending durable row and preserves its first r
   assert.ok(report.resolved_at);
   sqlite.close();
 });
+
+test("community discovery includes records beyond the former 200-row cap and excludes withdrawals", async () => {
+  const { db, sqlite } = await database();
+  const insert = sqlite.prepare("INSERT INTO community_resources (slug, submission_id, canonical_url, resource_type, name, url, stage, contributor_reason, source_title, source_excerpt, evidence, status, verified_at) VALUES (?, ?, ?, 'program', 'Local fixture', ?, 'any', 'Local fixture reason', 'Local source', 'Local evidence', '{}', ?, '2026-10-06')");
+  for (let id = 1; id <= 205; id++) insert.run(`fixture-${id}`, id, `https://local-fixture.org/${id}`, `https://local-fixture.org/${id}`, id === 205 ? 'withdrawn' : 'published');
+  const rows = await service.listCommunity(db);
+  assert.equal(rows.length, 204);
+  assert.equal(rows[0].slug, 'fixture-204');
+  assert.ok(rows.some(row => row.slug === 'fixture-1'));
+  assert.equal(rows.some(row => row.slug === 'fixture-205'), false);
+  sqlite.close();
+});

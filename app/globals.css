@@ -10564,3 +10564,6 @@ footer {
 .mail-campaign-list { display: flex; flex-wrap: wrap; gap: 10px; }
 .mail-delivery-list { padding-left: 20px; overflow-wrap: anywhere; line-height: 1.8; }
 .mail-delivery-list li { margin-block: 12px; }
+
+.report-fields, .form-fields { display: contents; }
+.report-fields > label { min-width: 220px; }
