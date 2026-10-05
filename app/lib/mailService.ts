@@ -51,9 +51,9 @@ export async function drainCampaign(db: Database, campaignId: string, config: Ma
   return campaignStatus(db, campaignId);
 }
 export async function inspectCampaign(db: Database, campaignId: string, config: MailConfig, fetcher: typeof fetch = fetch) {
-  const rows = await db.prepare("SELECT * FROM mail_deliveries WHERE campaign_id = ? AND status = 'accepted' AND provider_id IS NOT NULL ORDER BY checked_at, id LIMIT 3").bind(campaignId).all<Delivery>();
+  const rows = await db.prepare("SELECT * FROM mail_deliveries WHERE campaign_id = ? AND status IN ('accepted','delivered','undeliverable') AND provider_id IS NOT NULL ORDER BY checked_at, id LIMIT 3").bind(campaignId).all<Delivery>();
   for (const row of rows.results) {
-    try { const status = await inspectResend(config, row.provider_id!, fetcher); await db.prepare("UPDATE mail_deliveries SET status = ?, checked_at = CURRENT_TIMESTAMP, error = NULL WHERE id = ? AND status = 'accepted'").bind(status, row.id).run(); }
+    try { const status = await inspectResend(config, row.provider_id!, fetcher); await db.prepare("UPDATE mail_deliveries SET status = ?, checked_at = CURRENT_TIMESTAMP, error = NULL WHERE id = ? AND status IN ('accepted','delivered','undeliverable')").bind(status, row.id).run(); }
     catch { await db.prepare("UPDATE mail_deliveries SET checked_at = CURRENT_TIMESTAMP, error = 'provider_status_unavailable' WHERE id = ?").bind(row.id).run(); }
   }
   return campaignStatus(db, campaignId);

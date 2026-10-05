@@ -103,3 +103,10 @@ test('explicit failure recovery reopens only rejected requests and never revives
  const later=new Date(now.getTime()+25*60*60*1000);const recovered=await service.retryFailedCampaign(db,edition.id,later);assert.equal(recovered.requeued,1);assert.equal(count(recovered,'uncertain'),1);
  let calls=0;const result=await service.drainCampaign(db,edition.id,config,later,async()=>{calls++;return Response.json({id:'provider-id'});});assert.equal(calls,1);assert.equal(count(result,'accepted'),1);assert.equal(count(result,'uncertain'),1);sqlite.close();
 });
+
+test('status refresh follows later provider events after delivery and preserves honest evidence on inspection failure', async () => {
+ const { db, sqlite } = await database();await newsletter.saveNewsletter(db,alice,0,prefs);await service.enqueueCampaign(db,edition,config,'owner',now);await service.drainCampaign(db,edition.id,config,now,async()=>Response.json({id:'provider-id'}));
+ const delivered=await service.inspectCampaign(db,edition.id,config,async()=>Response.json({id:'provider-id',last_event:'delivered'}));assert.equal(count(delivered,'delivered'),1);assert.ok(delivered.deliveries[0].checked_at);
+ const bounced=await service.inspectCampaign(db,edition.id,config,async()=>Response.json({id:'provider-id',last_event:'bounced'}));assert.equal(count(bounced,'undeliverable'),1);
+ const unavailable=await service.inspectCampaign(db,edition.id,config,async()=>{throw new Error('offline');});assert.equal(count(unavailable,'undeliverable'),1);assert.equal(unavailable.deliveries[0].error,'provider_status_unavailable');sqlite.close();
+});
