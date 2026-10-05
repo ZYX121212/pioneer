@@ -87,7 +87,7 @@ test("server-renders English directories and resource briefs", async () => {
   assert.equal(directoryResponse.status, 200);
   assert.match(directory, /Startup Institutions/);
   assert.match(directory, /More Than A Link List/);
-  assert.match(directory, /Institution profile/);
+  assert.match(directory, /Current window needs rechecking/);
   assert.match(directory, /href="\/en\/resources\/station-f"/);
 
   const detailResponse = await render("/en/resources/station-f");
@@ -519,7 +519,8 @@ test("renders type-specific research depth for events and startup projects", asy
   const eventDirectory = await eventDirectoryResponse.text();
   assert.equal(eventDirectoryResponse.status, 200);
   assert.match(eventDirectory, /WAIC 2026 世界人工智能大会/);
-  assert.match(eventDirectory, /href="\/waic-2026"/);
+  assert.doesNotMatch(eventDirectory, /href="\/waic-2026"/);
+  assert.match(eventDirectory, /历史归档/);
 
   const eventResponse = await render("/resources/slush-2026");
   const event = await eventResponse.text();
@@ -795,4 +796,17 @@ test("expired old resources carry archival status in both languages", async () =
       assert.match(status ?? "", /历史归档|archived/);
     }
   }
+});
+
+test("offers bilingual private workspace sign-in with top-level navigation", async () => {
+  for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/workspace`); assert.equal(response.status, 200);
+    const html = await response.text(); assert.match(html, /signin-with-chatgpt\?return_to=/); assert.match(html, /target="_top"/); assert.match(html, /noindex/);
+    assert.doesNotMatch(html, /workspace-browser-test/);
+  }
+});
+
+test("English guide worksheets expose real evidence and decision inputs", async () => {
+  const response = await render('/en/knowledge/test-your-pricing'); assert.equal(response.status, 200);
+  const html = await response.text(); assert.match(html, /Save evidence and decision/); assert.match(html, /Supporting evidence, including counter-evidence/); assert.match(html, /<textarea/); assert.match(html, /Open workspace/);
 });

@@ -1,0 +1,93 @@
+import assert from 'node:assert/strict';
+import { readFile, readdir } from 'node:fs/promises';
+import test from 'node:test';
+import { DatabaseSync } from 'node:sqlite';
+import ts from 'typescript';
+const compile = async path => ts.transpileModule(await readFile(new URL(path, import.meta.url), 'utf8'), { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+const modelUrl = `data:text/javascript;base64,${Buffer.from(await compile('../app/lib/workspaceModel.ts')).toString('base64')}`;
+const model = await import(modelUrl);
+const service = await import(`data:text/javascript;base64,${Buffer.from((await compile('../app/lib/workspaceService.ts')).replace('"./workspaceModel"', JSON.stringify(modelUrl))).toString('base64')}`);
+async function database() {
+  const sqlite = new DatabaseSync(':memory:');
+  for (const name of (await readdir(new URL('../drizzle/', import.meta.url))).filter(name => name.endsWith('.sql')).sort()) sqlite.exec(await readFile(new URL(`../drizzle/${name}`, import.meta.url), 'utf8'));
+  const wrap = (sql, args = []) => ({ bind(...values) { return wrap(sql, values); }, async first() { return sqlite.prepare(sql).get(...args) ?? null; } });
+  return { sqlite, db: { prepare: wrap } };
+}
+const project = { name: 'Founder test', oneLine: 'Test a useful customer problem', targetUser: 'Recent buyers', currentRisk: 'Payment', nextAction: 'Interview three buyers', updatedAt: '2026-10-05T12:00:00Z', stage: 'validation', goals: ['customers'] };
+test('workspace retains project, evidence, decisions, actions and shortlist across separate reads', async () => {
+  const { db, sqlite } = await database();
+  const state = model.emptyWorkspace(); state.project = project; state.archive = [{ id: 'evidence-1', guide: 'first-user-interview', title: 'Buyer interview', type: 'Interview', summary: 'Buyer uses spreadsheets', content: 'An actual observed alternative', savedAt: project.updatedAt }]; state.decisions = [{ guide: 'first-user-interview', decision: 'narrow', reason: 'Only recent buyers face this need', savedAt: project.updatedAt }]; state.completions = ['first-user-interview']; state.shortlist = ['y-combinator']; state.tasks = [{ id: 'action-1', text: 'Interview 3 buyers', due: '2026-10-10', done: false, createdAt: project.updatedAt }];
+  assert.equal((await service.loadWorkspace(db, 'alice')).version, 0);
+  const saved = await service.writeWorkspace(db, 'alice', 0, state); assert.equal(saved.version, 1);
+  assert.deepEqual((await service.loadWorkspace(db, 'alice')).state, state);
+  assert.deepEqual((await service.loadWorkspace(db, 'bob')).state, model.emptyWorkspace());
+  sqlite.close();
+});
+test('concurrent creates and stale device writes cannot overwrite another update', async () => {
+  const { db, sqlite } = await database(); const a = model.emptyWorkspace(); a.project = project; const b = model.emptyWorkspace(); b.project = { ...project, name: 'Other draft' };
+  assert.ok(await service.writeWorkspace(db, 'alice', 0, a)); assert.equal(await service.writeWorkspace(db, 'alice', 0, b), null);
+  assert.ok(await service.writeWorkspace(db, 'alice', 1, b)); assert.equal(await service.writeWorkspace(db, 'alice', 1, a), null);
+  assert.equal((await service.loadWorkspace(db, 'alice')).state.project.name, 'Other draft'); sqlite.close();
+});
+test('clearing personal state persists and a stale tab cannot resurrect cleared content', async () => {
+  const { db, sqlite } = await database(); const state = model.emptyWorkspace(); state.project = project;
+  await service.writeWorkspace(db, 'alice', 0, state); const cleared = await service.clearWorkspace(db, 'alice', 1); assert.equal(cleared.version, 2); assert.deepEqual(cleared.state, model.emptyWorkspace());
+  assert.equal(await service.writeWorkspace(db, 'alice', 1, state), null); assert.equal(await service.writeWorkspace(db, 'alice', 0, state), null);
+  assert.deepEqual((await service.loadWorkspace(db, 'alice')).state, model.emptyWorkspace()); sqlite.close();
+});
+test('workspace validates bounds, dates, distinct identifiers and required decision evidence', () => {
+  assert.throws(() => model.validateWorkspace({ project: { ...project, stage: 'pretend' } }));
+  assert.throws(() => model.validateWorkspace({ tasks: [{ id: 'a', text: 'test', done: false, due: '2026-02-30', createdAt: project.updatedAt }] }));
+  assert.throws(() => model.validateWorkspace({ shortlist: ['y-combinator', 'y-combinator'] }));
+  assert.throws(() => model.validateWorkspace({ decisions: [{ guide: 'first-user-interview', decision: 'continue', reason: '', savedAt: project.updatedAt }] }));
+  assert.throws(() => model.validateWorkspace({ archive: Array.from({ length: 41 }, (_, i) => ({ id: `e-${i}`, guide: 'first-user-interview', title: 'x', type: 'y', summary: '', content: '', savedAt: project.updatedAt })) }));
+  assert.throws(() => model.validateWorkspace({ archive: Array.from({ length: 10 }, (_, i) => ({ id: `e-${i}`, guide: 'first-user-interview', title: 'x', type: 'y', summary: '', content: 'z'.repeat(20_000), savedAt: project.updatedAt })) }));
+});
+
+async function clientModule() {
+  const source = (await compile('../app/lib/founderArchive.ts')).replace('"./workspaceModel"', JSON.stringify(modelUrl));
+  return import(`data:text/javascript;base64,${Buffer.from(`${source}\n// ${Math.random()}`).toString('base64')}`);
+}
+test('client reports save failure and version conflict without losing the last confirmed state', async () => {
+  const originalFetch = globalThis.fetch; const client = await clientModule();
+  let mode = 'ok', savedState = model.emptyWorkspace(), savedVersion = 0;
+  globalThis.fetch = async (_url, options = {}) => {
+    if (!options.method) return Response.json({ state: savedState, version: savedVersion, updatedAt: null });
+    if (mode === 'offline') throw new Error('offline');
+    if (mode === 'conflict') return Response.json({ code: 'version_conflict', error: 'Conflict' }, { status: 409 });
+    const request = JSON.parse(options.body); savedState = request.state; savedVersion++;
+    return Response.json({ state: savedState, version: savedVersion, updatedAt: null });
+  };
+  try {
+    await client.initializeWorkspace(); await client.saveProject(project);
+    assert.equal(client.readProject().name, project.name);
+    mode = 'offline'; await assert.rejects(client.saveProject({ ...project, name: 'Unsaved draft' })); assert.equal(client.readProject().name, project.name);
+    mode = 'conflict'; await assert.rejects(client.toggleResource('y-combinator'), error => error.code === 'version_conflict'); assert.deepEqual(client.workspaceSnapshot().state.shortlist, []);
+    mode = 'ok'; await client.toggleResource('y-combinator'); assert.deepEqual(client.workspaceSnapshot().state.shortlist, ['y-combinator']);
+  } finally { globalThis.fetch = originalFetch; }
+});
+test('legacy evidence is never uploaded automatically and explicit migration preserves both archives', async () => {
+  const originalFetch = globalThis.fetch, originalWindow = globalThis.window; const client = await clientModule();
+  const legacyEntry = { id: 'legacy-1', guide: 'first-user-interview', title: 'Local evidence', type: 'Interview', summary: 'Observed', content: 'Legacy record', savedAt: project.updatedAt };
+  const local = new Map([[client.PROJECT_KEY, JSON.stringify({ ...project, name: 'Legacy project' })], [client.ARCHIVE_KEY, JSON.stringify([legacyEntry])]]); let writes = 0;
+  const cloud = model.emptyWorkspace(); cloud.project = project;
+  globalThis.window = { dispatchEvent() {}, localStorage: { getItem(key) { return local.get(key) ?? null; }, setItem() { throw new Error('Cloud state must not write local storage'); } } };
+  globalThis.fetch = async (_url, options = {}) => { if (!options.method) return Response.json({ state: cloud, version: 1, updatedAt: null }); writes++; return Response.json({ state: JSON.parse(options.body).state, version: 2, updatedAt: null }); };
+  try {
+    await client.initializeWorkspace(); assert.equal(writes, 0); assert.equal(client.readProject().name, project.name); assert.deepEqual(client.readArchive(), []);
+    await client.importLegacyWorkspace(); assert.equal(writes, 1); assert.equal(client.readProject().name, project.name); assert.equal(client.readArchive()[0].content, 'Legacy record'); assert.ok(local.has(client.ARCHIVE_KEY));
+    await client.importLegacyWorkspace(true); assert.equal(client.readProject().name, 'Legacy project'); assert.equal(client.readArchive().length, 1);
+  } finally { globalThis.fetch = originalFetch; globalThis.window = originalWindow; }
+});
+
+const weeklyUrl = `data:text/javascript;base64,${Buffer.from(await compile('../app/data/weekly.ts')).toString('base64')}`;
+const freshness = await import(`data:text/javascript;base64,${Buffer.from((await compile('../app/lib/resourceFreshness.ts')).replace('"../data/weekly"', JSON.stringify(weeklyUrl))).toString('base64')}`);
+test('resource freshness separates historical windows, old reviews and the bounded current weekly check', () => {
+  const resource = { status: 'Applications open', verified: '2026.10.05 核验', url: 'https://www.ycombinator.com/apply/' };
+  assert.equal(freshness.resourceFreshness(resource, new Date('2026-10-05T04:00Z')), 'reviewed');
+  assert.equal(freshness.resourceFreshness(resource, new Date('2026-10-12T00:00:00+08:00')), 'needs-review');
+  assert.equal(freshness.resourceFreshness(resource, new Date('2026-11-03T04:00Z')), 'historical');
+  assert.equal(freshness.resourceFreshness({ ...resource, status: '历史归档' }, new Date('2026-10-05')), 'historical');
+  assert.equal(freshness.resourceFreshness({ status: 'Open', verified: '2026.07.16', url: 'https://example.org/' }, new Date('2026-10-05')), 'needs-review');
+  assert.equal(freshness.resourceStage({}), 'any');
+});

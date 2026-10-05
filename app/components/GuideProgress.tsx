@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { type PioneerGuide } from "../data/knowledge";
-import { type GuideDecision, readCompletions, readDecisions, saveGuideDecision, toggleCompletion } from "../lib/founderArchive";
+import { type GuideDecision, ARCHIVE_EVENT, initializeWorkspace, workspaceError, readCompletions, readDecisions, saveGuideDecision, toggleCompletion } from "../lib/founderArchive";
 
 export function GuideProgress({ guide, judgment, mistakes, action }: {
   guide: PioneerGuide;
@@ -10,17 +11,22 @@ export function GuideProgress({ guide, judgment, mistakes, action }: {
   mistakes: string[];
   action: string;
 }) {
-  const savedDecision = readGuideDecision(guide.slug);
-  const [done, setDone] = useState(() => readCompletions().includes(guide.slug));
-  const [decision, setDecision] = useState<GuideDecision["decision"]>(() => savedDecision?.decision ?? "continue");
-  const [reason, setReason] = useState(() => savedDecision?.reason ?? "");
-  const [saved, setSaved] = useState(false);
-
-  function saveDecision() {
-    saveGuideDecision({ guide: guide.slug, decision, reason: reason.trim() || "尚未填写判断理由" });
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 1800);
+  const [done, setDone] = useState(false);
+  const [decision, setDecision] = useState<GuideDecision["decision"]>("continue");
+  const [reason, setReason] = useState("");
+  const [saved, setSaved] = useState(false), [busy, setBusy] = useState(false), [loading, setLoading] = useState(true), [message, setMessage] = useState("");
+  useEffect(() => {
+    const sync = () => setDone(readCompletions().includes(guide.slug));
+    void initializeWorkspace().then(() => { sync(); const current = readGuideDecision(guide.slug); if (current) { setDecision(current.decision); setReason(current.reason); } setLoading(false); }).catch(() => setLoading(false));
+    window.addEventListener(ARCHIVE_EVENT, sync); return () => window.removeEventListener(ARCHIVE_EVENT, sync);
+  }, [guide.slug]);
+  async function saveDecision() {
+    if (!reason.trim()) { setMessage("请写下支持判断的证据或理由。"); return; }
+    setBusy(true); setMessage("");
+    try { await saveGuideDecision({ guide: guide.slug, decision, reason: reason.trim() }); setSaved(true); window.setTimeout(() => setSaved(false), 1800); }
+    catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); }
   }
+  async function complete() { setBusy(true); setMessage(""); try { setDone((await toggleCompletion(guide.slug)).includes(guide.slug)); } catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); } }
 
   return (
     <section className="guide-fast-track" id="quick-path">
@@ -32,10 +38,11 @@ export function GuideProgress({ guide, judgment, mistakes, action }: {
       </div>
       <div className="fast-track-actions">
         <a href="#deep-guide">进入深度指南 ↓</a>
-        <button type="button" className={done ? "done" : ""} onClick={() => setDone(toggleCompletion(guide.slug).includes(guide.slug))}>
+        <button type="button" className={done ? "done" : ""} onClick={complete} disabled={busy || loading}>
           {done ? "已完成这次决策 ✓" : "标记为已完成"}
         </button>
       </div>
+      {message && <p role="alert">{message} <Link href="/workspace">打开工作台</Link></p>}
       <div className="guide-decision-capture" id="stage-decision">
         <div>
           <span>阶段判断</span>
@@ -43,16 +50,16 @@ export function GuideProgress({ guide, judgment, mistakes, action }: {
         </div>
         <div className="decision-options" aria-label="阶段判断选项">
           {decisionOptions.map((item) => (
-            <button type="button" className={decision === item.value ? "active" : ""} onClick={() => setDecision(item.value)} key={item.value}>
+            <button type="button" className={decision === item.value ? "active" : ""} disabled={busy || loading} onClick={() => setDecision(item.value)} key={item.value}>
               {item.label}
             </button>
           ))}
         </div>
         <label>
           <span>判断理由</span>
-          <textarea rows={2} value={reason} placeholder="写下支持这个判断的证据，尤其是反向证据。" onChange={(event) => setReason(event.target.value)} />
+          <textarea disabled={loading} maxLength={5000} rows={2} value={reason} placeholder="写下支持这个判断的证据，尤其是反向证据。" onChange={(event) => setReason(event.target.value)} />
         </label>
-        <button type="button" onClick={saveDecision}>{saved ? "阶段判断已保存 ✓" : "保存阶段判断"}</button>
+        <button type="button" onClick={saveDecision} disabled={busy || loading}>{saved ? "阶段判断已保存 ✓" : "保存阶段判断"}</button>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import { freshnessLabel, resourceFreshness } from "../../../lib/resourceFreshness";
+import { SaveResource } from "../../../components/SaveResource";
 import { ResourceReport } from "../../../components/ResourceReport";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -36,6 +38,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
   const english = getEnglishResource(slug);
   if (!resource || !english) notFound();
 
+  const freshness = resourceFreshness(resource);
   const config = englishTypeConfig[resource.type];
   const directlyRelated = (resource.relatedSlugs ?? [])
     .map((relatedSlug) => getResourceBySlug(relatedSlug))
@@ -58,11 +61,12 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
         </div>
         <div className="detail-identity">
           <span className={`resource-logo detail-logo logo-${resource.color}`}>{resource.monogram}</span>
-          <span className="resource-status"><i />{english.status}</span>
+          <span className="resource-status"><i />{freshness === "reviewed" ? english.status : freshnessLabel(freshness, "en")}</span>
         </div>
         <span className="section-index">{english.kind} · PIONEER BRIEF</span>
         <h1>{resource.name}</h1>
         <p>{english.description}</p>
+        {freshness !== "reviewed" && <p className="workspace-message">This brief reflects its last review. The current window has not been reverified; confirm eligibility, dates, capacity and costs on the official source.</p>}
         <div className="detail-tags">
           {english.tags.map((tag) => <span key={tag}>{tag}</span>)}
         </div>
@@ -152,6 +156,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
           {related.map((entry) => entry && <ResourceCard resource={entry} lang="en" key={entry.id} />)}
         </div>
       </section>
+      <SaveResource slug={resource.slug} lang="en" />
       <ResourceReport resourceKey={resource.slug} lang="en" />
       <SiteFooter lang="en" />
     </main>

@@ -1,3 +1,4 @@
+import { GuideWorkbook } from "./GuideWorkbook";
 import Link from "next/link";
 import type { ChineseAdditionalGuide } from "../data/additionalGuides";
 import { pioneerGuides } from "../data/knowledge";
@@ -14,7 +15,7 @@ export function AdditionalGuidePage({ guide }: { guide: ChineseAdditionalGuide }
       <aside className="guide-toc" aria-label="本篇目录"><span>本篇目录</span>{guide.sections.map((section, index) => <a href={`#${section.id}`} key={section.id}>{String(index + 1).padStart(2, "0")} · {section.title}</a>)}<a href="#worksheet">实践工作表</a><a href="#decision">阶段判断</a><a href="#sources">参考来源</a></aside>
       <article className="guide-article">
         {guide.sections.map((section, index) => <section className="guide-section" id={section.id} key={section.id}><div className="guide-section-heading"><span>{String(index + 1).padStart(2, "0")}</span><div><small>{section.eyebrow}</small><h2>{section.title}</h2></div></div><p className="guide-lead">{section.lead}</p><div className="guide-card-grid">{section.points.map((point) => <article key={point.title}><strong>{point.title}</strong><p>{point.body}</p></article>)}</div></section>)}
-        <section className="guide-section" id="worksheet"><div className="guide-section-heading"><span>W</span><div><small>WORKSHEET</small><h2>把这次判断写下来</h2></div></div><div className="workbook-panel"><ol>{guide.worksheet.map((item) => <li key={item}><strong>{item}</strong><p>________________________________________________</p></li>)}</ol></div></section>
+        <section className="guide-section" id="worksheet"><div className="guide-section-heading"><span>W</span><div><small>WORKSHEET</small><h2>把这次判断写下来</h2></div></div><GuideWorkbook slug={guide.slug} title={guide.title} fields={guide.worksheet} /></section>
         <section className="guide-section" id="decision"><div className="guide-section-heading"><span>D</span><div><small>CONTINUE · ADJUST · STOP</small><h2>用证据决定下一步</h2></div></div><div className="three-way-decision"><div><span>继续</span><p>{guide.decision.continue}</p></div><div><span>调整</span><p>{guide.decision.adjust}</p></div><div><span>暂不推进</span><p>{guide.decision.stop}</p></div></div></section>
         <section className="guide-sources" id="sources"><div className="guide-section-heading"><span>S</span><div><small>SOURCES &amp; SCOPE</small><h2>参考来源与适用边界</h2></div></div><p>本页是创业决策教育内容，不构成法律、税务、会计、证券、监管或针对具体公司的专业意见。涉及正式安排时，请咨询适用法域的专业人士。</p><div className="source-list">{guide.sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}><div><span>{source.publisher} · 英文</span><strong>{source.title}</strong><p>{source.use}</p></div><b aria-hidden="true">↗</b></a>)}</div></section>
       </article>

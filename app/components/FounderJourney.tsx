@@ -5,7 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import { pioneerGuides } from "../data/knowledge";
 import {
   ARCHIVE_EVENT,
-  ARCHIVE_KEY,
+  initializeWorkspace,
+  updateWorkspace,
+  workspaceError,
   type ArchiveEntry,
   type FounderProject,
   type GuideDecision,
@@ -39,6 +41,8 @@ export function FounderJourney() {
   const [decisions, setDecisions] = useState<GuideDecision[]>([]);
   const [project, setProject] = useState<FounderProject | null>(null);
   const [draft, setDraft] = useState({ name: "", oneLine: "", targetUser: "", currentRisk: "", nextAction: "" });
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
   const [projectSaved, setProjectSaved] = useState(false);
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export function FounderJourney() {
         });
       }
     };
-    refresh();
+    void initializeWorkspace().then(refresh).catch(error => setMessage(workspaceError(error)));
     window.addEventListener(ARCHIVE_EVENT, refresh);
     window.addEventListener("storage", refresh);
     return () => {
@@ -76,16 +80,17 @@ export function FounderJourney() {
     decision: decisions.find((entry) => entry.guide === guide.slug),
   }));
 
-  function submitProject() {
-    saveProject(draft);
-    setProjectSaved(true);
-    window.setTimeout(() => setProjectSaved(false), 1800);
+  async function submitProject() {
+    setBusy(true); setMessage("");
+    try { await saveProject(draft); setProjectSaved(true); window.setTimeout(() => setProjectSaved(false), 1800); }
+    catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); }
   }
 
-  function clearArchive() {
-    if (!window.confirm("确定清空这台设备上保存的创业证据吗？")) return;
-    window.localStorage.removeItem(ARCHIVE_KEY);
-    window.dispatchEvent(new Event(ARCHIVE_EVENT));
+  async function clearArchive() {
+    if (!window.confirm("清空账号中保存的所有创业证据？如需保留，请先在工作台导出。")) return;
+    setBusy(true);
+    try { await updateWorkspace(state => { state.archive = []; }); setMessage("证据档案已清空。"); }
+    catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); }
   }
 
   return (
@@ -114,8 +119,9 @@ export function FounderJourney() {
       </section>
 
       <section className="founder-workspace" id="my-founder-workspace">
+        <div className="workspace-message"><Link href="/workspace">打开完整工作台：行动、资源对比与资料管理 →</Link>{message && <p role="status">{message}</p>}</div>
         <div className="workspace-progress">
-          <span>MY PROJECT · 仅保存在本设备</span>
+          <span>MY PROJECT · 登录后跨设备保存</span>
           <strong>{project?.name || "建立你的创业项目档案"}</strong>
           <div aria-label={`学习进度 ${progress}%`}><i style={{ width: `${progress}%` }} /></div>
           <p>{project?.oneLine || `${completed.length} / ${pioneerGuides.length} 个决策任务完成。填写项目后，Pioneer 会把证据、判断和下一步聚合在一起。`}</p>
@@ -128,7 +134,7 @@ export function FounderJourney() {
         <div className="workspace-archive">
           <div className="workspace-archive-heading">
             <div><span>创业项目档案</span><strong>{archive.length ? `${archive.length} 份证据 · ${decisions.length} 个阶段判断` : "先建立项目，再沉淀证据"}</strong></div>
-            {archive.length > 0 && <button type="button" onClick={clearArchive}>清空本地档案</button>}
+            {archive.length > 0 && <button type="button" onClick={clearArchive} disabled={busy}>清空证据档案</button>}
           </div>
           <div className="project-form">
             <label><span>项目名称</span><input value={draft.name} placeholder="例如：餐饮门店临时换班助手" onChange={(event) => setDraft((current) => ({ ...current, name: event.target.value }))} /></label>
@@ -136,7 +142,7 @@ export function FounderJourney() {
             <label><span>目标用户</span><input value={draft.targetUser} placeholder="尽量写角色、近期行为和触发时机" onChange={(event) => setDraft((current) => ({ ...current, targetUser: event.target.value }))} /></label>
             <label><span>当前最危险假设</span><input value={draft.currentRisk} placeholder="例如：店长愿意为减少临时协调付费" onChange={(event) => setDraft((current) => ({ ...current, currentRisk: event.target.value }))} /></label>
             <label><span>本周下一步</span><input value={draft.nextAction} placeholder={`例如：完成 ${nextGuide.title}`} onChange={(event) => setDraft((current) => ({ ...current, nextAction: event.target.value }))} /></label>
-            <button type="button" onClick={submitProject}>{projectSaved ? "项目档案已保存 ✓" : "保存项目档案"}</button>
+            <button type="button" onClick={submitProject} disabled={busy}>{projectSaved ? "项目档案已保存 ✓" : "保存项目档案"}</button>
           </div>
           <div className="decision-strip">
             <div><span>最近阶段判断</span><strong>{latestDecision ? decisionLabels[latestDecision.decision] : "还没有判断"}</strong><p>{latestDecision?.reason || "每篇指南完成后，选择继续、缩小、调整或停止，并写下理由。"}</p></div>

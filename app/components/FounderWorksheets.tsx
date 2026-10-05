@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { saveArchiveEntry } from "../lib/founderArchive";
+import Link from "next/link";
+import { saveArchiveEntry, workspaceError } from "../lib/founderArchive";
 
 function CopyButton({ text, label = "复制结果" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
@@ -20,13 +21,13 @@ function CopyButton({ text, label = "复制结果" }: { text: string; label?: st
 }
 
 function SaveResultButton({ guide, type, title, summary, content }: { guide: string; type: string; title: string; summary: string; content: string }) {
-  const [saved, setSaved] = useState(false);
-  function save() {
-    saveArchiveEntry({ guide, type, title, summary, content });
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 1800);
+  const [saved, setSaved] = useState(false), [busy, setBusy] = useState(false), [message, setMessage] = useState("");
+  async function save() {
+    setBusy(true); setMessage("");
+    try { await saveArchiveEntry({ guide, type, title, summary, content }); setSaved(true); window.setTimeout(() => setSaved(false), 1800); }
+    catch (error) { setMessage(workspaceError(error)); } finally { setBusy(false); }
   }
-  return <button type="button" className="save-result" onClick={save}>{saved ? "已保存到本地档案 ✓" : "保存到证据档案"}</button>;
+  return <div><button type="button" className="save-result" onClick={save} disabled={busy}>{busy ? "保存中…" : saved ? "已保存到私密工作台 ✓" : "保存到证据档案"}</button>{message && <p role="alert">{message} <Link href="/workspace">打开工作台</Link></p>}</div>;
 }
 
 function WorkbookFeedback({ hints }: { hints: string[] }) {
@@ -78,7 +79,7 @@ export function ProblemWorkbook() {
     <section className="interactive-workbook" id="problem-workbook">
       <div className="workbook-heading">
         <div><span>PIONEER TOOL 01</span><h3>问题陈述生成器</h3></div>
-        <p>逐项填写，不需要出现产品名称。只有主动保存时才会写入这台设备，不会上传。</p>
+        <p>逐项填写，不需要出现产品名称。输入留在本页；点击保存后，结果会写入登录账号的私密证据档案。</p>
       </div>
       <div className="workbook-fields">
         {problemFields.map(([key, label, placeholder]) => (

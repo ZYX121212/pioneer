@@ -1,3 +1,5 @@
+import { freshnessLabel, resourceFreshness } from "../../lib/resourceFreshness";
+import { SaveResource } from "../../components/SaveResource";
 import { ResourceReport } from "../../components/ResourceReport";
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
@@ -45,6 +47,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   if (!resource || (!profile && !investmentProfile && !startupProfile)) notFound();
   const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
 
+  const freshness = resourceFreshness(resource);
   const config = typeConfig[resource.type];
   const directlyRelated = (resource.relatedSlugs ?? [])
     .map((relatedSlug) => getResourceBySlug(relatedSlug))
@@ -69,12 +72,13 @@ export default async function ResourceDetailPage({ params }: PageProps) {
           <div className="detail-hero-copy">
             <div className="detail-identity">
               <span className={`resource-logo detail-logo logo-${resource.color}`}>{resource.monogram}</span>
-              <span className="resource-status"><i />{resource.status}</span>
+              <span className="resource-status"><i />{freshness === "reviewed" ? resource.status : freshnessLabel(freshness, "zh")}</span>
             </div>
             <span className="section-index">{resource.kind} · PIONEER PROFILE</span>
             <h1>{resource.name}</h1>
             <p>{resource.description}</p>
-            <div className="detail-tags">
+            {freshness !== "reviewed" && <p className="workspace-message">档案内容反映上次整理时的信息；当前窗口尚未重新核验，请在官方来源确认资格、日期、名额与费用。</p>}
+        <div className="detail-tags">
               {resource.tags.map((tag) => <span key={tag}>{tag}</span>)}
             </div>
           </div>
@@ -339,6 +343,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
           {related.map((entry) => entry && <ResourceCard resource={entry} key={entry.id} />)}
         </div>
       </section>
+      <SaveResource slug={resource.slug} lang="zh" />
       <ResourceReport resourceKey={resource.slug} lang="zh" />
       <SiteFooter />
     </main>

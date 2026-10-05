@@ -1,3 +1,5 @@
+import { freshnessLabel, resourceFreshness } from "../lib/resourceFreshness";
+import { SaveResource } from "./SaveResource";
 import { getEnglishResource } from "../data/english";
 import type { Resource } from "../data/resources";
 
@@ -7,6 +9,8 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
   const detailHref = lang === "en"
     ? (resource.detailPath ? `/en${resource.detailPath}` : `/en/resources/${resource.slug}`)
     : resource.detailPath ?? `/resources/${resource.slug}`;
+  const freshness = resourceFreshness(resource);
+  const status = freshness === "reviewed" ? copy.status : freshnessLabel(freshness, lang);
   const detailLabel = lang === "en" ? "Research brief" : "整理详情";
   const sourceLine = resource.verification === "link-only" ? (lang === "en" ? `${resource.verified} · Community source check` : `${resource.verified} · 社区来源核验`) : lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
   const stageLabels = {
@@ -22,7 +26,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
       <div className="resource-card-top">
         <span className={`resource-logo logo-${resource.color}`}>{resource.monogram}</span>
         <div className="resource-status-group">
-          <span className="resource-status"><i />{copy.status}</span>
+          <span className="resource-status"><i />{status}</span>
           <span className="resource-kind">{copy.kind}</span>
         </div>
       </div>
@@ -47,6 +51,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
           {detailLabel} <span aria-hidden="true">→</span>
         </a>
       </div>
+      <SaveResource slug={resource.slug} lang={lang} />
     </article>
   );
 }

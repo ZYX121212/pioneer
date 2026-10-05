@@ -12,6 +12,7 @@ const nav = {
     visited: "位访客来过 Pioneer",
     homeLabel: "Pioneer 首页",
     links: [
+      ["/workspace", "我的工作台"],
       ["/weekly", "本周机会"],
       ["/community", "社区资源"],
       ["/knowledge", "创业指南"],
@@ -32,6 +33,7 @@ const nav = {
     visited: "visitors have explored Pioneer",
     homeLabel: "Pioneer home",
     links: [
+      ["/en/workspace", "My workspace"],
       ["/en/weekly", "Weekly"],
       ["/en/community", "Community"],
       ["/en/knowledge", "Founder Guides"],
@@ -70,6 +72,7 @@ export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
           ))}
         </nav>
         <div className="header-actions">
+          <details className="mobile-nav"><summary>{lang === "zh" ? "导航" : "Menu"}</summary><nav aria-label={lang === "zh" ? "手机导航" : "Mobile navigation"}>{copy.links.map(([href, label]) => <a href={href} key={href}>{label}</a>)}</nav></details>
           <a className="language-link" href={languageHref ?? copy.languageHref}>{copy.languageLabel}</a>
           <a
             className="submit-link"
