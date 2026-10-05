@@ -34,7 +34,7 @@ async function database() {
   return { sqlite, db: adapter(sqlite) };
 }
 function insertRow(sqlite, url = input.resourceUrl) {
-  sqlite.prepare(`INSERT INTO resource_submissions (resource_type, resource_name, resource_url, canonical_url, deadline, why_useful, submitter_name, submitter_email, relationship, status, review_token, share_token) VALUES ('program', 'Techstars NYC', ?, ?, '2026-11-18', ?, 'Contributor', 'private@example.com', 'community', 'reviewing', 'abcdef0123456789abcdef0123456789', 'publicref123')`).run(url, review.normalizePublicUrl(url), input.whyUseful);
+  sqlite.prepare(`INSERT INTO resource_submissions (resource_type, resource_name, resource_url, canonical_url, deadline, why_useful, submitter_name, submitter_email, relationship, status, review_token, share_token) VALUES ('program', 'Techstars NYC', ?, ?, '2026-11-18', ?, 'Contributor', 'private@example.com', 'community', 'reviewing', ?, ?)`).run(url, review.normalizePublicUrl(url), input.whyUseful, `receipt-${sqlite.prepare('SELECT count(*) AS n FROM resource_submissions').get().n}`, `share-${sqlite.prepare('SELECT count(*) AS n FROM resource_submissions').get().n}`);
   return sqlite.prepare("SELECT * FROM resource_submissions ORDER BY id DESC LIMIT 1").get();
 }
 
@@ -130,4 +130,59 @@ test("automatic date evidence must include the same year and exact day together"
 test("shared publishing hosts do not establish official ownership for other publishers", () => {
   const hosts = review.officialHosts(["https://github.com/curated-org", "https://curated.substack.com", "https://www.linkedin.com/company/curated", "https://www.techstars.com/accelerators/nyc"]);
   assert.deepEqual([...hosts], ["www.techstars.com"]);
+});
+
+
+test("withdrawn source can be resubmitted with current data and only its current owner can withdraw it", async () => {
+  const { db, sqlite } = await database();
+  const first = insertRow(sqlite);
+  const approved = { status: "approved", reason: "editor_approved", evidence: { checkedAt: now.toISOString(), title: "Verified source", checks: ["editor_verified"] } };
+  const rejected = { status: "rejected", reason: "withdraw", evidence: { checkedAt: now.toISOString(), checks: ["withdraw"] } };
+  await service.recordReview(db, first, approved);
+  const slug = (await service.listCommunity(db))[0].slug;
+  await service.recordReview(db, first, rejected);
+  const second = insertRow(sqlite);
+  Object.assign(second, { resource_name: "Updated program", location: "Berlin", deadline: "2027-01-20", stage: "traction", why_useful: "Updated contributor evidence", resource_type: "event" });
+  await service.recordReview(db, second, approved);
+  const [listing] = await service.listCommunity(db);
+  assert.equal(listing.slug, slug);
+  assert.equal(listing.submission_id, second.id);
+  assert.equal(listing.name, second.resource_name);
+  assert.equal(listing.location, second.location);
+  assert.equal(listing.deadline, second.deadline);
+  assert.equal(listing.stage, second.stage);
+  assert.equal(listing.contributor_reason, second.why_useful);
+  assert.equal(listing.resource_type, second.resource_type);
+  await service.recordReview(db, first, rejected);
+  assert.equal((await service.listCommunity(db)).length, 1);
+  await service.recordReview(db, second, rejected);
+  assert.equal((await service.listCommunity(db)).length, 0);
+  sqlite.close();
+});
+
+test("two pending submissions for one source cannot replace the first published owner", async () => {
+  const { db, sqlite } = await database();
+  const first = insertRow(sqlite), second = insertRow(sqlite);
+  const result = { status: "approved", reason: "approved", evidence: { checkedAt: now.toISOString(), checks: [] } };
+  assert.equal(await service.recordReview(db, first, result), "approved");
+  assert.equal(await service.recordReview(db, second, result), "duplicate");
+  const [listing] = await service.listCommunity(db);
+  assert.equal(listing.submission_id, first.id);
+  assert.equal((await service.findSubmission(db, second.review_token)).status, "duplicate");
+  assert.equal(sqlite.prepare("SELECT action FROM moderation_actions ORDER BY id DESC LIMIT 1").get().action, "duplicate");
+  sqlite.close();
+});
+
+test("report resolution requires a pending durable row and preserves its first resolution evidence", async () => {
+  const { db, sqlite } = await database();
+  assert.equal(await service.resolveResourceReport(db, 999, "Missing report resolution", "editor-one"), "missing");
+  sqlite.prepare("INSERT INTO resource_reports (resource_key, reason, details, requester_hash) VALUES ('resource-1','stale','Source has changed','fixture')").run();
+  assert.equal(await service.resolveResourceReport(db, 1, "Checked official updated source", "editor-one"), "resolved");
+  assert.equal(await service.resolveResourceReport(db, 1, "Do not overwrite original evidence", "editor-two"), "already-resolved");
+  const report = sqlite.prepare("SELECT * FROM resource_reports WHERE id = 1").get();
+  assert.equal(report.resolved_by, "editor-one");
+  assert.equal(report.resolution_note, "Checked official updated source");
+  assert.equal(report.status, "resolved");
+  assert.ok(report.resolved_at);
+  sqlite.close();
 });

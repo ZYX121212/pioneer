@@ -1,12 +1,12 @@
 import type { Resource } from "../data/resources";
 import { weeklyIssue, weeklyOpportunities } from "../data/weekly";
 export type ResourceFreshness = "reviewed" | "needs-review" | "historical";
-export function resourceFreshness(resource: Resource, now = new Date()): ResourceFreshness {
+export function resourceFreshness(resource: Pick<Resource, "status" | "verified" | "url">, now = new Date()): ResourceFreshness {
   if (/归档|历史|已结束|已截止|archiv|historical|ended|closed/i.test(resource.status)) return "historical";
   const weekly = weeklyOpportunities.find(row => row.url.replace(/\/$/, "") === resource.url.replace(/\/$/, ""));
   if (weekly) { if (now.getTime() >= Date.parse(weekly.expiresAt)) return "historical"; if (now.getTime() >= Date.parse(weeklyIssue.validUntil)) return "needs-review"; }
   const date = resource.verified.match(/\d{4}[.-]\d{2}[.-]\d{2}/)?.[0].replaceAll(".", "-");
-  if (!date) return "needs-review";
+  if (!date || !Number.isFinite(Date.parse(`${date}T00:00:00Z`)) || new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10) !== date) return "needs-review";
   return now.getTime() - Date.parse(`${date}T00:00:00Z`) > 30 * 86_400_000 ? "needs-review" : "reviewed";
 }
 export function freshnessLabel(status: ResourceFreshness, lang: "zh" | "en") {

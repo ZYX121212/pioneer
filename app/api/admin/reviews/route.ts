@@ -4,7 +4,7 @@ import { isSiteAdmin } from "../../../lib/admin";
 import { getChatGPTUser } from "../../../chatgpt-auth";
 import { cleanText, json, sameOrigin } from "../../../lib/http";
 import { normalizePublicUrl } from "../../../lib/resourceReview";
-import { recordReview, type SubmissionRow } from "../../../lib/submissionService";
+import { recordReview, resolveResourceReport, type SubmissionRow } from "../../../lib/submissionService";
 export const dynamic = "force-dynamic";
 export async function GET() {
   if (!await isSiteAdmin()) return json({ error: "Administrator access required" }, 403);
@@ -18,7 +18,10 @@ export async function POST(request: Request) {
     if (!Number.isSafeInteger(id) || id < 1 || note.length < 20) return json({ error: "Provide the record and a review note of at least 20 characters" }, 400);
     const db = await getD1(), user = (await getChatGPTUser())!;
     if (action === "resolve-report") {
-      await db.prepare("UPDATE resource_reports SET status = 'resolved', resolution_note = ?, resolved_by = ?, resolved_at = CURRENT_TIMESTAMP WHERE id = ?").bind(note, user.id, id).run(); return json({ ok: true });
+      const outcome = await resolveResourceReport(db, id, note, user.id);
+      if (outcome === "missing") return json({ error: "Report not found" }, 404);
+      if (outcome === "already-resolved") return json({ error: "This report has already been resolved. Reload the queue." }, 409);
+      return json({ ok: true });
     }
     const row = await db.prepare("SELECT * FROM resource_submissions WHERE id = ?").bind(id).first<SubmissionRow>();
     if (!row) return json({ error: "Submission not found" }, 404);
@@ -32,7 +35,8 @@ export async function POST(request: Request) {
       if (payload.officialConfirmed !== true) return json({ error: "Confirm official ownership and check the submitted date first" }, 400);
       const sourceUrl = normalizePublicUrl(String(payload.sourceUrl ?? "")), title = cleanText(payload.sourceTitle, 160), excerpt = cleanText(payload.sourceExcerpt, 160);
       if (sourceUrl !== row.canonical_url || title.length < 2 || excerpt.length < 20) return json({ error: "Supply the matching official URL, title and a short evidence excerpt" }, 400);
-      await recordReview(db, row, { status: "approved", reason: "editor_approved", evidence: { checkedAt: new Date().toISOString(), finalUrl: sourceUrl, title, excerpt, checks: ["editor_verified"] } }, user.id, note);
+      const outcome = await recordReview(db, row, { status: "approved", reason: "editor_approved", evidence: { checkedAt: new Date().toISOString(), finalUrl: sourceUrl, title, excerpt, checks: ["editor_verified"] } }, user.id, note);
+      if (outcome === "duplicate") return json({ error: "This official source already has a published resource. Reload the queue." }, 409);
     } else await recordReview(db, row, { status: "rejected", reason: `editor_rejected: ${note}`, evidence: { checkedAt: new Date().toISOString(), checks: [action] } }, user.id, note);
     return json({ ok: true });
   } catch (error) { console.error("Moderation failed", error); return json({ error: "Review could not be saved" }, 503); }

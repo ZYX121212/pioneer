@@ -91,3 +91,17 @@ test('resource freshness separates historical windows, old reviews and the bound
   assert.equal(freshness.resourceFreshness({ status: 'Open', verified: '2026.07.16', url: 'https://example.org/' }, new Date('2026-10-05')), 'needs-review');
   assert.equal(freshness.resourceStage({}), 'any');
 });
+
+const freshnessUrl = `data:text/javascript;base64,${Buffer.from((await compile('../app/lib/resourceFreshness.ts')).replace('"../data/weekly"', JSON.stringify(weeklyUrl))).toString('base64')}`;
+const communityFreshness = await import(`data:text/javascript;base64,${Buffer.from((await compile('../app/lib/communityFreshness.ts')).replace('"./resourceFreshness"', JSON.stringify(freshnessUrl))).toString('base64')}`);
+test('community freshness shares historical, thirty-day and weekly cutoffs across all views', () => {
+  const row = { status: 'published', deadline: null, verified_at: '2026-10-05T04:00:00Z', url: 'https://example.org/' };
+  const date = new Date('2026-10-06T04:00:00Z');
+  assert.equal(communityFreshness.communityFreshness(row, date), 'reviewed');
+  assert.equal(communityFreshness.communityFreshness({ ...row, verified_at: '2026-07-30T04:00:00Z' }, date), 'needs-review');
+  assert.equal(communityFreshness.communityFreshness({ ...row, deadline: '2026-08-04' }, date), 'historical');
+  assert.equal(communityFreshness.communityFreshness({ ...row, status: 'archived' }, date), 'historical');
+  assert.equal(communityFreshness.communityFreshness({ ...row, url: 'https://www.ycombinator.com/apply/' }, new Date('2026-10-12T00:00:00+08:00')), 'needs-review');
+  assert.equal(communityFreshness.communityStatus({ ...row, verified_at: 'invalid' }, 'en', date), 'Current window needs rechecking');
+  assert.equal(freshness.resourceFreshness({ status: 'Open', verified: '2026-02-30', url: row.url }, date), 'needs-review');
+});
