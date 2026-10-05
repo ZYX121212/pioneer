@@ -3,6 +3,10 @@ import { resources } from "../data/resources";
 import { siteOrigin } from "../lib/site";
 
 const staticPaths = [
+  "/weekly/archive/002",
+  "/en/weekly/archive/002",
+  "/weekly/archive/003",
+  "/en/weekly/archive/003",
   "",
   "/programs",
   "/organizations",
@@ -33,7 +37,8 @@ export async function GET() {
   const urls = paths.map((path) => {
     const frequency = path.includes("/resources/") ? "monthly" : "weekly";
     const priority = path === "" ? "1.0" : path.includes("/resources/") ? "0.7" : "0.8";
-    return `<url><loc>${siteOrigin}${path}</loc><lastmod>2026-07-19</lastmod><changefreq>${frequency}</changefreq><priority>${priority}</priority></url>`;
+    const lastmod = path.includes("/weekly") || path === "" || path === "/en" ? "2026-10-05" : "2026-07-19";
+    return `<url><loc>${siteOrigin}${path}</loc><lastmod>${lastmod}</lastmod><changefreq>${frequency}</changefreq><priority>${priority}</priority></url>`;
   });
   const body = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join("")}</urlset>`;
 

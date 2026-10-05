@@ -1,5 +1,6 @@
 "use client";
 
+import { WeeklySpotlight } from "./WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
 import { AudienceCount } from "./AudienceCounter";
 import { ResourceCard } from "./ResourceCard";
@@ -122,17 +123,7 @@ export function EnglishHome() {
         <p>The homepage helps you discover. The directories help you understand, compare and act.</p>
       </section>
 
-      <section className="weekly-home-spotlight" aria-label="This week&apos;s startup opportunities">
-        <div className="weekly-home-index"><span>WEEKLY SIGNAL</span><strong>002</strong></div>
-        <div>
-          <span>2026.07.30—08.05 · CHECKED AGAINST OFFICIAL SOURCES</span>
-          <h2>4 startup opportunities worth acting on</h2>
-          <p>EF and Berkeley SkyDeck are approaching deadlines; AWS Activate remains open; TechBBQ is in its meeting-planning window.</p>
-        </div>
-        <a href="/en/weekly">
-          Read this week&apos;s brief <span aria-hidden="true">→</span>
-        </a>
-      </section>
+      <WeeklySpotlight lang="en" />
 
       <section className="section categories-section" id="categories">
         <div className="section-heading">

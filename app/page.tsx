@@ -1,5 +1,6 @@
 "use client";
 
+import { WeeklySpotlight } from "./components/WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
 import { AudienceCount, PageViewCount, trackAudienceEvent } from "./components/AudienceCounter";
 import { ResourceCard } from "./components/ResourceCard";
@@ -135,21 +136,7 @@ export default function Home() {
         <p>首页负责发现，独立目录负责理解、比较与行动。</p>
       </section>
 
-      <section className="weekly-home-spotlight" aria-label="本周创业机会">
-        <div className="weekly-home-index"><span>WEEKLY SIGNAL</span><strong>002</strong></div>
-        <div>
-          <span>2026.07.30—08.05 · 已按官方来源核验</span>
-          <h2>本周值得行动的 4 个创业机会</h2>
-          <p>EF 与 Berkeley SkyDeck 即将截止；AWS Activate 持续开放；TechBBQ 进入会前准备窗口。</p>
-        </div>
-        <a
-          href="/weekly"
-          data-audience-event="weekly:open"
-          data-audience-target="home-spotlight"
-        >
-          查看本周判断 <span aria-hidden="true">→</span>
-        </a>
-      </section>
+      <WeeklySpotlight lang="zh" />
 
       <section className="section categories-section" id="categories">
         <div className="section-heading">

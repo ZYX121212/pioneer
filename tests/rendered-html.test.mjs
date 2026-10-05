@@ -2,12 +2,18 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render(path = "/") {
+async function render(path = "/", at = "2026-10-05T04:00:00Z") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
-  return worker.fetch(
+  const NativeDate = globalThis.Date;
+  globalThis.Date = class extends NativeDate {
+    constructor(...args) { super(...(args.length ? args : [at])); }
+    static now() { return NativeDate.parse(at); }
+  };
+  try {
+    return await worker.fetch(
     new Request(`http://localhost${path}`, {
       headers: { accept: "text/html" },
     }),
@@ -21,6 +27,7 @@ async function render(path = "/") {
       passThroughOnException() {},
     },
   );
+  } finally { globalThis.Date = NativeDate; }
 }
 
 test("server-renders Pioneer as a resource directory and founder guide", async () => {
@@ -36,7 +43,7 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /你的想法是真问题，还是自我感动/);
   assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
   assert.match(html, /查看全部资源目录/);
-  assert.match(html, /本周值得行动的 4 个创业机会/);
+  assert.match(html, /最近一期 · 4 个创业机会核验/);
   assert.match(html, /href="\/weekly"/);
   assert.match(html, /精选资源/);
   assert.match(html, /开放计划/);
@@ -49,7 +56,6 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   assert.match(html, /href="\/startups"/);
   assert.doesNotMatch(html, /创业前的第一张地图|YC Startup Library/);
   assert.match(html, /Y Combinator/);
-  assert.match(html, /Berkeley SkyDeck Batch 23/);
   assert.match(html, /href="\/resources\/y-combinator"/);
   assert.doesNotMatch(html, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
   assert.doesNotMatch(html, /示例资源|数据接入后上线/);
@@ -179,42 +185,63 @@ test("publishes search discovery files for public pages", async () => {
   assert.match(robots, /Sitemap: .*\/sitemap\.xml/);
 });
 
-test("renders the current weekly opportunity brief with actionable official links", async () => {
-  const response = await render("/weekly");
-  const html = await response.text();
-
-  assert.equal(response.status, 200);
-  assert.match(html, /本周值得行动的/);
-  assert.match(html, /Entrepreneur First London/);
-  assert.match(html, /Berkeley SkyDeck Batch 23/);
-  assert.match(html, /AWS Activate/);
-  assert.match(html, /TechBBQ 2026/);
-  assert.match(html, /今天完成这三步/);
-  assert.match(html, /打开官方页面/);
-  assert.match(html, /data-audience-event="weekly:official"/);
-  assert.match(html, /分享本期/);
-  assert.match(html, /href="\/weekly\/deadlines\.ics"/);
-  assert.match(html, /href="\/feed\.xml"/);
-  assert.match(html, /weekly-og\.png/);
-  assert.match(html, /application\/ld\+json/);
+test("renders bilingual issue 003 with checked windows and archival navigation", async () => {
+  for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/weekly`);
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /WEEKLY SIGNAL · (?:<!-- -->)?003/);
+    assert.match(html, /2026.10.05—10.11/);
+    for (const name of [/Winter 2027/, /Techstars New York City/, /Slush 365/, /Slush 2026/]) assert.match(html, name);
+    assert.doesNotMatch(html, /Entrepreneur First London|Berkeley SkyDeck Batch 23|AWS Activate|TechBBQ 2026|weekly-og\.png/);
+    assert.match(html, /data-audience-event="weekly:official"/);
+    assert.match(html, new RegExp(`href="${prefix}/weekly/deadlines\\.ics"`));
+    assert.match(html, new RegExp(`href="${prefix}/weekly/archive/002"`));
+    assert.match(html, /application\/ld\+json/);
+    assert.match(html, /2026-10-05/);
+  }
 });
 
-test("publishes the weekly brief as a calendar and RSS feed", async () => {
-  const calendarResponse = await render("/weekly/deadlines.ics");
-  const calendar = await calendarResponse.text();
-  assert.equal(calendarResponse.status, 200);
-  assert.match(calendarResponse.headers.get("content-type") ?? "", /text\/calendar/);
-  assert.match(calendar, /BEGIN:VCALENDAR/);
-  assert.match(calendar, /Entrepreneur First London/);
-  assert.match(calendar, /20260821/);
-  assert.match(calendar, /TechBBQ 2026/);
+test("archives issue 002 without active calendar or official action tracking", async () => {
+  for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/weekly/archive/002`);
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /2026.07.30—08.05/);
+    assert.match(html, /Entrepreneur First London/);
+    assert.match(html, /TechBBQ 2026/);
+    assert.doesNotMatch(html, /DAYS LEFT|剩余 \d+ 天|weekly:calendar|deadlines\.ics/);
+    assert.match(html, /历史归档|Historical archive/);
+    const archive003 = await render(`${prefix}/weekly/archive/003`);
+    const body = await archive003.text();
+    assert.equal(archive003.status, 200);
+    assert.doesNotMatch(body, /weekly:official|deadlines\.ics/);
+  }
+});
 
-  const feedResponse = await render("/feed.xml");
-  const feed = await feedResponse.text();
-  assert.equal(feedResponse.status, 200);
-  assert.match(feedResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
-  assert.match(feed, /Pioneer 本周创业机会/);
-  assert.match(feed, /本周值得行动的 4 个创业机会/);
+test("publishes bilingual current calendars and issue-specific RSS permalinks", async () => {
+  for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/weekly/deadlines.ics`);
+    const body = (await response.text()).replace(/\r\n /g, "");
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type") ?? "", /text\/calendar/);
+    assert.match(response.headers.get("content-disposition") ?? "", /003/);
+    assert.equal(response.headers.get("cache-control"), "no-store");
+    assert.match(body, /DTSTART:20261103T040000Z/);
+    assert.match(body, /DTSTART;VALUE=DATE:20261118/);
+    assert.match(body, /DTSTART;VALUE=DATE:20261014/);
+    assert.match(body, /DTEND;VALUE=DATE:20261120/);
+    assert.equal((body.match(/BEGIN:VEVENT/g) ?? []).length, 4);
+    assert.doesNotMatch(body, /20260804|20260821|20260826|TechBBQ|Entrepreneur First/);
+    const feedResponse = await render(`${prefix}/feed.xml`);
+    const feed = await feedResponse.text();
+    assert.equal(feedResponse.status, 200);
+    assert.match(feedResponse.headers.get("content-type") ?? "", /application\/rss\+xml/);
+    assert.match(feed, /pioneer-weekly-003/);
+    assert.match(feed, /pioneer-weekly-002/);
+    assert.match(feed, new RegExp(`${prefix}/weekly/archive/003`));
+    assert.match(feed, /Sun, 04 Oct 2026 16:00:00 GMT/);
+  }
 });
 
 test("keeps every public editorial section available in Chinese and English", async () => {
@@ -271,7 +298,7 @@ test("provides English copy for every directory resource and English weekly synd
   assert.equal(feedResponse.status, 200);
   assert.equal(calendarResponse.status, 200);
   assert.match(await feedResponse.text(), /Pioneer Weekly Founder Opportunities/);
-  assert.match(await calendarResponse.text(), /Entrepreneur First London final deadline/);
+  assert.match(await calendarResponse.text(), /Y Combinator/);
 });
 
 test("accepts bilingual resource recommendations into the review workflow", async () => {
@@ -742,4 +769,30 @@ test("renders the fundraising decision guide and milestone budget tool", async (
   assert.match(html, /融资必要性判断卡/);
   assert.match(html, /不构成证券、投资、法律/);
   assert.match(html, /A Guide to Seed Fundraising/);
+});
+
+
+test("expired verification removes actionable claims and all calendar events", async () => {
+  for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/weekly`, "2026-10-12T00:00:00+08:00");
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /历史记录|Historical record/);
+    assert.doesNotMatch(html, /weekly:official|weekly:calendar|worth acting on this week|本周值得行动的/);
+    const calendarResponse = await render(`${prefix}/weekly/deadlines.ics`, "2026-10-12T00:00:00+08:00");
+    assert.doesNotMatch(await calendarResponse.text(), /BEGIN:VEVENT/);
+  }
+});
+
+test("expired old resources carry archival status in both languages", async () => {
+  for (const prefix of ["", "/en"]) {
+    for (const slug of ["entrepreneur-first-london", "berkeley-skydeck-batch-23", "techbbq-2026"]) {
+      const response = await render(`${prefix}/resources/${slug}`);
+      const html = await response.text();
+      assert.equal(response.status, 200);
+      assert.match(html, /历史归档|archived/);
+      const status = html.match(/class="resource-status"[^>]*><i[^>]*><\/i>([^<]+)/)?.[1];
+      assert.match(status ?? "", /历史归档|archived/);
+    }
+  }
 });
