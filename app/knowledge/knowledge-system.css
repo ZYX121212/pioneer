@@ -392,8 +392,7 @@
 }
 
 .fast-track-actions a,
-.fast-track-actions button,
-.workbook-actions button {
+.fast-track-actions button {
   padding: 11px 15px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: transparent;
@@ -475,6 +474,35 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.workbook-actions button {
+  padding: 11px 15px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.workbook-copy {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.workbook-copy [role="status"] {
+  max-width: 28rem;
+}
+
+.workbook-copy textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  font: inherit;
 }
 
 .workbook-actions button.save-result {
