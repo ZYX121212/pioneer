@@ -1,3 +1,5 @@
+import { DecisionProfileSections } from "../../../components/DecisionProfileSections";
+import { hasDecisionProfile, getDecisionProfile } from "../../../data/decisionProfiles";
 import { EventDecisionDetail } from "../../../components/EventDecisionDetail";
 import { ContentPoints } from "../../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../../lib/resourceFreshness";
@@ -42,6 +44,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
 
   if (resource.type === "event") return <EventDecisionDetail resource={resource} lang="en" />;
 
+  const profile = hasDecisionProfile(slug) ? getDecisionProfile(slug, "en") : undefined;
   const freshness = resourceFreshness(resource);
   const config = englishTypeConfig[resource.type];
   const directlyRelated = (resource.relatedSlugs ?? [])
@@ -78,6 +81,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
 
       <section className={`detail-layout detail-layout-${resource.type}`}>
         <article className="detail-main">
+          {profile ? <DecisionProfileSections profile={profile} lang="en" overview={english.overview} whyItMatters={english.whyItMatters} historical={freshness === "historical"} /> : <>
           <section className="detail-section detail-overview">
             <span className="detail-index">01</span>
             <div>
@@ -126,6 +130,8 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
               </div>
             </div>
           </section>
+          </>}
+          <section className="detail-section detail-verdict"><span className="detail-index">10</span><div><h2>Editorial notes</h2><ContentPoints text={english.editorialNote} lang="en" /></div></section>
         </article>
 
         <aside className="detail-sidebar">

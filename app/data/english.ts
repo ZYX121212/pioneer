@@ -1,5 +1,7 @@
 import { type ResourceType } from "./resources";
 
+// Directory and hero summaries only. Complete decision content lives in
+// decisionProfiles.ts and uses the shared ResourceResearchProfile structure.
 export type EnglishResourceCopy = {
   kind: string;
   location: string;

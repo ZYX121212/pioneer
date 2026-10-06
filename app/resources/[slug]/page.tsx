@@ -1,3 +1,5 @@
+import { DecisionProfileSections } from "../../components/DecisionProfileSections";
+import { getDecisionProfile, hasDecisionProfile } from "../../data/decisionProfiles";
 import { EventDecisionDetail } from "../../components/EventDecisionDetail";
 import { ContentPoints } from "../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../lib/resourceFreshness";
@@ -43,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ResourceDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const resource = getResourceBySlug(slug);
-  const profile = getResourceProfile(slug)!;
+  const profile = (hasDecisionProfile(slug) ? getDecisionProfile(slug, "zh") : getResourceProfile(slug))!;
   const investmentProfile = getInvestmentProfile(slug);
   const startupProfile = getStartupProfile(slug);
   if (!resource || (!profile && !investmentProfile && !startupProfile)) notFound();
@@ -138,162 +140,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
           <OrganizationResearchDetail resource={resource} profile={profile} organization={organizationProfile} />
         ) : (
         <article className="detail-main">
-          <section className="detail-section detail-overview">
-            <span className="detail-index">01</span>
-            <div>
-              <span className="section-index">DECISION SUMMARY</span>
-              <h2>基本信息</h2>
-              <ContentPoints text={resource.overview} />
-              <div className="identity-model-grid">
-                <div><span>运作模式</span><p>{profile!.identity.model}</p></div>
-                <div><span>核心价值</span><p>{profile!.identity.primaryValue}</p></div>
-                <div><span>价值发生条件</span><p>{profile!.identity.valueCondition}</p></div>
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">02</span>
-            <div>
-              <span className="section-index">CAPABILITY PORTRAIT</span>
-              <h2>支持内容与限制</h2>
-              <div className="capability-grid" aria-label={`${resource.name} 能力画像`}>
-                {profile.capabilities.map((capability) => (
-                  <div className="capability-row" key={capability.label}>
-                    <strong>{capability.label}</strong>
-                    <span className={`capability-level strength-${capability.strength}`}>{capability.strength}</span>
-                    <p>{capability.detail}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="analysis-caption">能力强弱是 Pioneer 基于官方公开信息做出的定性判断，用于比较资源结构，不是机构排名或结果保证。</p>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">03</span>
-            <div>
-              <span className="section-index">WHAT YOU ACTUALLY GET</span>
-              <h2>提供内容</h2>
-              <div className="offer-detail-grid">
-                {profile.offers.map((offer, index) => (
-                  <div className="offer-detail-card" key={offer.title}>
-                    <span>0{index + 1}</span>
-                    <h3>{offer.title}</h3>
-                    <p>{offer.includes}</p>
-                    <div><b>对创业者的价值</b><p>{offer.founderValue}</p></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">04</span>
-            <div>
-              <span className="section-index">ENTRY PATHS</span>
-              <h2>申请方式</h2>
-              <div className="entry-path-list">
-                {profile.entryPaths.map((path, index) => (
-                  <div className="entry-path" key={path.title}>
-                    <span>0{index + 1}</span>
-                    <div>
-                      <h3>{path.title}</h3>
-                      <p><b>适合：</b>{path.forWhom}</p>
-                      <p><b>需要准备：</b>{path.prepare}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">05</span>
-            <div>
-              <span className="section-index">STAGE FIT</span>
-              <h2>适合阶段</h2>
-              <div className="stage-fit-table">
-                {profile.stageFit.map((item) => (
-                  <div key={item.stage}>
-                    <strong>{item.stage}</strong>
-                    <span className={`fit-badge fit-${item.fit}`}>{item.fit}</span>
-                    <p>{item.reason}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="fit-columns research-fit-columns">
-                <div><h3>明确适合</h3><ul className="fit-list positive">{resource.bestFor.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                <div><h3>需要谨慎</h3><ul className="fit-list caution">{resource.considerations.map((item) => <li key={item}>{item}</li>)}</ul></div>
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">06</span>
-            <div>
-              <span className="section-index">COSTS &amp; TRADE-OFFS</span>
-              <h2>费用与投入</h2>
-              <div className="cost-map-grid">
-                {profile.costs.map((cost) => (
-                  <div className="cost-map-card" key={cost.label}>
-                    <div><strong>{cost.label}</strong><span className={`cost-level cost-${cost.level}`}>{cost.level}成本</span></div>
-                    <p>{cost.detail}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="evidence-note">
-                <div><span>官方事实</span><p>右侧关键信息和本页明确数字来自所列官方来源。</p></div>
-                <div><span>编辑判断</span><p>能力强弱、适合度、成本等级和比较建议由 Pioneer 整理。</p></div>
-                <div><span>行动前复核</span><p>价格、条款、资格、日期与项目权益可能变化。</p></div>
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">07</span>
-            <div>
-              <span className="section-index">DUE DILIGENCE</span>
-              <h2>申请前确认事项</h2>
-              <div className="diligence-list">
-                {profile.diligence.map((question, index) => (
-                  <div key={question}><span>Q{index + 1}</span><p>{question}</p></div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">08</span>
-            <div>
-              <span className="section-index">FOUNDER PLAYBOOK</span>
-              <h2>{freshness === "historical" ? "用于复盘与下一届准备" : "建议准备步骤"}</h2>
-              <div className="research-playbook">
-                {profile.playbook.map((step, index) => (
-                  <div key={step.title}>
-                    <span>0{index + 1}</span>
-                    <div><small>{step.phase}</small><h3>{step.title}</h3><p>{step.action}</p></div>
-                    <strong>产出：{step.output}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="detail-section">
-            <span className="detail-index">09</span>
-            <div>
-              <span className="section-index">COMPARE BEFORE DECIDING</span>
-              <h2>适合人群与替代选择</h2>
-              <ContentPoints text={resource.whyItMatters} />
-              <div className="comparison-grid">
-                <div className="comparison-choose"><span>适合情况</span><p>{profile.comparison.chooseWhen}</p></div>
-                <div className="comparison-avoid"><span>不适合情况</span><p>{profile.comparison.avoidWhen}</p></div>
-                <div className="comparison-with"><span>可比较的资源</span><p>{profile.comparison.compareWith}</p></div>
-              </div>
-            </div>
-          </section>
-
+          <DecisionProfileSections profile={profile} lang="zh" overview={resource.overview} whyItMatters={resource.whyItMatters} historical={freshness === "historical"} />
           <section className="detail-section detail-verdict">
             <span className="detail-index">10</span>
             <div>
