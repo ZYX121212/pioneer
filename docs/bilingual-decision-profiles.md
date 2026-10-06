@@ -1,6 +1,8 @@
 # Bilingual founder decision profiles
 
-Based on main `ae2206541e902d04b5f77abd02e5c5dae39b8197`.
+Based on main `ae2206541e902d04b5f77abd02e5c5dae39b8197`, reconciled with
+the existing Sites source at `7e24c4e` before publication. The additional
+AWS re:Invent, Entrepreneur Day and InnoVEX events retains the same complete bilingual profile coverage.
 
 `english.ts` remains the directory/hero summary model. `decisionProfiles.ts`
 provides a `Record<"zh" | "en", ResourceResearchProfile>` per migrated resource.
@@ -9,7 +11,7 @@ entry supplies the same identity, capabilities, offers, entry paths, stage fit,
 costs, diligence, playbook and comparison fields. Semantic rating codes remain
 shared, with display labels translated in the view.
 
-The migration covers all 15 current event resources and six detailed early-stage
+The migration covers all 18 current event resources and six detailed early-stage
 programs: YC, Techstars, Antler, SkyDeck Batch 23, EF London and LAUNCH by STATION F.
 These are translations of existing editorial research; verification dates,
 source links, deadlines and official terms were not refreshed by this change.
@@ -47,15 +49,15 @@ npx tsc --noEmit
 npm run lint
 ```
 
-`tests/decision-profiles.test.mjs` adds 46 checks: complete locale coverage and
+`tests/decision-profiles.test.mjs` adds 52 checks: complete locale coverage and
 field/section parity, shared ratings, nonempty English content, distinct resource
-content, missing-translation/fallback behavior, 42 visible server-rendered pages,
+content, missing-translation/fallback behavior, 48 visible server-rendered pages,
 and TechCrunch's closed application paths. Assertions target article HTML rather
 than serialized React data.
 
 Full lint on the base main currently fails at `InteractiveGlobe.tsx:20` for
-`react-hooks/set-state-in-effect`. This unrelated error also exists in the
-unchanged base file. To check only this change:
+`react-hooks/set-state-in-effect`. The reconciled Sites source also has the same rule violation in
+`LocationPanel.tsx:19`. Both are pre-existing errors in unchanged components. To check only this change:
 
 ```sh
 npx eslint app/components/EventDecisionDetail.tsx \

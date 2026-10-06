@@ -843,8 +843,13 @@ test("ended event briefs expose archive sources in both languages and leave defa
   }
   for (const path of ["/", "/en"]) {
     const home = await (await render(path)).text();
-    assert.doesNotMatch(home, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
-    assert.doesNotMatch(home, /href="(?:\/en)?\/waic-2026"/);
+    // The ecosystem map intentionally includes archives. Check the default
+    // discovery list, rather than treating map archive links as current offers.
+    const listStart = home.indexOf('id="resources"');
+    assert.ok(listStart >= 0);
+    const discovery = home.slice(listStart, home.indexOf('</section>', listStart));
+    assert.doesNotMatch(discovery, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
+    assert.doesNotMatch(discovery, /href="(?:\/en)?\/waic-2026"/);
   }
   const upcoming = await (await render('/en/resources/switch-singapore-2026')).text();
   assert.match(upcoming, /Current window needs rechecking/);
