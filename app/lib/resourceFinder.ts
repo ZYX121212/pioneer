@@ -9,7 +9,7 @@ export const resourceNeeds = [
   { id: "learn", zh: "学习与案例", en: "Learning & examples" },
 ] as const;
 export function resourceNeed(resource: Resource): string {
-  if (resource.type === "startup" || resource.slug === "launch-by-station-f" || /课程|course/i.test(resource.kind)) return "learn";
+  if (resource.type === "startup" || resource.slug === "launch-by-station-f" || /课程|公开知识|course|learning resource/i.test(resource.kind)) return "learn";
   if (resource.type === "event") return "events";
   if (resource.type === "program" || /投资|加速|investor|accelerator|venture capital/i.test(resource.kind)) return "funding";
   return "support";

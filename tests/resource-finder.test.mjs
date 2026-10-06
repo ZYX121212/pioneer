@@ -50,3 +50,21 @@ test('country filters use documented locations and preserve old exact-location l
   const sg = finder.findResources(resources, { ...filters, region:'singapore', need:'support' }, 'zh', now);
   assert.ok(sg.some(r => r.slug === 'block71'));
 });
+const { communityToResource } = await import(await moduleUrl('lib/communityResource'));
+test('published community learning entries remain discoverable under learning, not institutional support', () => {
+  const row = { id:991, slug:'community-founder-library', resource_type:'knowledge', name:'Founder library', location:'Singapore', stage:'idea', contributor_reason:'Customer research workbook', source_title:'Official founder library', deadline:null, verified_at:'2026-10-05T04:00:00Z', url:'https://example.org/library' };
+  for (const lang of ['zh','en']) {
+    const entry = communityToResource(row, lang);
+    assert.equal(finder.resourceNeed(entry), 'learn');
+    const matches = finder.findResources([entry], { ...filters, need:'learn', region:'singapore', query:'research', stage:'idea' }, lang, now);
+    assert.deepEqual(matches.map(r => r.slug), [row.slug]);
+    assert.equal(finder.findResources([entry], { ...filters, need:'support' }, lang, now).length, 0);
+    assert.equal(entry.detailPath, '/community/' + row.slug);
+    assert.equal(entry.verification, 'link-only');
+  }
+});
+test('community learning entries still obey historical deadlines rather than appearing as current learning offers', () => {
+  const entry = communityToResource({ id:992, slug:'ended-course', resource_type:'knowledge', name:'Ended course', location:'Singapore', stage:'any', contributor_reason:'An ended learning opportunity', source_title:'Official course', deadline:'2026-08-01', verified_at:'2026-10-05T04:00:00Z', url:'https://example.org/course' });
+  assert.equal(finder.findResources([entry], { ...filters, need:'learn' }, 'zh', now).length, 0);
+  assert.equal(finder.findResources([entry], { ...filters, need:'learn', freshness:'historical' }, 'zh', now).length, 1);
+});

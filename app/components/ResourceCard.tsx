@@ -34,7 +34,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
       {resource.stageType ? <div className={`resource-stage stage-${resource.stageType}`}>{stageLabels[resource.stageType]}<span>{lang === "en" ? "Company stage" : resource.fundingStage}</span></div> : null}
       <h3>{resource.name}</h3>
       <p className="resource-card-description">{copy.description}</p>
-      <div className="finder-fit"><strong>{lang === "en" ? "Best for" : "适合"}</strong><span>{copy.bestFor[0]}</span></div>
+      <div className="finder-fit"><strong>{lang === "en" ? "Best for" : "适合"}</strong><span>{copy.bestFor[0] || (lang === "en" ? "Audience not supplied; check eligibility" : "未提供适合人群，请核对资格")}</span></div>
       <div className="tag-list">
         {copy.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}
       </div>

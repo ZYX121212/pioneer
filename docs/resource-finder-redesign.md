@@ -21,3 +21,10 @@ The homepage is now a working resource finder in Chinese and English. It shows s
 - Chinese and English mobile views at 390px had no horizontal overflow; the first resource was visible in the first screen.
 
 No source dates or eligibility claims were refreshed as part of this layout change. Older review dates remain visible, and email delivery still requires mail configuration.
+
+## Community discovery follow-up
+
+- Submitted public knowledge is explicitly labeled as learning content and appears in the learning category on both homepages. Internal conversion uses the existing brief structure while retaining its community detail route and link-only verification label.
+- Cards with no documented audience display that the audience was not supplied; they do not leave an empty suitability label or invent eligibility.
+- Anonymous save failures offer email login directly and preserve the current path and filters through the account page's `return_to` parameter. Signing in does not silently save a resource; the visitor can return and select it.
+- Generated TypeScript build cache is excluded from source control.
