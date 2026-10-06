@@ -87,10 +87,10 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-copy">
           <div className="kicker"><span className="pulse" /> GLOBAL STARTUP RESOURCE DIRECTORY</div>
-          <h1><span>世界很大，</span><span><em>机会</em>不应难找。</span></h1>
+          <h1><span>全球创业</span><span><em>资源</em>与指南。</span></h1>
           <p className="hero-intro">
             搜索世界各地的创业活动、孵化器、加速计划、创新机构与创业项目。
-            无需注册，先看整理，再决定是否行动。
+            公开资料无需注册，收藏与工作台需要登录。
           </p>
 
           <form className="search-box" onSubmit={handleSearch} role="search">
@@ -133,7 +133,7 @@ export default function Home() {
         <div className="visitor-metric"><strong><PageViewCount /></strong><span>累计浏览次数</span></div>
         <div><strong>{resources.length}</strong><span>站内整理档案</span></div>
         <div><strong>4</strong><span>独立资源目录</span></div>
-        <p>首页负责发现，独立目录负责理解、比较与行动。</p>
+        <p>可按资源类型、地区、创业阶段和核验时效筛选。</p>
       </section>
 
       <WeeklySpotlight lang="zh" />
@@ -141,7 +141,7 @@ export default function Home() {
       <section className="section categories-section" id="categories">
         <div className="section-heading">
           <div><span className="section-index">01 / EXPLORE</span><h2>从你需要的资源开始</h2></div>
-          <p>不是堆积链接，而是把每一类创业资源整理成可以理解和比较的信息。</p>
+          <p>按计划、机构、活动和项目分类，附适合人群、日期与官方来源。</p>
         </div>
         <div className="category-grid">
           {(Object.keys(typeConfig) as ResourceType[]).map((type) => {
@@ -171,7 +171,7 @@ export default function Home() {
           data-audience-target={pioneerGuide.slug}
         >
           <span className="founder-guide-eyebrow">NEW · FOUNDER GUIDE</span>
-          <strong>你的想法是真问题，还是自我感动？</strong>
+          <strong>用户问题验证</strong>
           <p>Pioneer 首篇创业决策指南：不用先做产品，三天完成问题陈述、核心假设和第一轮验证。</p>
           <b>开始第一篇指南 <i aria-hidden="true">→</i></b>
         </a>
@@ -261,8 +261,8 @@ export default function Home() {
       <section className="cities-section" id="cities">
         <div className="cities-copy">
           <span className="section-index light">03 / STARTUP ECOSYSTEMS</span>
-          <h2>机构不是一个名字，而是一组真实入口。</h2>
-          <p>先理解机构提供什么、服务谁、如何进入，再查看它正在运营的具体计划。</p>
+          <h2>创业机构与申请方式</h2>
+          <p>查看机构提供的服务、申请条件、旗下项目和官方链接。</p>
           <a
             className="cities-link"
             href="/organizations"
@@ -289,7 +289,7 @@ export default function Home() {
 
       <section className="submit-section" id="submit">
         <span className="submit-kicker">KNOW A GREAT RESOURCE?</span>
-        <h2>让有价值的机会与知识，被更多创业者真正理解。</h2>
+        <h2>提交创业资源</h2>
         <p>可以推荐一个计划、机构、活动或公开知识来源。我们会核验后再发布。</p>
         <a href="/submit" data-audience-event="submit-resource:intent" data-audience-target="home-submit">推荐一个来源 ↗</a>
       </section>

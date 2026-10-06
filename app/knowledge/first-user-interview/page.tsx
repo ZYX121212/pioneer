@@ -220,7 +220,7 @@ export default function FirstUserInterviewGuide() {
 
         <aside className="guide-sidecard">
           <span>访谈完成标准</span>
-          <strong>你带回来的不是评价，而是：</strong>
+          <strong>访谈记录包括：</strong>
           <ul><li>一个近期具体事件</li><li>一条完整行为路径</li><li>一个现有替代</li><li>一种已经付出的成本</li><li>至少一条反向证据</li></ul>
           <Link href="#workbook">打开记录工具 →</Link>
         </aside>

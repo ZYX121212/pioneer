@@ -21,7 +21,7 @@ export async function DirectoryPage({ type }: { type: ResourceType }) {
         </div>
         <aside className="directory-guide">
           <span>HOW TO CHOOSE</span>
-          <strong>先判断是否适合，再决定是否行动。</strong>
+          <strong>申请与参加条件</strong>
           <p>{config.guide}</p>
           <div><b>{entries.length}</b><small>条站内整理</small></div>
         </aside>
@@ -31,9 +31,9 @@ export async function DirectoryPage({ type }: { type: ResourceType }) {
         <div className="section-heading">
           <div>
             <span className="section-index">CURATED DIRECTORY</span>
-            <h2>经过整理，不只是链接</h2>
+            <h2>资源列表</h2>
           </div>
-          <p>进入详情查看适合人群、注意事项、关键事实、Pioneer 判断与官方来源。</p>
+          <p>详情包括适合人群、申请方式、费用、限制和官方来源。</p>
         </div>
         {community.unavailable && <p role="status">{"社区新增资源暂时无法加载，已有整理档案仍可使用。"}</p>}
         <p><a href="/community">查看社区资源与核验依据</a></p>

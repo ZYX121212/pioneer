@@ -9,7 +9,7 @@ const copy = {
   zh: {
     eyebrow: "FAILURE CASE NOTES",
     title: "通过失败案例，提早识别创业风险。",
-    description: "不消费失败，也不只讲结局。我们追踪最早失效的假设、被忽略的信号，以及本可以更早做出的决定。",
+    description: "案例记录失效假设、早期信号、重要决定和结果，附第一方复盘来源。",
     items: ["失败时间线", "关键证据", "可执行预警"],
     placeholder: "你的邮箱",
     submit: "登记案例通知",

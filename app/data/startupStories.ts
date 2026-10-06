@@ -73,7 +73,7 @@ export const startupStories: Record<string, StartupStoryProfile> = {
     founded: "2017",
     origin: "从电池回收出发，逐步连接关键材料精炼、电池材料生产与储能系统，试图建立更完整的本土电池供应链。",
     founders: [{ name: "JB Straubel", role: "创始人、CEO", background: "长期从事电动车、电池系统与能源基础设施建设，将整车产业经验迁移到电池全生命周期。" }],
-    founderThesis: "电池产业真正的瓶颈不只在制造，还在关键材料的循环、供应安全和第二生命周期价值。",
+    founderThesis: "电池产业瓶颈不只在制造，还在关键材料的循环、供应安全和第二生命周期价值。",
     founderSource: { label: "Redwood 公司历史与领导团队", href: "https://www.redwoodmaterials.com/about/" },
     funding: [
       { date: "2021", round: "成长融资", amount: "$700M", detail: "扩大电池材料回收、精炼与制造能力。", source: { label: "Redwood 公司历史", href: "https://www.redwoodmaterials.com/about/" } },

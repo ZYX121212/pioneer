@@ -37,10 +37,10 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
 
   const html = await response.text();
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
-  assert.match(html, /世界很大/);
+  assert.match(html, /全球创业/);
   assert.match(html, /从你需要的资源开始/);
   assert.match(html, /href="\/knowledge"/);
-  assert.match(html, /你的想法是真问题，还是自我感动/);
+  assert.match(html, /用户问题验证/);
   assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
   assert.match(html, /查看全部资源目录/);
   assert.match(html, /最近一期 · 4 个创业机会核验/);
@@ -67,9 +67,9 @@ test("server-renders the English resource directory experience", async () => {
 
   assert.equal(response.status, 200);
   assert.match(html, /Global Startup Resources &amp; Founder Briefs/);
-  assert.match(html, /The world is large/);
+  assert.match(html, /Global startup/);
   assert.match(html, /hero hero-en/);
-  assert.match(html, /Opportunity<\/em> should be<\/span><span>easier to read/);
+  assert.match(html, /resources<\/em>/);
   assert.match(html, /Start With The Resource You Need/);
   assert.match(html, /Programs/);
   assert.match(html, /Institutions/);
@@ -86,7 +86,7 @@ test("server-renders English directories and resource briefs", async () => {
   const directory = await directoryResponse.text();
   assert.equal(directoryResponse.status, 200);
   assert.match(directory, /Startup Institutions/);
-  assert.match(directory, /More Than A Link List/);
+  assert.match(directory, /Resource list/);
   assert.match(directory, /Current window needs rechecking/);
   assert.match(directory, /href="\/en\/resources\/station-f"/);
 
@@ -449,19 +449,19 @@ test("renders a directory and an internal editorial detail before the official s
   const directoryResponse = await render("/programs");
   const directory = await directoryResponse.text();
   assert.equal(directoryResponse.status, 200);
-  assert.match(directory, /先判断是否适合，再决定是否行动/);
-  assert.match(directory, /经过整理，不只是链接/);
+  assert.match(directory, /申请与参加条件/);
+  assert.match(directory, /资源列表/);
 
   const detailResponse = await render("/resources/y-combinator");
   const detail = await detailResponse.text();
   assert.equal(detailResponse.status, 200);
-  assert.match(detail, /Pioneer 最终判断/);
-  assert.match(detail, /先判断它究竟是什么/);
-  assert.match(detail, /能力画像：强在哪里，弱在哪里/);
-  assert.match(detail, /你实际能够获得什么/);
-  assert.match(detail, /不是只有一个入口/);
-  assert.match(detail, /把隐性成本放到桌面上/);
-  assert.match(detail, /行动前必须问清的问题/);
+  assert.match(detail, /编辑备注/);
+  assert.match(detail, /基本信息/);
+  assert.match(detail, /支持内容与限制/);
+  assert.match(detail, /提供内容/);
+  assert.match(detail, /申请方式/);
+  assert.match(detail, /费用与投入/);
+  assert.match(detail, /申请前确认事项/);
   assert.match(detail, /href="https:\/\/www\.ycombinator\.com\/apply\/"/);
 });
 
@@ -633,8 +633,8 @@ test("renders the founder learning path and knowledge filters", async () => {
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /不是多读几篇/);
-  assert.match(html, /而是做对下一个决定/);
+  assert.match(html, /创业指南/);
+  assert.match(html, /与实践工作表/);
   assert.match(html, /首篇指南/);
   assert.match(html, /你的想法是真问题，还是一个你喜欢的解决方案/);
   assert.match(html, /你现在/);
@@ -722,8 +722,8 @@ test("renders the MVP decision guide and local evidence tool", async () => {
   assert.equal(response.status, 200);
   assert.match(html, /PIONEER GUIDE 03/);
   assert.match(html, /第一版的边界，应该由最大的不确定性决定/);
-  assert.match(html, /不要交付十个残缺功能/);
-  assert.match(html, /两周不是开发期限/);
+  assert.match(html, /明确第一版的交付结果/);
+  assert.match(html, /两周验证计划/);
   assert.match(html, /MVP 边界卡/);
   assert.match(html, /保存到证据档案/);
   assert.match(html, /调整假设/);
@@ -736,7 +736,7 @@ test("renders the first ten users guide and action pipeline", async () => {
 
   assert.equal(response.status, 200);
   assert.match(html, /PIONEER GUIDE 04/);
-  assert.match(html, /第一批用户不是整个市场/);
+  assert.match(html, /第一批用户的筛选条件/);
   assert.match(html, /先写出 30 个具体名字/);
   assert.match(html, /不要看有多少人看见/);
   assert.match(html, /首批用户行动卡/);
@@ -751,7 +751,7 @@ test("renders the cofounder validation guide and working agreement tool", async 
   assert.match(html, /PIONEER GUIDE 05/);
   assert.match(html, /你缺的是共同创业者/);
   assert.match(html, /用四周真实共事/);
-  assert.match(html, /股权不是奖励过去点子/);
+  assert.match(html, /股权、角色与长期投入/);
   assert.match(html, /联合创始人验证卡/);
   assert.match(html, /不构成公司、证券、税务/);
   assert.match(html, /How to Split Equity Among Co-Founders/);

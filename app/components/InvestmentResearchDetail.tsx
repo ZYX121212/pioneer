@@ -1,3 +1,4 @@
+import { ContentPoints } from "./ContentPoints";
 import type { Resource } from "../data/resources";
 import type { InvestmentProfile } from "../data/investmentProfiles";
 
@@ -59,13 +60,13 @@ export function InvestmentResearchDetail({ resource, investment }: { resource: R
       </section>
 
       <section className="organization-chapter" id="investment-decision">
-        <header className="organization-chapter-heading"><span>04</span><div><small>DECISION</small><h2>什么时候值得优先接触</h2><p>融资不是收集 Logo，而是选择未来多年一起做关键决定的人。</p></div></header>
+        <header className="organization-chapter-heading"><span>04</span><div><small>DECISION</small><h2>什么时候值得优先接触</h2><p>核对投资阶段、行业、条款和投后支持。</p></div></header>
         <div className="comparison-grid">
           <div className="comparison-choose"><span>优先选择，当</span><p>{investment.verdict.choose}</p></div>
           <div className="comparison-avoid"><span>暂不优先，当</span><p>{investment.verdict.avoid}</p></div>
           <div className="comparison-with"><span>还应该比较</span><p>{investment.verdict.compare}</p></div>
         </div>
-        <div className="organization-final-verdict"><span>PIONEER 判断</span><h3>{resource.name}</h3><p>{resource.editorialNote}</p></div>
+        <div className="organization-final-verdict"><span>编辑备注</span><h3>{resource.name}</h3><ContentPoints text={resource.editorialNote} /></div>
       </section>
     </article>
   );

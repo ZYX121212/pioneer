@@ -22,7 +22,7 @@ export async function EnglishDirectoryPage({ type }: { type: ResourceType }) {
         </div>
         <aside className="directory-guide">
           <span>HOW TO CHOOSE</span>
-          <strong>Decide whether it fits before you act.</strong>
+          <strong>Application and participation requirements</strong>
           <p>{config.guide}</p>
           <div><b>{entries.length}</b><small>curated entries</small></div>
         </aside>
@@ -32,9 +32,9 @@ export async function EnglishDirectoryPage({ type }: { type: ResourceType }) {
         <div className="section-heading">
           <div>
             <span className="section-index">CURATED DIRECTORY</span>
-            <h2>More Than A Link List</h2>
+            <h2>Resource list</h2>
           </div>
-          <p>Open each brief to see fit, trade-offs, key facts, Pioneer&apos;s editorial judgment and the official source.</p>
+          <p>Details include eligibility, application routes, costs, limitations and official sources.</p>
         </div>
         {community.unavailable && <p role="status">{"Community additions are temporarily unavailable; curated briefs remain accessible."}</p>}
         <p><Link href="/en/community">Explore community resources and source checks</Link></p>

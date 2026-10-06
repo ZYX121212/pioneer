@@ -17,11 +17,11 @@ export default function KnowledgePage() {
           <div>
             <Link className="knowledge-breadcrumb" href="/">PIONEER / 首页</Link>
             <span className="section-index light">FOUNDER LIBRARY</span>
-            <h1>不是多读几篇，<br />而是做对下一个决定。</h1>
+            <h1>创业指南<br />与实践工作表</h1>
           </div>
           <div className="knowledge-heading-copy">
             <span>创业决策指南 · PIONEER GUIDES</span>
-            <p>从创业者眼前的问题出发，Pioneer 负责讲清判断、设计行动；公开课程和专业资料放在最后，供你核验与深入。</p>
+            <p>涵盖问题验证、用户访谈、产品、销售、团队和融资。每篇附练习与原始来源。</p>
           </div>
         </div>
 
@@ -37,7 +37,7 @@ export default function KnowledgePage() {
             <Link href={`/knowledge/${pioneerGuide.slug}`}>阅读 Pioneer 指南 <b aria-hidden="true">→</b></Link>
           </div>
           <div className="guide-spotlight-outcome">
-            <span>看完你会带走</span>
+            <span>本篇练习</span>
             <ul>
               {pioneerGuide.outcome.map((item) => <li key={item}>{item}</li>)}
             </ul>
@@ -48,7 +48,7 @@ export default function KnowledgePage() {
 
         <section className="knowledge-system-overview">
           <div className="knowledge-system-heading">
-            <div><span>GUIDES · CASES · TOOLS · SOURCES</span><h2>不止告诉你该怎么想，<br />还陪你完成一次行动。</h2></div>
+            <div><span>GUIDES · CASES · TOOLS · SOURCES</span><h2>指南、案例、工具<br />与原始来源</h2></div>
             <p>每个主题都分成快速判断、深度指南、跨行业案例和实践工作表。你可以先读结论，也可以进入工具直接开始。</p>
           </div>
           <div className="knowledge-layer-grid">
@@ -56,7 +56,7 @@ export default function KnowledgePage() {
               <div className="knowledge-layer-main-summary">
                 <span>01 · 深度指南</span>
                 <strong>{pioneerGuides.length} 篇已上线</strong>
-                <p>从发现问题、完成访谈和首批销售，到留存、指标、招聘与融资执行，已经形成连续决策路径。</p>
+                <p>从发现问题、完成访谈和首批销售，到留存、指标、招聘与融资执行，提供分阶段练习。</p>
               </div>
               <div className="knowledge-layer-guide-grid">{pioneerGuides.map((guide) => <Link href={`/knowledge/${guide.slug}`} key={guide.slug}><b>{guide.number}</b><span>{guide.title}</span><i aria-hidden="true">→</i></Link>)}</div>
             </article>
@@ -78,7 +78,7 @@ export default function KnowledgePage() {
           <aside className="learning-path-intro">
             <span>DECISION PATH</span>
             <strong>你现在，<br />卡在哪里？</strong>
-            <p>不要求从头学完。找到最接近你当前处境的问题，只完成下一次判断。</p>
+            <p>按当前阶段选择问题验证、销售、团队或融资相关指南。</p>
             <a href="#source-library">查看原始资料库 <span aria-hidden="true">↓</span></a>
           </aside>
           <div className="learning-path" aria-label="创业入门学习路径">

@@ -76,10 +76,10 @@ export function EnglishHome() {
       <section className="hero hero-en" id="top">
         <div className="hero-copy">
           <div className="kicker"><span className="pulse" /> GLOBAL STARTUP RESOURCE DIRECTORY</div>
-          <h1 className="hero-title-en"><span>The world is large.</span><span><em>Opportunity</em> should be</span><span>easier to read.</span></h1>
+          <h1 className="hero-title-en"><span>Global startup</span><span><em>resources</em></span><span>and guides.</span></h1>
           <p className="hero-intro">
             Search startup events, incubators, accelerator programs, innovation institutions and new startup projects from around the world.
-            No account required. Read the brief, compare the fit, then decide what to do.
+            Public briefs need no account. Sign in to save resources and use your workspace.
           </p>
 
           <form className="search-box" onSubmit={handleSearch} role="search">
@@ -122,7 +122,7 @@ export function EnglishHome() {
         <div><strong>{resources.length}</strong><span>curated briefs</span></div>
         <div><strong>4</strong><span>resource directories</span></div>
         <div><strong>6</strong><span>editor&apos;s picks</span></div>
-        <p>The homepage helps you discover. The directories help you understand, compare and act.</p>
+        <p>Filter directories by resource type, location, founder stage and review freshness.</p>
       </section>
 
       <WeeklySpotlight lang="en" />
@@ -130,7 +130,7 @@ export function EnglishHome() {
       <section className="section categories-section" id="categories">
         <div className="section-heading">
           <div><span className="section-index">01 / EXPLORE</span><h2>Start With The Resource You Need</h2></div>
-          <p>Not a pile of links. Each resource type is organized so founders can understand and compare it.</p>
+          <p>Programs, institutions, events and projects, with eligibility, dates and official sources.</p>
         </div>
         <div className="category-grid">
           {(Object.keys(englishTypeConfig) as ResourceType[]).map((type) => {
@@ -197,8 +197,8 @@ export function EnglishHome() {
       <section className="cities-section" id="cities">
         <div className="cities-copy">
           <span className="section-index light">03 / STARTUP ECOSYSTEMS</span>
-          <h2>An institution is not just a name. It is a set of usable entry points.</h2>
-          <p>Understand what an institution provides, who it serves and how founders actually enter before you invest time in applying.</p>
+          <h2>Institutions and application routes</h2>
+          <p>Review services, eligibility, programs and official application links.</p>
           <a className="cities-link" href="/en/organizations">Explore institutions →</a>
         </div>
         <div className="city-list" aria-label="Startup ecosystems">
@@ -213,7 +213,7 @@ export function EnglishHome() {
 
       <section className="submit-section" id="submit">
         <span className="submit-kicker">KNOW A GREAT RESOURCE?</span>
-        <h2>Help valuable startup opportunities become easier to understand.</h2>
+        <h2>Submit a startup resource</h2>
           <p>Recommend a program, investor, institution, event or public resource. We review sources before publishing.</p>
         <a href="/en/submit" data-audience-event="submit-resource:intent" data-audience-target="home-submit-en">Recommend a source ↗</a>
       </section>

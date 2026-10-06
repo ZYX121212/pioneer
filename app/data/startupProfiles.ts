@@ -102,7 +102,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     product: [
       { layer: "GLM 模型族", detail: "覆盖语言、代码、推理、视觉与工具使用，并持续发布开源模型。", implication: "模型族让公司服务不同性能、成本与部署需求。" },
       { layer: "智能体产品", detail: "AutoGLM 等产品探索手机与复杂长线任务。", implication: "从模型调用向任务完成迁移，价值更接近业务结果。" },
-      { layer: "企业平台", detail: "提供模型 API、私有化与国产硬件适配能力。", implication: "企业购买的不只是模型，而是可治理的落地链路。" },
+      { layer: "企业平台", detail: "提供模型 API、私有化与国产硬件适配能力。", implication: "企业部署还涉及权限、系统集成和运行管理。" },
     ],
     business: { customer: "政企客户、开发者与 AI 应用公司", payer: "需要 API、私有部署、行业方案和技术服务的组织", model: "MaaS 用量、企业部署与解决方案收入", expansion: "从通用模型扩展到智能体、行业模型和国产算力生态" },
     signals: [
@@ -150,7 +150,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
       { title: "内容安全与版权", risk: "声音、角色、视频和音乐涉及身份、授权和版权。", watch: "内容来源、标记、授权与滥用防护。" },
       { title: "消费留存", risk: "生成式产品容易因新鲜感增长，也容易快速流失。", watch: "长期创作工作流、付费留存和复用率。" },
     ],
-    questions: ["多个产品之间共享的真正资产是什么？", "哪一个应用贡献最高质量模型反馈？", "消费者与 API 业务如何分配算力？", "跨国内容合规如何标准化？"],
+    questions: ["多个产品之间共享的资产是什么？", "哪一个应用贡献最高质量模型反馈？", "消费者与 API 业务如何分配算力？", "跨国内容合规如何标准化？"],
   },
   unitree: {
     snapshot: {
@@ -180,7 +180,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
       { title: "演示与任务价值差距", risk: "高难动作不等于能稳定完成付费工作。", watch: "连续运行时间、任务成功率和人工接管率。" },
       { title: "供应链与产能", risk: "规模增长会暴露部件一致性、库存和质量控制问题。", watch: "交付周期、产线扩张和核心部件良率。" },
     ],
-    questions: ["客户真正为运动能力、开发平台还是任务结果付费？", "哪类场景最先形成重复采购？", "人形产品与四足产品共享多少供应链？", "售后与安全成本是否计入单机经济模型？"],
+    questions: ["客户为运动能力、开发平台还是任务结果付费？", "哪类场景最先形成重复采购？", "人形产品与四足产品共享多少供应链？", "售后与安全成本是否计入单机经济模型？"],
   },
   galbot: {
     snapshot: {
@@ -226,7 +226,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     ],
     business: { customer: "个人专业用户、软件开发者和大型组织", payer: "订阅用户、API 客户和企业席位客户", model: "个人/团队订阅、API 用量和企业合同", expansion: "从对话和代码扩展到 Agent、跨职能工作流与行业解决方案" },
     signals: [
-      { label: "研究与产品同构", evidence: "官方将可靠、可解释和可控系统作为公司使命并通过 Claude 产品部署。", interpretation: "使命不是独立品牌口号，而是产品设计约束。" },
+      { label: "研究与产品同构", evidence: "官方将可靠、可解释和可控系统作为公司使命并通过 Claude 产品部署。", interpretation: "可靠性、可解释性和控制能力影响产品设计。" },
       { label: "模型分层", evidence: "API 提供 Haiku、Sonnet 与 Opus 等不同速度和能力层。", interpretation: "用产品线覆盖不同单位经济和任务复杂度。" },
       { label: "企业能力", evidence: "企业产品提供身份、权限、审计和数据保留控制。", interpretation: "大模型进入组织需要补齐模型之外的管理基础设施。" },
     ],
@@ -262,7 +262,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     ],
     lessons: [
       { title: "在通用模型上建立产品层", lesson: "检索、来源、路由和界面可以形成独立价值。", action: "找出基础模型无法替用户完成的最后一公里。" },
-      { title: "可信度需要界面表达", lesson: "引用不是后台能力，而是用户判断答案的核心交互。", action: "让关键输出能够追溯、比较和纠错。" },
+      { title: "可信度需要界面表达", lesson: "引用供用户核对答案来源。", action: "让关键输出能够追溯、比较和纠错。" },
       { title: "从高频入口向工作流扩展", lesson: "搜索是获客入口，深度研究和企业空间提高使用深度。", action: "围绕高频动作寻找前后相邻的付费步骤。" },
     ],
     risks: [
@@ -270,7 +270,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
       { title: "模型供应商依赖", risk: "多模型路由降低单一依赖，但上游价格与条款仍影响毛利。", watch: "自研模型比例、缓存和检索效率。" },
       { title: "巨头入口竞争", risk: "浏览器、搜索引擎和模型公司都可整合相似能力。", watch: "直接访问、留存、品牌和独特数据资产。" },
     ],
-    questions: ["真正的壁垒是检索、引用、品牌还是用户历史？", "免费搜索如何引导用户为研究深度付费？", "浏览器是否增强还是稀释核心产品？", "内容生态如何分享价值？"],
+    questions: ["壁垒是检索、引用、品牌还是用户历史？", "免费搜索如何引导用户为研究深度付费？", "浏览器是否增强还是稀释核心产品？", "内容生态如何分享价值？"],
   },
   cursor: {
     snapshot: {
@@ -397,7 +397,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     product: [{ layer: "机器人本体", detail: "以自研机器人承载操作、移动与交互任务。", implication: "可控制真实数据与硬件迭代节奏。" }, { layer: "数据与模型", detail: "围绕真实任务采集数据并训练具身智能模型。", implication: "数据闭环可能比单次模型指标更关键。" }, { layer: "开发平台", detail: "向开发者提供可复用的软件和训练能力。", implication: "从项目交付走向生态需要平台采用。" }],
     business: { customer: "机器人开发团队、研究机构与行业客户", payer: "采购机器人、平台或解决方案的组织", model: "硬件、平台授权与联合项目收入", expansion: "从示范任务扩展到更多本体、开发者和行业场景" },
     signals: [{ label: "资本验证", evidence: "官方披露近 3 亿元 A 轮融资。", interpretation: "团队获得继续推进全栈研发的资金。" }, { label: "全栈布局", evidence: "官网同时展示本体、模型与平台。", interpretation: "目标不是单一机器人产品。" }, { label: "平台意图", evidence: "产品页强调面向开发的基础能力。", interpretation: "长期价值取决于第三方采用。" }],
-    lessons: [{ title: "产品不是一个功能，而是一套系统", lesson: "具身智能需要数据、模型、硬件和工具共同工作。", action: "为每一层定义验证指标与依赖关系。" }, { title: "先建立数据闭环", lesson: "真实任务数据决定模型是否能持续改进。", action: "优先选择可重复采集、可衡量成功率的场景。" }, { title: "平台要靠外部使用证明", lesson: "内部工具不等于开发者平台。", action: "跟踪第三方开发时间、留存和部署数量。" }],
+    lessons: [{ title: "数据、模型、硬件与工具", lesson: "具身智能需要数据、模型、硬件和工具共同工作。", action: "为每一层定义验证指标与依赖关系。" }, { title: "先建立数据闭环", lesson: "真实任务数据决定模型是否能持续改进。", action: "优先选择可重复采集、可衡量成功率的场景。" }, { title: "平台要靠外部使用证明", lesson: "内部工具不等于开发者平台。", action: "跟踪第三方开发时间、留存和部署数量。" }],
     risks: [{ title: "全栈复杂度", risk: "多条研发线可能分散资源。", watch: "核心场景进展与各层复用率。" }, { title: "可靠性", risk: "实验室表现无法代表现场长期运行。", watch: "任务成功率、故障间隔和人工接管。" }, { title: "商业节奏", risk: "技术成熟可能慢于融资周期。", watch: "付费部署与现金消耗。" }],
     questions: ["最先规模化的任务是什么？", "数据如何跨本体和场景复用？", "平台外部开发者的活跃度如何？", "硬件销售与平台收入如何平衡？"],
   },
@@ -622,9 +622,9 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     product: [{ layer: "康复产品", detail: "覆盖上下肢训练、评估和康复流程。", implication: "清晰场景提供早期收入与长期运行数据。" }, { layer: "人形平台", detail: "GR 系列整合关节、感知和运动控制。", implication: "将医疗硬件积累转化为通用开发平台。" }, { layer: "开发生态", detail: "向研究与开发团队提供接口和算法定制。", implication: "外部开发可扩大公司无法独立覆盖的任务。" }],
     business: { customer: "医院、康复机构、科研院校与机器人开发团队", payer: "机构采购方、研究项目和生态伙伴", model: "硬件、软件、服务和开发平台", expansion: "从康复设备扩展到人形平台与具身应用" },
     signals: [{ label: "垂直基础", evidence: "官方长期展示康复产品和全球市场。", interpretation: "公司拥有真实硬件交付与医疗渠道经验。" }, { label: "平台扩张", evidence: "GR-3 资料强调具身平台与算法定制。", interpretation: "公司正把整机变成外部开发载体。" }, { label: "能力复用", evidence: "康复与人形共同依赖关节和控制。", interpretation: "共享部件决定双线战略是否成立。" }],
-    lessons: [{ title: "用垂直市场养通用能力", lesson: "明确付费场景可为长期平台愿景提供工程反馈。", action: "找出终极产品之前可独立收费的能力。" }, { title: "共享资产要可量化", lesson: "两条产品线必须共享部件、制造或数据。", action: "计算每一模块的复用比例。" }, { title: "平台需要外部成功", lesson: "开发平台价值来自第三方真正完成任务。", action: "选择三个伙伴共同交付标杆应用。" }],
+    lessons: [{ title: "用垂直市场养通用能力", lesson: "明确付费场景可为长期平台愿景提供工程反馈。", action: "找出终极产品之前可独立收费的能力。" }, { title: "共享资产要可量化", lesson: "两条产品线必须共享部件、制造或数据。", action: "计算每一模块的复用比例。" }, { title: "平台需要外部成功", lesson: "开发平台价值来自第三方完成任务。", action: "选择三个伙伴共同交付标杆应用。" }],
     risks: [{ title: "战略分散", risk: "医疗与人形市场差异大。", watch: "研发与收入在两线的分配。" }, { title: "临床采购", risk: "医院预算和验证周期较长。", watch: "设备利用率和复购。" }, { title: "通用任务不足", risk: "人形平台可能停留在研发用途。", watch: "付费部署和任务成功率。" }],
-    questions: ["康复业务是否支撑人形研发？", "哪些部件真正共享？", "开发者平台活跃度如何？", "第一个规模化人形任务是什么？"],
+    questions: ["康复业务是否支撑人形研发？", "哪些部件共享？", "开发者平台活跃度如何？", "第一个规模化人形任务是什么？"],
   },
   "dp-technology": {
     snapshot: { problem: "科学研发的文献、计算、实验和数据分散，试错周期长且专家工具门槛高。", user: "高校科学家、药企、材料企业、实验室和研发组织。", wedge: "以物理建模和科学计算工具切入，再连接文献、智能体、算力和自动化实验。", now: "基础模型、科学模型、云计算和自动化设备开始形成可闭环的科研系统。" },
@@ -705,7 +705,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     signals: [{ label: "技术扩张", evidence: "官方发展史从晶型预测延伸到药物发现与材料。", interpretation: "共同计算和实验底座支持多个高价值场景。" }, { label: "实验闭环", evidence: "官方披露建设规模化机器人实验室。", interpretation: "数据反馈速度可能形成长期优势。" }, { label: "公开市场", evidence: "公司已完成上市。", interpretation: "进入更重视收入、交付和资本效率的阶段。" }],
     lessons: [{ title: "先选窄而昂贵的问题", lesson: "晶型预测结果明确且客户愿意付费。", action: "寻找研发链中失败代价最高的单一步骤。" }, { title: "模型需要实验反馈", lesson: "封闭数据来自持续的真实验证。", action: "把验证采集设计进交付流程。" }, { title: "服务要沉淀产品", lesson: "项目经验只有转成标准工具才产生复利。", action: "记录每次定制中可复用的模块。" }],
     risks: [{ title: "周期过长", risk: "研发结果可能多年后才验证。", watch: "中期里程碑和客户续约。" }, { title: "重资产", risk: "实验设施需要持续投入。", watch: "设备利用率和单位实验成本。" }, { title: "项目制", risk: "客户差异可能增加人力交付。", watch: "标准产品收入占比。" }],
-    questions: ["机器人实验数据是否形成独特模型优势？", "哪些业务贡献最高毛利？", "药物和材料平台真正共享什么？", "项目收入如何转化为订阅收入？"],
+    questions: ["机器人实验数据是否形成独特模型优势？", "哪些业务贡献最高毛利？", "药物和材料平台共享什么？", "项目收入如何转化为订阅收入？"],
   },
   "insilico-medicine": {
     snapshot: { problem: "新药发现周期长、失败率高，靶点、分子和临床策略之间信息割裂。", user: "药企、生物科技公司、研发团队和患者。", wedge: "以生成式 AI 连接靶点发现和分子设计，再用自研管线证明平台价值。", now: "首批 AI 设计药物进入临床，使行业从速度演示进入疗效验证。" },
@@ -714,7 +714,7 @@ export const startupProfiles: Record<string, StartupResearchProfile> = {
     signals: [{ label: "临床进展", evidence: "官方资料列出 7 个临床阶段项目。", interpretation: "AI 设计已越过纯计算验证。" }, { label: "产业合作", evidence: "官方称与多家全球领先药企合作。", interpretation: "外部客户为平台提供商业验证。" }, { label: "公开市场", evidence: "公司以 HKEX:3696 上市。", interpretation: "管线价值和经营透明度更受市场检验。" }],
     lessons: [{ title: "平台需要旗舰资产", lesson: "临床候选能具体证明技术的业务价值。", action: "选择一个可完整展示平台优势的标杆项目。" }, { title: "双引擎平衡风险", lesson: "合作产生现金流，自研保留更大上行。", action: "明确两类项目的资本和人才分配。" }, { title: "速度不是最终结果", lesson: "更快设计仍需安全和疗效。", action: "把成功指标延伸到下一阶段转化率。" }],
     risks: [{ title: "临床失败", risk: "AI 无法消除生物学和人体风险。", watch: "各阶段通过率。" }, { title: "资本消耗", risk: "自研临床管线成本高。", watch: "现金、合作收入和研发支出。" }, { title: "平台归因", risk: "难区分 AI 与传统药化贡献。", watch: "对照项目和可复现结果。" }],
-    questions: ["平台如何提高临床成功率而不仅是速度？", "合作与自研收入结构如何？", "哪些数据真正专有？", "上市后如何选择管线优先级？"],
+    questions: ["平台如何提高临床成功率而不仅是速度？", "合作与自研收入结构如何？", "哪些数据专有？", "上市后如何选择管线优先级？"],
   },
   "moore-threads": {
     snapshot: { problem: "AI、图形和科学计算需要高性能 GPU 与成熟软件生态，本地算力供给和兼容性仍有限。", user: "数据中心、AI 企业、开发者、科研和图形用户。", wedge: "以全功能 GPU 和统一 MUSA 架构同时覆盖 AI、图形和计算。", now: "大模型算力需求增长，本地芯片与集群的可靠供给成为战略需求。" },

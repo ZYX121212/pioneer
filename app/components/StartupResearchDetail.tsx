@@ -1,3 +1,4 @@
+import { ContentPoints } from "./ContentPoints";
 import type { Resource } from "../data/resources";
 import type { StartupResearchProfile } from "../data/startupProfiles";
 import { getStartupStory } from "../data/startupStories";
@@ -23,7 +24,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       proof: strongestSignal.evidence,
     },
     {
-      question: "为什么不是一个单点功能",
+      question: "产品组成",
       alternative: `只解决 ${startup.product[0].layer} 的局部问题`,
       choice: productLayers,
       proof: startup.product[1]?.implication ?? startup.product[0].implication,
@@ -54,7 +55,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
       <section className="organization-thesis startup-thesis" id="startup-overview">
         <span className="section-index">01 / ONE-MINUTE BRIEF</span>
         <h2>项目简介</h2>
-        <p>{resource.overview}</p>
+        <ContentPoints text={resource.overview} />
         <div className="organization-verdict-strip startup-summary-strip">
           <div><span>产品是什么</span><strong>{startup.showcase?.what ?? startup.product.map((item) => item.layer).join(" + ")}</strong></div>
           <div><span>谁会使用</span><strong>{startup.snapshot.user}</strong></div>
@@ -68,7 +69,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
           <i aria-hidden="true">→</i>
           <div><span>业务结果</span><h3>为什么有人愿意付钱</h3><p>{startup.business.model}</p></div>
         </div>
-        <div className="editorial-callout startup-editorial-callout"><span>PIONEER 核心判断 · 编辑分析</span><p>{resource.editorialNote}</p></div>
+        <div className="editorial-callout startup-editorial-callout"><span>编辑分析</span><ContentPoints text={resource.editorialNote} /></div>
       </section>
 
       <section className="organization-chapter" id="startup-timeline">
@@ -120,7 +121,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
         {startup.showcase?.secondaryImage ? (
           <figure className="startup-product-interface">
             <img src={startup.showcase.secondaryImage} alt={startup.showcase.secondaryAlt ?? `${resource.name} 产品界面`} width="1941" height="1140" loading="lazy" />
-            <figcaption><span>PRODUCT INTERFACE</span><strong>不只展示机器人本体，也展示生产效率、质量、成本与设备健康如何被管理。</strong><a href={startup.showcase.sourceUrl} target="_blank" rel="noreferrer">查看官方产品手册 ↗</a></figcaption>
+            <figcaption><span>PRODUCT INTERFACE</span><strong>产品界面包括生产效率、质量、成本与设备健康管理。</strong><a href={startup.showcase.sourceUrl} target="_blank" rel="noreferrer">查看官方产品手册 ↗</a></figcaption>
           </figure>
         ) : null}
         <div className="startup-system-flow">
@@ -144,7 +145,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
         </div>
         <div className="startup-business-test">
           <span>商业模式判断</span>
-          <p>真正需要继续验证的不是“市场是否足够大”，而是一次成功交付能否被标准化、复购，并以更低成本复制到下一位客户。</p>
+          <p>需要验证交付标准、复购情况，以及服务下一位客户的成本。</p>
           <div><strong>当前状态</strong><b>{resource.status}</b></div><div><strong>阶段口径</strong><b>{currentStage}</b></div><div><strong>近期节奏</strong><b>{resource.timing}</b></div>
         </div>
       </section>
@@ -161,7 +162,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
           <div><span>编辑判断</span><p>阶段归类、产品含义、竞争位置和风险优先级由 Pioneer 整理。</p></div>
           <div><span>仍然未知</span><p>未公开收入、毛利、复购和交付数据时，会把它们保留为尽调问题。</p></div>
         </div>
-        <div className="organization-subheading startup-coverage-heading"><span>READ</span><h3>相关报道与原始信息</h3><p>不是堆积新闻，而是告诉你每一条资料能帮助判断什么。</p></div>
+        <div className="organization-subheading startup-coverage-heading"><span>READ</span><h3>相关报道与原始信息</h3><p>每条资料列出来源、主要信息和适用范围。</p></div>
         <div className="startup-coverage-grid">
           {(story?.coverage ?? sourceLinks.map((source) => ({ type: /融资|轮/.test(source.label) ? "融资披露" as const : "官方公告" as const, date: resource.verified.replace(" 核验", ""), title: source.label, summary: "查看项目的原始公开资料，核对产品、融资、经营或公司阶段的具体表述。", href: source.href }))).map((item, index) => (
             <a href={item.href} target="_blank" rel="noreferrer" key={`${item.href}-${index}`}>
@@ -181,7 +182,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
           <div className="startup-position-head"><span>判断问题</span><span>客户原来的选择</span><span>这个项目的选择</span><span>仍需证明</span></div>
           {positionRows.map((row) => <div key={row.question}><strong>{row.question}</strong><p>{row.alternative}</p><p>{row.choice}</p><p>{row.proof}</p></div>)}
         </div>
-        <div className="editorial-callout startup-position-callout"><span>竞争位置判断</span><p>{resource.whyItMatters}</p></div>
+        <div className="editorial-callout startup-position-callout"><span>竞争位置判断</span><ContentPoints text={resource.whyItMatters} /></div>
       </section>
 
       <section className="organization-chapter" id="startup-risks">
@@ -214,7 +215,7 @@ export function StartupResearchDetail({ resource, startup }: { resource: Resourc
         </div>
         <div className="organization-subheading"><span>Q</span><h3>仍需进一步确认的问题</h3><p>这些尚未公开或尚未充分验证的信息，会影响对项目长期质量的判断。</p></div>
         <div className="diligence-list">{startup.questions.map((question, index) => <div key={question}><span>Q{index + 1}</span><p>{question}</p></div>)}</div>
-        <div className="organization-final-verdict startup-final-verdict"><span>PIONEER 最终判断 · {resource.verified}</span><h2>{resource.name}</h2><p>{resource.whyItMatters}</p><div><span>行动建议</span><p>先核验右侧官方来源，再用本页的用户、商业模式、证据和风险问题建立自己的判断，不把融资规模或媒体热度当作结论。</p></div></div>
+        <div className="organization-final-verdict startup-final-verdict"><span>编辑备注 · {resource.verified}</span><h2>{resource.name}</h2><ContentPoints text={resource.whyItMatters} /><div><span>行动建议</span><p>先核验右侧官方来源，再用本页的用户、商业模式、证据和风险问题建立自己的判断，不把融资规模或媒体热度当作结论。</p></div></div>
       </section>
     </article>
   );

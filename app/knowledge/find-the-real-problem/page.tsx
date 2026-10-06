@@ -169,9 +169,9 @@ export default function FindTheRealProblemGuide() {
             </div>
             <h3>真问题通常同时具备六个要素</h3>
             <div className="problem-anatomy">
-              <div><b>01</b><strong>具体的人</strong><p>不是“所有年轻人”，而是可以找到、可以交流的一类人。</p></div>
+              <div><b>01</b><strong>具体的人</strong><p>能够找到并交流的具体人群。</p></div>
               <div><b>02</b><strong>具体场景</strong><p>问题在什么时间、地点和任务中出现。</p></div>
-              <div><b>03</b><strong>重复发生</strong><p>不是一次偶发抱怨，而是持续出现的阻力。</p></div>
+              <div><b>03</b><strong>重复发生</strong><p>记录问题反复出现的频率与影响。</p></div>
               <div><b>04</b><strong>真实成本</strong><p>消耗时间、金钱、机会、信任或情绪。</p></div>
               <div><b>05</b><strong>现有替代</strong><p>即使很笨拙，用户也正在用某种方式处理。</p></div>
               <div><b>06</b><strong>改变动力</strong><p>用户愿意为更好的结果付出行动或资源。</p></div>
@@ -211,7 +211,7 @@ export default function FindTheRealProblemGuide() {
           </section>
 
           <section className="guide-section" id="interview">
-            <div className="guide-section-heading"><span>04</span><div><small>EVIDENCE, NOT COMPLIMENTS</small><h2>访谈的目标不是获得认可，而是重建一次真实经历。</h2></div></div>
+            <div className="guide-section-heading"><span>04</span><div><small>EVIDENCE, NOT COMPLIMENTS</small><h2>访谈近期发生的具体经历</h2></div></div>
             <p className="guide-lead">不要展示方案后问“你会不会用”。请对方回到最近一次经历，描述当时发生了什么、怎么处理、付出了什么。</p>
             <div className="question-list">
               {interviewQuestions.map((question, index) => <div key={question}><span>{String(index + 1).padStart(2, "0")}</span><p>{question}</p></div>)}
@@ -286,7 +286,7 @@ export default function FindTheRealProblemGuide() {
           </section>
 
           <section className="guide-section" id="decision">
-            <div className="guide-section-heading"><span>09</span><div><small>DECISION GATE</small><h2>验证不是为了证明你是对的，而是为了决定下一步。</h2></div></div>
+            <div className="guide-section-heading"><span>09</span><div><small>DECISION GATE</small><h2>根据证据选择下一步</h2></div></div>
             <div className="decision-note">
               <span>PIONEER 启发式门槛</span>
               <p>对于第一次、小规模的问题访谈，可以暂时采用：5 位陌生受访者中，至少 3 位能描述近期的具体经历，至少 2 位已经使用替代方案或付出明显成本，至少 1 位愿意做出下一步承诺。</p>
@@ -324,7 +324,7 @@ export default function FindTheRealProblemGuide() {
               <div><span>作者</span><strong>Pioneer 编辑部</strong></div>
               <div><span>最近核验</span><strong>{pioneerGuide.updated}</strong></div>
               <div><span>适用范围</span><strong>早期问题发现 · 通用原则</strong></div>
-              <div><span>内容边界</span><strong>不是市场成功保证</strong></div>
+              <div><span>内容边界</span><strong>本篇练习与记录</strong></div>
             </div>
           </section>
         </article>

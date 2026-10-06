@@ -211,7 +211,7 @@ export default function AnalyticsPage() {
         <div>
           <span className="section-index">COMMUNITY LOOP</span>
           <h2>资源方带来的访问</h2>
-          <p>统计提交完成后生成的专属分享链接，帮助判断哪些机构或社区真正带来了新访客。</p>
+          <p>统计提交完成后生成的专属分享链接，帮助判断哪些机构或社区带来了新访客。</p>
         </div>
         <div>
           {stats.topReferrals.length ? stats.topReferrals.map((item) => (

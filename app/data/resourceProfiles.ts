@@ -75,7 +75,7 @@ function founderEventProfile(input: FounderEventProfileInput): ResourceResearchP
     offers: [
       { title: "高密度行业现场", includes: `在有限时间内接触 ${input.audience}，并观察他们正在讨论和采购什么。`, founderValue: "用真实对话校准市场判断，减少只依赖线上信息形成的偏差。" },
       { title: "结构化会面入口", includes: `通过官方活动工具、展区、圆桌或周边活动接触 ${input.meetingTarget}。`, founderValue: "把陌生市场中的关系建立压缩到一次经过规划的行程中。" },
-      { title: "产品与叙事压力测试", includes: "在短时间内重复演示产品、回答质疑并记录反复出现的问题。", founderValue: "识别客户真正关心的指标、采购障碍和团队叙事中的空白。" },
+      { title: "产品与叙事压力测试", includes: "在短时间内重复演示产品、回答质疑并记录反复出现的问题。", founderValue: "识别客户关心的指标、采购障碍和团队叙事中的空白。" },
     ],
     entryPaths: [
       { title: "普通参会者", forWhom: "需要学习市场并完成少量高质量会面的创始人。", prepare: `${input.preparation}；至少提前两周完成目标名单和邀约。` },
@@ -92,7 +92,7 @@ function founderEventProfile(input: FounderEventProfileInput): ResourceResearchP
       { label: "差旅与门票", level: "高", detail: input.tripCost },
       { label: "准备时间", level: "高", detail: "有效参会需要研究名单、预约会面、训练演示并准备跟进材料，不能只计算现场几天。" },
       { label: "机会成本", level: "中", detail: "创始团队离开产品和客户现场可能打断经营节奏，应设置明确回报门槛。" },
-      { label: "信息噪声", level: "高", detail: "大型活动的热度、舞台观点和随机社交很容易替代真正的客户证据。" },
+      { label: "信息噪声", level: "高", detail: "大型活动的热度、舞台观点和随机社交很容易替代客户证据。" },
     ],
     diligence: [
       `你能否列出在 ${input.event} 必须见到的 10 个具体组织或角色？`,
@@ -197,7 +197,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     offers: [
       { title: "专属合伙人支持", includes: "公司会与 YC 合伙人持续交流，并围绕产品、用户、团队和融资获得直接反馈。", founderValue: "减少在关键决策上的信息差，但前提是创始人愿意暴露真实问题并快速执行。" },
       { title: "小组与批次环境", includes: "以小组方式与同批公司共同推进，并参与线下启动、定期聚会和创始人交流。", founderValue: "形成高强度节奏和可信同伴网络，适合需要外部压力保持聚焦的团队。" },
-      { title: "长期校友与融资网络", includes: "批次结束后仍可使用校友网络，并在融资阶段获得投资人介绍与生态支持。", founderValue: "价值不是一次 Demo Day，而是公司全生命周期的关系基础设施。" },
+      { title: "长期校友与融资网络", includes: "批次结束后仍可使用校友网络，并在融资阶段获得投资人介绍与生态支持。", founderValue: "批次结束后可继续使用校友网络，并获取融资介绍。" },
     ],
     entryPaths: [
       { title: "当期批次申请", forWhom: "已经准备在未来一个批次全职投入、并能展示真实进展的团队。", prepare: "一段清楚的产品说明、创始人分工、用户证据、增长或学习速度，以及为什么是你们。" },
@@ -225,7 +225,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     ],
     comparison: {
       chooseWhen: "你需要的是高强度产品节奏、全球科技创业网络和融资放大器。",
-      avoidWhen: "你仍在判断是否创业，或真正瓶颈是强监管、本地渠道和长期行业认证。",
+      avoidWhen: "你仍在判断是否创业，或瓶颈是强监管、本地渠道和长期行业认证。",
       compareWith: "与 Techstars 比较具体行业资源；与 Antler、EF 比较是否仍需寻找联合创始人；与 SkyDeck 比较大学技术转化价值。",
     },
   },
@@ -234,7 +234,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     identity: {
       model: "由不同城市、行业主题与合作伙伴共同构成的全球加速器组合，而不是一个完全同质化的单一项目。",
       primaryValue: "利用三个月项目把团队连接到特定城市、行业导师、企业伙伴和资本网络。",
-      valueCondition: "选对具体项目比选中 Techstars 品牌更重要；团队的目标客户必须与项目主题和合作网络真正重合。",
+      valueCondition: "选对具体项目比选中 Techstars 品牌更重要；团队的目标客户必须与项目主题和合作网络重合。",
     },
     capabilities: [
       { label: "导师网络", strength: "核心", detail: "以密集导师反馈著称，适合需要多角度校准市场、产品和融资叙事的团队。" },
@@ -255,7 +255,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     stageFit: [
       { stage: "只有想法", fit: "暂不优先", reason: "大多数项目更适合已有方向、能够使用导师和客户资源的团队。" },
       { stage: "已有 MVP", fit: "优先考虑", reason: "可以在三个月内把导师反馈快速转化为客户实验和产品迭代。" },
-      { stage: "已有早期收入", fit: "优先考虑", reason: "更容易判断哪些企业与资本连接能够真正放大业务。" },
+      { stage: "已有早期收入", fit: "优先考虑", reason: "更容易判断哪些企业与资本连接能够放大业务。" },
       { stage: "成熟增长期", fit: "可以考虑", reason: "仅当某一垂直项目能提供明确市场或企业客户入口时值得。" },
     ],
     costs: [
@@ -282,7 +282,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     identity: {
       model: "从创始人个人和公司形成阶段介入的全球 Residency 与早期投资体系。",
       primaryValue: "在想法、团队和公司尚未完全形成时，提供全职环境、潜在联合创始人、当地投资团队与后续资本网络。",
-      valueCondition: "参与者需要真正全职投入，并选择与未来公司市场和个人生活可持续性匹配的城市。",
+      valueCondition: "参与者需要全职投入，并选择与未来公司市场和个人生活可持续性匹配的城市。",
     },
     capabilities: [
       { label: "创始人筛选与同伴", strength: "核心", detail: "以个人潜力为重要起点，适合需要在高质量同伴中寻找合作关系的人。" },
@@ -466,7 +466,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     comparison: {
       chooseWhen: "你需要低成本、在线、结构化的创业基础和第一版材料。",
       avoidWhen: "你已经有产品和真实客户，当前瓶颈是销售、招聘或融资。",
-      compareWith: "与 Startup School 等免费课程比较内容风格；与真正加速器比较是否需要导师、资本和客户连接。",
+      compareWith: "与 Startup School 等免费课程比较内容风格；与加速器比较是否需要导师、资本和客户连接。",
     },
   },
 
@@ -545,7 +545,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     costs: [
       { label: "市场复杂度", level: "高", detail: "亚洲不是单一市场，语言、监管、采购和渠道必须逐国验证。" },
       { label: "节点选择", level: "高", detail: "错误节点会带来大量社交但很少业务结果。" },
-      { label: "本地投入", level: "中", detail: "真正落地通常需要创始人长期在场、建立团队或伙伴，而非短期访问。" },
+      { label: "本地投入", level: "中", detail: "落地通常需要创始人长期在场、建立团队或伙伴，而非短期访问。" },
       { label: "项目差异", level: "中", detail: "不同项目的费用、权益、时间和资本支持需以当期说明为准。" },
     ],
     diligence: ["哪个城市节点离目标客户和决策者最近？", "该项目是否有与你同类公司的真实案例？", "进入后谁会负责客户、监管和本地招聘连接？", "你的公司是否已准备为一个国家做产品和销售本地化？"],
@@ -592,7 +592,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       { label: "高增长路径", level: "中", detail: "EF 面向高增长科技公司，不适合更稳健的现金流业务目标。" },
       { label: "条款核验", level: "中", detail: "补助、投资、后续资本与公司设立安排应逐批确认。" },
     ],
-    diligence: ["你真正缺的是联合创始人，还是缺少清晰问题？", "为什么必须建立美国高增长公司？", "什么行为会让你终止一次搭档测试？", "如果没有 EF 的投资，你们是否仍会继续？"],
+    diligence: ["你缺的是联合创始人，还是缺少清晰问题？", "为什么必须建立美国高增长公司？", "什么行为会让你终止一次搭档测试？", "如果没有 EF 的投资，你们是否仍会继续？"],
     playbook: [
       { phase: "申请前", title: "整理异常成果", action: "用事实证明你在技术、研究、产品或组织方面持续超出同龄人。", output: "个人轨迹叙事" },
       { phase: "进入前", title: "定义公司类型", action: "明确愿意投入十年的问题、市场和风险类型。", output: "创业边界清单" },
@@ -710,7 +710,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     entryPaths: [
       { title: "创业项目申请", forWhom: "希望展示、获得投资人和媒体入口的早期公司。", prepare: "准备公司阶段、产品演示、牵引力和国际化故事。" },
       { title: "普通门票", forWhom: "已经安排明确会议、无需展位权益的创始人。", prepare: "先从参会名单和赛道中筛选目标，再决定购票。" },
-      { title: "媒体/演讲/伙伴", forWhom: "拥有行业观点、品牌预算或传播目标的团队。", prepare: "分别核对申请和商业合作流程，不要混用一个入口。" },
+      { title: "媒体/演讲/伙伴", forWhom: "拥有行业观点、品牌预算或传播目标的团队。", prepare: "媒体、演讲和商业合作分别使用对应的申请表。" },
     ],
     stageFit: [
       { stage: "只有想法", fit: "暂不优先", reason: "大会规模不会替代问题验证，且难以提出有价值的合作请求。" },
@@ -748,7 +748,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     ],
     offers: [
       { title: "Startup Ticket", includes: "两日大会、Meeting Tool、会议区、导师与投资人 Office Hours，以及创始人活动。", founderValue: "把门票转化为结构化融资会议的工具。" },
-      { title: "Slush Platform", includes: "参会者浏览、约见、日历同步、团队协作和场地信息。", founderValue: "真正的准备工作在开门前数周开始。" },
+      { title: "Slush Platform", includes: "参会者浏览、约见、日历同步、团队协作和场地信息。", founderValue: "准备工作在开门前数周开始。" },
       { title: "Slush Week", includes: "Investor Day、Side Events、Slush 100 与大量社区活动。", founderValue: "可以把两日大会扩展为完整欧洲融资行程。" },
     ],
     entryPaths: [
@@ -914,7 +914,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       { label: "决策责任", level: "高", detail: "错误组织建议的后果远高于错误文档搜索，必须可追溯和人工复核。" },
       { label: "价值证明", level: "中", detail: "需要证明节省的分析时间或改善的业务指标，而不只是生成更完整报告。" },
     ],
-    diligence: ["每个结论能否追溯到原始证据和时间？", "组织变化后知识图谱如何自动更新？", "员工聊天和邮件的隐私边界是什么？", "如何区分相关性、流程症状和真正原因？"],
+    diligence: ["每个结论能否追溯到原始证据和时间？", "组织变化后知识图谱如何自动更新？", "员工聊天和邮件的隐私边界是什么？", "如何区分相关性、流程症状和原因？"],
     playbook: [
       { phase: "第 1 周", title: "选定决策问题", action: "选择一个结果可验证、影响有限的运营问题。", output: "决策试点说明" },
       { phase: "第 2 周", title: "限定数据范围", action: "只接入回答该问题所需的系统与人员。", output: "数据最小化清单" },
@@ -928,7 +928,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     identity: {
       model: "YC S25 智能统一收件箱与个人 CRM，把消息、联系人背景、关系状态和行动事项集中到一个工作空间。",
       primaryValue: "帮助创始人、投资人和关系密集型工作者减少多平台沟通造成的遗漏，并把关系上下文转化为跟进动作。",
-      valueCondition: "必须在隐私可信、跨平台集成稳定和自动建议真正节省时间三方面同时成立。",
+      valueCondition: "必须在隐私可信、跨平台集成稳定和自动建议节省时间三方面同时成立。",
     },
     capabilities: [
       { label: "跨平台关系整合", strength: "核心", detail: "公开描述包含消息、社交、邮件、日历与联系人关系的统一视图。" },
@@ -958,7 +958,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       { label: "习惯迁移", level: "中", detail: "用户只有在新入口明显更快时才会放弃原有收件箱习惯。" },
       { label: "维护负担", level: "中", detail: "如果自动整理不准确，个人 CRM 会变成另一个需要手工清理的系统。" },
     ],
-    diligence: ["哪些消息平台是真正稳定的官方集成？", "用户能否细粒度控制哪些对话被读取和保留？", "自动行动项的准确率和撤销机制如何？", "产品的每日留存来自真实效率还是初期新鲜感？"],
+    diligence: ["哪些消息平台是稳定的官方集成？", "用户能否细粒度控制哪些对话被读取和保留？", "自动行动项的准确率和撤销机制如何？", "产品的每日留存来自真实效率还是初期新鲜感？"],
     playbook: [
       { phase: "第 1 周", title: "选择关系场景", action: "只用于融资、招聘或客户中的一个流程。", output: "试用范围" },
       { phase: "第 2 周", title: "建立基线", action: "记录漏回、会议准备时间和跟进完成率。", output: "当前效率基线" },
@@ -1133,7 +1133,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       { label: "公司建设辅导", strength: "有限", detail: "计划偏技术生态，不等同于密集产品、销售或联合创始人辅导。" },
     ],
     offers: [
-      { title: "技术培训与开发入口", includes: "自学课程、折扣培训、论坛与按工作负载推荐的技术内容。", founderValue: "让团队更快理解哪些 NVIDIA 工具真正适合自己的产品。" },
+      { title: "技术培训与开发入口", includes: "自学课程、折扣培训、论坛与按工作负载推荐的技术内容。", founderValue: "让团队更快理解哪些 NVIDIA 工具适合自己的产品。" },
       { title: "产品与合作优惠", includes: "部分硬件软件优惠、合作伙伴云额度和成员专属资源。", founderValue: "降低原型和早期部署成本，但应计算优惠结束后的真实单位经济。" },
       { title: "生态曝光", includes: "符合条件时获得投资人连接、展示、活动和市场合作机会。", founderValue: "为技术公司增加可信入口，但需要主动经营而非等待分配。" },
     ],
@@ -1191,7 +1191,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
       maxBenefit: "随阶段和资格增长的 Azure startup credits 与计划权益",
       technicalValue: "通过 Azure Portal 管理 credits，并获得面向 AI、云架构、安全和企业就绪度的技术指导。",
       marketValue: "Microsoft Marketplace、企业生态和可能的 go-to-market 支持，为成熟 B2B 产品提供采购与分发路径。",
-      lockInRisk: "企业集成、Azure 服务和 Marketplace 上架会提高切换成本，应区分真正的客户需求与平台权益驱动。",
+      lockInRisk: "企业集成、Azure 服务和 Marketplace 上架会提高切换成本，应区分客户需求与平台权益驱动。",
       compareWith: "与 AWS Activate、Google Cloud Program 比较云技术；与企业加速器比较真实客户与销售辅导深度。",
     }),
   },

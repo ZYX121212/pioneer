@@ -30,16 +30,16 @@ export function GuideProgress({ guide, judgment, mistakes, action }: {
 
   return (
     <section className="guide-fast-track" id="quick-path">
-      <div className="fast-track-heading"><span>3-MINUTE PATH</span><h2>先用三分钟，决定这篇是否值得深入。</h2></div>
+      <div className="fast-track-heading"><span>3-MINUTE PATH</span><h2>本篇要点</h2></div>
       <div className="fast-track-grid">
-        <article><span>核心判断</span><p>{judgment}</p></article>
-        <article><span>最常见的误判</span><ul>{mistakes.map((item) => <li key={item}>{item}</li>)}</ul></article>
-        <article><span>今天完成</span><p>{action}</p></article>
+        <article><span>要点</span><p>{judgment}</p></article>
+        <article><span>常见问题</span><ul>{mistakes.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article><span>练习</span><p>{action}</p></article>
       </div>
       <div className="fast-track-actions">
-        <a href="#deep-guide">进入深度指南 ↓</a>
+        <a href="#deep-guide">阅读全文 ↓</a>
         <button type="button" className={done ? "done" : ""} onClick={complete} disabled={busy || loading}>
-          {done ? "已完成这次决策 ✓" : "标记为已完成"}
+          {done ? "已完成 ✓" : "标记为已完成"}
         </button>
       </div>
       {message && <p role="alert">{message} <Link href="/workspace">打开工作台</Link></p>}

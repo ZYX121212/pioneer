@@ -166,7 +166,7 @@ export const firstUsersGuide: PioneerGuide = {
     {
       title: "YC’s Essential Startup Advice",
       publisher: "Y Combinator",
-      use: "用于先找到少量真正需要产品的用户，再讨论增长与规模化。",
+      use: "用于先找到少量需要产品的用户，再讨论增长与规模化。",
       url: "https://www.ycombinator.com/blog/ycs-essential-startup-advice/",
       language: "英文",
     },
@@ -444,7 +444,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     id: 10,
     stage: "validate",
     kind: "市场判断",
-    title: "真正的产品市场匹配是什么",
+    title: "产品市场匹配是什么",
     source: "Y Combinator",
     description: "用用户拉力、增长和市场反应理解 PMF，避免把主观满意、少量赞美或短期数据误认为匹配。",
     tags: ["PMF", "用户拉力", "英文"],

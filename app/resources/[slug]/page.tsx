@@ -1,3 +1,4 @@
+import { ContentPoints } from "../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../lib/resourceFreshness";
 import { SaveResource } from "../../components/SaveResource";
 import { ResourceReport } from "../../components/ResourceReport";
@@ -138,8 +139,8 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">01</span>
             <div>
               <span className="section-index">DECISION SUMMARY</span>
-              <h2>先判断它究竟是什么</h2>
-              <p>{resource.overview}</p>
+              <h2>基本信息</h2>
+              <ContentPoints text={resource.overview} />
               <div className="identity-model-grid">
                 <div><span>运作模式</span><p>{profile!.identity.model}</p></div>
                 <div><span>核心价值</span><p>{profile!.identity.primaryValue}</p></div>
@@ -152,7 +153,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">02</span>
             <div>
               <span className="section-index">CAPABILITY PORTRAIT</span>
-              <h2>能力画像：强在哪里，弱在哪里</h2>
+              <h2>支持内容与限制</h2>
               <div className="capability-grid" aria-label={`${resource.name} 能力画像`}>
                 {profile.capabilities.map((capability) => (
                   <div className="capability-row" key={capability.label}>
@@ -170,7 +171,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">03</span>
             <div>
               <span className="section-index">WHAT YOU ACTUALLY GET</span>
-              <h2>你实际能够获得什么</h2>
+              <h2>提供内容</h2>
               <div className="offer-detail-grid">
                 {profile.offers.map((offer, index) => (
                   <div className="offer-detail-card" key={offer.title}>
@@ -188,7 +189,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">04</span>
             <div>
               <span className="section-index">ENTRY PATHS</span>
-              <h2>不是只有一个入口</h2>
+              <h2>申请方式</h2>
               <div className="entry-path-list">
                 {profile.entryPaths.map((path, index) => (
                   <div className="entry-path" key={path.title}>
@@ -208,7 +209,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">05</span>
             <div>
               <span className="section-index">STAGE FIT</span>
-              <h2>不同阶段，价值完全不同</h2>
+              <h2>适合阶段</h2>
               <div className="stage-fit-table">
                 {profile.stageFit.map((item) => (
                   <div key={item.stage}>
@@ -229,7 +230,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">06</span>
             <div>
               <span className="section-index">COSTS &amp; TRADE-OFFS</span>
-              <h2>把隐性成本放到桌面上</h2>
+              <h2>费用与投入</h2>
               <div className="cost-map-grid">
                 {profile.costs.map((cost) => (
                   <div className="cost-map-card" key={cost.label}>
@@ -250,7 +251,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">07</span>
             <div>
               <span className="section-index">DUE DILIGENCE</span>
-              <h2>行动前必须问清的问题</h2>
+              <h2>申请前确认事项</h2>
               <div className="diligence-list">
                 {profile.diligence.map((question, index) => (
                   <div key={question}><span>Q{index + 1}</span><p>{question}</p></div>
@@ -263,7 +264,7 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">08</span>
             <div>
               <span className="section-index">FOUNDER PLAYBOOK</span>
-              <h2>{freshness === "historical" ? "用于复盘与下一届准备" : "从研究变成下一步行动"}</h2>
+              <h2>{freshness === "historical" ? "用于复盘与下一届准备" : "建议准备步骤"}</h2>
               <div className="research-playbook">
                 {profile.playbook.map((step, index) => (
                   <div key={step.title}>
@@ -280,12 +281,12 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">09</span>
             <div>
               <span className="section-index">COMPARE BEFORE DECIDING</span>
-              <h2>什么时候选它，什么时候不要选</h2>
-              <p>{resource.whyItMatters}</p>
+              <h2>适合人群与替代选择</h2>
+              <ContentPoints text={resource.whyItMatters} />
               <div className="comparison-grid">
-                <div className="comparison-choose"><span>优先选择，当</span><p>{profile.comparison.chooseWhen}</p></div>
-                <div className="comparison-avoid"><span>暂时放弃，当</span><p>{profile.comparison.avoidWhen}</p></div>
-                <div className="comparison-with"><span>还应该比较</span><p>{profile.comparison.compareWith}</p></div>
+                <div className="comparison-choose"><span>适合情况</span><p>{profile.comparison.chooseWhen}</p></div>
+                <div className="comparison-avoid"><span>不适合情况</span><p>{profile.comparison.avoidWhen}</p></div>
+                <div className="comparison-with"><span>可比较的资源</span><p>{profile.comparison.compareWith}</p></div>
               </div>
             </div>
           </section>
@@ -294,8 +295,8 @@ export default async function ResourceDetailPage({ params }: PageProps) {
             <span className="detail-index">10</span>
             <div>
               <span className="section-index">FINAL VERDICT</span>
-              <h2>Pioneer 最终判断</h2>
-              <div className="editorial-callout"><span>最大价值 · 适合人群 · 主要限制</span><p>{resource.editorialNote}</p></div>
+              <h2>编辑备注</h2>
+              <div className="editorial-callout"><span>最大价值 · 适合人群 · 主要限制</span><ContentPoints text={resource.editorialNote} /></div>
             </div>
           </section>
         </article>

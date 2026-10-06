@@ -39,7 +39,7 @@ export default function DecideWhetherToFundraiseGuide() {
   return (
     <main>
       <SiteHeader languageHref="/en/knowledge/decide-whether-to-fundraise" />
-      <header className="guide-hero guide-hero-orange"><div className="guide-breadcrumbs"><Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>判断是否需要融资</b></div><div className="guide-hero-grid"><div><span className="guide-kicker">PIONEER GUIDE 06 · {fundingDecisionGuide.stage}</span><h1>{fundingDecisionGuide.title}</h1><p>{fundingDecisionGuide.description}</p></div><aside className="guide-output-card"><span>完成这篇指南后</span><strong>不是得到融资金额，<br />而是知道钱要买什么。</strong><ol>{fundingDecisionGuide.outcome.map((item) => <li key={item}>{item}</li>)}</ol><small>{fundingDecisionGuide.duration} · 更新于 {fundingDecisionGuide.updated}</small></aside></div></header>
+      <header className="guide-hero guide-hero-orange"><div className="guide-breadcrumbs"><Link href="/">首页</Link><span>/</span><Link href="/knowledge">创业指南</Link><span>/</span><b>判断是否需要融资</b></div><div className="guide-hero-grid"><div><span className="guide-kicker">PIONEER GUIDE 06 · {fundingDecisionGuide.stage}</span><h1>{fundingDecisionGuide.title}</h1><p>{fundingDecisionGuide.description}</p></div><aside className="guide-output-card"><span>完成这篇指南后</span><strong>本篇练习与记录</strong><ol>{fundingDecisionGuide.outcome.map((item) => <li key={item}>{item}</li>)}</ol><small>{fundingDecisionGuide.duration} · 更新于 {fundingDecisionGuide.updated}</small></aside></div></header>
 
       <GuideProgress guide={fundingDecisionGuide} judgment="融资是一种用所有权、治理变化和未来回报预期换取速度与生存时间的工具。先问公司需要跨越什么资本密集型里程碑，再问向谁融资。" mistakes={["把拿到融资当成产品市场匹配", "先决定融资金额，再寻找资金用途", "只比较估值，不比较投资人、条款、治理与失败成本"]} action="写下资金用完前必须完成的唯一里程碑，并列出不出售股权的两个替代方案。" />
 
@@ -62,7 +62,7 @@ export default function DecideWhetherToFundraiseGuide() {
 
           <section className="guide-sources" id="sources"><div className="guide-section-heading"><span>07</span><div><small>SOURCES &amp; SCOPE</small><h2>参考来源与适用边界</h2></div></div><p>本文提供早期融资判断框架，不构成证券、投资、法律、税务、会计或公司治理建议。融资工具、股权、董事会与文件应结合公司注册地、投资人所在地和创始人情况获得专业意见。</p><div className="source-list">{fundingDecisionGuide.sources.map((source) => <a href={source.url} target="_blank" rel="noreferrer" key={source.url}><div><span>{source.publisher} · {source.language}</span><strong>{source.title}</strong><p>{source.use}</p></div><b aria-hidden="true">↗</b></a>)}</div></section>
         </article>
-        <aside className="guide-sidecard"><span>融资前必须说清</span><strong>不是“我们需要钱”，而是：</strong><ul><li>钱将跨越哪个里程碑</li><li>当前证据是否足够</li><li>金额如何逐项形成</li><li>还比较过哪些资金</li><li>融资失败如何继续</li></ul><Link href="#workbook">打开融资判断工具 →</Link></aside>
+        <aside className="guide-sidecard"><span>融资前必须说清</span><strong>融资准备事项</strong><ul><li>钱将跨越哪个里程碑</li><li>当前证据是否足够</li><li>金额如何逐项形成</li><li>还比较过哪些资金</li><li>融资失败如何继续</li></ul><Link href="#workbook">打开融资判断工具 →</Link></aside>
       </div>
       <section className="guide-next"><span>PREVIOUS GUIDE · 公司与股权</span><h2>{companyEquityGuide.title}</h2><p>{companyEquityGuide.description}</p><Link href={`/knowledge/${companyEquityGuide.slug}`}>回到公司与股权指南 <span aria-hidden="true">←</span></Link></section>
       <SiteFooter />

@@ -1,3 +1,4 @@
+import { ContentPoints } from "./ContentPoints";
 import type { OrganizationIntelligenceProfile } from "../data/organizationProfiles";
 import type { ResourceResearchProfile } from "../data/resourceProfiles";
 import type { Resource } from "../data/resources";
@@ -37,7 +38,7 @@ export function OrganizationResearchDetail({ resource, profile, organization }: 
         </div>
         <div className="institution-sheet-note">
           <strong>机构说明</strong>
-          <p>{organization.thesis}</p>
+          <ContentPoints text={organization.thesis} />
         </div>
       </section>
 
@@ -171,7 +172,7 @@ export function OrganizationResearchDetail({ resource, profile, organization }: 
 
         <div className="institution-editor-summary">
           <span>编辑总结</span>
-          <p>{resource.editorialNote}</p>
+          <ContentPoints text={resource.editorialNote} />
           <div><strong>更适合</strong><p>{profile.comparison.chooseWhen}</p></div>
           <div><strong>暂不建议</strong><p>{profile.comparison.avoidWhen}</p></div>
         </div>

@@ -53,14 +53,14 @@ export type OrganizationIntelligenceProfile = {
 
 export const organizationProfiles: Record<string, OrganizationIntelligenceProfile> = {
   "station-f": {
-    thesis: "STATION F 的产品不是一个统一加速器，而是一座承载多种项目的创业基础设施。判断它是否适合你的关键，不是园区规模，而是能否找到一个与你的行业、阶段和法国市场目标高度匹配的具体项目。",
+    thesis: "STATION F 运营创业园区，承载自营和合作方项目。项目按行业、阶段及法国市场需求设置申请条件。",
     dna: [
-      { label: "机构原型", value: "多项目创业园区", note: "园区、计划、伙伴与服务的集合，不是单一课程。" },
+      { label: "机构原型", value: "多项目创业园区", note: "包括园区空间、创业计划、合作伙伴和配套服务。" },
       { label: "运营逻辑", value: "平台 + 合作项目", note: "STATION F 自营项目与企业、学校、行业伙伴项目并存。" },
       { label: "主要服务对象", value: "早期至增长期团队", note: "具体阶段取决于所进入的项目，而非园区统一规定。" },
-      { label: "资本角色", value: "连接者，不是统一基金", note: "投资人密度高，但投资关系通常通过具体项目与网络发生。" },
+      { label: "资本角色", value: "投资人及基金网络", note: "投资人密度高，但投资关系通常通过具体项目与网络发生。" },
       { label: "地理价值", value: "法国与欧洲入口", note: "巴黎生态、国际团队与法国行政支持是重要差异。" },
-      { label: "申请单位", value: "具体项目", note: "创业者通常不是申请‘整座园区’，而是申请某一计划或入口。" },
+      { label: "申请单位", value: "具体项目", note: "申请以具体创业计划为单位。" },
     ],
     resources: [
       { label: "项目组合", strength: "核心", provides: "30+ 自营与合作创业计划，覆盖不同产业与公司阶段。", access: "从项目目录按阶段、行业和运营方筛选，再单独申请。", boundary: "不同项目的质量、权益、费用和录取标准不统一。" },
@@ -84,7 +84,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
     scenarios: [
       { need: "进入法国企业市场", route: "选择与你行业一致的企业伙伴项目", firstMove: "列出目标法国客户，再反查项目合作方和往届团队。", success: "获得 3–5 次有效客户会面或一个明确试点。" },
       { need: "建立欧洲融资网络", route: "进入融资准备强、校友活跃的具体项目", firstMove: "先验证项目负责人和往届团队是否能连接目标基金。", success: "形成与轮次匹配的投资人管道，而不是只参加活动。" },
-      { need: "第一次理解创业", route: "先使用 Launch 在线入口", firstMove: "完成问题、用户和商业模式验证，再评估驻场项目。", success: "得到真实用户证据，而不只是完成一份 pitch deck。" },
+      { need: "第一次理解创业", route: "先使用 Launch 在线入口", firstMove: "完成问题、用户和商业模式验证，再评估驻场项目。", success: "记录用户访谈和实际使用结果。" },
     ],
     redFlags: ["只能说想进入 STATION F，却说不出具体项目名称。", "把巴黎创业氛围当成目标，却没有法国客户或市场假设。", "期望园区自动提供融资、客户或签证结果。"],
     dossier: {
@@ -128,7 +128,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
   },
 
   block71: {
-    thesis: "BLOCK71 更像一组跨城市创业节点，而不是一座全球统一运营的园区。它最有价值的场景，是团队已经选择一个亚洲目标市场，需要本地导师、伙伴和落地关系来降低进入成本。",
+    thesis: "BLOCK71 在多个城市运营创业节点，提供本地导师、伙伴和市场落地支持。各节点的项目和申请条件分别公布。",
     dna: [
       { label: "机构原型", value: "跨城市创新网络", note: "通过不同国家节点连接项目、导师和创业社区。" },
       { label: "运营逻辑", value: "本地节点 + 全球平台", note: "资源发生在具体城市，全球网络负责跨节点连接。" },
@@ -152,7 +152,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
     ],
     ecosystem: [
       { actor: "大学与研究生态", role: "提供创新网络、人才与技术创业基础。", founderUse: "用于招聘、技术合作和理解本地创业人才供给。" },
-      { actor: "本地企业", role: "提供市场场景、行业反馈和潜在合作。", founderUse: "用明确试点目标判断连接是否真正有效。" },
+      { actor: "本地企业", role: "提供市场场景、行业反馈和潜在合作。", founderUse: "用明确试点目标判断连接是否有效。" },
       { actor: "区域导师", role: "解释当地客户、渠道、文化与运营方式。", founderUse: "把建议转化为本地客户访谈和销售实验。" },
       { actor: "跨城市节点", role: "帮助团队从一个市场进入另一个市场。", founderUse: "只有在首个市场获得证据后，再使用跨节点扩张。" },
     ],
@@ -203,7 +203,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
   },
 
   "entrepreneur-first": {
-    thesis: "Entrepreneur First 的核心资产不是办公空间或课程，而是经过筛选的高潜力个人与公司形成机制。它服务的是‘创始人已经准备好，但团队和公司还没形成’的特殊阶段。",
+    thesis: "Entrepreneur First 面向全职创业的个人，提供联合创始人匹配和公司组建支持。申请者可尚未组建团队或确定公司方向。",
     dna: [
       { label: "机构原型", value: "人才型创始人孵化机构", note: "先选择个人，再帮助形成团队和公司。" },
       { label: "运营逻辑", value: "人才筛选 + 配对 + 公司形成", note: "通过共同建设而非简单社交完成联合创始人测试。" },
@@ -234,7 +234,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
     scenarios: [
       { need: "找到联合创始人", route: "申请核心个人项目", firstMove: "定义能力互补、价值观和不可妥协条件。", success: "通过真实共同建设形成可持续合作，而非快速配对。" },
       { need: "从技术能力找到创业方向", route: "进入公司形成环境", firstMove: "列出可接触的用户与行业问题，快速做需求验证。", success: "形成一个有用户证据、适合团队能力的问题。" },
-      { need: "进入美国融资市场", route: "形成公司后进入旧金山阶段", firstMove: "先验证美国客户问题与公司设立路径。", success: "建立客户和投资人的下一步会议，而不只是 Demo Day 曝光。" },
+      { need: "进入美国融资市场", route: "形成公司后进入旧金山阶段", firstMove: "先验证美国客户问题与公司设立路径。", success: "安排客户和投资人的后续会议。" },
     ],
     redFlags: ["只是想认识优秀的人，却没有立即全职创业的承诺。", "用履历判断搭档，不设计真实压力与冲突测试。", "已经有稳定团队和业务，却重新进入公司形成阶段。"],
     dossier: {
@@ -242,7 +242,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
         { label: "公司组合价值", value: "官方称超过 160 亿美元", interpretation: "证明人才投资模式产生过大型公司，但不代表单个参与者成功概率。", verification: "官方公开", sourceLabel: "EF About", sourceUrl: "https://www.joinef.com/about/" },
         { label: "联合创始人形成", value: "官方称 8 周内约 80% 找到搭档", interpretation: "说明配对速度；质量仍需用真实共同建设判断。", verification: "官方公开", sourceLabel: "EF FAQ", sourceUrl: "https://www.joinef.com/faqs/" },
         { label: "公司投资路径", value: "最高 25 万美元", interpretation: "需要通过投资委员会，且第二部分资金附带地点与公司结构条件。", verification: "官方公开", sourceLabel: "EF FAQ", sourceUrl: "https://www.joinef.com/faqs/" },
-        { label: "参与方式", value: "全职、线下", interpretation: "不是兼职课程，而是职业与地点层面的高承诺选择。", verification: "官方公开", sourceLabel: "EF Apply", sourceUrl: "https://apply.joinef.com/" },
+        { label: "参与方式", value: "全职、线下", interpretation: "需要全职、线下参加，并安排工作和居住地点。", verification: "官方公开", sourceLabel: "EF Apply", sourceUrl: "https://apply.joinef.com/" },
       ],
       cases: [
         { name: "Tractable", signal: "EF 官方列出的计算机视觉与保险科技代表公司。", caveat: "证明人才型公司形成能产生深科技公司，不代表每次配对都成功。" },
@@ -270,7 +270,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
       selfCheck: [
         { question: "如果明天开始，我愿意全职创业吗？", passSignal: "已处理工作、现金与家庭承诺" },
         { question: "我有可证明的异常成果吗？", passSignal: "能用结果而非头衔说明能力" },
-        { question: "我真正缺的是联合创始人吗？", passSignal: "已明确需要的互补能力和价值观" },
+        { question: "我缺的是联合创始人吗？", passSignal: "已明确需要的互补能力和价值观" },
         { question: "我愿意为配对设置退出标准吗？", passSignal: "已设计真实任务、冲突与决策测试" },
         { question: "我接受高增长融资路径吗？", passSignal: "理解稀释、迁移和机构资本要求" },
       ],
@@ -278,7 +278,7 @@ export const organizationProfiles: Record<string, OrganizationIntelligenceProfil
   },
 
   "berkeley-skydeck": {
-    thesis: "Berkeley SkyDeck 的独特性来自大学创业平台、专属基金、导师和湾区网络的组合。它不是只有一个加速器，而是针对不同阶段提供 Cohort、伙伴项目和 Pad-13 等多层入口。",
+    thesis: "Berkeley SkyDeck 提供 Cohort、伙伴项目和 Pad-13。各计划面向不同阶段的团队，UC 关联要求、资金和参与条件分别规定。",
     dna: [
       { label: "机构原型", value: "大学创业平台", note: "由 UC Berkeley 创业、研究商业化和教育使命支撑。" },
       { label: "运营逻辑", value: "大学 + 基金 + 产业网络", note: "公共大学资源与独立投资基金协同。" },

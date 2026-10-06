@@ -8,7 +8,7 @@ export const expandedChineseGuides: ChineseAdditionalGuide[] = [
     outcome: ["一个核心留存行为", "一张同期群观察表", "一次留存改进实验"],
     sections: [
       { id: "meaning", eyebrow: "RETENTION BEFORE GROWTH", title: "先证明用户会回来，再放大获客", lead: "注册、下载、试用和一次性收入都可能由新鲜感或促销制造。留存说明产品在重复创造价值。", points: [{ title: "回来的理由", body: "用户为了同一个核心结果再次主动使用，而不是被提醒后随便打开。" }, { title: "留下的价值", body: "续费、复购、持续活跃或工作流依赖，要与产品真实价值周期一致。" }, { title: "不要提前扩张", body: "低留存时扩大流量，只会更快消耗市场、现金和团队注意力。" }]},
-      { id: "event", eyebrow: "CORE VALUE EVENT", title: "找到最接近价值实现的行为", lead: "不要把登录或页面浏览当成成功。选择一个能够代表用户真正获得结果的事件。", points: [{ title: "消费产品", body: "可能是完成一次创作、交易、连接或内容消费，而不是打开 App。" }, { title: "B2B 产品", body: "可能是完成关键工作流、团队协作、导出结果或进入生产环境。" }, { title: "硬件与服务", body: "可以是重复使用、耗材复购、任务完成或持续节省的时间。" }]},
+      { id: "event", eyebrow: "CORE VALUE EVENT", title: "找到最接近价值实现的行为", lead: "不要把登录或页面浏览当成成功。选择一个能够代表用户获得结果的事件。", points: [{ title: "消费产品", body: "可能是完成一次创作、交易、连接或内容消费，而不是打开 App。" }, { title: "B2B 产品", body: "可能是完成关键工作流、团队协作、导出结果或进入生产环境。" }, { title: "硬件与服务", body: "可以是重复使用、耗材复购、任务完成或持续节省的时间。" }]},
       { id: "cadence", eyebrow: "NATURAL CADENCE", title: "按自然使用周期定义回来", lead: "报税工具不该看次日留存，协作工具也不能只看年度续费。先理解任务本身多久发生一次。", points: [{ title: "高频", body: "日常工具可观察次日、7 日与 28 日的核心行为。" }, { title: "低频", body: "按项目、季度或年度发生的产品，要追踪下一次真实需求是否仍选择你。" }, { title: "角色差异", body: "管理员、购买者与最终用户可能有不同的价值周期和流失信号。" }]},
       { id: "cohort", eyebrow: "COHORTS, NOT AVERAGES", title: "用同期群看产品是否真的变好", lead: "把同一时间或同一版本进入的用户放在一起，观察他们随时间是否持续完成核心行为。", points: [{ title: "固定起点", body: "按注册周、首次付费月、产品版本或获客渠道建立同期群。" }, { title: "看曲线尾部", body: "曲线是否趋于稳定，比短期平均活跃更能说明是否存在核心用户。" }, { title: "避免混合", body: "免费与付费、不同场景和不同客户规模应分别观察。" }]},
       { id: "diagnose", eyebrow: "WHY USERS LEAVE", title: "把流失拆成可以行动的原因", lead: "流失不只是一个比例。区分从未得到价值、得到一次价值但不再需要、体验失败和预算变化。", points: [{ title: "未激活", body: "用户没有抵达第一个价值时刻，优先修复承诺、引导与交付。" }, { title: "价值不足", body: "用户完成流程却不再回来，需要重新检查问题强度和结果质量。" }, { title: "外部原因", body: "采购、季节、组织调整或客户倒闭，不应全部归因于产品功能。" }]},
@@ -17,7 +17,7 @@ export const expandedChineseGuides: ChineseAdditionalGuide[] = [
     worksheet: ["核心用户与核心价值行为", "自然使用周期", "同期群起点和观察窗口", "激活、留存与流失定义", "三次流失访谈记录", "下一次留存实验与门槛"],
     decision: { continue: "至少一个清晰细分人群持续完成核心行为，并出现主动推荐或续费。", adjust: "有人获得价值，但激活、使用周期、细分人群或交付方式仍不稳定。", stop: "多轮改进后仍没有重复使用，且用户不认为停止使用会造成实际损失。" },
     sources: [
-      { publisher: "Y Combinator", title: "The Real Product Market Fit", use: "用于区分表面增长与真正被市场拉动的产品状态。", url: "https://www.ycombinator.com/blog/the-real-product-market-fit/" },
+      { publisher: "Y Combinator", title: "The Real Product Market Fit", use: "用于区分表面增长与被市场拉动的产品状态。", url: "https://www.ycombinator.com/blog/the-real-product-market-fit/" },
       { publisher: "Y Combinator", title: "YC’s Essential Startup Advice", use: "用于说明低留存时不应提前扩大增长，以及单位经济必须同时成立。", url: "https://www.ycombinator.com/blog/ycs-essential-startup-advice/" },
     ],
   },
@@ -87,11 +87,11 @@ export const expandedChineseGuides: ChineseAdditionalGuide[] = [
     description: "用时间线、证据等级和六类风险拆解失败案例，把别人的代价变成自己的早期预警。", duration: "约 38 分钟", updated: "2026.07.19",
     outcome: ["一张失败假设时间线", "一份六类风险预警清单", "一个本周止损或修正实验"],
     sections: [
-      { id: "method", eyebrow: "FAILURE IS A CHAIN", title: "失败不是一个原因，而是一条逐渐收紧的因果链", lead: "‘没钱了’通常只是最后结果。真正有用的复盘要回到更早：哪项关键假设先失效、出现了什么弱信号、团队为什么没有及时改变。", points: [{ title: "假设", body: "当时必须为真，公司才能继续成立的用户、产品、收入、成本或团队判断是什么？" }, { title: "弱信号", body: "哪些留存、成交、毛利、交付或组织信号已经与假设冲突？" }, { title: "延迟决定", body: "团队继续投入、扩大规模或等待融资时，原本还有哪些更便宜的调整机会？" }]},
+      { id: "method", eyebrow: "FAILURE IS A CHAIN", title: "失败不是一个原因，而是一条逐渐收紧的因果链", lead: "‘没钱了’通常只是最后结果。有用的复盘要回到更早：哪项关键假设先失效、出现了什么弱信号、团队为什么没有及时改变。", points: [{ title: "假设", body: "当时必须为真，公司才能继续成立的用户、产品、收入、成本或团队判断是什么？" }, { title: "弱信号", body: "哪些留存、成交、毛利、交付或组织信号已经与假设冲突？" }, { title: "延迟决定", body: "团队继续投入、扩大规模或等待融资时，原本还有哪些更便宜的调整机会？" }]},
       { id: "evidence", eyebrow: "EVIDENCE BEFORE LESSONS", title: "先分清事实、当事人解释和我们的推断", lead: "失败复盘很容易产生事后聪明。每个结论都应标明证据来自哪里，并主动保留无法确认的部分。", points: [{ title: "可核验事实", body: "产品变化、公开数字、关闭时间、用户通知与公司文件可以直接引用。" }, { title: "当事人解释", body: "创始人和团队最接近过程，但自述仍可能受到记忆、责任和叙事影响。" }, { title: "分析判断", body: "从证据推导出的模式必须写成判断，而不是冒充公司已经确认的原因。" }]},
       { id: "risks", eyebrow: "SIX FAILURE LAYERS", title: "从六条证据链寻找最早的裂缝", lead: "不要把所有失败都归结为‘没有产品市场匹配’。不同层级需要不同的修正动作和止损门槛。", points: [{ title: "问题与用户", body: "问题不够强、用户不可触达，或使用者并不是预算与决策拥有者。" }, { title: "产品与交付", body: "产品能演示却不能稳定创造结果，或者每个客户都需要不可复制的人工服务。" }, { title: "商业、现金与团队", body: "单位经济不成立、现金节奏晚于学习速度，或创始人目标与责任长期错位。" }]},
       { id: "cases", eyebrow: "THREE DOCUMENTED CASES", title: "三个失败案例，三种不同的早期信号", lead: "这些不是一句话归因，而是从第一方复盘中提取的可检查假设。每个案例仍需结合其时代、行业与资金结构理解。", points: [{ title: "Quibi · 使用情境没有成立", body: "Quibi 在关闭信中把结果归因于想法本身不够强，或推出时机受疫情影响。对创业者更有用的问题是：移动端短内容的目标情境和付费行为，何时已经没有达到继续投入的门槛？" }, { title: "Cydoc · 技术价值没有自动成为可持续业务", body: "创始人复盘称，临床 AI 的部署只占挑战的一小部分，工作流整合、销售基础设施和商业模式决定了能否持续。技术验证不能替代交付和购买系统验证。" }, { title: "Net30 · 喜爱的产品仍可能死于销售周期", body: "创始人记录了客户认可产品，但建筑行业销售周期不断消耗剩余跑道。早期预警不只是满意度，而是从合格线索到成交、回款所需的真实时间。" }]},
-      { id: "timeline", eyebrow: "BUILD THE TIMELINE", title: "把案例写成可以用于自己公司的时间线", lead: "一份有效时间线连接假设、信号、决定和后果，并标出当时团队真正知道什么。", points: [{ title: "建立起点", body: "写出公司对目标用户、核心价值、收费方式和增长路径的初始判断。" }, { title: "标记转折", body: "只记录改变资源配置的事件：留存下滑、销售停滞、成本上升、关键人员离开或融资失败。" }, { title: "寻找可逆窗口", body: "在哪个时点仍可以缩小市场、改变交付、暂停招聘或主动延长跑道？" }]},
+      { id: "timeline", eyebrow: "BUILD THE TIMELINE", title: "把案例写成可以用于自己公司的时间线", lead: "一份有效时间线连接假设、信号、决定和后果，并标出当时团队知道什么。", points: [{ title: "建立起点", body: "写出公司对目标用户、核心价值、收费方式和增长路径的初始判断。" }, { title: "标记转折", body: "只记录改变资源配置的事件：留存下滑、销售停滞、成本上升、关键人员离开或融资失败。" }, { title: "寻找可逆窗口", body: "在哪个时点仍可以缩小市场、改变交付、暂停招聘或主动延长跑道？" }]},
       { id: "premortem", eyebrow: "FROM POSTMORTEM TO PREMORTEM", title: "读完后，立即为自己的项目做一次事前验尸", lead: "假设六个月后项目失败，写出最可能的三条原因，并为每条原因设置今天就能观察的领先指标。", points: [{ title: "选择一个高风险假设", body: "优先处理一旦错误就会让其他努力失去意义的假设。" }, { title: "设定预警线", body: "用人数、时间、金额或行为定义何时必须调整，而不是到现金耗尽才承认问题。" }, { title: "安排止损动作", body: "提前约定触线后缩小、转向、暂停或关闭什么，减少沉没成本影响。" }]},
     ],
     worksheet: ["项目当前最关键的六个假设", "案例中的事实、自述与分析判断", "假设—弱信号—决定—后果时间线", "六类风险的当前证据", "未来六个月最可能的三种失败", "本周预警实验与止损门槛"],

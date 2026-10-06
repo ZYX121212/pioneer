@@ -1,3 +1,4 @@
+import { ContentPoints } from "../../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../../lib/resourceFreshness";
 import { SaveResource } from "../../../components/SaveResource";
 import { ResourceReport } from "../../../components/ResourceReport";
@@ -79,11 +80,11 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
             <div>
               <span className="section-index">DECISION SUMMARY</span>
               <h2>What It Actually Is</h2>
-              <p>{english.overview}</p>
+              <ContentPoints text={english.overview} lang="en" />
               <div className="identity-model-grid">
                 <div><span>Category</span><p>{english.kind}</p></div>
-                <div><span>Primary value</span><p>{english.whyItMatters}</p></div>
-                <div><span>Action lens</span><p>{english.editorialNote}</p></div>
+                <div><span>Primary value</span><ContentPoints text={english.whyItMatters} lang="en" /></div>
+                <div><span>Action lens</span><ContentPoints text={english.editorialNote} lang="en" /></div>
               </div>
             </div>
           </section>
@@ -105,8 +106,8 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
             <div>
               <span className="section-index">WHY IT MATTERS</span>
               <h2>Why Founders Might Use It</h2>
-              <p>{english.whyItMatters}</p>
-              <div className="editorial-callout"><span>PIONEER JUDGMENT</span><p>{english.editorialNote}</p></div>
+              <ContentPoints text={english.whyItMatters} lang="en" />
+              <div className="editorial-callout"><span>EDITORIAL NOTES</span><ContentPoints text={english.editorialNote} lang="en" /></div>
             </div>
           </section>
 
@@ -116,7 +117,7 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
               <span className="section-index">{freshness === "historical" ? "ARCHIVE RESEARCH" : "NEXT ACTION"}</span>
               <h2>{freshness === "historical" ? "Review the Past Window" : "Before You Click Apply"}</h2>
               <div className="diligence-list">
-                <div><span>Q1</span><p>Does this resource match your current stage, not just your ambition?</p></div>
+                <div><span>Q1</span><p>Does this resource match your current stage?</p></div>
                 <div><span>Q2</span><p>Can you name the exact outcome you want from it: customers, capital, talent, learning or market entry?</p></div>
                 <div><span>Q3</span><p>Have you checked the latest dates, terms, eligibility and costs on the official page?</p></div>
               </div>
