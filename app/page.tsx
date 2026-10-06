@@ -1,10 +1,13 @@
 "use client";
 
+import { homeRegions, matchesHomeRegion } from "./lib/homeDiscovery";
+import { HomeFeatures, HomeIcon, HomeMetrics, HomeSignalPanel } from "./components/HomeVisuals";
+
 import { resourcePreview } from "./lib/resourceFreshness";
 import { useCommunityResources } from "./lib/useCommunityResources";
 import { WeeklySpotlight } from "./components/WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
-import { AudienceCount, PageViewCount, trackAudienceEvent } from "./components/AudienceCounter";
+import { trackAudienceEvent } from "./components/AudienceCounter";
 import { ResourceCard } from "./components/ResourceCard";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import { pioneerGuide } from "./data/knowledge";
@@ -26,18 +29,16 @@ const categoryNotes: Record<ResourceType, string> = {
   startup: "发现来自世界各地的新产品与团队",
 };
 
-function locationCount(term: string) {
-  return String(resources.filter((resource) => resource.location.includes(term)).length).padStart(2, "0");
-}
 
 export default function Home() {
   const community = useCommunityResources("zh");
   const [query, setQuery] = useState("");
+  const [activeRegion, setActiveRegion] = useState("all");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
 
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    if (!normalized) {
+    if (!normalized && activeRegion === "all") {
       return resourcePreview(resources, activePreview);
     }
     return [...resources, ...community.resources].filter((resource) => {
@@ -48,9 +49,9 @@ export default function Home() {
         resource.kind,
         ...resource.tags,
       ].join(" ").toLowerCase();
-      return searchable.includes(normalized);
+      return searchable.includes(normalized) && matchesHomeRegion(resource, activeRegion);
     });
-  }, [activePreview, query, community.resources]);
+  }, [activePreview, query, activeRegion, community.resources]);
 
   const previewTitles: Record<PreviewMode, string> = {
     featured: "最近值得关注",
@@ -75,14 +76,15 @@ export default function Home() {
 
   function applyQuickSearch(term: string) {
     setActivePreview("featured");
+    setActiveRegion("all");
     setQuery(term);
     trackAudienceEvent("search:quick", term);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
-    <main>
-      <SiteHeader />
+    <main className="pioneer-home">
+      <SiteHeader home />
 
       <section className="hero" id="top">
         <div className="hero-copy">
@@ -94,7 +96,7 @@ export default function Home() {
           </p>
 
           <form className="search-box" onSubmit={handleSearch} role="search">
-            <span className="search-icon" aria-hidden="true">⌕</span>
+            <span className="search-icon"><HomeIcon kind="search" /></span>
             <label className="sr-only" htmlFor="resource-search">搜索创业资源</label>
             <input
               id="resource-search"
@@ -108,33 +110,16 @@ export default function Home() {
           <div className="popular-searches" aria-label="热门搜索">
             <span>热门：</span>
             {["AI", "国际团队", "个人申请", "科技大会"].map((term) => (
-              <button key={term} type="button" onClick={() => applyQuickSearch(term)}>{term}</button>
+              <button key={term} type="button" aria-pressed={query === term} onClick={() => applyQuickSearch(term)}>{term}</button>
             ))}
           </div>
+          <HomeFeatures lang="zh" />
         </div>
 
-        <aside className="atlas-card" aria-label="全球创业资源分布预览">
-          <div className="atlas-topline"><span>GLOBAL SIGNAL MAP</span><span className="live-indicator">CURATED</span></div>
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="atlas-scan" />
-          <div className="globe" aria-hidden="true">
-            <img className="globe-visual" src="/globe-editorial.png" alt="" width="960" height="960" loading="eager" />
-          </div>
-          <div className="atlas-core"><strong>{resources.length}</strong><span>站内整理档案</span></div>
-          <div className="map-pin pin-singapore"><span>新加坡</span><strong>{locationCount("新加坡")}</strong></div>
-          <div className="map-pin pin-london"><span>伦敦</span><strong>{locationCount("London")}</strong></div>
-          <div className="map-pin pin-berlin"><span>巴黎</span><strong>{locationCount("Paris")}</strong></div>
-          <div className="map-pin pin-sf"><span>旧金山</span><strong>{locationCount("San Francisco")}</strong></div>
-          <div className="atlas-footer"><span>覆盖全球多地</span><span>全部附官方来源</span></div>
-        </aside>
+        <HomeSignalPanel lang="zh" activeRegion={activeRegion} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" }); }} />
       </section>
 
-      <section className="metrics" aria-label="平台数据">
-        <div className="visitor-metric"><strong><AudienceCount /></strong><span>累计独立访客</span></div>
-        <div className="visitor-metric"><strong><PageViewCount /></strong><span>累计浏览次数</span></div>
-        <div><strong>{resources.length}</strong><span>站内整理档案</span></div>
-        <div><strong>4</strong><span>独立资源目录</span></div>
-        <p>可按资源类型、地区、创业阶段和核验时效筛选。</p>
-      </section>
+      <HomeMetrics lang="zh" />
 
       <WeeklySpotlight lang="zh" />
 
@@ -184,9 +169,11 @@ export default function Home() {
             <h2>{query ? `“${query}”的搜索结果` : previewTitles[activePreview]}</h2>
           </div>
           <span className="updated-note">
-            <i /> {query ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "4 篇 Pioneer 原创指南" : `${searchResults.length} 条首页样例`}
+            <i /> {query || activeRegion !== "all" ? `${searchResults.length} 条匹配内容` : activePreview === "knowledge" ? "4 篇 Pioneer 原创指南" : `${searchResults.length} 条首页样例`}
           </span>
         </div>
+
+        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{homeRegions.find(region => region.id === activeRegion)?.zh} · 按档案所在地筛选<button type="button" onClick={() => setActiveRegion("all")}> 清除地区筛选</button></div>)}
 
         <div className="filter-row" aria-label="首页内容切换">
           <div className="filter-buttons">
@@ -202,7 +189,7 @@ export default function Home() {
                 type="button"
                 key={mode}
                 className={activePreview === mode && !query ? "active" : ""}
-                onClick={() => { setActivePreview(mode); setQuery(""); }}
+                onClick={() => { setActivePreview(mode); setQuery(""); setActiveRegion("all"); }}
               >
                 {label}
               </button>
@@ -218,8 +205,8 @@ export default function Home() {
           </a>
         </div>
 
-        {query.trim() && community.state === "loading" && <p role="status">正在加载社区资源，下方先显示站内整理的匹配档案。</p>}
-        {query.trim() && community.state === "error" && <p role="alert">社区资源暂时无法加载，当前结果仅覆盖站内整理档案。<button type="button" onClick={community.retry}>重试加载社区资源</button></p>}
+        {(query.trim() || activeRegion !== "all") && community.state === "loading" && <p role="status">正在加载社区资源，下方先显示站内整理的匹配档案。</p>}
+        {(query.trim() || activeRegion !== "all") && community.state === "error" && <p role="alert">社区资源暂时无法加载，当前结果仅覆盖站内整理档案。<button type="button" onClick={community.retry}>重试加载社区资源</button></p>}
         {activePreview === "knowledge" && !query ? (
           <article className="home-guide-feature">
             <div className="home-guide-number"><span>PIONEER GUIDE</span><strong>{pioneerGuide.number}</strong></div>
@@ -245,7 +232,7 @@ export default function Home() {
             {searchResults.map((resource) => <ResourceCard resource={resource} key={resource.id} />)}
           </div>
         ) : (
-          <div className="empty-state"><span>没有找到匹配的资源</span><button type="button" onClick={() => setQuery("")}>清除搜索</button></div>
+          <div className="empty-state"><span>没有找到匹配的资源</span><button type="button" onClick={() => { setQuery(""); setActiveRegion("all"); }}>清除搜索</button></div>
         )}
 
         <a

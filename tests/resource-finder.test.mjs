@@ -68,3 +68,17 @@ test('community learning entries still obey historical deadlines rather than app
   assert.equal(finder.findResources([entry], { ...filters, need:'learn' }, 'zh', now).length, 0);
   assert.equal(finder.findResources([entry], { ...filters, need:'learn', freshness:'historical' }, 'zh', now).length, 1);
 });
+
+const home = await import(await moduleUrl('lib/homeDiscovery'));
+test('homepage map filters documented regions without assigning global or unknown locations', () => {
+  const sample = (location) => ({ slug:'unknown', location });
+  assert.equal(home.matchesHomeRegion(sample('全球 · 在线'), 'asia'), false);
+  assert.equal(home.matchesHomeRegion(sample('未提供'), 'europe'), false);
+  assert.equal(home.matchesHomeRegion(sample('United States · Boston'), 'north-america'), true);
+  assert.equal(home.matchesHomeRegion(sample('墨西哥 · Mexico City'), 'latin-america'), true);
+  assert.equal(home.matchesHomeRegion(sample('法国 · Paris'), 'europe'), true);
+  assert.equal(home.matchesHomeRegion(sample('澳大利亚 · Sydney'), 'oceania'), true);
+  assert.equal(home.matchesHomeRegion(sample('新加坡 · Singapore'), 'asia'), true);
+  assert.equal(home.matchesHomeRegion(sample('未提供'), 'all'), true);
+  assert.equal(home.matchesHomeRegion(sample('France'), 'invalid'), false);
+});

@@ -1,10 +1,13 @@
 "use client";
 
+import { homeRegions, matchesHomeRegion } from "../lib/homeDiscovery";
+import { HomeFeatures, HomeIcon, HomeMetrics, HomeSignalPanel } from "./HomeVisuals";
+
 import { resourcePreview } from "../lib/resourceFreshness";
 import { useCommunityResources } from "../lib/useCommunityResources";
 import { WeeklySpotlight } from "./WeeklySpotlight";
 import { FormEvent, useMemo, useState } from "react";
-import { AudienceCount } from "./AudienceCounter";
+import { trackAudienceEvent } from "./AudienceCounter";
 import { ResourceCard } from "./ResourceCard";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
 import { englishCategoryNotes, englishTypeConfig, getEnglishResource } from "../data/english";
@@ -19,18 +22,16 @@ const categoryStyles: Record<ResourceType, string> = {
   startup: "category-lilac",
 };
 
-function locationCount(term: string) {
-  return String(resources.filter((resource) => resource.location.includes(term)).length).padStart(2, "0");
-}
 
 export function EnglishHome() {
   const community = useCommunityResources("en");
   const [query, setQuery] = useState("");
+  const [activeRegion, setActiveRegion] = useState("all");
   const [activePreview, setActivePreview] = useState<PreviewMode>("featured");
 
   const searchResults = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    if (!normalized) {
+    if (!normalized && activeRegion === "all") {
       return resourcePreview(resources, activePreview);
     }
     return [...resources, ...community.resources].filter((resource) => {
@@ -42,9 +43,9 @@ export function EnglishHome() {
         english?.kind ?? resource.kind,
         ...(english?.tags ?? resource.tags),
       ].join(" ").toLowerCase();
-      return searchable.includes(normalized);
+      return searchable.includes(normalized) && matchesHomeRegion(resource, activeRegion);
     });
-  }, [activePreview, query, community.resources]);
+  }, [activePreview, query, activeRegion, community.resources]);
 
   const previewTitles: Record<PreviewMode, string> = {
     featured: "Editor's Picks",
@@ -60,18 +61,20 @@ export function EnglishHome() {
 
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    trackAudienceEvent("search:submit", query.trim() || "empty");
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   function applyQuickSearch(term: string) {
     setActivePreview("featured");
+    setActiveRegion("all");
     setQuery(term);
     document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
-    <main>
-      <SiteHeader lang="en" />
+    <main className="pioneer-home">
+      <SiteHeader lang="en" home />
 
       <section className="hero hero-en" id="top">
         <div className="hero-copy">
@@ -83,7 +86,7 @@ export function EnglishHome() {
           </p>
 
           <form className="search-box" onSubmit={handleSearch} role="search">
-            <span className="search-icon" aria-hidden="true">⌕</span>
+            <span className="search-icon"><HomeIcon kind="search" /></span>
             <label className="sr-only" htmlFor="resource-search-en">Search startup resources</label>
             <input
               id="resource-search-en"
@@ -97,33 +100,16 @@ export function EnglishHome() {
           <div className="popular-searches" aria-label="Popular searches">
             <span>Popular:</span>
             {["AI", "Global teams", "Individual applicants", "Tech conference"].map((term) => (
-              <button key={term} type="button" onClick={() => applyQuickSearch(term)}>{term}</button>
+              <button key={term} type="button" aria-pressed={query === term} onClick={() => applyQuickSearch(term)}>{term}</button>
             ))}
           </div>
+          <HomeFeatures lang="en" />
         </div>
 
-        <aside className="atlas-card" aria-label="Global startup resource preview">
-          <div className="atlas-topline"><span>GLOBAL SIGNAL MAP</span><span className="live-indicator">CURATED</span></div>
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="atlas-scan" />
-          <div className="globe" aria-hidden="true">
-            <img className="globe-visual" src="/globe-editorial.png" alt="" width="960" height="960" loading="eager" />
-          </div>
-          <div className="atlas-core"><strong>{resources.length}</strong><span>curated briefs</span></div>
-          <div className="map-pin pin-singapore"><span>Singapore</span><strong>{locationCount("新加坡")}</strong></div>
-          <div className="map-pin pin-london"><span>London</span><strong>{locationCount("London")}</strong></div>
-          <div className="map-pin pin-berlin"><span>Paris</span><strong>{locationCount("Paris")}</strong></div>
-          <div className="map-pin pin-sf"><span>San Francisco</span><strong>{locationCount("San Francisco")}</strong></div>
-          <div className="atlas-footer"><span>global coverage</span><span>official sources linked</span></div>
-        </aside>
+        <HomeSignalPanel lang="en" activeRegion={activeRegion} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" }); }} />
       </section>
 
-      <section className="metrics" aria-label="Platform metrics">
-        <div className="visitor-metric"><strong><AudienceCount /></strong><span>unique visitors</span></div>
-        <div><strong>{resources.length}</strong><span>curated briefs</span></div>
-        <div><strong>4</strong><span>resource directories</span></div>
-        <div><strong>6</strong><span>editor&apos;s picks</span></div>
-        <p>Filter directories by resource type, location, founder stage and review freshness.</p>
-      </section>
+      <HomeMetrics lang="en" />
 
       <WeeklySpotlight lang="en" />
 
@@ -155,9 +141,11 @@ export function EnglishHome() {
             <h2>{query ? `Results for "${query}"` : previewTitles[activePreview]}</h2>
           </div>
           <span className="updated-note">
-            <i /> {query ? `${searchResults.length} matching entries` : `${searchResults.length} homepage samples`}
+            <i /> {query || activeRegion !== "all" ? `${searchResults.length} matching entries` : `${searchResults.length} homepage samples`}
           </span>
         </div>
+
+        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{homeRegions.find(region => region.id === activeRegion)?.en} · Documented resource locations<button type="button" onClick={() => setActiveRegion("all")}> Clear region filter</button></div>)}
 
         <div className="filter-row" aria-label="Homepage content switcher">
           <div className="filter-buttons">
@@ -172,7 +160,7 @@ export function EnglishHome() {
                 type="button"
                 key={mode}
                 className={activePreview === mode && !query ? "active" : ""}
-                onClick={() => { setActivePreview(mode); setQuery(""); }}
+                onClick={() => { setActivePreview(mode); setQuery(""); setActiveRegion("all"); }}
               >
                 {label}
               </button>
@@ -181,14 +169,14 @@ export function EnglishHome() {
           <a className="result-directory-link" href={directoryTarget.href}>{directoryTarget.label} →</a>
         </div>
 
-        {query.trim() && community.state === "loading" && <p role="status">Loading community resources; curated matches are shown below.</p>}
-        {query.trim() && community.state === "error" && <p role="alert">Community resources could not be loaded. These results cover curated briefs only. <button type="button" onClick={community.retry}>Retry community search</button></p>}
+        {(query.trim() || activeRegion !== "all") && community.state === "loading" && <p role="status">Loading community resources; curated matches are shown below.</p>}
+        {(query.trim() || activeRegion !== "all") && community.state === "error" && <p role="alert">Community resources could not be loaded. These results cover curated briefs only. <button type="button" onClick={community.retry}>Retry community search</button></p>}
         {searchResults.length ? (
           <div className="resource-grid">
             {searchResults.map((resource) => <ResourceCard resource={resource} lang="en" key={resource.id} />)}
           </div>
         ) : (
-          <div className="empty-state"><span>No matching resources found</span><button type="button" onClick={() => setQuery("")}>Clear search</button></div>
+          <div className="empty-state"><span>No matching resources found</span><button type="button" onClick={() => { setQuery(""); setActiveRegion("all"); }}>Clear search</button></div>
         )}
 
         <a className="all-resources" href={directoryTarget.href}>{directoryTarget.label} <span aria-hidden="true">→</span></a>

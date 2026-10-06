@@ -4,6 +4,7 @@ import { GrowthFooter } from "./GrowthFooter";
 type SiteChromeProps = {
   lang?: "zh" | "en";
   languageHref?: string;
+  home?: boolean;
 };
 
 const nav = {
@@ -53,7 +54,7 @@ const nav = {
   },
 } as const;
 
-export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
+export function SiteHeader({ lang = "zh", languageHref, home = false }: SiteChromeProps) {
   const copy = nav[lang];
   const homeHref = lang === "en" ? "/en#top" : "/#top";
 
@@ -63,13 +64,13 @@ export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
         <span>{copy.announcement}</span>
         <p>{lang === "zh" ? "已有 " : ""}<AudienceCount /> {copy.visited}</p>
       </div>
-      <header className="site-header">
+      <header className={`site-header${home ? " home-header" : ""}`}>
         <a className="brand" href={homeHref} aria-label={copy.homeLabel}>
           <span className="brand-mark" aria-hidden="true">P</span>
           <span>PIONEER</span>
         </a>
         <nav aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
-          {copy.links.map(([href, label]) => (
+          {copy.links.filter(([href]) => !home || !href.endsWith("/login")).map(([href, label]) => (
             <a href={href} key={href} data-audience-event="nav:open" data-audience-target={label}>{label}</a>
           ))}
         </nav>

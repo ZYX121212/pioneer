@@ -135,8 +135,9 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   assert.match(counter, /window\.crypto\.randomUUID\(\)/);
   assert.match(counter, /data-audience-event/);
   assert.match(counter, /utm_source/);
-  assert.match(page, /累计独立访客/);
-  assert.match(page, /累计浏览次数/);
+  const homeVisuals = await readFile(new URL("../app/components/HomeVisuals.tsx", import.meta.url), "utf8");
+  assert.match(homeVisuals, /累计独立访客/);
+  assert.match(homeVisuals, /累计浏览次数/);
   assert.match(page, /trackAudienceEvent\("search:submit"/);
   assert.match(analytics, /创业者反馈仪表盘/);
   assert.match(analytics, /热门访问路径/);
