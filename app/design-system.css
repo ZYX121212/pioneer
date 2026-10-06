@@ -186,3 +186,20 @@ body {margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
 .location-panel :is(p,li) {font-size:16px;line-height:1.7;}
 .location-panel :is(button,a,summary):focus-visible {outline:2px solid var(--green);outline-offset:4px;}
 .weekly-principle>span {color:var(--green);}
+:is(.waic-hero,.submission-hero) {background:var(--surface);color:var(--ink);padding:48px var(--page-gutter);border-bottom:1px solid var(--line);}
+:is(.waic-hero,.submission-hero) h1 {font-size:clamp(32px,4vw,56px);line-height:1.25;letter-spacing:-.025em;}
+.waic-hero h1 em {color:var(--green);font-size:clamp(24px,2.5vw,36px);}
+.waic-hero-grid {max-width:var(--page-width);margin-inline:auto;gap:32px;}
+:is(.waic-fact-panel,.waic-one-page-plan,.waic-event-notice,.source-card,.pioneer-judgment,.guide-next,.guide-fast-track,.submission-hero-aside) {border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);}
+:is(.waic-page,.submission-shell) {background:#fff;}
+:is(.waic-page,.submission-shell,.guide-fast-track,.guide-next,.pioneer-judgment,.source-card) :is(p,li) {font-size:16px;line-height:1.75;color:var(--muted);}
+:is(.waic-page,.guide-fast-track,.guide-next,.pioneer-judgment,.source-card) :is(h2,h3,strong,b) {color:var(--ink);}
+.fast-track-grid>div {background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);}
+:is(.guide-next,.source-card) a {color:var(--green);}
+:is(.waic-primary-link,.submission-hero .primary-action) {background:var(--green);color:#fff;border-radius:8px;}
+:is(.waic-secondary-link,.waic-radar-filters button) {background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:8px;}
+.waic-radar-filters button.is-active {background:var(--green);color:#fff;}
+@media(max-width:760px){:is(.waic-hero,.submission-hero){padding:32px var(--page-gutter);}}
+.submission-hero {min-height:0;align-items:center;gap:32px;}
+.submission-hero .section-index {color:var(--green);}
+.submission-hero aside {background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
