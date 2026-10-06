@@ -10920,3 +10920,13 @@ a {
 .location-guides a {display:flex;justify-content:space-between;padding:18px 0;border-top:1px solid #eee;color:#2e4539;font-size:14px;text-decoration:none;}
 .location-panel :is(button,a,summary):focus-visible {outline:2px solid #d9924c;outline-offset:3px;}
 @media(max-width:700px){.location-panel{inset:auto 10px 10px;margin:0;width:calc(100vw - 20px);max-width:none;max-height:88dvh;padding:20px;border-radius:18px;}.location-panel-bottom{bottom:-20px;}.location-tabs{gap:4px;}.location-tabs button{font-size:12px;}.location-banner{height:150px;}}
+@media(max-width:700px){.location-panel{inset:auto 10px 10px;margin:0;width:calc(100vw - 20px);max-width:none;max-height:88dvh;padding:20px;border-radius:18px;}.location-panel-bottom{bottom:-20px;}.location-tabs{gap:4px;}.location-tabs button{font-size:10px;}.location-banner{height:150px;}}
+
+/* A single bookmark control across cards, detail pages and location panels. */
+.resource-save > button.bookmark-save {display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;min-width:34px;padding:5px;border:0;border-radius:6px;background:transparent;color:#202722;box-shadow:none;cursor:pointer;}
+.resource-save > button.bookmark-save svg {display:block;width:23px;height:23px;flex:none;}
+.resource-save > button.bookmark-save:hover {background:#eef2eb;color:#153f2e;}
+.resource-save > button.bookmark-save[aria-pressed="true"] {background:transparent;color:#164b34;}
+.resource-save > button.bookmark-save:disabled {opacity:.45;cursor:wait;}
+.resource-photo .resource-save > button.bookmark-save {background:#fffffff0;box-shadow:0 2px 5px #0001;}
+@media(pointer:coarse){.resource-save > button.bookmark-save{width:44px;height:44px;min-width:44px;}}
