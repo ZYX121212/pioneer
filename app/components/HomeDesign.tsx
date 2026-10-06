@@ -7,7 +7,7 @@ import {resources,type Resource} from '../data/resources';
 import {getEnglishResource} from '../data/english';
 import {freshnessLabel,resourceFreshness} from '../lib/resourceFreshness';
 import {weeklyIssue,weeklyOpportunities,isWeeklyCurrent} from '../data/weekly';
-import {resourceCardSummary} from '../lib/resourceCardSummary';
+import {ResourceDecisionFooter} from './ResourceDecisionFooter';
 import {CardFactIcon} from './CardFactIcon';
 import {matchesGlobePlace} from '../lib/globeDiscovery';
 import {geoMercator,geoPath} from 'd3-geo';
@@ -39,8 +39,8 @@ export function resourceImage(resource:Resource){
  return '/home/san-francisco.jpg';
 }
 export function PhotoResourceCard({resource,lang}:{resource:Resource;lang:Lang}){
- const en=lang==='en',copy=(en?getEnglishResource(resource.slug):undefined)??resource,p=en?'/en':'',fresh=resourceFreshness(resource),facts=resourceCardSummary(resource,lang);
- return <article className="design-photo-card"><div className="resource-photo"><img src={resourceImage(resource)} alt={en?'Location or topic illustration':'所在地或主题配图'} loading="lazy"/>{resource.featured&&<span className="featured-badge">FEATURED</span>}<SaveResource slug={resource.slug} lang={lang}/></div><div className="photo-card-body"><h3><a className="card-cover-link" href={resource.detailPath?`${p}${resource.detailPath}`:`${p}/resources/${resource.slug}`}>{resource.name}</a></h3><p>{copy.description}</p><div className="design-tags">{copy.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div><small className="photo-freshness">{freshnessLabel(fresh,lang)} · {resource.verified.match(/\d{4}.\d{2}.\d{2}/)?.[0]}</small><div className="photo-facts" aria-label={en?'Decision facts':'决策信息'}>{facts.map(f=><span key={f.label}>{f.label}: {f.value}</span>)}</div></div></article>;
+ const en=lang==='en',copy=(en?getEnglishResource(resource.slug):undefined)??resource,p=en?'/en':'',fresh=resourceFreshness(resource);
+ return <article className="design-photo-card"><div className="resource-photo"><img src={resourceImage(resource)} alt={en?'Location or topic illustration':'所在地或主题配图'} loading="lazy"/>{resource.featured&&<span className="featured-badge">FEATURED</span>}<SaveResource slug={resource.slug} lang={lang}/></div><div className="photo-card-body"><h3><a className="card-cover-link" href={resource.detailPath?`${p}${resource.detailPath}`:`${p}/resources/${resource.slug}`}>{resource.name}</a></h3><p>{copy.description}</p><div className="design-tags">{copy.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div><small className="photo-freshness">{freshnessLabel(fresh,lang)} · {resource.verified.match(/\d{4}.\d{2}.\d{2}/)?.[0]}</small><ResourceDecisionFooter resource={resource} lang={lang}/></div></article>;
 }
 const ecosystems=[{id:'country:SGP',name:'Singapore',zh:'新加坡',lon:103.82,lat:1.35},{id:'city:USA:San Francisco',name:'San Francisco',zh:'旧金山',lon:-122.42,lat:37.77},{id:'city:GBR:London',name:'London',zh:'伦敦',lon:-.12,lat:51.5},{id:'city:USA:New York',name:'New York',zh:'纽约',lon:-74,lat:40.71},{id:'city:JPN:Tokyo',name:'Tokyo',zh:'东京',lon:139.69,lat:35.68}];
 export function EcosystemSection({lang,onSelect}:{lang:Lang;onSelect:(id:string)=>void}){

@@ -93,7 +93,8 @@ test('card decision facts use verified deadlines and documented campus fields in
     assert.equal(facts.length, 2);
     assert.match(facts[0].value, /2026\.11\.02/);
     assert.doesNotMatch(facts[0].value, /2027\.11\.02/);
-    assert.ok(facts[1].value.length > 5);
+    assert.ok(facts[1].value.trim().length > 0);
+    if(lang==='zh'){assert.equal(facts[1].label,'适合阶段');assert.equal(facts[1].value,'早期项目');}
     const campus = card.resourceCardSummary(station, lang, now);
     assert.match(campus[0].value, /30\+/);
     assert.match(campus[1].value, /项目|Programs/);

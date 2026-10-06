@@ -14,7 +14,7 @@ export function resourceCardSummary(resource: Resource, lang: "zh" | "en" = "zh"
   const fact = (zh: string, en: string, value: string | undefined, icon: CardFact["icon"]): CardFact => ({ label: label(zh, en), value: value || missing, icon });
   const historical = resourceFreshness(resource, now) === "historical";
   const audience = () => fact("适合团队", "Best for", copy.bestFor.find(value => value.trim()), "people");
-  const stage = pick(/适合阶段|核心阶段|投资阶段|Stage/i);
+  const stage = pick(/适合阶段|核心阶段|投资阶段|Stage/i) || copy.tags.find(value => /^(早期项目|极早期|种子阶段|成长阶段|Early.stage(?: projects)?|Pre.seed|Seed|Series [A-C])$/i.test(value));
 
   if (resource.type === "startup") {
     const stages = { seed: ["种子 / 早期", "Seed / early"], "series-a": ["A 轮", "Series A"], "series-bc": ["B–C 轮", "Series B–C"], growth: ["成长期", "Growth"], scale: ["规模化", "Scaled"] };

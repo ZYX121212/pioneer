@@ -10930,3 +10930,19 @@ a {
 .resource-save > button.bookmark-save:disabled {opacity:.45;cursor:wait;}
 .resource-photo .resource-save > button.bookmark-save {background:#fffffff0;box-shadow:0 2px 5px #0001;}
 @media(pointer:coarse){.resource-save > button.bookmark-save{width:44px;height:44px;min-width:44px;}}
+
+/* Visible, shared two-fact decision strip. */
+.design-photo-card{display:flex;flex-direction:column;}
+.photo-card-body{display:flex;flex:1;flex-direction:column;padding:14px 14px 0;}
+.photo-card-body h3{font-size:16px;}
+.photo-card-body>p{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.7;min-height:41px;}
+.photo-card-body .photo-freshness{margin:12px 0;font-size:11px;}
+.design-photo-card .resource-decision-footer,.resource-card .resource-decision-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 34px;align-items:center;gap:12px;box-sizing:border-box;height:96px;min-height:96px;padding:14px 0;margin-top:auto;border-top:1px solid #e9ece6;}
+.resource-decision-fact{gap:8px;align-items:center;}
+.resource-decision-fact svg{flex:0 0 22px;width:22px;height:22px;}
+.resource-decision-fact strong{font-size:12px;font-weight:600;line-height:1.4;}
+.resource-decision-fact span{font-size:12px;color:#79827d;line-height:1.5;min-height:36px;-webkit-line-clamp:2;}
+.design-photo-card .resource-decision-footer>a,.resource-card .resource-decision-footer>a{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;min-width:34px;width:34px;height:34px;padding:0;border:1px solid #789088;border-radius:50%;justify-self:end;font-size:21px;line-height:1;color:#23483a;text-decoration:none;}
+.design-photo-card .resource-decision-footer>a:hover{background:#143d2c;color:white;}
+@media(min-width:601px) and (max-width:1100px){.design-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.resource-photo{height:150px;}}
+@media(max-width:600px){.design-photo-grid{grid-template-columns:1fr;}.resource-photo{height:170px;}.design-photo-card .resource-decision-footer{gap:12px;}.photo-card-body h3{font-size:17px;}.photo-card-body>p{font-size:13px;}}
