@@ -174,3 +174,26 @@ test('calendar refuses historical, stale, non-event and malformed dates and reje
   assert.equal(eventCal.eventCalendarResponse(new Request('https://pioneer.test/calendar.ics?alarm=bad'),tc,'en').status,400);
   assert.equal(eventCal.eventCalendarResponse(new Request('https://pioneer.test/calendar.ics'),undefined,'en').status,404);
 });
+
+const ecosystem = await import(await moduleUrl('lib/ecosystemMap'));
+test('ecosystem points cover the catalogue, hide zero counts and deduplicate community copies', () => {
+ const cities = ecosystem.ecosystemPoints(resources, 'city');
+ for (const id of ['city:CHN:Shanghai','city:CHN:Hong Kong','city:CHN:Taipei','city:USA:Las Vegas','city:USA:Newark','city:DNK:Copenhagen','city:DEU:Munich','city:AUS:Melbourne']) assert.ok(cities.some(row => row.id===id && row.count>0),id);
+ assert.ok(!cities.some(row=>row.id==='city:JPN:Tokyo'));
+ for(const row of cities) assert.equal(row.count,new Set(row.entries.map(r=>r.slug)).size);
+ assert.deepEqual(ecosystem.ecosystemPoints([...resources,resources[0]],'city'),cities);
+ const countries = ecosystem.ecosystemPoints(resources, 'country');
+ const mapped = new Set(countries.flatMap(row=>row.entries.map(r=>r.slug)));
+ const unlocated = ecosystem.unlocatedResources(resources);
+ assert.equal(mapped.size+unlocated.length,resources.length);
+ assert.ok(unlocated.some(row=>row.slug==='dify'));
+ const london=cities.find(row=>row.id==='city:GBR:London');
+ assert.ok(london.entries.some(row=>/New York.*London/.test(row.location)));
+});
+test('ecosystem dot area grows with resource count and preserves country boundaries', () => {
+ const sample = location => ({slug:'unknown',location});
+ assert.ok(ecosystem.ecosystemRadius(24,24)>ecosystem.ecosystemRadius(1,24));
+ assert.ok(Math.abs((ecosystem.ecosystemRadius(24,24)**2-12)/(ecosystem.ecosystemRadius(12,24)**2-12)-2)<1e-9);
+ assert.equal(globe.matchesGlobePlace(sample('全球 · Melbourne / San Francisco'),'city:AUS:Melbourne'),true);
+ assert.equal(globe.matchesGlobePlace(sample('美国 · Shanghai'),'city:CHN:Shanghai'),false);
+});
