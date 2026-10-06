@@ -854,10 +854,11 @@ test("ended event briefs expose archive sources in both languages and leave defa
   }
   for (const path of ["/", "/en"]) {
     const home = await (await render(path)).text();
-    // The ecosystem map includes all catalogued locations and their archives.
-    // Only the default actionable discovery area must exclude ended editions.
-    const discovery = home.slice(0, home.indexOf('class="design-ecosystem'));
-    assert.ok(discovery.length > 0 && discovery.length < home.length);
+    // The ecosystem map intentionally includes archives. Check the default
+    // discovery list, rather than treating map archive links as current offers.
+    const listStart = home.indexOf('id="resources"');
+    assert.ok(listStart >= 0);
+    const discovery = home.slice(listStart, home.indexOf('</section>', listStart));
     assert.doesNotMatch(discovery, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
     assert.doesNotMatch(discovery, /href="(?:\/en)?\/waic-2026"/);
   }
