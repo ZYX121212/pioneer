@@ -10666,3 +10666,4 @@ footer .footer-links { flex-wrap:wrap; }
 .workspace-restore input[type="file"] { width:100%; max-width:100%; }
 .workspace-restore-preview { padding:16px; margin:16px 0; border:1px solid #d4ddd7; background:#f6f8f5; overflow-wrap:anywhere; }
 .workspace-restore button { margin:8px 12px 8px 0; }
+.workspace-download-link { display:inline-flex; align-items:center; padding:10px 14px; border:1px solid #bbb; background:#fff; color:#182033; font:inherit; line-height:1.5; }
