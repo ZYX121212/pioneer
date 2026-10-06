@@ -497,4 +497,10 @@ export const knowledgeItems: KnowledgeItem[] = [
     description: "比较独资、合伙、LLC 与公司的一般差异，理解主体会影响责任、税务、融资和持续文件要求。",
     tags: ["公司结构", "责任", "英文"], duration: "约 18 分钟", level: "基础", scope: "美国一般信息", url: "https://www.sba.gov/business-guide/launch-your-business/choose-business-structure", color: "rose",
   },
+  {"id": 16, "stage": "validate", "kind": "技术课程与回放", "title": "Google Startup School：AI Agent 构建", "source": "Google for Startups", "description": "查阅已归档的 Agent Builder、Agentic AI 和原型开发系列，从产品实验走向可部署的 AI 应用；这是课程回放入口，不是当前开放的直播班。", "tags": ["AI Agent", "MVP", "英文"], "duration": "按主题学习", "level": "进阶", "scope": "AI 产品与技术", "url": "https://startup.google.com/programs/startup-school/", "color": "blue"},
+
+  {"id": 17, "stage": "validate", "kind": "产品开发文档", "title": "Dify：从知识库到 AI 工作流", "source": "Dify Docs", "description": "了解知识处理、工作流、Agent 与应用发布，围绕一个真实用户任务搭建可测试的产品流程。", "tags": ["AI 应用", "工作流", "技术文档"], "duration": "边做边查", "level": "基础", "scope": "Dify 产品实践", "url": "https://docs.dify.ai/", "color": "violet"},
+
+  {"id": 18, "stage": "company", "kind": "自动化技术文档", "title": "n8n：搭建业务自动化流程", "source": "n8n Docs", "description": "从节点、集成和部署开始，为重复任务建立流程；正式使用时同时设计失败处理、权限与人工确认。", "tags": ["自动化", "API", "英文"], "duration": "边做边查", "level": "基础", "scope": "n8n 产品实践", "url": "https://docs.n8n.io/", "color": "mint"},
+
 ];
