@@ -452,6 +452,17 @@ test("renders a directory and an internal editorial detail before the official s
   assert.equal(directoryResponse.status, 200);
   assert.match(directory, /申请与参加条件/);
   assert.match(directory, /资源列表/);
+  assert.match(directory, /Open Programs/);
+  assert.match(directory, /找到真正适合你的创业计划/);
+  assert.equal((directory.match(/class="program-card"/g) ?? []).length, 6);
+  assert.match(directory, /aria-label="资金支持"/);
+  assert.match(directory, /aria-label="参与方式"/);
+  assert.match(directory, /\/programs\/founder-mountains.webp/);
+  assert.match(directory, /PIONEER TAKE/);
+  assert.match(directory, /加入资源清单/);
+  const englishPrograms = await (await render("/en/programs")).text();
+  assert.match(englishPrograms, /Find the right program for your next chapter/);
+  assert.equal((englishPrograms.match(/class="program-card"/g) ?? []).length, 6);
 
   const detailResponse = await render("/resources/y-combinator");
   const detail = await detailResponse.text();
@@ -843,8 +854,12 @@ test("ended event briefs expose archive sources in both languages and leave defa
   }
   for (const path of ["/", "/en"]) {
     const home = await (await render(path)).text();
-    assert.doesNotMatch(home, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
-    assert.doesNotMatch(home, /href="(?:\/en)?\/waic-2026"/);
+    // The ecosystem map includes all catalogued locations and their archives.
+    // Only the default actionable discovery area must exclude ended editions.
+    const discovery = home.slice(0, home.indexOf('class="design-ecosystem'));
+    assert.ok(discovery.length > 0 && discovery.length < home.length);
+    assert.doesNotMatch(discovery, /href="(?:\/en)?\/resources\/(?:bits-and-pretzels-2026|inbound-2026|dreamforce-2026)"/);
+    assert.doesNotMatch(discovery, /href="(?:\/en)?\/waic-2026"/);
   }
   const upcoming = await (await render('/en/resources/switch-singapore-2026')).text();
   assert.match(upcoming, /Current window needs rechecking/);

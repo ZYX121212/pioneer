@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DirectoryPage } from "../components/DirectoryPage";
+import { ProgramsPageContent } from "../components/ProgramsPageContent";
 
 export const metadata: Metadata = {
   title: "全球创业计划与加速器 — Pioneer",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProgramsPage() {
-  return <DirectoryPage type="program" />;
+  return <ProgramsPageContent lang="zh" />;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EnglishDirectoryPage } from "../../components/EnglishDirectoryPage";
+import { ProgramsPageContent } from "../../components/ProgramsPageContent";
 
 export const metadata: Metadata = {
   title: "Open Programs — Pioneer",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function EnglishProgramsPage() {
-  return <EnglishDirectoryPage type="program" />;
+  return <ProgramsPageContent lang="en" />;
 }
