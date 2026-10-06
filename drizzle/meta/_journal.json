@@ -64,6 +64,13 @@
       "when": 1791217527497,
       "tag": "0008_wooden_vengeance",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1791251744010,
+      "tag": "0009_overjoyed_lord_hawal",
+      "breakpoints": true
     }
   ]
 }

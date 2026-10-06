@@ -19,7 +19,7 @@ test('actual local D1 API enforces login, account isolation, persistence, confli
   assert.equal((await (await call(userA)).json()).state.project, null);
 });
 test('workspace browser flows render bilingual controls only for authenticated local identities', async () => {
-  for (const [path, title, button] of [['/workspace', '你的创业工作台', '使用 ChatGPT 登录'], ['/en/workspace', 'Your founder workspace', 'Sign in with ChatGPT']]) {
+  for (const [path, title, button] of [['/workspace', '你的创业工作台', '使用邮箱登录'], ['/en/workspace', 'Your founder workspace', 'Sign in with email']]) {
     const anon = await fetch(`${origin}${path}`); const html = await anon.text(); assert.equal(anon.status, 200); assert.ok(html.includes(title)); assert.ok(html.includes(button)); assert.ok(html.includes('target="_top"')); assert.ok(!html.includes('Preview account A'));
     const signed = await fetch(`${origin}${path}`, { headers: { 'oai-authenticated-user-id': userB, 'oai-authenticated-user-email': `${userB}@example.org` } }); const signedHtml = await signed.text(); assert.equal(signed.status, 200); assert.ok(signedHtml.includes(path.startsWith('/en') ? 'Resource shortlist and comparison' : '资源清单与对比'));
   }

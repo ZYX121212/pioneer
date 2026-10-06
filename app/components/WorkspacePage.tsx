@@ -1,4 +1,4 @@
-import { getChatGPTUser } from "../chatgpt-auth";
+import { getAppUser } from "../lib/appUser";
 import { getD1 } from "../../db/d1";
 import { resources } from "../data/resources";
 import { getEnglishResource } from "../data/english";
@@ -10,7 +10,7 @@ import { FounderWorkspace, type WorkspaceResource } from "./FounderWorkspace";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
 export async function WorkspacePage({ lang }: { lang: "zh" | "en" }) {
   const en = lang === "en", prefix = en ? "/en" : "";
-  const user = await getChatGPTUser();
+  const user = await getAppUser();
   const catalog: WorkspaceResource[] = resources.map(row => { const copy = en ? getEnglishResource(row.slug) ?? row : row; const freshness = resourceFreshness(row); return { slug: row.slug, name: row.name, type: row.type, location: copy.location, timing: copy.timing, status: freshness === "reviewed" ? copy.status : freshnessLabel(freshness, lang), verified: row.verified, fit: copy.bestFor, cautions: copy.considerations, href: `${prefix}${row.detailPath ?? `/resources/${row.slug}`}` }; });
   let communityUnavailable = false;
   if (user) try { const rows = await listCommunity(await getD1()); catalog.push(...rows.map(row => ({ slug: row.slug, name: row.name, type: row.resource_type, location: row.location ?? "—", timing: row.deadline ?? (en ? "No supplied date" : "未提供日期"), status: communityStatus(row, lang), verified: row.verified_at.slice(0, 10), fit: [en ? "Check individual eligibility on the official source" : "在官方来源核对具体资格"], cautions: [en ? "Contributor's recommendation; benefits and eligibility are not independently researched" : "贡献者推荐理由，权益与资格尚未独立研究"], href: `${prefix}/community/${row.slug}` }))); } catch { communityUnavailable = true; }

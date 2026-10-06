@@ -153,3 +153,5 @@ export const mailDeliveries = sqliteTable("mail_deliveries", {
   checkedAt: text("checked_at"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 }, table => [index("idx_mail_campaign_status").on(table.campaignId, table.status)]);
+
+export { user, session, account, verification, rateLimit } from "./authSchema";

@@ -10587,3 +10587,11 @@ footer {
 .workbook-copy label { display:grid; gap:8px; }
 .workbook-copy textarea { width:100%; min-width:0; padding:12px; font:inherit; line-height:1.6; border:1px solid #bbb; background:#fff; color:#26332f; }
 .workspace-data-actions > .workbook-copy { flex-basis:100%; }
+.email-account { max-width:720px; margin:auto; }
+.email-account form, .email-account fieldset, .email-account label { display:grid; gap:14px; }
+.email-account fieldset { border:0; padding:12px 0; min-width:0; }
+.email-account input { width:100%; min-width:0; padding:12px; border:1px solid #aab4ae; font:inherit; }
+.email-account button { cursor:pointer; padding:10px 16px; border:1px solid #aab4ae; margin:6px 8px 6px 0; }
+.email-account button:disabled { cursor:wait; opacity:.65; }
+.account-modes button[aria-pressed="true"] { background:#263b32; color:#fff; }
+.email-account p { overflow-wrap:anywhere; line-height:1.7; }

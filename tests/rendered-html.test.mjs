@@ -800,7 +800,7 @@ test("expired old resources carry archival status in both languages", async () =
 test("offers bilingual private workspace sign-in with top-level navigation", async () => {
   for (const prefix of ["", "/en"]) {
     const response = await render(`${prefix}/workspace`); assert.equal(response.status, 200);
-    const html = await response.text(); assert.match(html, /signin-with-chatgpt\?return_to=/); assert.match(html, /target="_top"/); assert.match(html, /noindex/);
+    const html = await response.text(); assert.match(html, /login\?return_to=/); assert.match(html, /target="_top"/); assert.match(html, /noindex/);
     assert.doesNotMatch(html, /workspace-browser-test/);
   }
 });
@@ -811,7 +811,7 @@ test("English guide worksheets expose real evidence and decision inputs", async 
 });
 
 test('notification management and unsubscribe pages provide bilingual login, truthful delivery state and safe links', async () => {
-  for (const [path, title, login] of [['/notifications', '你的通知偏好', '使用 ChatGPT 登录'], ['/en/notifications', 'Your notification preferences', 'Sign in with ChatGPT']]) {
+  for (const [path, title, login] of [['/notifications', '你的通知偏好', '使用邮箱登录'], ['/en/notifications', 'Your notification preferences', 'Sign in with email']]) {
     const response = await render(path); assert.equal(response.status, 200); const html = await response.text();
     assert.ok(html.includes(title)); assert.ok(html.includes(login)); assert.ok(html.includes('target="_top"')); assert.match(html, /noindex/); assert.ok(html.includes(path.startsWith('/en') ? 'Email delivery is currently paused' : '邮件发送当前暂停'));
     assert.ok(html.includes(path.startsWith('/en') ? '/en/feed.xml' : '/feed.xml')); assert.ok(html.includes(path.startsWith('/en') ? '/en/weekly/deadlines.ics' : '/weekly/deadlines.ics'));
@@ -822,8 +822,8 @@ test('notification management and unsubscribe pages provide bilingual login, tru
 });
 
 test('mail publishing stays private and its setup and queue semantics are truthful', async () => {
- const page = await readFile(new URL('../app/admin/mail/page.tsx',import.meta.url),'utf8');assert.match(page,/requireChatGPTUser/);assert.match(page,/isSiteAdmin/);
- const response = await render('/admin/mail'); assert.ok([302,303,307].includes(response.status));assert.match(response.headers.get('location')??'',/signin-with-chatgpt/);
+ const page = await readFile(new URL('../app/admin/mail/page.tsx',import.meta.url),'utf8');assert.match(page,/requireAppUser/);assert.match(page,/isSiteAdmin/);
+ const response = await render('/admin/mail'); assert.ok([302,303,307].includes(response.status));assert.match(response.headers.get('location')??'',/login/);
  const dashboard = await readFile(new URL('../app/components/MailDashboard.tsx',import.meta.url),'utf8');assert.match(dashboard,/加入队列不代表已发出/);assert.match(dashboard,/服务商已接收，投递未确认/);assert.match(dashboard,/window.confirm/);
 });
 
@@ -848,4 +848,14 @@ test("ended event briefs expose archive sources in both languages and leave defa
   const upcoming = await (await render('/en/resources/switch-singapore-2026')).text();
   assert.match(upcoming, /Current window needs rechecking/);
   assert.doesNotMatch(upcoming, /This edition or action window has ended/);
+});
+
+
+test("renders bilingual email sign-in and optional ChatGPT access with safe return paths", async () => {
+  for (const [path, label] of [["/login", "邮箱登录"], ["/en/login", "Sign in with email"]]) {
+    const response = await render(`${path}?return_to=https://untrusted.example`);
+    assert.equal(response.status, 200); const html = await response.text();
+    assert.ok(html.includes(label)); assert.match(html, /type="email"/); assert.match(html, /type="password"/);
+    assert.match(html, /signin-with-chatgpt\?return_to=%2F/); assert.doesNotMatch(html, /return_to=https/);
+  }
 });

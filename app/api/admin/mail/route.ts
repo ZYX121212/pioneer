@@ -1,5 +1,5 @@
 import { getD1 } from "../../../../db/d1";
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAppUser } from "../../../lib/appUser";
 import { isSiteAdmin } from "../../../lib/admin";
 import { json, sameOrigin } from "../../../lib/http";
 import { buildMailEdition } from "../../../lib/mailContent";
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       if (payload.action === "preview") return json(await campaignPreview(db, edition));
       if (!runtime.config) return json({ error: "发信尚未启用，请先配置并验证发信服务", code: "delivery_disabled" }, 503);
       if (payload.confirmed !== true || payload.editionId !== edition.id) return json({ error: "请先预览并确认接收范围" }, 400);
-      const user = (await getChatGPTUser())!;
+      const user = (await getAppUser())!;
       return json(await enqueueCampaign(db, edition, runtime.config, user.id));
     }
     if (typeof payload.id !== "string" || payload.id.length > 200) return json({ error: "Invalid campaign identifier" }, 400);

@@ -1,7 +1,7 @@
 import { resources } from "../../../data/resources";
 import { getD1 } from "../../../../db/d1";
 import { isSiteAdmin } from "../../../lib/admin";
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAppUser } from "../../../lib/appUser";
 import { cleanText, json, sameOrigin } from "../../../lib/http";
 import { normalizePublicUrl } from "../../../lib/resourceReview";
 import { recordReview, resolveResourceReport, type SubmissionRow } from "../../../lib/submissionService";
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   try {
     const payload = await request.json(), id = Number(payload.id), action = cleanText(payload.action, 20), note = cleanText(payload.note, 1200);
     if (!Number.isSafeInteger(id) || id < 1 || note.length < 20) return json({ error: "Provide the record and a review note of at least 20 characters" }, 400);
-    const db = await getD1(), user = (await getChatGPTUser())!;
+    const db = await getD1(), user = (await getAppUser())!;
     if (action === "resolve-report") {
       const outcome = await resolveResourceReport(db, id, note, user.id);
       if (outcome === "missing") return json({ error: "Report not found" }, 404);

@@ -1,6 +1,6 @@
 import { runtimeMailConfiguration } from "../../lib/mailRuntime";
 import { getD1 } from "../../../db/d1";
-import { getChatGPTUser } from "../../chatgpt-auth";
+import { getAppUser } from "../../lib/appUser";
 import { json, requestHash, sameOrigin } from "../../lib/http";
 import { loadNewsletter, registerNewsletterInterest, saveNewsletter, unsubscribeNewsletter, validatePreferences, validEmail } from "../../lib/newsletterService";
 export const dynamic = "force-dynamic";
@@ -24,12 +24,14 @@ export async function POST(request: Request) {
   } catch (error) { console.error("Notification registration failed", error); return json({ error: "Notification registration unavailable" }, 503); }
 }
 export async function GET() {
-  const user = await getChatGPTUser(); if (!user) return json({ error: "Sign in to manage your notifications", code: "signin_required" }, 401);
+  const user = await getAppUser(); if (!user) return json({ error: "Sign in to manage your notifications", code: "signin_required" }, 401);
+  if (!user.emailVerified) return json({ error: "Verify your email before managing notifications", code: "email_verification_required" }, 403);
   try { return json({ ...await loadNewsletter(await getD1(), user), deliveryEnabled: (await runtimeMailConfiguration()).enabled }); } catch (error) { console.error("Notifications unavailable", error); return json({ error: "Notifications temporarily unavailable" }, 503); }
 }
 async function mutate(request: Request, unsubscribe: boolean) {
   if (!sameOrigin(request)) return json({ error: "Invalid request origin" }, 403);
-  const user = await getChatGPTUser(); if (!user) return json({ error: "Sign in to manage your notifications", code: "signin_required" }, 401);
+  const user = await getAppUser(); if (!user) return json({ error: "Sign in to manage your notifications", code: "signin_required" }, 401);
+  if (!user.emailVerified) return json({ error: "Verify your email before managing notifications", code: "email_verification_required" }, 403);
   let payload, preferences;
   try { payload = await readBody(request); if (!Number.isSafeInteger(payload.version) || Number(payload.version) < 0) throw new Error("Invalid version"); if (!unsubscribe) preferences = validatePreferences(payload); } catch { return json({ error: "Invalid notification preferences" }, 400); }
   try {
