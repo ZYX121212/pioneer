@@ -8,3 +8,5 @@ Pioneer references third-party companies, programs, institutions, events, and pr
 - Inclusion in Pioneer does not imply endorsement, partnership, sponsorship, or affiliation.
 
 If you are a rights holder and believe an asset or description should be corrected or removed, please open a GitHub issue in this repository.
+
+Interactive globe geography: Natural Earth 1:110m admin-0 country polygons (public domain), from https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson. City markers use approximate city-centre coordinates for resource discovery; they do not represent administrative boundaries.

@@ -5,6 +5,7 @@ import ts from 'typescript';
 const urls = new Map();
 async function moduleUrl(path) {
   if (urls.has(path)) return urls.get(path);
+  if (path.endsWith('.json')) return 'data:text/javascript;base64,' + Buffer.from('export default ' + await readFile(new URL('../app/' + path, import.meta.url), 'utf8')).toString('base64');
   let js = ts.transpileModule(await readFile(new URL('../app/' + path + '.ts', import.meta.url), 'utf8'), { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
   for (const match of [...js.matchAll(/from "([^\"]+)"/g)]) {
     if (!match[1].startsWith('.')) continue;
@@ -121,4 +122,19 @@ test('investor amounts keep historical qualifications and missing project needs 
   assert.equal(card.resourceCardSummary(pally, 'en', now)[0].value, 'Seed / early');
   const course = resources.find(row => row.slug === 'launch-by-station-f');
   assert.deepEqual(card.resourceCardSummary(course, 'en', now).map(row => row.value), ['Fully online', 'Free option']);
+});
+
+const globe = await import(await moduleUrl('lib/globeDiscovery'));
+test('globe country and city filters use location, both languages and parent country', () => {
+ const sample = location => ({slug:'unknown',location});
+ for(const location of ['中国 · 上海', 'China · Shanghai']) assert.equal(globe.matchesGlobePlace(sample(location),'city:CHN:Shanghai'),true);
+ assert.equal(globe.matchesGlobePlace(sample('中国 · 北京'),'city:CHN:Shanghai'),false);
+ assert.equal(globe.matchesGlobePlace(sample('United States · San Francisco'),'country:USA'),true);
+ assert.equal(globe.matchesGlobePlace(sample('Indonesia · Jakarta'),'country:IND'),false);
+ assert.equal(globe.matchesGlobePlace(sample('Singapore'),'country:SGP'),true);
+ assert.equal(globe.matchesGlobePlace(sample('日本 · Tokyo'),'city:JPN:Tokyo'),true);
+ assert.equal(globe.matchesGlobePlace(sample('全球 · Online'),'country:CHN'),false);
+ assert.equal(globe.matchesGlobePlace(sample('United States · Shanghai'),'city:CHN:Shanghai'),false);
+ assert.ok(resources.filter(r=>home.matchesHomeRegion(r,'city:CHN:Shanghai')).some(r=>r.slug==='agibot'));
+ assert.ok(resources.filter(r=>home.matchesHomeRegion(r,'city:CHN:Beijing')).some(r=>r.slug==='moonshot-ai'));
 });

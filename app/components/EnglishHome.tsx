@@ -1,5 +1,6 @@
 "use client";
 
+import { locationLabel } from "../lib/globeDiscovery";
 import { homeRegions, matchesHomeRegion } from "../lib/homeDiscovery";
 import { HomeFeatures, HomeIcon, HomeMetrics, HomeSignalPanel } from "./HomeVisuals";
 
@@ -106,7 +107,7 @@ export function EnglishHome() {
           <HomeFeatures lang="en" />
         </div>
 
-        <HomeSignalPanel lang="en" activeRegion={activeRegion} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" }); }} />
+        <HomeSignalPanel lang="en" activeRegion={activeRegion} entries={[...resources, ...community.resources]} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); }} />
       </section>
 
       <HomeMetrics lang="en" />
@@ -145,7 +146,7 @@ export function EnglishHome() {
           </span>
         </div>
 
-        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{homeRegions.find(region => region.id === activeRegion)?.en} · Documented resource locations<button type="button" onClick={() => setActiveRegion("all")}> Clear region filter</button></div>)}
+        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{locationLabel(activeRegion, "en") ?? homeRegions.find(region => region.id === activeRegion)?.en} · Documented resource locations<button type="button" onClick={() => setActiveRegion("all")}> Clear region filter</button></div>)}
 
         <div className="filter-row" aria-label="Homepage content switcher">
           <div className="filter-buttons">

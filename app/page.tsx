@@ -1,5 +1,6 @@
 "use client";
 
+import { locationLabel } from "./lib/globeDiscovery";
 import { homeRegions, matchesHomeRegion } from "./lib/homeDiscovery";
 import { HomeFeatures, HomeIcon, HomeMetrics, HomeSignalPanel } from "./components/HomeVisuals";
 
@@ -116,7 +117,7 @@ export default function Home() {
           <HomeFeatures lang="zh" />
         </div>
 
-        <HomeSignalPanel lang="zh" activeRegion={activeRegion} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); document.getElementById("resources")?.scrollIntoView({ behavior: "smooth" }); }} />
+        <HomeSignalPanel lang="zh" activeRegion={activeRegion} entries={[...resources, ...community.resources]} onRegion={(region) => { setActiveRegion(region); setQuery(""); setActivePreview("featured"); trackAudienceEvent("search:region", region); }} />
       </section>
 
       <HomeMetrics lang="zh" />
@@ -173,7 +174,7 @@ export default function Home() {
           </span>
         </div>
 
-        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{homeRegions.find(region => region.id === activeRegion)?.zh} · 按档案所在地筛选<button type="button" onClick={() => setActiveRegion("all")}> 清除地区筛选</button></div>)}
+        {activeRegion !== "all" && (<div className="home-region-filter" role="status">{locationLabel(activeRegion, "zh") ?? homeRegions.find(region => region.id === activeRegion)?.zh} · 按档案所在地筛选<button type="button" onClick={() => setActiveRegion("all")}> 清除地区筛选</button></div>)}
 
         <div className="filter-row" aria-label="首页内容切换">
           <div className="filter-buttons">

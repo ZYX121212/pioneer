@@ -1,6 +1,5 @@
 import { AudienceCount, PageViewCount } from "./AudienceCounter";
 import { resources } from "../data/resources";
-import { homeRegions, matchesHomeRegion } from "../lib/homeDiscovery";
 
 export function HomeIcon({ kind }: { kind: "globe" | "document" | "people" | "compass" | "database" | "search" }) {
   const paths = {
@@ -32,18 +31,7 @@ export function HomeFeatures({ lang }: { lang: "zh" | "en" }) {
   return <div className="home-features">{rows.map(([title, note], index) => <div key={title}><HomeIcon kind={(["globe", "document", "people", "compass"] as const)[index]} /><div><strong>{title}</strong><span>{note}</span></div></div>)}</div>;
 }
 
-export function HomeSignalPanel({ lang, activeRegion, onRegion }: { lang: "zh" | "en"; activeRegion: string; onRegion: (region: string) => void }) {
-  return <aside className="signal-panel" aria-label={lang === "zh" ? "全球创业资源分布预览" : "Global startup resource preview"}>
-    <img className="signal-art" src="/globe-signal-v2.png" alt="" width="1536" height="1024" fetchPriority="high" />
-    <div className="signal-topline"><div><strong>GLOBAL SIGNAL MAP</strong><span>{lang === "zh" ? "全球创业资源分布" : "Global startup resource map"}</span></div><span className="signal-curated">CURATED</span></div>
-    <div className="signal-regions" aria-label={lang === "zh" ? "按档案所在地筛选，不代表申请资格" : "Filter documented locations, not applicant eligibility"}>
-      {homeRegions.map(region => <button key={region.id} type="button" className={`signal-pin signal-pin-${region.id}`} aria-pressed={activeRegion === region.id} onClick={() => onRegion(activeRegion === region.id ? "all" : region.id)} title={lang === "zh" ? "筛选此地区的资源，再次点击取消" : "Filter this region; select again to clear"}><i /><span>{region[lang]}</span><strong>{String(resources.filter(row => matchesHomeRegion(row, region.id)).length).padStart(2, "0")}</strong></button>)}
-    </div>
-    <div className="signal-total"><strong>{resources.length}</strong><span>{lang === "zh" ? "站内整理档案" : "Curated resource briefs"}</span><small>{lang === "zh" ? "含历史档案 · 按所列地点统计" : "Includes archives · documented locations"}</small></div>
-    <div className="signal-signature" aria-hidden="true">A More<br /><span>Open World</span></div>
-    <div className="signal-words" aria-hidden="true">PEOPLE<br />IDEAS<br />RESOURCES<br />OPPORTUNITIES</div>
-  </aside>;
-}
+export { InteractiveGlobe as HomeSignalPanel } from "./InteractiveGlobe";
 
 export function HomeMetrics({ lang }: { lang: "zh" | "en" }) {
   const labels = lang === "zh" ? ["累计独立访客", "累计浏览次数", "站内整理档案", "独立资源目录"] : ["Unique visitors", "Page views", "Curated briefs", "Resource directories"];

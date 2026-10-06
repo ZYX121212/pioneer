@@ -1,3 +1,4 @@
+import { matchesGlobePlace } from "./globeDiscovery";
 import type { Resource } from "../data/resources";
 import { getEnglishResource } from "../data/english";
 export const homeRegions = [
@@ -9,6 +10,7 @@ export const homeRegions = [
 ] as const;
 export function matchesHomeRegion(resource: Resource, region: string) {
   if (region === "all") return true;
+  if (region.startsWith("country:") || region.startsWith("city:")) return matchesGlobePlace(resource, region);
   const preset = homeRegions.find(row => row.id === region);
   return !!preset?.pattern.test([resource.location, getEnglishResource(resource.slug)?.location ?? ""].join(" "));
 }
