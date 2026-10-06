@@ -1,0 +1,110 @@
+{
+  "checked": "2026-10-06",
+  "scope": "15 curated programs, 14 distinct brand assets. Local images retain original colors and aspect ratio; no synthetic letters or generated brand marks.",
+  "assets": [
+    {
+      "brand": "y-combinator",
+      "file": "y-combinator.png",
+      "source": "https://bookface-static.ycombinator.com/assets/ycdc/favicon-c8a914eeeba9fe6f7a863b35608b55aeedd7c1ff409c97b9ecb96b7a6c278d70.ico",
+      "bytes": 3251,
+      "note": "Largest 256px frame exported losslessly from the official ICO; no logo redrawing.",
+      "sha256": "2b2d823771969e82ce78aea56892defd21cf8997886e9975f6c6f6c3c99acd26"
+    },
+    {
+      "brand": "techstars",
+      "file": "techstars.png",
+      "source": "https://cdn.brandfolder.io/T71J6AJ4/as/q6kn4m-tw6a8-43pj0m/Techstars_Logo_Primary_Black.png",
+      "bytes": 41094,
+      "verification_page": "https://brand.techstars.com/",
+      "sha256": "ea6b4eec1a072c70a2e77d0023c1aa98f4a06cb6bd646eb3003b90efe0161288"
+    },
+    {
+      "brand": "antler",
+      "file": "antler.jpg",
+      "source": "https://cdn.prod.website-files.com/68c1084e137e63873a526f0f/694517628ca952cb8e6766a8_antler-webclip.jpg",
+      "bytes": 14310,
+      "sha256": "634778c4472d432c8c44564fede4e927aad5b398fe938dedfd3f142b25786e52"
+    },
+    {
+      "brand": "berkeley-skydeck",
+      "file": "berkeley-skydeck.png",
+      "source": "https://skydeck.berkeley.edu/wp-content/uploads/2019/10/cropped-NewBSkyDeck-Favicon1-192x192.png",
+      "bytes": 11516,
+      "sha256": "d540ad4576e84ae5ed588cf908c9c15e7af7bd24312362e9d217a7cd0c2776fc"
+    },
+    {
+      "brand": "entrepreneur-first",
+      "file": "entrepreneur-first.png",
+      "source": "https://www.joinef.com/wp-content/uploads/2025/03/web-app-manifest-512x512-1-300x300.png",
+      "bytes": 1362,
+      "sha256": "64ac50b0def4ade889b91c50e0cbd8eba7ae5c34f33d355b259c71b802521701"
+    },
+    {
+      "brand": "launch-station-f",
+      "file": "launch-station-f.svg",
+      "source": "https://launch.stationf.co/img/launch-logo.svg",
+      "bytes": 20414,
+      "sha256": "d69b1b71b3a4241d9f789861c28b3907abee8838d71745e30130b2f7c53d23ab"
+    },
+    {
+      "brand": "google-for-startups",
+      "file": "google-for-startups.svg",
+      "source": "https://www.gstatic.com/marketing-cms/assets/images/c9/1b/04dae563418bab88e2ac370d9618/logo.svg",
+      "bytes": 3051,
+      "sha256": "f6928f264fd922ffd90a654a30c6ba541d8cbe05813f7ae6e8d1e0f9b2e19f81"
+    },
+    {
+      "brand": "google-cloud",
+      "file": "google-cloud.svg",
+      "source": "https://www.gstatic.com/cgc/google-cloud-logo-fullcolor.svg",
+      "bytes": 6004,
+      "sha256": "9579d2aca20e69e79eafb41c89c421d82d926bdc2d54c037d5d67874a4d6f2f3"
+    },
+    {
+      "brand": "hkstp",
+      "file": "hkstp.svg",
+      "source": "https://www.hkstp.org/-/media/corpsite/assets/hkstp-logo/hkstp_logo_25_v2_color_0810v2.svg?mw=1980&rev=73998d5848f64e97b6b5aa54462e1808&hash=A00E82B84236EEAC260D7F9FEED4EAD7",
+      "bytes": 4000,
+      "sha256": "6978a37aa077539ae6c1b00be069958ce98a49438f6359207353ad932a8384d1"
+    },
+    {
+      "brand": "nvidia",
+      "file": "nvidia.svg",
+      "source": "https://www.nvidia.com/en-us/startups/",
+      "extraction": "Unmodified official inline SVG",
+      "sha256": "1e3294ff61f6970b587261ba2192e6b2f43167c1eefeb69f407f2fc65309f176",
+      "bytes": 2264
+    },
+    {
+      "brand": "aws",
+      "file": "aws.svg",
+      "source": "https://aws.amazon.com/startups/credits/",
+      "extraction": "Unmodified official inline SVG",
+      "sha256": "91e6c5f43a2b19df80d788481eed1fdffc2c9f0bf6dce4dbdd6370b690574af7",
+      "bytes": 7417
+    },
+    {
+      "brand": "microsoft",
+      "file": "microsoft.svg",
+      "source": "https://learn.microsoft.com/en-us/entra/identity-platform/media/howto-add-branding-in-apps/ms-symbollockup_mssymbol_19.svg",
+      "sha256": "929f48f88c8ca7f3f5d294be47ec4caf51acc28ac25340c19a903125d7ecd84a",
+      "bytes": 343
+    },
+    {
+      "brand": "hax",
+      "file": "hax.svg",
+      "source": "https://sosv.com/wp-content/uploads/2026/03/SOSV-HAX-logo-color-RGB.svg",
+      "verification_page": "https://sosv.com/brand-guidelines/",
+      "sha256": "4b1beda105824f9d1ce4b4603025348de5ab65db680abbde95d498b8d22885c4",
+      "bytes": 4568
+    },
+    {
+      "brand": "cyberport",
+      "file": "cyberport.png",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cyberport_Logo_Master-01.png",
+      "verification_page": "https://commons.wikimedia.org/wiki/File:Cyberport_Logo_Master-01.png",
+      "sha256": "afb52c229b1057649923f83b9065e670e6415885bb1b82f7e6b913293704001c",
+      "bytes": 25158
+    }
+  ]
+}
