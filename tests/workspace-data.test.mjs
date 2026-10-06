@@ -140,10 +140,10 @@ const eventCatalogUrl = `data:text/javascript;base64,${Buffer.from(await compile
 const { resources: eventCatalog } = await import(eventCatalogUrl);
 test('every dated event has a venue window; past editions archive without renewing old verification', () => {
   const events = eventCatalog.filter(row => row.type === 'event');
-  assert.equal(events.length, 15);
+  assert.equal(events.length, 18);
   for (const row of events) {
     assert.ok(row.eventWindow, row.slug);
-    assert.equal(freshness.resourceFreshness(row, new Date('2027-01-11T12:00:00Z')), 'historical', row.slug);
+    assert.equal(freshness.resourceFreshness(row, new Date('2027-06-05T12:00:00Z')), 'historical', row.slug);
   }
   const now = new Date('2026-10-05T12:00:00Z');
   for (const slug of ['ifa-berlin-2026', 'bits-and-pretzels-2026', 'sifted-summit-2026', 'inbound-2026', 'dreamforce-2026']) {

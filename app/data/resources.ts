@@ -1402,7 +1402,7 @@ export const resources: Resource[] = [
     tags: ["成长期", "美国", "机器人", "具身智能", "制造", "深科技"], fundingStage: "成长阶段", stageType: "growth", timing: "持续测试与扩产", status: "成长项目", verified: "2026.07.17 核验", source: "Figure 官网", url: "https://www.figure.ai/company", sources: [{ label: "公司与产品代际", href: "https://www.figure.ai/company" }, { label: "Helix", href: "https://www.figure.ai/helix" }, { label: "Figure 03", href: "https://www.figure.ai/news/introducing-figure-03?id=Figure03" }], color: "pink", monogram: "F", featured: true,
   },
   {
-    id: 53, slug: "elevenlabs", type: "startup", kind: "语音 AI / 创作平台", name: "ElevenLabs", location: "美国 · New York / London / 全球",
+    id: 53, slug: "elevenlabs", type: "startup", kind: "语音 AI / 创作平台", name: "ElevenLabs", location: "美国 · New York / 英国 · London / 全球",
     description: "从逼真人声生成扩展到语音与聊天 Agent、创意平台、多语言配音和开发者音频 API。",
     overview: "ElevenLabs 创立于 2022 年，最初解决高质量语音与配音问题，现将产品组织为 ElevenAgents、ElevenCreative 和 ElevenAPI 三个平台。",
     editorialNote: "它说明单点模型能力如何演化成多用户平台：创作者需要工具，开发者需要 API，企业则需要可靠、可监控的实时工作流。",
@@ -1545,7 +1545,7 @@ export const resources: Resource[] = [
     tags: ["B–C轮", "美国", "机器人", "消费硬件", "具身智能"], fundingStage: "官方披露 B 轮", stageType: "series-bc", timing: "2026 家庭 Beta", status: "B 轮项目", verified: "2026.07.18 核验", source: "Sunday Robotics 官网", url: "https://www.sunday.ai/journal/series-b", sources: [{ label: "B 轮融资", href: "https://www.sunday.ai/journal/series-b" }, { label: "Memo 与 Beta", href: "https://www.sunday.ai/" }], color: "yellow", monogram: "SR", featured: true,
   },
   {
-    id: 106, slug: "mercor", type: "startup", kind: "AI 人才网络 / 模型训练", name: "Mercor", location: "美国 · San Francisco / New York / London",
+    id: 106, slug: "mercor", type: "startup", kind: "AI 人才网络 / 模型训练", name: "Mercor", location: "美国 · San Francisco / New York / 英国 · London",
     description: "连接专业人才、前沿 AI 实验室和企业，用领域专家的判断与工作过程训练和评估 AI 模型。",
     overview: "Mercor 将人才匹配扩展为面向 AI 经济的专家网络和训练基础设施；官方于 2025 年披露完成 3.5 亿美元 C 轮融资，估值 100 亿美元。",
     editorialNote: "业务使用专业人员的知识支持模型训练、评估和工作流。",
@@ -1668,7 +1668,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "美国", "AI", "创作者工具", "消费产品"], fundingStage: "官方披露 D 轮", stageType: "growth", timing: "专业工具与音乐产业合作", status: "成长阶段项目", verified: "2026.07.18 核验", source: "Suno 官网", url: "https://suno.com/blog/series-d-announcement", sources: [{ label: "D 轮融资", href: "https://suno.com/blog/series-d-announcement" }, { label: "产品更新", href: "https://about.suno.com/blog/v5-5" }, { label: "C 轮与用户采用", href: "https://suno.com/blog/series-c-announcement" }], color: "yellow", monogram: "SU", featured: true,
   },
   {
-    id: 77, slug: "brainco", type: "startup", kind: "脑机接口 / 康复科技", name: "BrainCo 强脑科技", location: "中国 · 杭州 / Boston",
+    id: 77, slug: "brainco", type: "startup", kind: "脑机接口 / 康复科技", name: "BrainCo 强脑科技", location: "中国 · 杭州 / 美国 · Boston",
     description: "以非侵入式脑机接口为核心，覆盖神经康复、智能仿生肢体、健康和人机交互产品。",
     overview: "BrainCo 成立于 2015 年，围绕脑电信号采集、解码和反馈建立技术平台，并把能力落到智能仿生手、神经康复与健康产品。官方披露拥有 300 余项核心发明专利。",
     editorialNote: "值得研究的是它如何把前沿脑机接口拆成可验证的康复和仿生产品，而不是只讲通用人机融合愿景。",
@@ -1800,7 +1800,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "美国", "气候科技", "能源", "基础设施"], fundingStage: "已上市；作为规模化案例收录", stageType: "scale", timing: "Cape Station 建设与商业扩张", status: "公开市场规模化案例", verified: "2026.07.18 核验", source: "Fervo Energy 官网", url: "https://fervoenergy.com/", sources: [{ label: "公司新闻", href: "https://fervoenergy.com/newsroom-2/" }, { label: "2026 年一季度结果", href: "https://ir.fervoenergy.com/news-releases/news-release-details/fervo-energy-reports-first-quarter-2026-results" }, { label: "投资者新闻", href: "https://ir.fervoenergy.com/news-events/news-releases" }], color: "mint", monogram: "FE",
   },
   {
-    id: 89, slug: "xtalpi", type: "startup", kind: "AI for Science / 自动化实验室", name: "晶泰科技 XtalPi", location: "中国 · 深圳 / Boston",
+    id: 89, slug: "xtalpi", type: "startup", kind: "AI for Science / 自动化实验室", name: "晶泰科技 XtalPi", location: "中国 · 深圳 / 美国 · Boston",
     description: "结合 AI、量子物理和机器人实验，加速药物发现、晶型研究与新材料研发。",
     overview: "晶泰科技从晶体结构预测切入，逐步扩展到药物发现、蛋白与抗体设计、材料研发和自动化实验室，形成计算预测与湿实验验证闭环。",
     editorialNote: "可研究计算结果、实验数据、客户项目和定制研发的标准化程度。",
@@ -1811,7 +1811,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "中国", "AI for Science", "生物医药", "机器人"], fundingStage: "已上市；作为规模化案例收录", stageType: "scale", timing: "自动化实验与产业合作扩张", status: "公开市场规模化案例", verified: "2026.07.19 核验", source: "XtalPi 官网", url: "https://en.xtalpi.com/", sources: [{ label: "公司发展与产品", href: "https://en.xtalpi.com/about/" }], color: "violet", monogram: "XP", featured: true,
   },
   {
-    id: 90, slug: "insilico-medicine", type: "startup", kind: "生成式 AI / 药物研发", name: "Insilico Medicine 英矽智能", location: "中国香港 / Boston / Abu Dhabi",
+    id: 90, slug: "insilico-medicine", type: "startup", kind: "生成式 AI / 药物研发", name: "Insilico Medicine 英矽智能", location: "中国香港 / 美国 · Boston / 阿联酋 · Abu Dhabi",
     description: "以 Pharma.AI 连接靶点发现、分子生成和临床开发，同时推进自研管线与药企合作。",
     overview: "英矽智能采用平台加自研管线的双引擎模式，将生成式 AI 用于生物学、化学和临床研发。官方披露已有多个临床阶段项目，并与全球药企开展合作。",
     editorialNote: "评价重点应从‘AI 设计速度’转向候选药物能否通过临床验证、合作收入是否可重复，以及平台与管线如何分配资本。",
@@ -1987,6 +1987,450 @@ export const resources: Resource[] = [
     featured: true,
     relatedSlugs: ["aws-activate", "microsoft-for-startups"],
   },
+  {id: 111, slug: "dify", name: "Dify", type: "startup", kind: "AI 应用与工作流", location: "全球 · Online", url: "https://dify.ai/", description: "把模型、知识库与工具接入可视化工作流，发布 AI 应用、API 或网站嵌入。", overview: "Dify 提供工作流编辑器、Agent、知识处理、插件和运行观察能力；同时提供云端、企业部署与社区自托管版本。", editorialNote: "先用一个真实业务任务验证效果，再评估模型成本、部署方式和商业授权。", whyItMatters: "适合研究 AI 产品如何把模型能力变成可交付的业务流程。", bestFor: ["AI 应用开发团队", "有知识库与流程自动化需求的创业者"], considerations: ["自托管仍需要运维", "社区版采用衍生许可，商业使用应核对授权"], highlights: [{label: "产品方向", value: "AI Agent / 工作流"}, {label: "适合目标", value: "AI 应用验证"}, {label: "适合阶段", value: "产品已发布"}], tags: ["AI", "开发工具", "工作流"], status: "产品可访问", timing: "持续产品资料", verified: "2026.10.06 核验", source: "Dify 官方资料", sources: [{label: "Dify 官方资料", href: "https://dify.ai/"}], color: "violet", monogram: "DF"},
+  {id: 112, slug: "lovable", name: "Lovable", type: "startup", kind: "AI 产品开发", location: "全球 · Online", url: "https://lovable.dev/", description: "用自然语言创建网站、应用与内部工具，并持续调整设计和部署。", overview: "Lovable 将对话式产品生成与托管、身份验证、连接器等能力结合，面向希望快速实现软件想法的团队。", editorialNote: "把第一版当作用户测试工具，重点检查核心流程、数据权限和生成代码的可维护性。", whyItMatters: "缩短原型到用户反馈的距离，适合研究 AI 软件开发产品的商业模式。", bestFor: ["非技术创始人", "需要快速验证页面与产品流程的团队"], considerations: ["正式上线前检查权限与核心逻辑", "费用与用量规则以当前价格页为准"], highlights: [{label: "产品方向", value: "应用 / 网站生成"}, {label: "适合目标", value: "MVP 验证"}, {label: "适合阶段", value: "产品已发布"}], tags: ["AI", "MVP", "产品开发"], status: "产品可访问", timing: "持续产品资料", verified: "2026.10.06 核验", source: "Lovable 官方资料", sources: [{label: "Lovable 官方资料", href: "https://lovable.dev/"}], color: "rose", monogram: "LV"},
+  {id: 113, slug: "n8n", name: "n8n", type: "startup", kind: "工作流自动化", location: "全球 · Online", url: "https://n8n.io/", description: "通过可视化节点、代码与 API 连接搭建自动化流程和 AI Agent。", overview: "n8n 面向技术团队提供工作流画布、应用集成和自定义连接，支持云端与自有基础设施部署。", editorialNote: "先自动化一个重复频繁的任务，记录失败处理、人工确认和维护成本。", whyItMatters: "适合研究企业自动化与 AI Agent 如何进入真实工作场景。", bestFor: ["技术型创业团队", "希望减少重复操作的运营与销售团队"], considerations: ["自托管需要维护与安全配置", "对外提供服务时核对许可和商业条款"], highlights: [{label: "产品方向", value: "自动化 / AI Agent"}, {label: "适合目标", value: "业务流程提效"}, {label: "适合阶段", value: "产品已发布"}], tags: ["AI", "自动化", "B2B"], status: "产品可访问", timing: "持续产品资料", verified: "2026.10.06 核验", source: "n8n 官方资料", sources: [{label: "n8n 官方资料", href: "https://n8n.io/"}], color: "mint", monogram: "n8n"},
+  {id: 114, slug: "replit", name: "Replit", type: "startup", kind: "AI 软件开发", location: "全球 · Online", url: "https://replit.com/", description: "在在线环境中创建、协作开发并部署应用与网站。", overview: "Replit 提供 AI 应用构建与在线开发环境，帮助团队从需求描述推进到可运行产品。", editorialNote: "验证产品时同时记录构建用量、运行成本和发布后的维护任务。", whyItMatters: "适合比较 AI 开发平台的开发、协作与部署链路。", bestFor: ["快速搭建原型的创始人", "希望在浏览器中协作开发的团队"], considerations: ["生成结果需要实际测试", "部署与 AI 用量费用按当前方案确认"], highlights: [{label: "产品方向", value: "AI 开发 / 部署"}, {label: "适合目标", value: "原型到上线"}, {label: "适合阶段", value: "产品已发布"}], tags: ["AI", "开发工具", "MVP"], status: "产品可访问", timing: "持续产品资料", verified: "2026.10.06 核验", source: "Replit 官方资料", sources: [{label: "Replit 官方资料", href: "https://replit.com/"}], color: "orange", monogram: "RP"},
+  {id: 115, slug: "hkstp-incubation", name: "HKSTP Incubation Programme", type: "program", kind: "科技孵化计划", location: "中国 · 香港", url: "https://www.hkstp.org/en/programmes/incubation/incubation-programme", description: "面向科技创业团队的香港科学园孵化入口，官方支持全年提交申请。", overview: "计划提供科技创业支持与生态连接，申请需要说明技术创新、商业模式、团队及三年里程碑，并通过资格审查和评审。", editorialNote: "适合准备在香港开展实际业务的科技团队，先确认公司注册和线下参与安排。", whyItMatters: "为技术研发走向业务验证提供当地生态入口。", bestFor: ["准备在香港落地的科技团队", "能够提交商业方案和研发里程碑的创始人"], considerations: ["属于线下计划", "海外团队需要香港商业登记"], highlights: [{label: "申请安排", value: "全年可提交"}, {label: "参与方式", value: "香港线下"}], tags: ["科技", "孵化器", "香港"], status: "全年申请", timing: "全年提交 · 资格评审", verified: "2026.10.06 核验", source: "HKSTP Incubation Programme 官方资料", sources: [{label: "HKSTP Incubation Programme 官方资料", href: "https://www.hkstp.org/en/programmes/incubation/incubation-programme"}], color: "mint", monogram: "HK"},
+  {id: 116, slug: "cyberport-incubation", name: "Cyberport Incubation Programme", type: "program", kind: "数字科技孵化", location: "中国 · 香港", url: "https://www.cyberport.hk/en/entrepreneurship/cyberport_incubation_programme/", description: "香港数码港数字科技孵化计划；官网正在更新计划安排，申请前需确认新条款。", overview: "官方介绍技术与商业支持、导师网络及产品商业化路径，同时发布计划升级通知，新的安排尚待公布。", editorialNote: "先准备产品与商业计划，等待官方更新后再判断参与成本和资源匹配。", whyItMatters: "适合关注香港数字科技生态的团队持续跟进。", bestFor: ["数字科技创业团队", "计划在香港运营并拓展客户的创始人"], considerations: ["官网已提示计划升级，旧支持额度不能视为新承诺", "本地运营与公司资格按更新后的官方规则确认"], highlights: [{label: "当前安排", value: "等待官方更新"}, {label: "适合团队", value: "数字科技创业"}], tags: ["数字科技", "孵化器", "香港"], status: "计划更新中", timing: "新安排待公布", verified: "2026.10.06 核验", source: "Cyberport Incubation Programme 官方资料", sources: [{label: "Cyberport Incubation Programme 官方资料", href: "https://www.cyberport.hk/en/entrepreneurship/cyberport_incubation_programme/"}], color: "blue", monogram: "CP"},
+  {id: 117, slug: "entrepreneur-day-2026", name: "HKTDC Entrepreneur Day 2026", type: "event", kind: "创业交流活动", location: "中国 · 香港", url: "https://www.hktdc.com/event/eday/en/important-notices", description: "2026 年 11 月 19–20 日在香港会议展览中心举行的创业活动。", overview: "香港贸发局公布本届创业日的日期与地点，并与亚洲知识产权营商论坛及 DesignInspire 同期举行。", editorialNote: "参会前明确希望接触的客户或伙伴，并核对正式议程和登记安排。", whyItMatters: "提供香港创业生态与商业连接的现场入口。", bestFor: ["希望接触香港客户与合作伙伴的创业者", "关注创业生态及知识产权的团队"], considerations: ["举办日期不是报名截止日期", "门票、议程和对接安排以活动官网为准"], highlights: [{label: "活动日期", value: "2026.11.19–11.20"}, {label: "核心人群", value: "创业者 / 商业伙伴"}], tags: ["创业活动", "香港", "商业对接"], status: "活动待举行", timing: "2026.11.19–11.20 · 活动日期", verified: "2026.10.06 核验", source: "HKTDC Entrepreneur Day 2026 官方资料", sources: [{label: "HKTDC Entrepreneur Day 2026 官方资料", href: "https://www.hktdc.com/event/eday/en/important-notices"}], color: "orange", monogram: "ED", eventWindow: {lastDay: "2026-11-20", timeZone: "Asia/Hong_Kong"}},
+  {id: 118, slug: "innovex-2027", name: "InnoVEX 2027", type: "event", kind: "创业展示与对接", location: "中国 · 台湾 · 台北", url: "https://innovex.computex.biz/show/registration-info.aspx", description: "2027 年 6 月 1–4 日在台北南港展览馆 2 馆 4 楼举行的创业展示活动。", overview: "官方已发布 2027 年参展登记安排与资格说明，面向符合成立时间要求的科技创业公司及组织展团。", editorialNote: "适合有可展示产品和明确合作目标的团队，先确认参展资格、预算和展位方案。", whyItMatters: "为科技产品展示、投资人接触与国际合作提供活动入口。", bestFor: ["希望展示产品的科技创业团队", "组织创业公司展团的机构"], considerations: ["独立科技创业公司须符合官方成立日期要求", "参展、观展和 Pitch Contest 是不同参与路径"], highlights: [{label: "活动日期", value: "2027.06.01–06.04"}, {label: "核心人群", value: "科技创业 / 展团"}], tags: ["科技", "台北", "创业活动"], status: "参展登记已公布", timing: "2027.06.01–06.04 · 活动日期", verified: "2026.10.06 核验", source: "InnoVEX 2027 官方资料", sources: [{label: "InnoVEX 2027 官方资料", href: "https://innovex.computex.biz/show/registration-info.aspx"}], color: "violet", monogram: "IX", eventWindow: {lastDay: "2027-06-04", timeZone: "Asia/Taipei"}},
+{
+  id: 119,
+  slug: "supabase",
+  type: "startup",
+  kind: "数据库与后端平台",
+  name: "Supabase",
+  location: "全球 · Online",
+  description: "围绕 Postgres 提供数据库、身份验证、存储、实时数据与 API。",
+  overview: "Supabase 将常用后端能力整合在同一平台，并提供开源代码与开发文档。",
+  editorialNote: "Pioneer 建议：用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+  whyItMatters: "用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+  bestFor: [
+    "搭建 SaaS 或应用的技术创始人",
+    "需要数据库与账号体系的团队"
+  ],
+  considerations: [
+    "生产数据需配置访问权限与备份",
+    "免费额度和托管费用以当前方案为准"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "数据库与后端平台"
+    }
+  ],
+  tags: [
+    "开发工具",
+    "数据库",
+    "SaaS"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Supabase 官方资料",
+  url: "https://supabase.com/",
+  sources: [
+    {
+      label: "Supabase 官方资料",
+      href: "https://supabase.com/"
+    }
+  ],
+  color: "mint",
+  monogram: "SU"
+},
+{
+  id: 120,
+  slug: "framer",
+  type: "startup",
+  kind: "网站设计与内容管理",
+  name: "Framer",
+  location: "全球 · Online",
+  description: "从设计到发布的网站平台，结合内容管理与 AI 辅助能力。",
+  overview: "Framer 提供网站编辑、发布和 CMS，帮助团队维护营销页面与内容站点。",
+  editorialNote: "Pioneer 建议：用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+  whyItMatters: "用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+  bestFor: [
+    "需要产品官网的创业团队",
+    "设计师与内容运营团队"
+  ],
+  considerations: [
+    "不是通用业务后端的替代品",
+    "域名、内容与访问额度按当前方案确认"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "网站设计与内容管理"
+    }
+  ],
+  tags: [
+    "网站",
+    "设计",
+    "内容管理"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Framer 官方资料",
+  url: "https://www.framer.com/",
+  sources: [
+    {
+      label: "Framer 官方资料",
+      href: "https://www.framer.com/"
+    }
+  ],
+  color: "blue",
+  monogram: "FR"
+},
+{
+  id: 121,
+  slug: "posthog",
+  type: "startup",
+  kind: "产品分析与实验",
+  name: "PostHog",
+  location: "全球 · Online",
+  description: "整合产品分析、会话回放、功能开关与实验，理解用户如何使用产品。",
+  overview: "PostHog 提供用户行为和错误等数据工具，支持围绕漏斗、产品问题与功能发布开展分析。",
+  editorialNote: "Pioneer 建议：先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+  whyItMatters: "先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+  bestFor: [
+    "已拥有真实用户的产品团队",
+    "需要验证转化与留存的创始人"
+  ],
+  considerations: [
+    "回放与行为采集应配置隐私保护",
+    "各产品用量与收费分别核对"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "产品分析与实验"
+    }
+  ],
+  tags: [
+    "用户分析",
+    "增长",
+    "B2B"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "PostHog 官方资料",
+  url: "https://posthog.com/",
+  sources: [
+    {
+      label: "PostHog 官方资料",
+      href: "https://posthog.com/"
+    }
+  ],
+  color: "orange",
+  monogram: "PO"
+},
+{
+  id: 122,
+  slug: "hugging-face",
+  type: "startup",
+  kind: "模型与数据协作平台",
+  name: "Hugging Face",
+  location: "全球 · Online",
+  description: "查找模型、数据集与 AI 应用，连接机器学习开发社区。",
+  overview: "Hugging Face 提供模型与数据托管、应用展示、推理和计算入口，支持开发者研究与部署 AI 能力。",
+  editorialNote: "Pioneer 建议：先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+  whyItMatters: "先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+  bestFor: [
+    "AI 产品与模型开发团队",
+    "研究开源模型生态的创业者"
+  ],
+  considerations: [
+    "不同模型和数据集的许可各不相同",
+    "托管推理与计算服务有独立费用"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "模型与数据协作平台"
+    }
+  ],
+  tags: [
+    "AI",
+    "模型",
+    "开发社区"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Hugging Face 官方资料",
+  url: "https://huggingface.co/",
+  sources: [
+    {
+      label: "Hugging Face 官方资料",
+      href: "https://huggingface.co/"
+    }
+  ],
+  color: "violet",
+  monogram: "HU"
+},
+{
+  id: 123,
+  slug: "heygen",
+  type: "startup",
+  kind: "AI 视频与多语言内容",
+  name: "HeyGen",
+  location: "全球 · Online",
+  description: "提供数字人视频、语音及视频翻译等 AI 内容制作能力。",
+  overview: "HeyGen 面向创作者与企业提供视频生成和本地化工具，可用于产品介绍、培训及多语言传播。",
+  editorialNote: "Pioneer 建议：用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+  whyItMatters: "用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+  bestFor: [
+    "需要多语言产品内容的创业团队",
+    "制作演示与培训内容的团队"
+  ],
+  considerations: [
+    "人物和声音素材应具有使用授权",
+    "翻译与口型效果需人工检查"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "AI 视频与多语言内容"
+    }
+  ],
+  tags: [
+    "AI 视频",
+    "出海",
+    "内容工具"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "HeyGen 官方资料",
+  url: "https://www.heygen.com/",
+  sources: [
+    {
+      label: "HeyGen 官方资料",
+      href: "https://www.heygen.com/"
+    }
+  ],
+  color: "rose",
+  monogram: "HE"
+},
+{
+  id: 124,
+  slug: "hax",
+  type: "program",
+  kind: "硬科技投资与工程支持",
+  name: "HAX",
+  location: "美国 · Newark",
+  description: "面向 Pre-Seed 硬科技团队，结合早期投资与工程设施支持。",
+  overview: "HAX 是 SOSV 旗下硬科技项目，覆盖能源、先进计算、交通、健康技术与制造等方向，官网介绍 Newark 工程基地。",
+  editorialNote: "Pioneer 建议：优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+  whyItMatters: "优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+  bestFor: [
+    "具有科学或工程壁垒的早期团队",
+    "需要原型与产业化支持的创始人"
+  ],
+  considerations: [
+    "投资条款与参与安排需逐项核对",
+    "纯软件或普通消费项目应先确认方向匹配"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "Pre-Seed"
+    },
+    {
+      label: "重点方向",
+      value: "硬科技 / 工程"
+    }
+  ],
+  tags: [
+    "硬科技",
+    "原型",
+    "早期投资"
+  ],
+  timing: "持续资料入口",
+  status: "资料可查",
+  verified: "2026.10.06 核验",
+  source: "HAX 官方资料",
+  url: "https://hax.co/",
+  sources: [
+    {
+      label: "HAX 官方资料",
+      href: "https://hax.co/"
+    }
+  ],
+  color: "mint",
+  monogram: "HA"
+},
+{
+  id: 125,
+  slug: "hkstp-ideation",
+  type: "program",
+  kind: "早期创业验证计划",
+  name: "HKSTP Ideation Programme",
+  location: "中国 · 香港",
+  description: "为香港早期创业者提供一年期验证支持；官网所列 2027 年 1 月批次申请已截止。",
+  overview: "官方提供导师、培训与生态连接，最高 10 万港元资助分三次按里程碑评审发放。",
+  editorialNote: "Pioneer 建议：可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+  whyItMatters: "可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+  bestFor: [
+    "符合香港身份或公司资格的早期团队",
+    "需要验证技术想法与商业模式的创始人"
+  ],
+  considerations: [
+    "已公布窗口为 2026.08.31–09.14，现已截止",
+    "个人及公司申请有不同资格，资助需满足里程碑"
+  ],
+  highlights: [
+    {
+      label: "申请截止",
+      value: "2026.09.14 12:00 HKT"
+    },
+    {
+      label: "适合阶段",
+      value: "想法 / 验证"
+    }
+  ],
+  tags: [
+    "创业验证",
+    "香港",
+    "资助"
+  ],
+  timing: "2027.01 批次 · 申请已截止",
+  status: "本批次已截止",
+  verified: "2026.10.06 核验",
+  source: "HKSTP Ideation Programme 官方资料",
+  url: "https://www.hkstp.org/programmes/ideation",
+  sources: [
+    {
+      label: "HKSTP Ideation Programme 官方资料",
+      href: "https://www.hkstp.org/programmes/ideation"
+    }
+  ],
+  color: "blue",
+  monogram: "HK"
+},
+{
+  id: 126,
+  slug: "masschallenge",
+  type: "organization",
+  kind: "创业支持网络",
+  name: "MassChallenge",
+  location: "全球 · 多地区",
+  description: "按地区与行业提供早期加速、主题挑战和导师资源的创业网络。",
+  overview: "MassChallenge 官网区分早期计划、面向中后期团队的行业挑战和其他支持路径，不同项目有独立安排。",
+  editorialNote: "Pioneer 建议：从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+  whyItMatters: "从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+  bestFor: [
+    "寻找导师与创业生态支持的团队",
+    "希望参与行业挑战的成长型公司"
+  ],
+  considerations: [
+    "机构入口不代表所有批次正在开放",
+    "资格、费用、奖励及参与方式按具体项目核对"
+  ],
+  highlights: [
+    {
+      label: "覆盖范围",
+      value: "多地区 / 多行业"
+    },
+    {
+      label: "参与入口",
+      value: "按具体计划核对"
+    }
+  ],
+  tags: [
+    "创业支持",
+    "导师",
+    "国际网络"
+  ],
+  timing: "持续资料入口",
+  status: "资料可查",
+  verified: "2026.10.06 核验",
+  source: "MassChallenge 官方资料",
+  url: "https://masschallenge.org/",
+  sources: [
+    {
+      label: "MassChallenge 官方资料",
+      href: "https://masschallenge.org/"
+    }
+  ],
+  color: "orange",
+  monogram: "MA"
+},
+{
+  id: 127,
+  slug: "aws-reinvent-2026",
+  type: "event",
+  kind: "云与 AI 技术大会",
+  name: "AWS re:Invent 2026",
+  location: "美国 · Las Vegas",
+  description: "2026 年 11 月 30 日至 12 月 4 日在拉斯维加斯举行的云与 AI 大会。",
+  overview: "AWS 官方介绍技术会议、学习与生态交流，适合带着架构、产品或合作问题选择议程。",
+  editorialNote: "Pioneer 建议：先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+  whyItMatters: "先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+  bestFor: [
+    "使用 AWS 的技术创业团队",
+    "关注云架构与 AI 产品的技术负责人"
+  ],
+  considerations: [
+    "大会日期不是报名截止日期",
+    "门票、差旅和不同环节权限需核对"
+  ],
+  highlights: [
+    {
+      label: "活动日期",
+      value: "2026.11.30–12.04"
+    },
+    {
+      label: "核心人群",
+      value: "开发者 / 技术创业"
+    }
+  ],
+  tags: [
+    "云计算",
+    "AI",
+    "技术大会"
+  ],
+  timing: "2026.11.30–12.04 · 活动日期",
+  status: "活动待举行",
+  verified: "2026.10.06 核验",
+  source: "AWS re:Invent 2026 官方资料",
+  url: "https://aws.amazon.com/events/reinvent/",
+  sources: [
+    {
+      label: "AWS re:Invent 2026 官方资料",
+      href: "https://aws.amazon.com/events/reinvent/"
+    }
+  ],
+  color: "violet",
+  monogram: "AW",
+  eventWindow: {
+    lastDay: "2026-12-04",
+    timeZone: "America/Los_Angeles"
+  }
+},
 ];
 
 export const typeConfig: Record<ResourceType, {

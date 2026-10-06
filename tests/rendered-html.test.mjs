@@ -38,16 +38,16 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   const html = await response.text();
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /全球创业/);
-  assert.match(html, /从你需要的资源开始/);
+  assert.match(html, /你现在想解决什么/);
   assert.match(html, /href="\/knowledge"/);
-  assert.match(html, /用户问题验证/);
+  assert.match(html, /问题验证/);
   assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
-  assert.match(html, /查看全部资源目录/);
+  assert.match(html, /查看全部/);
   assert.match(html, /最近一期 · 4 个创业机会核验/);
   assert.match(html, /href="\/weekly"/);
   assert.match(html, /精选资源/);
   assert.match(html, /开放计划/);
-  assert.match(html, /孵化机构/);
+  assert.match(html, /找机构/);
   assert.match(html, /创业活动/);
   assert.match(html, /创业项目/);
   assert.match(html, /href="\/programs"/);
@@ -66,18 +66,18 @@ test("server-renders the English resource directory experience", async () => {
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /Global Startup Resources &amp; Founder Briefs/);
-  assert.match(html, /Global startup/);
-  assert.match(html, /hero hero-en/);
-  assert.match(html, /resources<\/em>/);
-  assert.match(html, /Start With The Resource You Need/);
+  assert.match(html, /GLOBAL STARTUP OPPORTUNITY NETWORK/);
+  assert.match(html, /The world is big/);
+  assert.match(html, /design-hero/);
+  assert.match(html, /Opportunity should/);
+  assert.match(html, /What are you trying to solve/);
   assert.match(html, /Programs/);
   assert.match(html, /Institutions/);
   assert.match(html, /Events/);
   assert.match(html, /Startups/);
   assert.match(html, /href="\/en\/programs"/);
   assert.match(html, /href="\/en\/resources\/y-combinator"/);
-  assert.match(html, /Research brief/);
+  assert.match(html, /Selected resources/);
   assert.match(html, /href="\/"/);
 });
 
@@ -101,19 +101,19 @@ test("server-renders English directories and resource briefs", async () => {
 });
 
 test("switches homepage samples in place while keeping directory links separate", async () => {
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const page = await readFile(new URL("../app/components/HomeExperience.tsx", import.meta.url), "utf8");
 
-  assert.match(page, /useState<PreviewMode>\("featured"\)/);
-  assert.match(page, /setActivePreview\(mode\)/);
-  assert.match(page, /activePreview === "knowledge"/);
-  assert.match(page, /href=\{directoryTarget\.href\}/);
+  assert.match(page, /useState<Mode>\('featured'\)/);
+  assert.match(page, /setMode\(id\)/);
+  assert.match(page, /href=\{directory\}/);
+
 });
 
 test("tracks anonymous unique visitors and exposes the audience count in the interface", async () => {
   const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
   const route = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
   const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const page = await readFile(new URL("../app/components/HomeExperience.tsx", import.meta.url), "utf8");
   const analytics = await readFile(new URL("../app/components/AdminAnalytics.tsx", import.meta.url), "utf8");
   const newsletter = await readFile(new URL("../app/api/newsletter/route.ts", import.meta.url), "utf8");
   const sitemap = await readFile(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8");
@@ -138,7 +138,7 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   const homeVisuals = await readFile(new URL("../app/components/HomeVisuals.tsx", import.meta.url), "utf8");
   assert.match(homeVisuals, /累计独立访客/);
   assert.match(homeVisuals, /累计浏览次数/);
-  assert.match(page, /trackAudienceEvent\("search:submit"/);
+  assert.match(page, /trackAudienceEvent\('search:submit'/);
   assert.match(analytics, /创业者反馈仪表盘/);
   assert.match(analytics, /热门访问路径/);
   assert.match(analytics, /关键行为/);
@@ -362,8 +362,8 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 36);
-  assert.equal(new Set(urls).size, 31);
+  assert.equal(urls.length, 42);
+  assert.equal(new Set(urls).size, 37);
   assert.match(data, /slug: "find-the-real-problem"/);
   assert.match(data, /slug: "first-user-interview"/);
   assert.match(data, /slug: "define-your-mvp"/);
@@ -395,7 +395,7 @@ test("keeps every resource backed by an individually authored research profile",
     .filter((slug) => slug !== "snapshot" && slug !== "business");
 
   assert.ok(resourceSlugs.length >= 53);
-  assert.equal(profileSlugs.length, 33);
+  assert.equal(profileSlugs.length, 50);
   assert.equal(investmentProfileSlugs.length, 26);
   assert.ok(startupProfileSlugs.length >= 12);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));
@@ -416,7 +416,7 @@ test("renders China and US investor profiles inside the institution directory", 
   assert.match(directory, /投资机构/);
   assert.match(directory, /红杉中国 HongShan/);
   assert.equal((directory.match(/class="resource-card"/g) ?? []).length, 9);
-  assert.match(directory, /共 30 条 · 当前显示 1–9/);
+  assert.match(directory, /共 31 条 · 当前显示 1–9/);
   assert.match(directory, /aria-label="第 4 页"/);
 
   const detailResponse = await render("/resources/linear-capital");
@@ -442,7 +442,7 @@ test("paginates every directory while preserving search and filter behavior", as
   const englishResponse = await render("/en/organizations");
   const english = await englishResponse.text();
   assert.equal(englishResponse.status, 200);
-  assert.match(english, /30 entries · showing 1–9/);
+  assert.match(english, /31 entries · showing 1–9/);
   assert.match(english, /Directory pagination/);
 });
 

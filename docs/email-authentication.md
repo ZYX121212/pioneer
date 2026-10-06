@@ -17,7 +17,20 @@ Pioneer 支持邮箱和密码注册、登录、修改密码与退出，无需 Ch
 - `PIONEER_AUTH_SECRET`：32 字符以上的随机秘密，使用 Sites runtime secret 配置。换密钥会使现有签名 cookie 失效。
 - `PIONEER_AUTH_ORIGIN`：生产默认固定为当前发布域名；本地可使用 `http://localhost:3000`。不会从任意请求头推断回跳域名。
 - 邮箱验证和密码找回复用 `docs/email-delivery.md` 中的邮件配置。邮件未启用时，界面明确显示“暂未启用”，不会声称已发送验证或重设邮件。
-- 生产已配置登录签名 secret。邮件服务仍未配置，因此邮箱验证、密码找回和真实通知投递尚未完成。
+- 生产已配置登录签名 secret 和 Resend 发送密钥。测试邮件获服务商接收，收件与正式发件域名仍未验证；账号邮件和通知均未启用。
+
+## 无自有域名的 Brevo 账号邮件方案
+
+账号验证和密码找回支持独立使用 Brevo HTTP API；通知队列继续使用 Resend，两者不会共用密钥或重试窗口。
+
+1. 用户本人注册 Brevo，设置密码并完成邮箱验证。在 Senders 中添加自己能够收信的发件邮箱并完成验证；确认账号已获准发送 transactional email。
+2. 保存 `BREVO_API_KEY` 为 Sites secret，设置 `ACCOUNT_MAIL_PROVIDER=brevo`、`ACCOUNT_MAIL_FROM=已验证邮箱`。`MAIL_SITE_ORIGIN` 必须是当前 Pioneer 生产 origin。`ACCOUNT_MAIL_DELIVERY_ENABLED=false` 时不会启用任何账号邮件回调。
+3. 真实发送并确认收信后，再将 `ACCOUNT_MAIL_DELIVERY_ENABLED=true` 部署生效。此开关独立于通知的 `MAIL_DELIVERY_ENABLED`；不能把原有 Resend Key 当作 Brevo Key。
+4. 邮件开启后，注册自动发送验证邮件；账号设置仍允许重新发送。注册可直接进入工作台，未经验证的邮箱仍不能取得通知和管理员权限。请求密码找回后，必须从真实收件箱取得重设链接，重设令牌只可用一次，全部旧会话失效。
+
+Brevo 对免费邮箱采用服务商发件地址替换作为过渡措施，长期仍建议自有域名。网站已有的 chatgpt.site 地址不能替代发件域名所有权。依据：[发件人验证](https://help.brevo.com/hc/en-us/articles/208836149-Create-a-new-sender-From-name-and-From-email)、[免费邮箱地址替换](https://help.brevo.com/hc/en-us/articles/14925263522578-Comply-with-Gmail-Yahoo-and-Microsoft-s-requirements-for-email-senders)、[HTTP 发信](https://developers.brevo.com/reference/send-transac-email)。
+
+当前 Brevo 账号注册、发件人验证、密钥配置及真实验证/重设邮件收信均为**未验证**。自动注册页面打开失败，尚未创建 Brevo 账号。本地受控 API 回归测试不代表真实投递成功。生产接口探测曾被 Cloudflare 403 拦截，也未证明生产注册成功。
 
 ## 验证
 

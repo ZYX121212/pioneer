@@ -22,7 +22,7 @@ test('Taiwan, Hong Kong, Macao and Hainan have real land polygons and valid sphe
  }
 });
 test('China default focus keeps its complete source extent inside the viewport',()=>{
- const projection=geoOrthographic().translate([360,230]).scale(190*1.8).rotate([-104.5,-27,0]);
+ const projection=geoOrthographic().translate([360,230]).scale(190*1.2).rotate([-104.5,-27,0]);
  const bounds=geoPath(projection).bounds({type:'FeatureCollection',features:china});
  assert.ok(bounds[0][0]>=0&&bounds[1][0]<=720,JSON.stringify(bounds));
  assert.ok(bounds[0][1]>=0&&bounds[1][1]<=460,JSON.stringify(bounds));

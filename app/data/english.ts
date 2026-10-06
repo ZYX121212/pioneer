@@ -756,7 +756,7 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     highlights: [{ label: "Hardware", value: "Figure 03" }, { label: "AI", value: "Helix" }, { label: "Manufacturing", value: "BotQ" }, { label: "Path", value: "Industry → home" }], tags: ["Growth stage", "United States", "Robotics", "Embodied AI", "Manufacturing", "Deep tech"], timing: "Testing and production ramp", status: "Growth company", source: "Figure website",
   },
   elevenlabs: {
-    kind: "Voice AI / creative platform", location: "United States · New York / London / Global", description: "Human-like voice technology expanded into agents, creative tools, multilingual dubbing and audio APIs.",
+    kind: "Voice AI / creative platform", location: "United States · New York / United Kingdom · London / Global", description: "Human-like voice technology expanded into agents, creative tools, multilingual dubbing and audio APIs.",
     overview: "Founded in 2022, ElevenLabs now organizes its products across ElevenAgents, ElevenCreative and ElevenAPI.", editorialNote: "A strong example of one model capability becoming distinct workflows for creators, developers and enterprises.", whyItMatters: "Voice is shifting from a media asset to a software interface across service, content, education and accessibility.",
     bestFor: ["Voice, content and creator-tool founders", "Teams building real-time voice agents", "Builders studying AI localization"], considerations: ["Voice cloning creates identity and fraud risk", "Training and generation involve rights issues", "Model quality gaps may narrow"],
     highlights: [{ label: "Founded", value: "2022" }, { label: "Platforms", value: "Agents / Creative / API" }, { label: "Core", value: "Voice and audio models" }, { label: "Markets", value: "Creation / agents / localization" }], tags: ["Scaled", "United States", "AI", "Voice", "Creation", "Developer tools"], timing: "Global operations", status: "Scaling company", source: "ElevenLabs website",
@@ -834,7 +834,7 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     highlights: [{ label: "Round", value: "$165M Series B" }, { label: "Valuation", value: "$1.15B" }, { label: "Product", value: "Memo" }, { label: "Plan", value: "2026 home beta" }], tags: ["Series B–C", "United States", "Robotics", "Consumer hardware", "Embodied AI"], timing: "2026 household beta", status: "Series B company", source: "Sunday Robotics website",
   },
   mercor: {
-    kind: "AI talent network / model training", location: "United States · San Francisco / New York / London", description: "A network connecting domain experts with frontier AI labs and enterprises for model training and evaluation.",
+    kind: "AI talent network / model training", location: "United States · San Francisco / New York / United Kingdom · London", description: "A network connecting domain experts with frontier AI labs and enterprises for model training and evaluation.",
     overview: "Mercor has expanded from talent matching into expert infrastructure for the AI economy; it announced a $350M Series C at a $10B valuation.", editorialNote: "This is not merely AI recruiting—the strategic asset is turning professional judgment into training and evaluation workflows.", whyItMatters: "Frontier models increasingly require expert feedback that cannot be recovered from generic web data.",
     bestFor: ["Talent-marketplace and AI-data founders", "Expert-network builders", "Teams studying two-sided-market scale"], considerations: ["Demand may be concentrated among large AI labs", "Expert quality controls delivery", "Training methods may change demand"],
     highlights: [{ label: "Round", value: "$350M Series C" }, { label: "Valuation", value: "$10B" }, { label: "Network", value: "Experts × AI labs" }, { label: "Status", value: "Company says profitable" }], tags: ["Series B–C", "United States", "AI", "Talent marketplace", "Data and evaluation"], timing: "Expert-network and enterprise expansion", status: "Series C company", source: "Mercor website",
@@ -900,7 +900,7 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     highlights: [{ label: "Round", value: "$400M+ Series D" }, { label: "Valuation", value: "$5.4B" }, { label: "Adoption", value: "Nearly 100M creators" }, { label: "Direction", value: "Casual + professional" }], tags: ["Growth", "United States", "AI", "Creator tools", "Consumer"], timing: "Professional tools and music-industry partnerships", status: "Growth-stage company", source: "Suno official site",
   },
   brainco: {
-    kind: "Brain-computer interfaces / rehabilitation", location: "China · Hangzhou / Boston", description: "Non-invasive brain-computer interfaces applied to neuro-rehabilitation, intelligent prosthetics, health and human-machine interaction.",
+    kind: "Brain-computer interfaces / rehabilitation", location: "China · Hangzhou / United States · Boston", description: "Non-invasive brain-computer interfaces applied to neuro-rehabilitation, intelligent prosthetics, health and human-machine interaction.",
     overview: "Founded in 2015, BrainCo has built a platform around neural-signal acquisition, decoding and feedback, then translated it into rehabilitation and prosthetic products.", editorialNote: "The useful lesson is how frontier BCI research becomes measurable assistive and rehabilitation products.", whyItMatters: "BCI commercialization requires clinical value, reliable hardware, evidence and long-term service to work together.",
     bestFor: ["Neurotech and medical-device founders", "Wearable and smart-hardware teams", "Research-commercialization builders"], considerations: ["Medical uses need clinical evidence and regulatory clearance", "Individual neural signals require calibration", "Medical and consumer channels differ"],
     highlights: [{ label: "Founded", value: "2015" }, { label: "Technology", value: "Non-invasive BCI" }, { label: "Patents", value: "300+" }, { label: "Markets", value: "Rehab / prosthetics / health" }], tags: ["Growth", "China", "BCI", "Health tech", "Hardware"], timing: "Product and clinical expansion", status: "Growth-stage company", source: "BrainCo official site",
@@ -972,7 +972,7 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     highlights: [{ label: "Technology", value: "Enhanced geothermal" }, { label: "Status", value: "NASDAQ: FRVO" }, { label: "Project finance", value: "$421M" }, { label: "Focus", value: "24/7 clean power" }], tags: ["Scaled", "United States", "Climate", "Energy", "Infrastructure"], timing: "Cape Station construction", status: "Public-market scale case", source: "Fervo Energy official site",
   },
   xtalpi: {
-    kind: "AI for Science / automated labs", location: "China · Shenzhen / Boston", description: "AI, quantum physics and robotic experimentation for drug discovery, solid-state research and new materials.",
+    kind: "AI for Science / automated labs", location: "China · Shenzhen / United States · Boston", description: "AI, quantum physics and robotic experimentation for drug discovery, solid-state research and new materials.",
     overview: "XtalPi began with crystal-structure prediction and expanded into drug discovery, biologics, materials and automated laboratories.", editorialNote: "The moat is a repeatable computation–experiment–data loop, not one predictive model.", whyItMatters: "AI and automation create value only when they reduce experiments, cycle time and failure.",
     bestFor: ["AI-drug and materials founders", "Lab-automation teams", "Science-platform builders"], considerations: ["Results take time to validate", "Customer work can be customized", "Robotic labs are capital intensive"],
     highlights: [{ label: "Founded", value: "2015" }, { label: "Technology", value: "AI + quantum physics" }, { label: "Loop", value: "Compute + automated lab" }, { label: "Markets", value: "Drugs / materials" }], tags: ["Scaled", "China", "AI for Science", "Biotech", "Robotics"], timing: "Lab and partnership expansion", status: "Public-market scale case", source: "XtalPi official site",
@@ -1076,6 +1076,320 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     status: "Applications open",
     source: "Google for Startups Cloud Program",
   },
+  "dify": {"kind": "AI application platform", "location": "Global · Online", "description": "Visual workflows combining models, knowledge and tools, published as AI apps, APIs or embeds.", "overview": "Dify offers workflows, agents, knowledge pipelines, plugins and monitoring, with cloud, enterprise and self-hosted community editions.", "editorialNote": "Start with one real task and compare model costs, deployment and licensing.", "whyItMatters": "A useful product case for turning AI capabilities into repeatable business workflows.", "bestFor": ["AI application teams", "Founders testing knowledge and workflow products"], "considerations": ["Self-hosting requires operations", "Check the community edition license for commercial use"], "highlights": [{"label": "Product", "value": "AI agents / workflows"}, {"label": "Use case", "value": "AI application validation"}, {"label": "Stage", "value": "Product available"}], "tags": ["AI", "Developer tools", "Workflows"], "status": "Product available", "timing": "Product research", "source": "Dify official information"},
+  "lovable": {"kind": "AI software builder", "location": "Global · Online", "description": "Build and iterate websites, applications and internal tools through natural language.", "overview": "Lovable combines conversational software creation with hosting, authentication and connectors.", "editorialNote": "Use the first version for customer tests and review core flows, data access and maintainability.", "whyItMatters": "A product case in shortening the path from an idea to usable software.", "bestFor": ["Non-technical founders", "Teams validating product flows"], "considerations": ["Review permissions and core logic before launch", "Check current pricing and usage limits"], "highlights": [{"label": "Product", "value": "Apps / websites"}, {"label": "Use case", "value": "MVP validation"}, {"label": "Stage", "value": "Product available"}], "tags": ["AI", "MVP", "Product development"], "status": "Product available", "timing": "Product research", "source": "Lovable official information"},
+  "n8n": {"kind": "Workflow automation", "location": "Global · Online", "description": "Connect visual nodes, code and APIs to build automation workflows and AI agents.", "overview": "n8n offers a visual canvas, application integrations and custom connections, with hosted and self-hosted deployment.", "editorialNote": "Automate one repeatable task and measure recovery, human review and maintenance costs.", "whyItMatters": "A product case in applying automation and agents to real business operations.", "bestFor": ["Technical startup teams", "Operations and sales teams with repetitive tasks"], "considerations": ["Self-hosting needs maintenance and security configuration", "Check licensing for externally offered services"], "highlights": [{"label": "Product", "value": "Automation / AI agents"}, {"label": "Use case", "value": "Operational workflows"}, {"label": "Stage", "value": "Product available"}], "tags": ["AI", "Automation", "B2B"], "status": "Product available", "timing": "Product research", "source": "n8n official information"},
+  "replit": {"kind": "AI software development", "location": "Global · Online", "description": "Build, collaborate on and deploy applications and websites in an online environment.", "overview": "Replit combines AI application building with an online development environment.", "editorialNote": "Track build usage, runtime costs and maintenance while testing the product.", "whyItMatters": "A product case for comparing AI development, collaboration and deployment workflows.", "bestFor": ["Founders building prototypes", "Teams collaborating through the browser"], "considerations": ["Test generated applications", "Confirm deployment and AI usage costs"], "highlights": [{"label": "Product", "value": "AI development / deployment"}, {"label": "Use case", "value": "Prototype to launch"}, {"label": "Stage", "value": "Product available"}], "tags": ["AI", "Developer tools", "MVP"], "status": "Product available", "timing": "Product research", "source": "Replit official information"},
+  "hkstp-incubation": {"kind": "Technology incubation", "location": "China · Hong Kong", "description": "A Hong Kong Science Park incubation route with year-round applications.", "overview": "Applicants submit innovation, business model, team and three-year milestones, followed by eligibility review and assessment.", "editorialNote": "Best considered by technology teams ready for an operating presence in Hong Kong.", "whyItMatters": "A local ecosystem route from technology development to business validation.", "bestFor": ["Technology teams establishing operations in Hong Kong", "Founders with a business proposal and milestones"], "considerations": ["An on-site programme", "Overseas companies need Hong Kong business registration"], "highlights": [{"label": "Applications", "value": "Year-round"}, {"label": "Participation", "value": "On-site in Hong Kong"}], "tags": ["Technology", "Incubation", "Hong Kong"], "status": "Year-round applications", "timing": "Year-round submissions · eligibility review", "source": "HKSTP Incubation Programme official information"},
+  "cyberport-incubation": {"kind": "Digital technology incubation", "location": "China · Hong Kong", "description": "Hong Kong digital technology incubation; programme enhancements are pending official updates.", "overview": "Cyberport describes technical and business support, mentoring and commercialisation, while its update notice says revised details will be announced.", "editorialNote": "Prepare product and business evidence, then evaluate the revised terms.", "whyItMatters": "An ecosystem route for teams monitoring Hong Kong digital technology opportunities.", "bestFor": ["Digital technology startups", "Founders planning Hong Kong operations"], "considerations": ["Previous financial terms are not a promise under the updated programme", "Confirm local presence and eligibility under the revised rules"], "highlights": [{"label": "Current status", "value": "Await official update"}, {"label": "Team fit", "value": "Digital technology"}], "tags": ["Digital technology", "Incubation", "Hong Kong"], "status": "Programme being updated", "timing": "Updated details pending", "source": "Cyberport Incubation Programme official information"},
+  "entrepreneur-day-2026": {"kind": "Startup networking event", "location": "China · Hong Kong", "description": "A startup event on 19–20 November 2026 at the Hong Kong Convention and Exhibition Centre.", "overview": "HKTDC confirms the dates and venue, concurrent with the Business of IP Asia Forum and DesignInspire.", "editorialNote": "Define customer or partner objectives and check the programme and registration arrangements before attending.", "whyItMatters": "An in-person route into Hong Kong startup and business networks.", "bestFor": ["Founders seeking Hong Kong customers and partners", "Teams exploring startup and intellectual property ecosystems"], "considerations": ["Event dates are not registration deadlines", "Confirm tickets, agenda and matching arrangements on the official site"], "highlights": [{"label": "Event dates", "value": "19–20 Nov 2026"}, {"label": "Audience", "value": "Founders / business partners"}], "tags": ["Startup event", "Hong Kong", "Business networking"], "status": "Upcoming event", "timing": "19–20 Nov 2026 · event dates", "source": "HKTDC Entrepreneur Day 2026 official information"},
+  "innovex-2027": {"kind": "Startup exhibition", "location": "China · Taiwan · Taipei", "description": "Startup exhibition on 1–4 June 2027 at 4F, Taipei Nangang Exhibition Center Hall 2.", "overview": "Official exhibitor registration information covers eligible technology startups and pavilion organisers.", "editorialNote": "Check eligibility, budget and booth arrangements against a concrete product or partnership objective.", "whyItMatters": "A route for technology demonstrations, investor conversations and international partnerships.", "bestFor": ["Technology startups with demonstrable products", "Organisations arranging startup pavilions"], "considerations": ["Independent startups must meet the official incorporation-date requirement", "Exhibiting, visiting and pitching are distinct participation paths"], "highlights": [{"label": "Event dates", "value": "1–4 Jun 2027"}, {"label": "Audience", "value": "Tech startups / pavilions"}], "tags": ["Technology", "Taipei", "Startup event"], "status": "Exhibitor registration published", "timing": "1–4 Jun 2027 · event dates", "source": "InnoVEX 2027 official information"},
+  "supabase": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Postgres, authentication, storage, realtime data and APIs in one backend platform.",
+  overview: "Supabase combines common backend services with open-source code and developer documentation.",
+  editorialNote: "Pioneer recommendation: Validate data structure and permissions with one small product, then compare operating and migration costs.",
+  whyItMatters: "Validate data structure and permissions with one small product, then compare operating and migration costs.",
+  bestFor: [
+    "Technical founders building SaaS or apps",
+    "Teams needing a database and accounts"
+  ],
+  considerations: [
+    "Configure production permissions and backups",
+    "Check current hosting prices and allowances"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Database and backend platform"
+    }
+  ],
+  tags: [
+    "Developer tools",
+    "Database",
+    "SaaS"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Supabase official information"
+},
+  "framer": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "A website design and publishing platform with CMS and AI-assisted capabilities.",
+  overview: "Framer brings website editing, publishing and content management into one platform.",
+  editorialNote: "Pioneer recommendation: Test positioning and conversion with a product site and assess plan limits and maintenance.",
+  whyItMatters: "Test positioning and conversion with a product site and assess plan limits and maintenance.",
+  bestFor: [
+    "Founders needing a product website",
+    "Design and content teams"
+  ],
+  considerations: [
+    "Not a substitute for a general business backend",
+    "Check domain, content and usage allowances"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Website design and CMS"
+    }
+  ],
+  tags: [
+    "Websites",
+    "Design",
+    "CMS"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Framer official information"
+},
+  "posthog": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Product analytics, session replay, feature flags and experiments for understanding product usage.",
+  overview: "PostHog combines user behaviour and error tools for funnel analysis and product releases.",
+  editorialNote: "Pioneer recommendation: Define an activation or retention question before choosing events and experiment criteria.",
+  whyItMatters: "Define an activation or retention question before choosing events and experiment criteria.",
+  bestFor: [
+    "Product teams with real users",
+    "Founders testing conversion and retention"
+  ],
+  considerations: [
+    "Configure privacy protections for recordings",
+    "Check allowances and pricing for each product"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Product analytics and experiments"
+    }
+  ],
+  tags: [
+    "Analytics",
+    "Growth",
+    "B2B"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "PostHog official information"
+},
+  "hugging-face": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Discover models, datasets and AI applications through a machine learning community platform.",
+  overview: "Hugging Face offers model and data hosting, application demos, inference and compute routes.",
+  editorialNote: "Pioneer recommendation: Compare models on a specific task and check licenses, data provenance and compute needs.",
+  whyItMatters: "Compare models on a specific task and check licenses, data provenance and compute needs.",
+  bestFor: [
+    "AI product and model teams",
+    "Founders researching model ecosystems"
+  ],
+  considerations: [
+    "Model and dataset licenses vary",
+    "Hosted inference and compute have separate costs"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Model and data collaboration"
+    }
+  ],
+  tags: [
+    "AI",
+    "Models",
+    "Developer community"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Hugging Face official information"
+},
+  "heygen": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "AI avatar video, voice and video translation tools for content creation.",
+  overview: "HeyGen provides video generation and localisation for product explanations, training and international communication.",
+  editorialNote: "Pioneer recommendation: Test a real product explanation and compare language quality and editing costs.",
+  whyItMatters: "Test a real product explanation and compare language quality and editing costs.",
+  bestFor: [
+    "Startups creating multilingual product content",
+    "Teams producing demos and training"
+  ],
+  considerations: [
+    "Use authorised likeness and voice materials",
+    "Review translation and lip-sync quality"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "AI video and localisation"
+    }
+  ],
+  tags: [
+    "AI video",
+    "Global expansion",
+    "Content tools"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "HeyGen official information"
+},
+  "hax": {
+  kind: "Hard-tech venture development",
+  location: "USA · Newark",
+  description: "Pre-seed hard-tech support combining venture investment and engineering resources.",
+  overview: "HAX is part of SOSV, working across energy, advanced compute, transportation, health technology and manufacturing, with engineering headquarters in Newark.",
+  editorialNote: "Pioneer recommendation: Prepare technical evidence, prototypes and engineering bottlenecks against a clear experiment plan.",
+  whyItMatters: "Prepare technical evidence, prototypes and engineering bottlenecks against a clear experiment plan.",
+  bestFor: [
+    "Early teams with scientific or engineering differentiation",
+    "Founders needing prototype and industrialisation support"
+  ],
+  considerations: [
+    "Confirm investment terms and participation requirements",
+    "Check sector fit before applying"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Pre-seed"
+    },
+    {
+      label: "Focus areas",
+      value: "Hard tech / engineering"
+    }
+  ],
+  tags: [
+    "Hard tech",
+    "Prototypes",
+    "Early investment"
+  ],
+  timing: "Official information",
+  status: "Information available",
+  source: "HAX official information"
+},
+  "hkstp-ideation": {
+  kind: "Early startup validation",
+  location: "China · Hong Kong",
+  description: "One-year early startup support in Hong Kong; the listed January 2027 cohort application has closed.",
+  overview: "The programme offers mentoring, training and ecosystem access, with grants up to HKD 100,000 released against three assessed milestones.",
+  editorialNote: "Pioneer recommendation: Research eligibility and milestones while waiting for a newly announced window.",
+  whyItMatters: "Research eligibility and milestones while waiting for a newly announced window.",
+  bestFor: [
+    "Early teams meeting Hong Kong identity or company eligibility",
+    "Founders validating technology and business models"
+  ],
+  considerations: [
+    "The published 31 Aug–14 Sep 2026 application window has ended",
+    "Individual and company eligibility differ; funding depends on milestones"
+  ],
+  highlights: [
+    {
+      label: "Deadline",
+      value: "14 Sep 2026, 12:00 HKT"
+    },
+    {
+      label: "Stage",
+      value: "Idea / validation"
+    }
+  ],
+  tags: [
+    "Validation",
+    "Hong Kong",
+    "Grant"
+  ],
+  timing: "Jan 2027 cohort · application closed",
+  status: "Listed cohort closed",
+  source: "HKSTP Ideation Programme official information"
+},
+  "masschallenge": {
+  kind: "Startup support network",
+  location: "Global · Multiple regions",
+  description: "A startup network with regional early-stage, industry challenge and mentoring programmes.",
+  overview: "MassChallenge distinguishes early-stage programmes, industry challenges for mid-to-late-stage teams and other support routes.",
+  editorialNote: "Pioneer recommendation: Start with sector and region fit and confirm the specific programme window.",
+  whyItMatters: "Start with sector and region fit and confirm the specific programme window.",
+  bestFor: [
+    "Teams seeking mentors and ecosystem support",
+    "Growing companies exploring industry challenges"
+  ],
+  considerations: [
+    "An organisation listing does not mean every cohort is open",
+    "Verify eligibility, fees, awards and participation per programme"
+  ],
+  highlights: [
+    {
+      label: "Coverage",
+      value: "Multiple regions / sectors"
+    },
+    {
+      label: "Entry",
+      value: "Programme-specific"
+    }
+  ],
+  tags: [
+    "Startup support",
+    "Mentors",
+    "International network"
+  ],
+  timing: "Official information",
+  status: "Information available",
+  source: "MassChallenge official information"
+},
+  "aws-reinvent-2026": {
+  kind: "Cloud and AI conference",
+  location: "USA · Las Vegas",
+  description: "Cloud and AI conference in Las Vegas from 30 November to 4 December 2026.",
+  overview: "AWS describes technical sessions, learning and ecosystem networking; choose an agenda against a product or architecture question.",
+  editorialNote: "Pioneer recommendation: Select relevant sessions and partners before comparing travel with online learning.",
+  whyItMatters: "Select relevant sessions and partners before comparing travel with online learning.",
+  bestFor: [
+    "Technical startups using AWS",
+    "Technology leaders building cloud and AI products"
+  ],
+  considerations: [
+    "Conference dates are not registration deadlines",
+    "Confirm passes, travel costs and session access"
+  ],
+  highlights: [
+    {
+      label: "Event dates",
+      value: "30 Nov–4 Dec 2026"
+    },
+    {
+      label: "Audience",
+      value: "Developers / tech founders"
+    }
+  ],
+  tags: [
+    "Cloud",
+    "AI",
+    "Conference"
+  ],
+  timing: "30 Nov–4 Dec 2026 · event dates",
+  status: "Upcoming event",
+  source: "AWS re:Invent 2026 official information"
+},
 };
 
 export function getEnglishResource(slug: string) {

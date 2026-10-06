@@ -1,6 +1,5 @@
 import { freshnessLabel, resourceFreshness } from "../lib/resourceFreshness";
-import { CardFactIcon } from "./CardFactIcon";
-import { resourceCardSummary } from "../lib/resourceCardSummary";
+import { ResourceDecisionFooter } from "./ResourceDecisionFooter";
 import { SaveResource } from "./SaveResource";
 import { getEnglishResource } from "../data/english";
 import type { Resource } from "../data/resources";
@@ -15,7 +14,6 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
   const status = freshness === "reviewed" ? copy.status : freshnessLabel(freshness, lang);
   const detailLabel = lang === "en" ? "Research brief" : "整理详情";
   const sourceLine = resource.verification === "link-only" ? (lang === "en" ? `${resource.verified} · Community source check` : `${resource.verified} · 社区来源核验`) : lang === "en" ? `${resource.verified.replace("核验", "reviewed")} · Curated by Pioneer` : `${resource.verified} · Pioneer 已整理`;
-  const summary = resourceCardSummary(resource, lang);
   const stageLabels = {
     seed: lang === "en" ? "Seed / early" : "种子 / 早期",
     "series-a": lang === "en" ? "Series A" : "A 轮",
@@ -43,21 +41,7 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
       </div>
       <SaveResource slug={resource.slug} lang={lang} />
       <div className="resource-review-line">{sourceLine}</div>
-      <div className="resource-footer resource-decision-footer">
-        {summary.map((item, index) => <div className="resource-decision-fact" key={index}>
-          <CardFactIcon kind={item.icon} />
-          <div><strong title={item.label}>{item.label}</strong><span title={item.value}>{item.value}</span></div>
-        </div>)}
-        <a
-          href={detailHref}
-          aria-label={`${detailLabel}: ${resource.name}`}
-          title={`${detailLabel}: ${resource.name}`}
-          data-audience-event="resource:open"
-          data-audience-target={resource.slug}
-        >
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+      <ResourceDecisionFooter resource={resource} lang={lang}/>
     </article>
   );
 }
