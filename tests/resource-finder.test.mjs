@@ -82,3 +82,43 @@ test('homepage map filters documented regions without assigning global or unknow
   assert.equal(home.matchesHomeRegion(sample('未提供'), 'all'), true);
   assert.equal(home.matchesHomeRegion(sample('France'), 'invalid'), false);
 });
+
+const card = await import(await moduleUrl('lib/resourceCardSummary'));
+test('card decision facts use verified deadlines and documented campus fields in both languages', () => {
+  const yc = resources.find(row => row.slug === 'y-combinator');
+  const station = resources.find(row => row.slug === 'station-f');
+  for (const lang of ['zh','en']) {
+    const facts = card.resourceCardSummary(yc, lang, now);
+    assert.equal(facts.length, 2);
+    assert.match(facts[0].value, /2026\.11\.02/);
+    assert.doesNotMatch(facts[0].value, /2027\.11\.02/);
+    assert.ok(facts[1].value.length > 5);
+    const campus = card.resourceCardSummary(station, lang, now);
+    assert.match(campus[0].value, /30\+/);
+    assert.match(campus[1].value, /项目|Programs/);
+    assert.doesNotMatch(campus[1].value, /Web3/);
+  }
+});
+test('event summaries retain actual dates and use documented audience when no scale is supplied', () => {
+  const slush = resources.find(row => row.slug === 'slush-2026');
+  for (const lang of ['zh','en']) {
+    const facts = card.resourceCardSummary(slush, lang, now);
+    assert.match(facts[0].value, /^2026\.11\.18[–-]11\.19$/);
+    assert.doesNotMatch(facts[1].value, /15,?000/);
+    assert.match(facts[1].label, /核心人群|Audience/);
+  }
+  const ended = resources.find(row => row.slug === 'bits-and-pretzels-2026');
+  assert.equal(card.resourceCardSummary(ended, 'zh', now)[0].label, '历史会期');
+  assert.equal(card.resourceCardSummary(ended, 'zh', now)[1].label, '人数上限');
+});
+test('investor amounts keep historical qualifications and missing project needs are not invented', () => {
+  const greylock = resources.find(row => row.slug === 'greylock');
+  const lightspeed = resources.find(row => row.slug === 'lightspeed-venture-partners');
+  const pally = resources.find(row => row.slug === 'pally');
+  assert.match(card.resourceCardSummary(greylock, 'zh', now)[1].value, /历史/);
+  assert.equal(card.resourceCardSummary(lightspeed, 'en', now)[1].value, 'No published standard');
+  assert.equal(card.resourceCardSummary(pally, 'zh', now)[1].value, '未公开需求');
+  assert.equal(card.resourceCardSummary(pally, 'en', now)[0].value, 'Seed / early');
+  const course = resources.find(row => row.slug === 'launch-by-station-f');
+  assert.deepEqual(card.resourceCardSummary(course, 'en', now).map(row => row.value), ['Fully online', 'Free option']);
+});
