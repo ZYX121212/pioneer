@@ -153,3 +153,23 @@ test('China navigation includes Taiwan, Hong Kong and Macao and preserves city d
  assert.equal(globe.chinaRegions.length,34);
  for(const code of [710000,810000,820000]) assert.ok(globe.chinaRegions.some(p=>p.id===`region:CHN:${code}`));
 });
+
+const eventCal = await import(await moduleUrl('lib/eventCalendar'));
+test('event calendar uses inclusive venue dates, exclusive end and explicit opt-in alarms', () => {
+  const tc = resources.find(r=>r.slug==='techcrunch-disrupt-2026');
+  const normal=eventCal.eventCalendar(tc,'en',undefined,now);
+  assert.match(normal,/DTSTART;VALUE=DATE:20261013/);
+  assert.match(normal,/DTEND;VALUE=DATE:20261016/);
+  assert.doesNotMatch(normal,/BEGIN:VALARM/);
+  assert.match(eventCal.eventCalendar(tc,'zh',7,now),/TRIGGER:-P7D/);
+  for(const line of eventCal.eventCalendar(tc,'zh',1,now).split('\r\n')) assert.ok(Buffer.byteLength(line)<=75);
+  assert.ok(eventCal.eventCalendar(tc,'en',undefined,new Date('2026-10-16T06:59:00Z')));
+  assert.equal(eventCal.eventCalendar(tc,'en',undefined,new Date('2026-10-16T07:00:00Z')),undefined);
+});
+test('calendar refuses historical, stale, non-event and malformed dates and rejects invalid reminder input', () => {
+  const tc=resources.find(r=>r.slug==='techcrunch-disrupt-2026');
+  for(const changed of [{...tc,status:'历史归档'}, {...tc,verified:'2026.07.01 核验'}, {...tc,type:'program'}, {...tc,eventWindow:{...tc.eventWindow,lastDay:'2026-02-30'}}]) assert.equal(eventCal.eventCalendar(changed,'zh',undefined,now),undefined);
+  assert.equal(eventCal.eventCalendarDates({...tc,eventWindow:{...tc.eventWindow,lastDay:'2026-02-30'}}),undefined);
+  assert.equal(eventCal.eventCalendarResponse(new Request('https://pioneer.test/calendar.ics?alarm=bad'),tc,'en').status,400);
+  assert.equal(eventCal.eventCalendarResponse(new Request('https://pioneer.test/calendar.ics'),undefined,'en').status,404);
+});

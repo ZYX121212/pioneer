@@ -224,7 +224,7 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
     editorialNote: "Best for teams with a clear fundraising, media or partnership goal. If you only plan to listen to sessions, the travel cost may outweigh the value.",
     whyItMatters: "The core value of a major conference is usually pre-arranged meetings, showcase opportunities and industry density, not the main stage alone.",
     bestFor: ["Teams fundraising with US investors", "Companies needing technology media exposure", "International founders entering the Bay Area ecosystem"],
-    considerations: ["Travel, lodging and tickets can be costly", "Arrange meetings before arrival", "Pitch and showcase opportunities often require separate applications"],
+    considerations: ["Travel, lodging and tickets can be costly", "Arrange meetings before arrival", "Startup Battlefield 2026 applications are closed; the exhibitor page lists October 2 as its deadline. A ticket does not include a booth or competition entry."],
     highlights: [{ label: "Dates", value: "2026.10.13-10.15" }, { label: "City", value: "San Francisco" }, { label: "Best for", value: "Funding / media / partners" }, { label: "Status", value: "Registration open" }],
     tags: ["Tech conference", "Fundraising", "In person"],
     timing: "10.13-10.15",

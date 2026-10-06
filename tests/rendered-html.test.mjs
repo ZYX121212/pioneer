@@ -792,7 +792,7 @@ test("expired old resources carry archival status in both languages", async () =
       const html = await response.text();
       assert.equal(response.status, 200);
       assert.match(html, /历史归档|archived/);
-      const status = html.match(/class="resource-status"[^>]*><i[^>]*><\/i>([^<]+)/)?.[1];
+      const status = slug === "techbbq-2026" ? html.match(/class="event-state"[^>]*>([^<]+)/)?.[1] : html.match(/class="resource-status"[^>]*><i[^>]*><\/i>([^<]+)/)?.[1];
       assert.match(status ?? "", /历史归档|archived/);
     }
   }
@@ -858,5 +858,20 @@ test("renders bilingual email sign-in and optional ChatGPT access with safe retu
     assert.equal(response.status, 200); const html = await response.text();
     assert.ok(html.includes(label)); assert.match(html, /type="email"/); assert.match(html, /type="password"/);
     assert.match(html, /signin-with-chatgpt\?return_to=%2F/); assert.doesNotMatch(html, /return_to=https/);
+  }
+});
+
+test('event decision pages separate official facts, closed application paths and editorial recommendations bilingually', async () => {
+  for (const [prefix,labels] of [['',['PIONEER VERDICT','适合谁','费用与投入','2026 申请已关闭','本届展位截止已过','官方资料与核验边界']],['/en',['PIONEER VERDICT','Who should consider it','Costs and trade-offs','2026 applications closed','Published exhibit cutoff passed','Sources and review boundaries']]]) {
+    const html=await (await render(`${prefix}/resources/techcrunch-disrupt-2026`,'2026-10-06T04:00:00Z')).text();
+    for(const label of labels) assert.ok(html.includes(label),label);
+    assert.match(html,/event-role-list/); assert.match(html,/event-budget/);
+    assert.match(html,new RegExp(`href="${prefix}/resources/techcrunch-disrupt-2026/calendar.ics"`));
+    assert.doesNotMatch(html,/250\+|1,200\+|100\+.*countries|9\/10/);
+    const response=await render(`${prefix}/resources/techcrunch-disrupt-2026/calendar.ics?alarm=7`,'2026-10-06T04:00:00Z');
+    assert.equal(response.status,200);assert.match(response.headers.get('content-type'),/text\/calendar/);assert.match(await response.text(),/TRIGGER:-P7D/);
+    const ended=await (await render(`${prefix}/resources/techcrunch-disrupt-2026`,'2026-10-16T08:00:00Z')).text();
+    assert.doesNotMatch(ended,new RegExp(`href="${prefix}/resources/techcrunch-disrupt-2026/calendar.ics"`));
+    assert.equal((await render(`${prefix}/resources/techcrunch-disrupt-2026/calendar.ics`,'2026-10-16T08:00:00Z')).status,410);
   }
 });

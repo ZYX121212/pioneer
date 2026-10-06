@@ -1,3 +1,4 @@
+import { EventDecisionDetail } from "../../components/EventDecisionDetail";
 import { ContentPoints } from "../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../lib/resourceFreshness";
 import { SaveResource } from "../../components/SaveResource";
@@ -47,6 +48,8 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   const startupProfile = getStartupProfile(slug);
   if (!resource || (!profile && !investmentProfile && !startupProfile)) notFound();
   const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
+
+  if (resource.type === "event") return <EventDecisionDetail resource={resource} lang="zh" />;
 
   const freshness = resourceFreshness(resource);
   const config = typeConfig[resource.type];

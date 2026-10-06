@@ -1,3 +1,4 @@
+import { EventDecisionDetail } from "../../../components/EventDecisionDetail";
 import { ContentPoints } from "../../../components/ContentPoints";
 import { freshnessLabel, resourceFreshness } from "../../../lib/resourceFreshness";
 import { SaveResource } from "../../../components/SaveResource";
@@ -38,6 +39,8 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
   const resource = getResourceBySlug(slug);
   const english = getEnglishResource(slug);
   if (!resource || !english) notFound();
+
+  if (resource.type === "event") return <EventDecisionDetail resource={resource} lang="en" />;
 
   const freshness = resourceFreshness(resource);
   const config = englishTypeConfig[resource.type];

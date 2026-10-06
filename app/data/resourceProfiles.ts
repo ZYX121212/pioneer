@@ -655,7 +655,7 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
     capabilities: [
       { label: "媒体与行业曝光", strength: "核心", detail: "TechCrunch 品牌、报道生态和大会展示适合需要科技媒体关注的团队。" },
       { label: "湾区融资连接", strength: "强", detail: "投资人密度高，但高质量会面需要提前筛选与明确融资阶段。" },
-      { label: "创业展示", strength: "强", detail: "Startup Battlefield、展位和专项申请可能提供更强曝光，需独立申请。" },
+      { label: "创业展示", strength: "强", detail: "展示与竞赛可带来集中曝光，但 2026 Battlefield 申请已关闭，展位截止也已过；普通购票不含这些权益。" },
       { label: "深度行业学习", strength: "中", detail: "覆盖面广，若问题高度垂直，专业会议可能更深入。" },
     ],
     offers: [
