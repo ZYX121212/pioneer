@@ -138,3 +138,18 @@ test('globe country and city filters use location, both languages and parent cou
  assert.ok(resources.filter(r=>home.matchesHomeRegion(r,'city:CHN:Shanghai')).some(r=>r.slug==='agibot'));
  assert.ok(resources.filter(r=>home.matchesHomeRegion(r,'city:CHN:Beijing')).some(r=>r.slug==='moonshot-ai'));
 });
+
+test('China navigation includes Taiwan, Hong Kong and Macao and preserves city discovery', () => {
+ const sample = location => ({slug:'unknown',location});
+ for(const location of ['台湾 · 台北','Taiwan · Taipei','香港','Hong Kong','澳门','Macau','臺灣 · 臺北']) {
+  assert.equal(home.matchesHomeRegion(sample(location),'country:CHN'),true,location);
+  assert.equal(home.matchesHomeRegion(sample(location),'asia'),true,location);
+ }
+ assert.equal(home.matchesHomeRegion(sample('Taiwan · Taipei'),'region:CHN:710000'),true);
+ assert.equal(home.matchesHomeRegion(sample('臺灣 · 臺北'),'city:CHN:Taipei'),true);
+ assert.equal(home.matchesHomeRegion(sample('Macau'),'city:CHN:Macao'),true);
+ assert.equal(home.matchesHomeRegion(sample('日本 · Tokyo'),'region:CHN:710000'),false);
+ assert.equal(globe.globeCountries.some(p=>p.id==='country:TWN'),false);
+ assert.equal(globe.chinaRegions.length,34);
+ for(const code of [710000,810000,820000]) assert.ok(globe.chinaRegions.some(p=>p.id===`region:CHN:${code}`));
+});

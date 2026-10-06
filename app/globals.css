@@ -10899,3 +10899,5 @@ footer .footer-links { flex-wrap:wrap; }
 .globe-browser .globe-note {display:block; color:#8daf9c; font-size:10px; margin-top:13px;}
 .interactive-signal :is(button,svg):focus-visible {outline:2px solid #f2dc92!important; outline-offset:3px;}
 @media(max-width:600px){.globe-heading{padding:18px 18px 10px;}.globe-breadcrumb{padding:0 18px;}.globe-browser{padding:12px 16px 16px;}.globe-marker text{font-size:16px;}.globe-controls{right:10px;top:8px;}}
+.globe-country.globe-maritime { fill:#a4bd7a; stroke:#d4dca0; stroke-width:.3; }
+.globe-country.globe-maritime:hover,.globe-country.globe-maritime.is-selected { fill:#e0cf86; stroke:#f7dda0; }
