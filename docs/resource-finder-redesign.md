@@ -28,3 +28,9 @@ No source dates or eligibility claims were refreshed as part of this layout chan
 - Cards with no documented audience display that the audience was not supplied; they do not leave an empty suitability label or invent eligibility.
 - Anonymous save failures offer email login directly and preserve the current path and filters through the account page's `return_to` parameter. Signing in does not silently save a resource; the visitor can return and select it.
 - Generated TypeScript build cache is excluded from source control.
+
+## Homepage presentation rollback — 2026-10-06
+
+At the owner's request, Chinese and English homepages and shared navigation/footer restore the presentation from before commit 07dd202: editorial globe hero, search, live audience metrics, four category entries, weekly spotlight and sample tabs. Email/password accounts, resource submission/review, cloud workspace and backup download/recovery remain on current implementations. Directory finder filters and community resource classification remain available on their existing routes.
+
+Validation: build and 102 tests passed; TypeScript passed; lint has no errors and four existing image-element warnings on the restored pages and resource detail pages. Local browser confirmed the restored globe hero and Y Combinator search produced one result.
