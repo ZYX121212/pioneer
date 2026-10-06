@@ -10580,3 +10580,10 @@ footer {
 
 .workspace-backup-preview { flex-basis:100%; min-width:0; width:100%; margin-top:16px; }
 .workspace-backup-preview textarea { display:block; width:100%; box-sizing:border-box; padding:12px; margin:8px 0 16px; border:1px solid #bbb; background:#f4f1e8; color:#182033; font-family:monospace; font-size:.875rem; resize:vertical; }
+
+.workbook-copy { display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start; min-width:0; }
+.workbook-copy > div, .workbook-copy > p { flex-basis:100%; width:100%; }
+.workbook-copy > div[hidden] { display:none; }
+.workbook-copy label { display:grid; gap:8px; }
+.workbook-copy textarea { width:100%; min-width:0; padding:12px; font:inherit; line-height:1.6; border:1px solid #bbb; background:#fff; color:#26332f; }
+.workspace-data-actions > .workbook-copy { flex-basis:100%; }

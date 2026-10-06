@@ -2,26 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { ResultCopy } from "./ResultCopy";
 import { saveArchiveEntry, workspaceError } from "../lib/founderArchive";
 
-function CopyButton({ text, label = "复制结果" }: { text: string; label?: string }) {
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
-
-  async function copy() {
-    setCopyError(false);
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-      setCopyError(true);
-    }
-  }
-
-  return <div className="workbook-copy"><button type="button" onClick={copy}>{copied ? "已复制 ✓" : label}</button>{copyError && <div role="status"><p>暂时无法自动复制。可在下面选择完整结果，手动复制。</p><textarea aria-label={`${label}：手动复制内容`} readOnly rows={5} value={text} /></div>}</div>;
-}
+const CopyButton = ResultCopy;
 
 function SaveResultButton({ guide, type, title, summary, content }: { guide: string; type: string; title: string; summary: string; content: string }) {
   const [saved, setSaved] = useState(false), [busy, setBusy] = useState(false), [message, setMessage] = useState("");
