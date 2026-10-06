@@ -13,12 +13,13 @@ export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:
  const [rotation,setRotation]=useState<[number,number]>([15,-15]);
  const [zoom,setZoom]=useState(1.2),[hover,setHover]=useState('');
  const drag=useRef<{x:number;y:number;rotation:[number,number];moved:boolean;id:number}|null>(null);
+ const explorer=useRef<HTMLDetailsElement>(null);
  const pointers=useRef(new Map<number,{x:number;y:number}>());
  const pinch=useRef<{distance:number;zoom:number}|null>(null);
  const selected=globePlaces.find(p=>p.id===activeRegion);
  const country=selected?.parent?globeCountries.find(p=>p.id===selected.parent):selected;
  const count=useMemo(()=>Object.fromEntries(globePlaces.map(p=>[p.id,entries.filter(r=>matchesGlobePlace(r,p.id)).length])),[entries]);
- useEffect(()=>{if(selected){setRotation([-selected.lon,-selected.lat]);setZoom(selected.id==='country:CHN'?1.8:selected.id.startsWith('region:')?3.5:selected.parent?6:2.7);}else if(activeRegion==='all'){setZoom(1.2);}else if(regionCenters[activeRegion]) {const [lon,lat]=regionCenters[activeRegion];setRotation([-lon,-lat]);setZoom(1.15);}},[activeRegion,selected]);
+ useEffect(()=>{if(selected){setRotation([-selected.lon,-selected.lat]);setZoom(1.2);}else if(activeRegion==='all'){setZoom(1.2);}else if(regionCenters[activeRegion]) {const [lon,lat]=regionCenters[activeRegion];setRotation([-lon,-lat]);setZoom(1.15);}},[activeRegion,selected]);
  const adjustZoom=(delta:number)=>setZoom(z=>clamp(z*delta,1,7));
  useEffect(()=>{const el=svg.current;if(!el)return;const wheel=(e:WheelEvent)=>{e.preventDefault();adjustZoom(Math.exp(-e.deltaY*.0015));};el.addEventListener('wheel',wheel,{passive:false});return()=>el.removeEventListener('wheel',wheel);},[]);
  const projection=geoOrthographic().translate([360,230]).scale(190*zoom).rotate([rotation[0],rotation[1],0]).clipExtent([[0,0],[720,460]]);
@@ -26,13 +27,14 @@ export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:
  const cities=country?globeCities.filter(p=>p.parent===country.id):[];
  const choices=country?.id==='country:CHN'?[...chinaRegions.slice(31),...chinaRegions.slice(0,31),...cities.filter(c=>!['Beijing','Shanghai','Hong Kong','Macao'].includes(c.en))]:country?cities:globeCountries.filter(p=>count[p.id]>0 || ['country:CHN','country:JPN','country:SGP'].includes(p.id));
  const dots=country?cities:globeCountries.filter(p=>count[p.id]>0 || p.id==='country:SGP');
- function choose(p:GlobePlace) {if(!drag.current?.moved)onRegion(p.id);}
- function reset(){setRotation([15,-15]);setZoom(1.2);onRegion('all');}
+ function selectPlace(id:string){if(explorer.current)explorer.current.open=false;onRegion(id);}
+ function choose(p:GlobePlace) {if(!drag.current?.moved)selectPlace(p.id);}
+ function reset(){setRotation([15,-15]);setZoom(1.2);selectPlace('all');}
  const routes: [number,number][][] = [[[ -122.42,37.77],[-.12,51.5]], [[-.12,51.5],[139.69,35.68]], [[-.12,51.5],[103.82,1.35]], [[103.82,1.35],[-74,40.71]]];
  const hovered=globePlaces.find(p=>p.id===hover);
  return <aside className="signal-panel interactive-signal" aria-label={en?'Interactive global resource map':'全球创业资源交互地图'}>
   <div className="globe-heading"><div><strong>GLOBAL SIGNAL MAP</strong><span>{en?'Find your next opportunity on the globe':'转动地球，发现下一站机会'}</span></div><span className="signal-curated">EXPLORE</span></div>
-  <nav className="globe-breadcrumb" aria-label={en?'Location path':'地点路径'}><button onClick={reset}>{en?'World':'全球'}</button>{country&&<><span>›</span><button onClick={()=>onRegion(country.id)}>{country[lang]}</button></>}{selected?.parent&&<><span>›</span><span>{selected[lang]}</span></>}</nav>
+  <nav className="globe-breadcrumb" aria-label={en?'Location path':'地点路径'}><button onClick={reset}>{en?'World':'全球'}</button>{country&&<><span>›</span><button onClick={()=>selectPlace(country.id)}>{country[lang]}</button></>}{selected?.parent&&<><span>›</span><span>{selected[lang]}</span></>}</nav>
   <div className="globe-stage">
    <GlobeSurface rotation={rotation} zoom={zoom}/>
    <svg ref={svg} viewBox="0 0 720 460" tabIndex={0} role="group" aria-label={en?'Drag to rotate; scroll or pinch to zoom; arrow keys rotate, plus and minus zoom':'拖动旋转，滚轮或双指缩放；方向键旋转，加减键缩放'}
@@ -53,9 +55,9 @@ export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:
    <div className="globe-controls"><button aria-label={en?'Zoom in':'放大'} onClick={()=>adjustZoom(1.3)} disabled={zoom>=7}>+</button><button aria-label={en?'Zoom out':'缩小'} onClick={()=>adjustZoom(1/1.3)} disabled={zoom<=1}>−</button><button aria-label={en?'Reset globe':'重置地球'} onClick={reset}>↺</button></div>
    <div className="globe-hint" role="status">{hovered?`${hovered[lang]} · ${count[hovered.id]??0} ${en?'resources':'条资源'}`:en?'Drag to rotate · Scroll / pinch to zoom':'拖动旋转 · 滚轮 / 双指缩放'}</div>
   </div>
-  <details className="globe-explorer"><summary>{en?"Explore countries & cities":"探索国家与城市"} <span>⌄</span></summary><div className="globe-browser"><div className="globe-selection"><strong>{selected?selected[lang]:en?'Explore the world':'探索全球'}</strong><span>{selected?`${count[selected.id]} ${en?'resources':'条资源'}`:`${entries.length} ${en?'curated briefs':'站内整理档案'}`}</span><button onClick={()=>document.getElementById('resources')?.scrollIntoView({behavior:'smooth'})}>{en?'View resources ↓':'查看资源 ↓'}</button></div>
-   {!country&&<div className="globe-regions">{homeRegions.map(r=><button key={r.id} aria-pressed={activeRegion===r.id} onClick={()=>onRegion(r.id)}>{r[lang]} <small>{entries.filter(p=>matchesHomeRegion(p,r.id)).length}</small></button>)}</div>}
-   <div className="globe-places" aria-label={country?(en?'Choose region or city':'选择地区或城市'):(en?'Choose country':'选择国家')}>{choices.map(p=><button key={p.id} aria-pressed={activeRegion===p.id} onClick={()=>onRegion(p.id)}>{p[lang]} <small>{count[p.id]}</small></button>)}</div>
+  <details ref={explorer} className="globe-explorer"><summary>{en?"Explore countries & cities":"探索国家与城市"} <span>⌄</span></summary><div className="globe-browser"><div className="globe-selection"><strong>{selected?selected[lang]:en?'Explore the world':'探索全球'}</strong><span>{selected?`${count[selected.id]} ${en?'resources':'条资源'}`:`${entries.length} ${en?'curated briefs':'站内整理档案'}`}</span><button onClick={()=>document.getElementById('resources')?.scrollIntoView({behavior:'smooth'})}>{en?'View resources ↓':'查看资源 ↓'}</button></div>
+   {!country&&<div className="globe-regions">{homeRegions.map(r=><button key={r.id} aria-pressed={activeRegion===r.id} onClick={()=>selectPlace(r.id)}>{r[lang]} <small>{entries.filter(p=>matchesHomeRegion(p,r.id)).length}</small></button>)}</div>}
+   <div className="globe-places" aria-label={country?(en?'Choose region or city':'选择地区或城市'):(en?'Choose country':'选择国家')}>{choices.map(p=><button key={p.id} aria-pressed={activeRegion===p.id} onClick={()=>selectPlace(p.id)}>{p[lang]} <small>{count[p.id]}</small></button>)}</div>
    {country&&cities.length===0&&<p>{en?'City detail is not yet available for this country. View all its resources.':'该国家暂未细分城市，可查看全国资源。'}</p>}
    {selected&&count[selected.id]===0&&<p role="status">{en?'No resource briefs here yet. Try another location.':'这里暂未收录资源，可继续探索其他地点。'}</p>}
    <small className="globe-note">{en?'Counts include historical briefs · Resource locations, not eligibility':'数量含历史档案 · 按资源所在地统计，不代表申请资格'}</small>

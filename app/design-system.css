@@ -181,3 +181,7 @@ body {margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
 .design-header,.design-footer {line-height:1.5;}
 .finder-directory .directory-hero h1 {font-size:clamp(32px,4vw,56px);line-height:1.2;letter-spacing:-.025em;}
 :is(.primary-action,.submit-primary,.guide-primary-action) {background:var(--green);color:#fff;border:1px solid var(--green);border-radius:8px;}
+.location-panel {color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);font-family:var(--body);}
+.location-panel-bottom>button,.location-tabs button[aria-selected=true] {background:var(--green);color:#fff;}
+.location-panel :is(p,li) {font-size:16px;line-height:1.7;}
+.location-panel :is(button,a,summary):focus-visible {outline:2px solid var(--green);outline-offset:4px;}
