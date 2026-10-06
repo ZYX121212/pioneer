@@ -185,3 +185,4 @@ body {margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
 .location-panel-bottom>button,.location-tabs button[aria-selected=true] {background:var(--green);color:#fff;}
 .location-panel :is(p,li) {font-size:16px;line-height:1.7;}
 .location-panel :is(button,a,summary):focus-visible {outline:2px solid var(--green);outline-offset:4px;}
+.weekly-principle>span {color:var(--green);}
