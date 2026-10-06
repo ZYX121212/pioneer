@@ -203,3 +203,11 @@ body {margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
 .submission-hero {min-height:0;align-items:center;gap:32px;}
 .submission-hero .section-index {color:var(--green);}
 .submission-hero aside {background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+/* Preserve the original orange Pioneer identity within the shared navigation. */
+.design-brand {gap:12px;}
+.pioneer-brand-mark {width:36px;height:36px;flex:0 0 36px;display:inline-flex;align-items:center;justify-content:center;border-radius:50% 50% 50% 7px;background:var(--orange);color:#fff;font-family:var(--body);font-size:20px;font-weight:900;letter-spacing:0;line-height:1;transform:rotate(-7deg);}
+.pioneer-brand-mark>span {transform:rotate(7deg);}
+.design-brand small {margin-left:4px;}
+.design-footer .pioneer-brand-mark {width:32px;height:32px;flex-basis:32px;font-size:18px;}
+@media(max-width:600px){.design-brand{gap:8px;font-size:20px;}.pioneer-brand-mark{width:30px;height:30px;flex-basis:30px;font-size:18px;}}
+@media(max-width:360px){.design-header{gap:8px;}.design-header-actions{gap:8px;}.design-header .design-brand{font-size:18px;}.design-header .pioneer-brand-mark{width:26px;height:26px;flex-basis:26px;font-size:16px;}}
