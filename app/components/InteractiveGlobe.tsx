@@ -10,7 +10,7 @@ const regionCenters: Record<string,[number,number]> = {'asia':[110,25],'north-am
 const clamp=(v:number,min:number,max:number)=>Math.max(min,Math.min(max,v));
 export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:{lang:'zh'|'en';activeRegion:string;onRegion:(id:string)=>void;entries?:Resource[]}) {
  const en=lang==='en', uid=useId().replace(/:/g,''), svg=useRef<SVGSVGElement>(null);
- const [rotation,setRotation]=useState<[number,number]>([-105,-20]);
+ const [rotation,setRotation]=useState<[number,number]>([15,-15]);
  const [zoom,setZoom]=useState(1.2),[hover,setHover]=useState('');
  const drag=useRef<{x:number;y:number;rotation:[number,number];moved:boolean;id:number}|null>(null);
  const pointers=useRef(new Map<number,{x:number;y:number}>());
@@ -27,7 +27,7 @@ export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:
  const choices=country?.id==='country:CHN'?[...chinaRegions.slice(31),...chinaRegions.slice(0,31),...cities.filter(c=>!['Beijing','Shanghai','Hong Kong','Macao'].includes(c.en))]:country?cities:globeCountries.filter(p=>count[p.id]>0 || ['country:CHN','country:JPN','country:SGP'].includes(p.id));
  const dots=country?cities:globeCountries.filter(p=>count[p.id]>0 || p.id==='country:SGP');
  function choose(p:GlobePlace) {if(!drag.current?.moved)onRegion(p.id);}
- function reset(){setRotation([-105,-20]);setZoom(1.2);onRegion('all');}
+ function reset(){setRotation([15,-15]);setZoom(1.2);onRegion('all');}
  const routes: [number,number][][] = [[[ -122.42,37.77],[-.12,51.5]], [[-.12,51.5],[139.69,35.68]], [[-.12,51.5],[103.82,1.35]], [[103.82,1.35],[-74,40.71]]];
  const hovered=globePlaces.find(p=>p.id===hover);
  return <aside className="signal-panel interactive-signal" aria-label={en?'Interactive global resource map':'全球创业资源交互地图'}>
