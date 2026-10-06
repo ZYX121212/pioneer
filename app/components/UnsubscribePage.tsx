@@ -1,6 +1,6 @@
 "use client";
 import { useSyncExternalStore, useState } from "react";
-import { SiteHeader } from "./SiteChrome";
+import { SiteHeader, SiteFooter } from "./SiteChrome";
 function subscribeHash(listener: () => void) { window.addEventListener("hashchange", listener); return () => window.removeEventListener("hashchange", listener); }
 const getHash = () => window.location.hash;
 const serverHash = () => null;
@@ -19,5 +19,5 @@ export function UnsubscribePage({ lang }: { lang: "zh" | "en" }) {
     <p>{en ? "Opening this page does not change your preferences. Confirm below to stop all Pioneer email notifications for this link." : "打开此页面不会修改偏好。请在下方确认，退出此链接对应的全部 Pioneer 邮件通知。"}</p>
     {done ? <p role="status">{en ? "All email notification topics are now off." : "已退出全部邮件通知。"}</p> : !ready ? <p role="status">{en ? "Checking your link…" : "正在检查链接…"}</p> : token ? <button className="primary-action" type="button" disabled={busy} onClick={() => void unsubscribe()}>{busy ? (en ? "Saving…" : "保存中…") : (en ? "Confirm unsubscribe" : "确认退出全部邮件通知")}</button> : <p>{en ? "No valid email link was found. Sign in below to manage your preferences." : "没有找到有效的邮件链接，请在下方登录管理偏好。"}</p>}
     <p role="alert">{error}</p><p><a href={`${en ? "/en" : ""}/notifications`}>{en ? "Manage my notification preferences" : "管理我的通知偏好"}</a></p><p><a href={`${en ? "/en" : ""}/feed.xml`}>RSS</a> · <a href={`${en ? "/en" : ""}/weekly/deadlines.ics`}>{en ? "Deadline calendar" : "截止日历"}</a></p>
-  </section></main>;
+  </section><SiteFooter lang={lang}/></main>;
 }
