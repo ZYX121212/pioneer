@@ -10946,3 +10946,36 @@ a {
 .design-photo-card .resource-decision-footer>a:hover{background:#143d2c;color:white;}
 @media(min-width:601px) and (max-width:1100px){.design-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.resource-photo{height:150px;}}
 @media(max-width:600px){.design-photo-grid{grid-template-columns:1fr;}.resource-photo{height:170px;}.design-photo-card .resource-decision-footer{gap:12px;}.photo-card-body h3{font-size:17px;}.photo-card-body>p{font-size:13px;}}
+
+/* The ecosystem map uses the same catalogue as the homepage and location panel. */
+.design-ecosystems{align-items:start;gap:24px;padding-block:22px;}
+.ecosystem-levels{display:flex;gap:6px;margin:12px 0;}
+.ecosystem-levels button{border:1px solid #e6e8e6;background:white;border-radius:20px;padding:7px 12px;font-size:13px;cursor:pointer;}
+.ecosystem-levels button[aria-pressed=true]{background:#12392d;color:white;border-color:#12392d;}
+.ecosystem-place-list{max-height:280px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;}
+.ecosystem-place-list>button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:10px 0;cursor:pointer;}
+.ecosystem-place-list small{color:#ff5b2a;font-size:12px;min-width:20px;}
+.ecosystem-place-list strong{font-size:14px;flex:1;}
+.ecosystem-place-list span{font-size:13px;color:#757d84;white-space:nowrap;}
+.ecosystem-place-list b{font-weight:400;margin-left:6px;}
+.ecosystem-place-list [aria-pressed=true] strong{color:#ff5b2a;}
+.ecosystem-coverage{display:block;margin-top:10px;font-size:12px;color:#757d84;}
+.ecosystem-map-shell{position:relative;min-width:0;}
+.ecosystem-map{overflow:hidden;border-radius:10px;}
+.ecosystem-dot text{paint-order:stroke;stroke:white;stroke-width:3px;stroke-linejoin:round;font-size:inherit;pointer-events:none;}
+.ecosystem-dot:focus-visible{outline:none;}
+.ecosystem-dot:focus-visible>circle:nth-of-type(2){stroke:#12392d;stroke-width:2px;}
+.ecosystem-map-controls{display:flex;justify-content:flex-end;gap:5px;margin-top:6px;}
+.ecosystem-map-controls button{border:1px solid #e5e7e5;border-radius:7px;background:white;min-width:32px;height:32px;cursor:pointer;font-size:15px;}
+.ecosystem-map-controls button:last-child{padding-inline:10px;font-size:13px;}
+.ecosystem-map-controls button:disabled{opacity:.4;cursor:default;}
+.ecosystem-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:#757d84;margin-top:12px;}
+.ecosystem-legend i{display:inline-block;width:7px;height:7px;background:#ff5b2a;border-radius:50%;margin-right:6px;}
+.ecosystem-unlocated{font-size:12px;color:#757d84;margin-top:6px;line-height:1.6;}
+.ecosystem-feature>h3{font-size:16px;}.ecosystem-counts b{font-size:18px;}
+.ecosystem-place-art{height:100%;background:linear-gradient(135deg,#0e352a,#236750);color:white;padding:16px;display:flex;flex-direction:column;justify-content:center;gap:4px;}
+.ecosystem-place-art>span{font-size:11px;letter-spacing:1px;opacity:.7;}.ecosystem-place-art strong{font-size:23px;}.ecosystem-place-art small{font-size:12px;opacity:.75;}
+.ecosystem-resource-preview{list-style:none;margin:12px 14px 0;padding:0;display:grid;gap:6px;}
+.ecosystem-resource-preview a{font-size:12px;color:#466158;text-decoration:none;}
+@media(max-width:900px){.design-ecosystems{grid-template-columns:1fr 1.4fr;}.ecosystem-map-shell{grid-column:1/-1;grid-row:2;}.ecosystem-map{display:block;}}
+@media(max-width:600px){.design-ecosystems{grid-template-columns:1fr;}.ecosystem-map-shell{grid-column:auto;grid-row:auto;}.ecosystem-place-list{max-height:200px;}.ecosystem-feature{display:block;}}

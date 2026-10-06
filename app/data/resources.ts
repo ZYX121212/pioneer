@@ -1402,7 +1402,7 @@ export const resources: Resource[] = [
     tags: ["成长期", "美国", "机器人", "具身智能", "制造", "深科技"], fundingStage: "成长阶段", stageType: "growth", timing: "持续测试与扩产", status: "成长项目", verified: "2026.07.17 核验", source: "Figure 官网", url: "https://www.figure.ai/company", sources: [{ label: "公司与产品代际", href: "https://www.figure.ai/company" }, { label: "Helix", href: "https://www.figure.ai/helix" }, { label: "Figure 03", href: "https://www.figure.ai/news/introducing-figure-03?id=Figure03" }], color: "pink", monogram: "F", featured: true,
   },
   {
-    id: 53, slug: "elevenlabs", type: "startup", kind: "语音 AI / 创作平台", name: "ElevenLabs", location: "美国 · New York / London / 全球",
+    id: 53, slug: "elevenlabs", type: "startup", kind: "语音 AI / 创作平台", name: "ElevenLabs", location: "美国 · New York / 英国 · London / 全球",
     description: "从逼真人声生成扩展到语音与聊天 Agent、创意平台、多语言配音和开发者音频 API。",
     overview: "ElevenLabs 创立于 2022 年，最初解决高质量语音与配音问题，现将产品组织为 ElevenAgents、ElevenCreative 和 ElevenAPI 三个平台。",
     editorialNote: "它说明单点模型能力如何演化成多用户平台：创作者需要工具，开发者需要 API，企业则需要可靠、可监控的实时工作流。",
@@ -1545,7 +1545,7 @@ export const resources: Resource[] = [
     tags: ["B–C轮", "美国", "机器人", "消费硬件", "具身智能"], fundingStage: "官方披露 B 轮", stageType: "series-bc", timing: "2026 家庭 Beta", status: "B 轮项目", verified: "2026.07.18 核验", source: "Sunday Robotics 官网", url: "https://www.sunday.ai/journal/series-b", sources: [{ label: "B 轮融资", href: "https://www.sunday.ai/journal/series-b" }, { label: "Memo 与 Beta", href: "https://www.sunday.ai/" }], color: "yellow", monogram: "SR", featured: true,
   },
   {
-    id: 106, slug: "mercor", type: "startup", kind: "AI 人才网络 / 模型训练", name: "Mercor", location: "美国 · San Francisco / New York / London",
+    id: 106, slug: "mercor", type: "startup", kind: "AI 人才网络 / 模型训练", name: "Mercor", location: "美国 · San Francisco / New York / 英国 · London",
     description: "连接专业人才、前沿 AI 实验室和企业，用领域专家的判断与工作过程训练和评估 AI 模型。",
     overview: "Mercor 将人才匹配扩展为面向 AI 经济的专家网络和训练基础设施；官方于 2025 年披露完成 3.5 亿美元 C 轮融资，估值 100 亿美元。",
     editorialNote: "业务使用专业人员的知识支持模型训练、评估和工作流。",
@@ -1668,7 +1668,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "美国", "AI", "创作者工具", "消费产品"], fundingStage: "官方披露 D 轮", stageType: "growth", timing: "专业工具与音乐产业合作", status: "成长阶段项目", verified: "2026.07.18 核验", source: "Suno 官网", url: "https://suno.com/blog/series-d-announcement", sources: [{ label: "D 轮融资", href: "https://suno.com/blog/series-d-announcement" }, { label: "产品更新", href: "https://about.suno.com/blog/v5-5" }, { label: "C 轮与用户采用", href: "https://suno.com/blog/series-c-announcement" }], color: "yellow", monogram: "SU", featured: true,
   },
   {
-    id: 77, slug: "brainco", type: "startup", kind: "脑机接口 / 康复科技", name: "BrainCo 强脑科技", location: "中国 · 杭州 / Boston",
+    id: 77, slug: "brainco", type: "startup", kind: "脑机接口 / 康复科技", name: "BrainCo 强脑科技", location: "中国 · 杭州 / 美国 · Boston",
     description: "以非侵入式脑机接口为核心，覆盖神经康复、智能仿生肢体、健康和人机交互产品。",
     overview: "BrainCo 成立于 2015 年，围绕脑电信号采集、解码和反馈建立技术平台，并把能力落到智能仿生手、神经康复与健康产品。官方披露拥有 300 余项核心发明专利。",
     editorialNote: "值得研究的是它如何把前沿脑机接口拆成可验证的康复和仿生产品，而不是只讲通用人机融合愿景。",
@@ -1800,7 +1800,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "美国", "气候科技", "能源", "基础设施"], fundingStage: "已上市；作为规模化案例收录", stageType: "scale", timing: "Cape Station 建设与商业扩张", status: "公开市场规模化案例", verified: "2026.07.18 核验", source: "Fervo Energy 官网", url: "https://fervoenergy.com/", sources: [{ label: "公司新闻", href: "https://fervoenergy.com/newsroom-2/" }, { label: "2026 年一季度结果", href: "https://ir.fervoenergy.com/news-releases/news-release-details/fervo-energy-reports-first-quarter-2026-results" }, { label: "投资者新闻", href: "https://ir.fervoenergy.com/news-events/news-releases" }], color: "mint", monogram: "FE",
   },
   {
-    id: 89, slug: "xtalpi", type: "startup", kind: "AI for Science / 自动化实验室", name: "晶泰科技 XtalPi", location: "中国 · 深圳 / Boston",
+    id: 89, slug: "xtalpi", type: "startup", kind: "AI for Science / 自动化实验室", name: "晶泰科技 XtalPi", location: "中国 · 深圳 / 美国 · Boston",
     description: "结合 AI、量子物理和机器人实验，加速药物发现、晶型研究与新材料研发。",
     overview: "晶泰科技从晶体结构预测切入，逐步扩展到药物发现、蛋白与抗体设计、材料研发和自动化实验室，形成计算预测与湿实验验证闭环。",
     editorialNote: "可研究计算结果、实验数据、客户项目和定制研发的标准化程度。",
@@ -1811,7 +1811,7 @@ export const resources: Resource[] = [
     tags: ["成熟规模", "中国", "AI for Science", "生物医药", "机器人"], fundingStage: "已上市；作为规模化案例收录", stageType: "scale", timing: "自动化实验与产业合作扩张", status: "公开市场规模化案例", verified: "2026.07.19 核验", source: "XtalPi 官网", url: "https://en.xtalpi.com/", sources: [{ label: "公司发展与产品", href: "https://en.xtalpi.com/about/" }], color: "violet", monogram: "XP", featured: true,
   },
   {
-    id: 90, slug: "insilico-medicine", type: "startup", kind: "生成式 AI / 药物研发", name: "Insilico Medicine 英矽智能", location: "中国香港 / Boston / Abu Dhabi",
+    id: 90, slug: "insilico-medicine", type: "startup", kind: "生成式 AI / 药物研发", name: "Insilico Medicine 英矽智能", location: "中国香港 / 美国 · Boston / 阿联酋 · Abu Dhabi",
     description: "以 Pharma.AI 连接靶点发现、分子生成和临床开发，同时推进自研管线与药企合作。",
     overview: "英矽智能采用平台加自研管线的双引擎模式，将生成式 AI 用于生物学、化学和临床研发。官方披露已有多个临床阶段项目，并与全球药企开展合作。",
     editorialNote: "评价重点应从‘AI 设计速度’转向候选药物能否通过临床验证、合作收入是否可重复，以及平台与管线如何分配资本。",
