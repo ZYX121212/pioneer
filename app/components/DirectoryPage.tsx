@@ -10,7 +10,7 @@ export async function DirectoryPage({ type }: { type: ResourceType }) {
   const entries = [...getResourcesByType(type), ...community.resources];
 
   return (
-    <main>
+    <main className="finder-directory">
       <SiteHeader languageHref={`/en${config.path}`} />
       <section className={`directory-hero directory-hero-${type}`}>
         <div>
@@ -19,12 +19,12 @@ export async function DirectoryPage({ type }: { type: ResourceType }) {
           <h1>{config.title}</h1>
           <p>{config.intro}</p>
         </div>
-        <aside className="directory-guide">
+        <details className="directory-guide"><summary>申请与参加条件</summary>
           <span>HOW TO CHOOSE</span>
           <strong>申请与参加条件</strong>
           <p>{config.guide}</p>
           <div><b>{entries.length}</b><small>条站内整理</small></div>
-        </aside>
+        </details>
       </section>
 
       <section className="section directory-content">

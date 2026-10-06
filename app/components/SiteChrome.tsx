@@ -1,4 +1,3 @@
-import { AudienceCount } from "./AudienceCounter";
 import { GrowthFooter } from "./GrowthFooter";
 
 type SiteChromeProps = {
@@ -59,17 +58,14 @@ export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
 
   return (
     <>
-      <div className="announcement">
-        <span>{copy.announcement}</span>
-        <p>{lang === "zh" ? "已有 " : ""}<AudienceCount /> {copy.visited}</p>
-      </div>
       <header className="site-header">
         <a className="brand" href={homeHref} aria-label={copy.homeLabel}>
           <span className="brand-mark" aria-hidden="true">P</span>
           <span>PIONEER</span>
         </a>
         <nav aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
-          {copy.links.map(([href, label]) => (
+          <a href={homeHref}>{lang === "en" ? "Find resources" : "找资源"}</a>
+          {copy.links.filter((_, index) => [0, 1, 3].includes(index)).map(([href, label]) => (
             <a href={href} key={href} data-audience-event="nav:open" data-audience-target={label}>{label}</a>
           ))}
         </nav>
@@ -78,11 +74,11 @@ export function SiteHeader({ lang = "zh", languageHref }: SiteChromeProps) {
           <a className="language-link" href={languageHref ?? copy.languageHref}>{copy.languageLabel}</a>
           <a
             className="submit-link"
-            href={copy.submitHref}
-            data-audience-event="submit-resource:intent"
+            href={lang === "en" ? "/en/login" : "/login"}
+            data-audience-event="account:open"
             data-audience-target="header-submit"
           >
-            {copy.submit} <span aria-hidden="true">↗</span>
+            {lang === "en" ? "Account" : "账号"}
           </a>
         </div>
       </header>
@@ -94,7 +90,7 @@ export function SiteFooter({ lang = "zh" }: SiteChromeProps) {
   const copy = nav[lang];
   return (
     <footer id="about">
-      <GrowthFooter lang={lang} />
+      <details className="footer-updates"><summary>{lang === "en" ? "Updates, RSS & deadline calendar" : "订阅更新、RSS 与截止日历"}</summary><GrowthFooter lang={lang} /></details>
       <div className="footer-brand">
         <span className="brand-mark">P</span>
         <div>

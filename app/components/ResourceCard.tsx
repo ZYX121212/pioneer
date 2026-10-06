@@ -33,13 +33,14 @@ export function ResourceCard({ resource, lang = "zh" }: { resource: Resource; la
       <div className="resource-location">{copy.location}</div>
       {resource.stageType ? <div className={`resource-stage stage-${resource.stageType}`}>{stageLabels[resource.stageType]}<span>{lang === "en" ? "Company stage" : resource.fundingStage}</span></div> : null}
       <h3>{resource.name}</h3>
-      <p>{copy.description}</p>
+      <p className="resource-card-description">{copy.description}</p>
+      <div className="finder-fit"><strong>{lang === "en" ? "Best for" : "适合"}</strong><span>{copy.bestFor[0]}</span></div>
       <div className="tag-list">
-        {copy.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        {copy.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}
       </div>
       <div className="resource-footer">
         <div className="resource-source">
-          <strong>{copy.timing}</strong>
+          <strong>{freshness === "historical" ? (lang === "en" ? "Ended window · reference only" : "窗口已结束 · 仅供参考") : copy.timing}</strong>
           <span>{sourceLine}</span>
         </div>
         <a

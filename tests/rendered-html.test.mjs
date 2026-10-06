@@ -38,18 +38,18 @@ test("server-renders Pioneer as a resource directory and founder guide", async (
   const html = await response.text();
   assert.match(html, /<title>Pioneer — 全球创业资源与创业指南<\/title>/i);
   assert.match(html, /全球创业/);
-  assert.match(html, /从你需要的资源开始/);
+
   assert.match(html, /href="\/knowledge"/);
-  assert.match(html, /用户问题验证/);
-  assert.match(html, /href="\/knowledge\/find-the-real-problem"/);
-  assert.match(html, /查看全部资源目录/);
+
+
+
   assert.match(html, /最近一期 · 4 个创业机会核验/);
   assert.match(html, /href="\/weekly"/);
-  assert.match(html, /精选资源/);
+
   assert.match(html, /开放计划/);
-  assert.match(html, /孵化机构/);
-  assert.match(html, /创业活动/);
-  assert.match(html, /创业项目/);
+
+  assert.match(html, /参加活动/);
+  assert.match(html, /学习与案例/);
   assert.match(html, /href="\/programs"/);
   assert.match(html, /href="\/organizations"/);
   assert.match(html, /href="\/events"/);
@@ -67,10 +67,10 @@ test("server-renders the English resource directory experience", async () => {
 
   assert.equal(response.status, 200);
   assert.match(html, /Global Startup Resources &amp; Founder Briefs/);
-  assert.match(html, /Global startup/);
-  assert.match(html, /hero hero-en/);
-  assert.match(html, /resources<\/em>/);
-  assert.match(html, /Start With The Resource You Need/);
+  assert.match(html, /Find resources for your startup/);
+
+
+
   assert.match(html, /Programs/);
   assert.match(html, /Institutions/);
   assert.match(html, /Events/);
@@ -100,16 +100,17 @@ test("server-renders English directories and resource briefs", async () => {
   assert.match(detail, /href="https:\/\/stationf\.co\/"/);
 });
 
-test("switches homepage samples in place while keeping directory links separate", async () => {
-  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
-
-  assert.match(page, /useState<PreviewMode>\("featured"\)/);
-  assert.match(page, /setActivePreview\(mode\)/);
-  assert.match(page, /activePreview === "knowledge"/);
-  assert.match(page, /href=\{directoryTarget\.href\}/);
+test("homepage exposes search and results before supplementary content", async () => {
+  const html = await (await render()).text();
+  assert.ok(html.indexOf('class="directory-search"') < html.indexOf('class="resource-card"'));
+  assert.ok(html.indexOf('class="resource-card"') < html.indexOf('weekly-home-spotlight'));
+  assert.match(html, /按需求筛选/);
+  assert.match(html, /找融资与加速器/);
+  assert.match(html, /浏览无需登录/);
+  assert.doesNotMatch(html, /atlas-card|累计独立访客|累计浏览次数/);
 });
 
-test("tracks anonymous unique visitors and exposes the audience count in the interface", async () => {
+test("retains anonymous analytics without cluttering resource finding", async () => {
   const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
   const route = await readFile(new URL("../app/api/audience/route.ts", import.meta.url), "utf8");
   const counter = await readFile(new URL("../app/components/AudienceCounter.tsx", import.meta.url), "utf8");
@@ -135,9 +136,9 @@ test("tracks anonymous unique visitors and exposes the audience count in the int
   assert.match(counter, /window\.crypto\.randomUUID\(\)/);
   assert.match(counter, /data-audience-event/);
   assert.match(counter, /utm_source/);
-  assert.match(page, /累计独立访客/);
-  assert.match(page, /累计浏览次数/);
-  assert.match(page, /trackAudienceEvent\("search:submit"/);
+  assert.match(page, /ResourceHome/);
+  const finder = await readFile(new URL("../app/components/DirectoryExplorer.tsx", import.meta.url), "utf8");
+  assert.match(finder, /trackAudienceEvent\("search:submit"/);
   assert.match(analytics, /创业者反馈仪表盘/);
   assert.match(analytics, /热门访问路径/);
   assert.match(analytics, /关键行为/);
@@ -435,8 +436,8 @@ test("paginates every directory while preserving search and filter behavior", as
   assert.match(explorer, /URLSearchParams\(window\.location\.search\)/);
   assert.match(explorer, /window\.addEventListener\("popstate"/);
   assert.match(explorer, /url\.searchParams\.set\("page", String\(page\)\)/);
-  assert.match(explorer, /setQuery\(event\.target\.value\); resetPage\(\)/);
-  assert.match(explorer, /setActiveTag\(tag\); resetPage\(\)/);
+  assert.match(explorer, /setQuery\(event\.target\.value\); resetPage\(\{ query/);
+  assert.match(explorer, /setNeed\(item\.id\); resetPage\(\{ need/);
 
   const englishResponse = await render("/en/organizations");
   const english = await englishResponse.text();
