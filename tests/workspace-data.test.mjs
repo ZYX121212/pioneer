@@ -140,7 +140,7 @@ const eventCatalogUrl = `data:text/javascript;base64,${Buffer.from(await compile
 const { resources: eventCatalog } = await import(eventCatalogUrl);
 test('every dated event has a venue window; past editions archive without renewing old verification', () => {
   const events = eventCatalog.filter(row => row.type === 'event');
-  assert.equal(events.length, 17);
+  assert.equal(events.length, 18);
   for (const row of events) {
     assert.ok(row.eventWindow, row.slug);
     assert.equal(freshness.resourceFreshness(row, new Date('2027-06-05T12:00:00Z')), 'historical', row.slug);

@@ -1082,6 +1082,312 @@ export const englishResources: Record<string, EnglishResourceCopy> = {
   "cyberport-incubation": {"kind": "Digital technology incubation", "location": "China · Hong Kong", "description": "Hong Kong digital technology incubation; programme enhancements are pending official updates.", "overview": "Cyberport describes technical and business support, mentoring and commercialisation, while its update notice says revised details will be announced.", "editorialNote": "Prepare product and business evidence, then evaluate the revised terms.", "whyItMatters": "An ecosystem route for teams monitoring Hong Kong digital technology opportunities.", "bestFor": ["Digital technology startups", "Founders planning Hong Kong operations"], "considerations": ["Previous financial terms are not a promise under the updated programme", "Confirm local presence and eligibility under the revised rules"], "highlights": [{"label": "Current status", "value": "Await official update"}, {"label": "Team fit", "value": "Digital technology"}], "tags": ["Digital technology", "Incubation", "Hong Kong"], "status": "Programme being updated", "timing": "Updated details pending", "source": "Cyberport Incubation Programme official information"},
   "entrepreneur-day-2026": {"kind": "Startup networking event", "location": "China · Hong Kong", "description": "A startup event on 19–20 November 2026 at the Hong Kong Convention and Exhibition Centre.", "overview": "HKTDC confirms the dates and venue, concurrent with the Business of IP Asia Forum and DesignInspire.", "editorialNote": "Define customer or partner objectives and check the programme and registration arrangements before attending.", "whyItMatters": "An in-person route into Hong Kong startup and business networks.", "bestFor": ["Founders seeking Hong Kong customers and partners", "Teams exploring startup and intellectual property ecosystems"], "considerations": ["Event dates are not registration deadlines", "Confirm tickets, agenda and matching arrangements on the official site"], "highlights": [{"label": "Event dates", "value": "19–20 Nov 2026"}, {"label": "Audience", "value": "Founders / business partners"}], "tags": ["Startup event", "Hong Kong", "Business networking"], "status": "Upcoming event", "timing": "19–20 Nov 2026 · event dates", "source": "HKTDC Entrepreneur Day 2026 official information"},
   "innovex-2027": {"kind": "Startup exhibition", "location": "China · Taiwan · Taipei", "description": "Startup exhibition on 1–4 June 2027 at 4F, Taipei Nangang Exhibition Center Hall 2.", "overview": "Official exhibitor registration information covers eligible technology startups and pavilion organisers.", "editorialNote": "Check eligibility, budget and booth arrangements against a concrete product or partnership objective.", "whyItMatters": "A route for technology demonstrations, investor conversations and international partnerships.", "bestFor": ["Technology startups with demonstrable products", "Organisations arranging startup pavilions"], "considerations": ["Independent startups must meet the official incorporation-date requirement", "Exhibiting, visiting and pitching are distinct participation paths"], "highlights": [{"label": "Event dates", "value": "1–4 Jun 2027"}, {"label": "Audience", "value": "Tech startups / pavilions"}], "tags": ["Technology", "Taipei", "Startup event"], "status": "Exhibitor registration published", "timing": "1–4 Jun 2027 · event dates", "source": "InnoVEX 2027 official information"},
+  "supabase": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Postgres, authentication, storage, realtime data and APIs in one backend platform.",
+  overview: "Supabase combines common backend services with open-source code and developer documentation.",
+  editorialNote: "Pioneer recommendation: Validate data structure and permissions with one small product, then compare operating and migration costs.",
+  whyItMatters: "Validate data structure and permissions with one small product, then compare operating and migration costs.",
+  bestFor: [
+    "Technical founders building SaaS or apps",
+    "Teams needing a database and accounts"
+  ],
+  considerations: [
+    "Configure production permissions and backups",
+    "Check current hosting prices and allowances"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Database and backend platform"
+    }
+  ],
+  tags: [
+    "Developer tools",
+    "Database",
+    "SaaS"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Supabase official information"
+},
+  "framer": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "A website design and publishing platform with CMS and AI-assisted capabilities.",
+  overview: "Framer brings website editing, publishing and content management into one platform.",
+  editorialNote: "Pioneer recommendation: Test positioning and conversion with a product site and assess plan limits and maintenance.",
+  whyItMatters: "Test positioning and conversion with a product site and assess plan limits and maintenance.",
+  bestFor: [
+    "Founders needing a product website",
+    "Design and content teams"
+  ],
+  considerations: [
+    "Not a substitute for a general business backend",
+    "Check domain, content and usage allowances"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Website design and CMS"
+    }
+  ],
+  tags: [
+    "Websites",
+    "Design",
+    "CMS"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Framer official information"
+},
+  "posthog": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Product analytics, session replay, feature flags and experiments for understanding product usage.",
+  overview: "PostHog combines user behaviour and error tools for funnel analysis and product releases.",
+  editorialNote: "Pioneer recommendation: Define an activation or retention question before choosing events and experiment criteria.",
+  whyItMatters: "Define an activation or retention question before choosing events and experiment criteria.",
+  bestFor: [
+    "Product teams with real users",
+    "Founders testing conversion and retention"
+  ],
+  considerations: [
+    "Configure privacy protections for recordings",
+    "Check allowances and pricing for each product"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Product analytics and experiments"
+    }
+  ],
+  tags: [
+    "Analytics",
+    "Growth",
+    "B2B"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "PostHog official information"
+},
+  "hugging-face": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "Discover models, datasets and AI applications through a machine learning community platform.",
+  overview: "Hugging Face offers model and data hosting, application demos, inference and compute routes.",
+  editorialNote: "Pioneer recommendation: Compare models on a specific task and check licenses, data provenance and compute needs.",
+  whyItMatters: "Compare models on a specific task and check licenses, data provenance and compute needs.",
+  bestFor: [
+    "AI product and model teams",
+    "Founders researching model ecosystems"
+  ],
+  considerations: [
+    "Model and dataset licenses vary",
+    "Hosted inference and compute have separate costs"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "Model and data collaboration"
+    }
+  ],
+  tags: [
+    "AI",
+    "Models",
+    "Developer community"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "Hugging Face official information"
+},
+  "heygen": {
+  kind: "Product and company reference",
+  location: "Global · Online",
+  description: "AI avatar video, voice and video translation tools for content creation.",
+  overview: "HeyGen provides video generation and localisation for product explanations, training and international communication.",
+  editorialNote: "Pioneer recommendation: Test a real product explanation and compare language quality and editing costs.",
+  whyItMatters: "Test a real product explanation and compare language quality and editing costs.",
+  bestFor: [
+    "Startups creating multilingual product content",
+    "Teams producing demos and training"
+  ],
+  considerations: [
+    "Use authorised likeness and voice materials",
+    "Review translation and lip-sync quality"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Product available"
+    },
+    {
+      label: "Product focus",
+      value: "AI video and localisation"
+    }
+  ],
+  tags: [
+    "AI video",
+    "Global expansion",
+    "Content tools"
+  ],
+  timing: "Official information",
+  status: "Product available",
+  source: "HeyGen official information"
+},
+  "hax": {
+  kind: "Hard-tech venture development",
+  location: "USA · Newark",
+  description: "Pre-seed hard-tech support combining venture investment and engineering resources.",
+  overview: "HAX is part of SOSV, working across energy, advanced compute, transportation, health technology and manufacturing, with engineering headquarters in Newark.",
+  editorialNote: "Pioneer recommendation: Prepare technical evidence, prototypes and engineering bottlenecks against a clear experiment plan.",
+  whyItMatters: "Prepare technical evidence, prototypes and engineering bottlenecks against a clear experiment plan.",
+  bestFor: [
+    "Early teams with scientific or engineering differentiation",
+    "Founders needing prototype and industrialisation support"
+  ],
+  considerations: [
+    "Confirm investment terms and participation requirements",
+    "Check sector fit before applying"
+  ],
+  highlights: [
+    {
+      label: "Stage",
+      value: "Pre-seed"
+    },
+    {
+      label: "Focus areas",
+      value: "Hard tech / engineering"
+    }
+  ],
+  tags: [
+    "Hard tech",
+    "Prototypes",
+    "Early investment"
+  ],
+  timing: "Official information",
+  status: "Information available",
+  source: "HAX official information"
+},
+  "hkstp-ideation": {
+  kind: "Early startup validation",
+  location: "China · Hong Kong",
+  description: "One-year early startup support in Hong Kong; the listed January 2027 cohort application has closed.",
+  overview: "The programme offers mentoring, training and ecosystem access, with grants up to HKD 100,000 released against three assessed milestones.",
+  editorialNote: "Pioneer recommendation: Research eligibility and milestones while waiting for a newly announced window.",
+  whyItMatters: "Research eligibility and milestones while waiting for a newly announced window.",
+  bestFor: [
+    "Early teams meeting Hong Kong identity or company eligibility",
+    "Founders validating technology and business models"
+  ],
+  considerations: [
+    "The published 31 Aug–14 Sep 2026 application window has ended",
+    "Individual and company eligibility differ; funding depends on milestones"
+  ],
+  highlights: [
+    {
+      label: "Deadline",
+      value: "14 Sep 2026, 12:00 HKT"
+    },
+    {
+      label: "Stage",
+      value: "Idea / validation"
+    }
+  ],
+  tags: [
+    "Validation",
+    "Hong Kong",
+    "Grant"
+  ],
+  timing: "Jan 2027 cohort · application closed",
+  status: "Listed cohort closed",
+  source: "HKSTP Ideation Programme official information"
+},
+  "masschallenge": {
+  kind: "Startup support network",
+  location: "Global · Multiple regions",
+  description: "A startup network with regional early-stage, industry challenge and mentoring programmes.",
+  overview: "MassChallenge distinguishes early-stage programmes, industry challenges for mid-to-late-stage teams and other support routes.",
+  editorialNote: "Pioneer recommendation: Start with sector and region fit and confirm the specific programme window.",
+  whyItMatters: "Start with sector and region fit and confirm the specific programme window.",
+  bestFor: [
+    "Teams seeking mentors and ecosystem support",
+    "Growing companies exploring industry challenges"
+  ],
+  considerations: [
+    "An organisation listing does not mean every cohort is open",
+    "Verify eligibility, fees, awards and participation per programme"
+  ],
+  highlights: [
+    {
+      label: "Coverage",
+      value: "Multiple regions / sectors"
+    },
+    {
+      label: "Entry",
+      value: "Programme-specific"
+    }
+  ],
+  tags: [
+    "Startup support",
+    "Mentors",
+    "International network"
+  ],
+  timing: "Official information",
+  status: "Information available",
+  source: "MassChallenge official information"
+},
+  "aws-reinvent-2026": {
+  kind: "Cloud and AI conference",
+  location: "USA · Las Vegas",
+  description: "Cloud and AI conference in Las Vegas from 30 November to 4 December 2026.",
+  overview: "AWS describes technical sessions, learning and ecosystem networking; choose an agenda against a product or architecture question.",
+  editorialNote: "Pioneer recommendation: Select relevant sessions and partners before comparing travel with online learning.",
+  whyItMatters: "Select relevant sessions and partners before comparing travel with online learning.",
+  bestFor: [
+    "Technical startups using AWS",
+    "Technology leaders building cloud and AI products"
+  ],
+  considerations: [
+    "Conference dates are not registration deadlines",
+    "Confirm passes, travel costs and session access"
+  ],
+  highlights: [
+    {
+      label: "Event dates",
+      value: "30 Nov–4 Dec 2026"
+    },
+    {
+      label: "Audience",
+      value: "Developers / tech founders"
+    }
+  ],
+  tags: [
+    "Cloud",
+    "AI",
+    "Conference"
+  ],
+  timing: "30 Nov–4 Dec 2026 · event dates",
+  status: "Upcoming event",
+  source: "AWS re:Invent 2026 official information"
+},
 };
 
 export function getEnglishResource(slug: string) {

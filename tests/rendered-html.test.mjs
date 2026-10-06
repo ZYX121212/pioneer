@@ -362,8 +362,8 @@ test("keeps the founder knowledge collection structured and source-linked", asyn
   const card = await readFile(new URL("../app/components/KnowledgeCard.tsx", import.meta.url), "utf8");
   const urls = [...data.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 
-  assert.equal(urls.length, 36);
-  assert.equal(new Set(urls).size, 31);
+  assert.equal(urls.length, 42);
+  assert.equal(new Set(urls).size, 37);
   assert.match(data, /slug: "find-the-real-problem"/);
   assert.match(data, /slug: "first-user-interview"/);
   assert.match(data, /slug: "define-your-mvp"/);
@@ -395,7 +395,7 @@ test("keeps every resource backed by an individually authored research profile",
     .filter((slug) => slug !== "snapshot" && slug !== "business");
 
   assert.ok(resourceSlugs.length >= 53);
-  assert.equal(profileSlugs.length, 41);
+  assert.equal(profileSlugs.length, 50);
   assert.equal(investmentProfileSlugs.length, 26);
   assert.ok(startupProfileSlugs.length >= 12);
   assert.deepEqual(new Set([...profileSlugs, ...investmentProfileSlugs, ...startupProfileSlugs]), new Set(resourceSlugs));
@@ -416,7 +416,7 @@ test("renders China and US investor profiles inside the institution directory", 
   assert.match(directory, /投资机构/);
   assert.match(directory, /红杉中国 HongShan/);
   assert.equal((directory.match(/class="resource-card"/g) ?? []).length, 9);
-  assert.match(directory, /共 30 条 · 当前显示 1–9/);
+  assert.match(directory, /共 31 条 · 当前显示 1–9/);
   assert.match(directory, /aria-label="第 4 页"/);
 
   const detailResponse = await render("/resources/linear-capital");
@@ -442,7 +442,7 @@ test("paginates every directory while preserving search and filter behavior", as
   const englishResponse = await render("/en/organizations");
   const english = await englishResponse.text();
   assert.equal(englishResponse.status, 200);
-  assert.match(english, /30 entries · showing 1–9/);
+  assert.match(english, /31 entries · showing 1–9/);
   assert.match(english, /Directory pagination/);
 });
 

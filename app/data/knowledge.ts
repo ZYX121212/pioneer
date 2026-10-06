@@ -503,4 +503,112 @@ export const knowledgeItems: KnowledgeItem[] = [
 
   {"id": 18, "stage": "company", "kind": "自动化技术文档", "title": "n8n：搭建业务自动化流程", "source": "n8n Docs", "description": "从节点、集成和部署开始，为重复任务建立流程；正式使用时同时设计失败处理、权限与人工确认。", "tags": ["自动化", "API", "英文"], "duration": "边做边查", "level": "基础", "scope": "n8n 产品实践", "url": "https://docs.n8n.io/", "color": "mint"},
 
+{
+  id: 19,
+  stage: "validate",
+  kind: "模型开发课程",
+  title: "Hugging Face LLM Course",
+  source: "Hugging Face",
+  description: "学习 Transformers、模型使用与微调基础，把技术选择与实际任务评测连接起来。",
+  url: "https://huggingface.co/learn/llm-course/chapter1/1",
+  tags: [
+    "LLM",
+    "模型评测",
+    "英文"
+  ],
+  level: "进阶",
+  scope: "AI 技术",
+  duration: "按主题学习",
+  color: "blue"
+},
+{
+  id: 20,
+  stage: "start",
+  kind: "商业模型模板",
+  title: "Business Model Canvas",
+  source: "Strategyzer",
+  description: "用九个模块梳理客户、价值、渠道、成本和收入，并用新证据更新假设；下载要求与使用许可按官方页面确认。",
+  url: "https://www.strategyzer.com/library/the-business-model-canvas",
+  tags: [
+    "商业模式",
+    "模板",
+    "英文"
+  ],
+  level: "基础",
+  scope: "创业假设",
+  duration: "按主题学习",
+  color: "mint"
+},
+{
+  id: 21,
+  stage: "funding",
+  kind: "融资叙事框架",
+  title: "Sequoia：商业计划怎么写",
+  source: "Sequoia Capital",
+  description: "围绕问题、解决方案、为何现在、市场、竞争和团队建立商业叙事，适合检查融资材料是否说明了关键判断。",
+  url: "https://sequoiacap.com/article/writing-a-business-plan",
+  tags: [
+    "商业计划",
+    "融资材料",
+    "英文"
+  ],
+  level: "基础",
+  scope: "商业叙事",
+  duration: "按主题学习",
+  color: "orange"
+},
+{
+  id: 22,
+  stage: "validate",
+  kind: "后端开发文档",
+  title: "Supabase：搭建产品后端",
+  source: "Supabase Docs",
+  description: "从数据库与开发入口开始搭建最小产品，同时核对身份验证、数据权限和部署要求。",
+  url: "https://supabase.com/docs/guides/getting-started",
+  tags: [
+    "MVP",
+    "数据库",
+    "英文"
+  ],
+  level: "基础",
+  scope: "技术产品",
+  duration: "按主题学习",
+  color: "violet"
+},
+{
+  id: 23,
+  stage: "company",
+  kind: "产品分析文档",
+  title: "PostHog：用数据验证产品",
+  source: "PostHog Docs",
+  description: "查阅产品分析、回放与实验文档，先定义用户行为和成功指标，再决定需要记录哪些数据。",
+  url: "https://posthog.com/docs",
+  tags: [
+    "用户分析",
+    "实验",
+    "英文"
+  ],
+  level: "基础",
+  scope: "产品增长",
+  duration: "按主题学习",
+  color: "rose"
+},
+{
+  id: 24,
+  stage: "validate",
+  kind: "网站制作课程",
+  title: "Framer Academy：产品官网与 CMS",
+  source: "Framer Academy",
+  description: "学习网站设计、内容管理与发布，通过产品说明页测试定位和转化。",
+  url: "https://www.framer.com/academy/",
+  tags: [
+    "网站",
+    "CMS",
+    "英文"
+  ],
+  level: "基础",
+  scope: "产品展示",
+  duration: "按主题学习",
+  color: "yellow"
+},
 ];

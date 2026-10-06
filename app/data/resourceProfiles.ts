@@ -1216,6 +1216,582 @@ export const resourceProfiles: Record<string, ResourceResearchProfile> = {
   "cyberport-incubation": {"identity": {"model": "官方介绍技术与商业支持、导师网络及产品商业化路径，同时发布计划升级通知，新的安排尚待公布。", "primaryValue": "适合关注香港数字科技生态的团队持续跟进。", "valueCondition": "先准备产品与商业计划，等待官方更新后再判断参与成本和资源匹配。"}, "capabilities": [{"label": "资料与使用入口", "strength": "核心", "detail": "香港数码港数字科技孵化计划；官网正在更新计划安排，申请前需确认新条款。"}], "offers": [{"title": "数字科技孵化", "includes": "官方介绍技术与商业支持、导师网络及产品商业化路径，同时发布计划升级通知，新的安排尚待公布。", "founderValue": "适合关注香港数字科技生态的团队持续跟进。"}], "entryPaths": [{"title": "核对官方入口", "forWhom": "数字科技创业团队 / 计划在香港运营并拓展客户的创始人", "prepare": "先准备产品与商业计划，等待官方更新后再判断参与成本和资源匹配。"}], "stageFit": [], "costs": [], "diligence": ["官网已提示计划升级，旧支持额度不能视为新承诺", "本地运营与公司资格按更新后的官方规则确认"], "playbook": [{"phase": "01", "title": "明确目标", "action": "先准备产品与商业计划，等待官方更新后再判断参与成本和资源匹配。", "output": "写下要验证的问题和成功标准"}, {"phase": "02", "title": "核对当前安排", "action": "查看官方来源，确认参与资格、费用、时间和产品限制。", "output": "可执行的下一步与待确认事项"}], "comparison": {"chooseWhen": "数字科技创业团队 / 计划在香港运营并拓展客户的创始人", "avoidWhen": "官网已提示计划升级，旧支持额度不能视为新承诺 / 本地运营与公司资格按更新后的官方规则确认", "compareWith": "比较同类入口的具体能力、成本与参与条件。"}},
   "entrepreneur-day-2026": {"identity": {"model": "香港贸发局公布本届创业日的日期与地点，并与亚洲知识产权营商论坛及 DesignInspire 同期举行。", "primaryValue": "提供香港创业生态与商业连接的现场入口。", "valueCondition": "参会前明确希望接触的客户或伙伴，并核对正式议程和登记安排。"}, "capabilities": [{"label": "资料与使用入口", "strength": "核心", "detail": "2026 年 11 月 19–20 日在香港会议展览中心举行的创业活动。"}], "offers": [{"title": "创业交流活动", "includes": "香港贸发局公布本届创业日的日期与地点，并与亚洲知识产权营商论坛及 DesignInspire 同期举行。", "founderValue": "提供香港创业生态与商业连接的现场入口。"}], "entryPaths": [{"title": "核对官方入口", "forWhom": "希望接触香港客户与合作伙伴的创业者 / 关注创业生态及知识产权的团队", "prepare": "参会前明确希望接触的客户或伙伴，并核对正式议程和登记安排。"}], "stageFit": [], "costs": [], "diligence": ["举办日期不是报名截止日期", "门票、议程和对接安排以活动官网为准"], "playbook": [{"phase": "01", "title": "明确目标", "action": "参会前明确希望接触的客户或伙伴，并核对正式议程和登记安排。", "output": "写下要验证的问题和成功标准"}, {"phase": "02", "title": "核对当前安排", "action": "查看官方来源，确认参与资格、费用、时间和产品限制。", "output": "可执行的下一步与待确认事项"}], "comparison": {"chooseWhen": "希望接触香港客户与合作伙伴的创业者 / 关注创业生态及知识产权的团队", "avoidWhen": "举办日期不是报名截止日期 / 门票、议程和对接安排以活动官网为准", "compareWith": "比较同类入口的具体能力、成本与参与条件。"}},
   "innovex-2027": {"identity": {"model": "官方已发布 2027 年参展登记安排与资格说明，面向符合成立时间要求的科技创业公司及组织展团。", "primaryValue": "为科技产品展示、投资人接触与国际合作提供活动入口。", "valueCondition": "适合有可展示产品和明确合作目标的团队，先确认参展资格、预算和展位方案。"}, "capabilities": [{"label": "资料与使用入口", "strength": "核心", "detail": "2027 年 6 月 1–4 日在台北南港展览馆 2 馆 4 楼举行的创业展示活动。"}], "offers": [{"title": "创业展示与对接", "includes": "官方已发布 2027 年参展登记安排与资格说明，面向符合成立时间要求的科技创业公司及组织展团。", "founderValue": "为科技产品展示、投资人接触与国际合作提供活动入口。"}], "entryPaths": [{"title": "核对官方入口", "forWhom": "希望展示产品的科技创业团队 / 组织创业公司展团的机构", "prepare": "适合有可展示产品和明确合作目标的团队，先确认参展资格、预算和展位方案。"}], "stageFit": [], "costs": [], "diligence": ["独立科技创业公司须符合官方成立日期要求", "参展、观展和 Pitch Contest 是不同参与路径"], "playbook": [{"phase": "01", "title": "明确目标", "action": "适合有可展示产品和明确合作目标的团队，先确认参展资格、预算和展位方案。", "output": "写下要验证的问题和成功标准"}, {"phase": "02", "title": "核对当前安排", "action": "查看官方来源，确认参与资格、费用、时间和产品限制。", "output": "可执行的下一步与待确认事项"}], "comparison": {"chooseWhen": "希望展示产品的科技创业团队 / 组织创业公司展团的机构", "avoidWhen": "独立科技创业公司须符合官方成立日期要求 / 参展、观展和 Pitch Contest 是不同参与路径", "compareWith": "比较同类入口的具体能力、成本与参与条件。"}},
+  "supabase": {
+  identity: {
+    model: "Supabase 将常用后端能力整合在同一平台，并提供开源代码与开发文档。",
+    primaryValue: "用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+    valueCondition: "Pioneer 建议：用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      strength: "中",
+      detail: "数据库与后端平台"
+    }
+  ],
+  offers: [
+    {
+      title: "数据库与后端平台",
+      includes: "Supabase 将常用后端能力整合在同一平台，并提供开源代码与开发文档。",
+      founderValue: "用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "搭建 SaaS 或应用的技术创始人 / 需要数据库与账号体系的团队",
+      prepare: "Pioneer 建议：用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "搭建 SaaS 或应用的技术创始人 / 需要数据库与账号体系的团队"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "生产数据需配置访问权限与备份",
+    "免费额度和托管费用以当前方案为准"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "搭建 SaaS 或应用的技术创始人 / 需要数据库与账号体系的团队",
+    avoidWhen: "生产数据需配置访问权限与备份 / 免费额度和托管费用以当前方案为准",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "framer": {
+  identity: {
+    model: "Framer 提供网站编辑、发布和 CMS，帮助团队维护营销页面与内容站点。",
+    primaryValue: "用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+    valueCondition: "Pioneer 建议：用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      strength: "中",
+      detail: "网站设计与内容管理"
+    }
+  ],
+  offers: [
+    {
+      title: "网站设计与内容管理",
+      includes: "Framer 提供网站编辑、发布和 CMS，帮助团队维护营销页面与内容站点。",
+      founderValue: "用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "需要产品官网的创业团队 / 设计师与内容运营团队",
+      prepare: "Pioneer 建议：用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "需要产品官网的创业团队 / 设计师与内容运营团队"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "不是通用业务后端的替代品",
+    "域名、内容与访问额度按当前方案确认"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "需要产品官网的创业团队 / 设计师与内容运营团队",
+    avoidWhen: "不是通用业务后端的替代品 / 域名、内容与访问额度按当前方案确认",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "posthog": {
+  identity: {
+    model: "PostHog 提供用户行为和错误等数据工具，支持围绕漏斗、产品问题与功能发布开展分析。",
+    primaryValue: "先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+    valueCondition: "Pioneer 建议：先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      strength: "中",
+      detail: "产品分析与实验"
+    }
+  ],
+  offers: [
+    {
+      title: "产品分析与实验",
+      includes: "PostHog 提供用户行为和错误等数据工具，支持围绕漏斗、产品问题与功能发布开展分析。",
+      founderValue: "先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "已拥有真实用户的产品团队 / 需要验证转化与留存的创始人",
+      prepare: "Pioneer 建议：先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "已拥有真实用户的产品团队 / 需要验证转化与留存的创始人"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "回放与行为采集应配置隐私保护",
+    "各产品用量与收费分别核对"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "已拥有真实用户的产品团队 / 需要验证转化与留存的创始人",
+    avoidWhen: "回放与行为采集应配置隐私保护 / 各产品用量与收费分别核对",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "hugging-face": {
+  identity: {
+    model: "Hugging Face 提供模型与数据托管、应用展示、推理和计算入口，支持开发者研究与部署 AI 能力。",
+    primaryValue: "先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+    valueCondition: "Pioneer 建议：先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      strength: "中",
+      detail: "模型与数据协作平台"
+    }
+  ],
+  offers: [
+    {
+      title: "模型与数据协作平台",
+      includes: "Hugging Face 提供模型与数据托管、应用展示、推理和计算入口，支持开发者研究与部署 AI 能力。",
+      founderValue: "先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "AI 产品与模型开发团队 / 研究开源模型生态的创业者",
+      prepare: "Pioneer 建议：先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "AI 产品与模型开发团队 / 研究开源模型生态的创业者"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "不同模型和数据集的许可各不相同",
+    "托管推理与计算服务有独立费用"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "AI 产品与模型开发团队 / 研究开源模型生态的创业者",
+    avoidWhen: "不同模型和数据集的许可各不相同 / 托管推理与计算服务有独立费用",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "heygen": {
+  identity: {
+    model: "HeyGen 面向创作者与企业提供视频生成和本地化工具，可用于产品介绍、培训及多语言传播。",
+    primaryValue: "用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+    valueCondition: "Pioneer 建议：用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      strength: "中",
+      detail: "AI 视频与多语言内容"
+    }
+  ],
+  offers: [
+    {
+      title: "AI 视频与多语言内容",
+      includes: "HeyGen 面向创作者与企业提供视频生成和本地化工具，可用于产品介绍、培训及多语言传播。",
+      founderValue: "用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "需要多语言产品内容的创业团队 / 制作演示与培训内容的团队",
+      prepare: "Pioneer 建议：用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "需要多语言产品内容的创业团队 / 制作演示与培训内容的团队"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "人物和声音素材应具有使用授权",
+    "翻译与口型效果需人工检查"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "需要多语言产品内容的创业团队 / 制作演示与培训内容的团队",
+    avoidWhen: "人物和声音素材应具有使用授权 / 翻译与口型效果需人工检查",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "hax": {
+  identity: {
+    model: "HAX 是 SOSV 旗下硬科技项目，覆盖能源、先进计算、交通、健康技术与制造等方向，官网介绍 Newark 工程基地。",
+    primaryValue: "优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+    valueCondition: "Pioneer 建议：优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。"
+  },
+  capabilities: [
+    {
+      label: "适合阶段",
+      strength: "核心",
+      detail: "Pre-Seed"
+    },
+    {
+      label: "重点方向",
+      strength: "中",
+      detail: "硬科技 / 工程"
+    }
+  ],
+  offers: [
+    {
+      title: "硬科技投资与工程支持",
+      includes: "HAX 是 SOSV 旗下硬科技项目，覆盖能源、先进计算、交通、健康技术与制造等方向，官网介绍 Newark 工程基地。",
+      founderValue: "优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "具有科学或工程壁垒的早期团队 / 需要原型与产业化支持的创始人",
+      prepare: "Pioneer 建议：优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "具有科学或工程壁垒的早期团队 / 需要原型与产业化支持的创始人"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "投资条款与参与安排需逐项核对",
+    "纯软件或普通消费项目应先确认方向匹配"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "具有科学或工程壁垒的早期团队 / 需要原型与产业化支持的创始人",
+    avoidWhen: "投资条款与参与安排需逐项核对 / 纯软件或普通消费项目应先确认方向匹配",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "hkstp-ideation": {
+  identity: {
+    model: "官方提供导师、培训与生态连接，最高 10 万港元资助分三次按里程碑评审发放。",
+    primaryValue: "可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+    valueCondition: "Pioneer 建议：可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。"
+  },
+  capabilities: [
+    {
+      label: "申请截止",
+      strength: "核心",
+      detail: "2026.09.14 12:00 HKT"
+    },
+    {
+      label: "适合阶段",
+      strength: "中",
+      detail: "想法 / 验证"
+    }
+  ],
+  offers: [
+    {
+      title: "早期创业验证计划",
+      includes: "官方提供导师、培训与生态连接，最高 10 万港元资助分三次按里程碑评审发放。",
+      founderValue: "可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "符合香港身份或公司资格的早期团队 / 需要验证技术想法与商业模式的创始人",
+      prepare: "Pioneer 建议：可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "符合香港身份或公司资格的早期团队 / 需要验证技术想法与商业模式的创始人"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "已公布窗口为 2026.08.31–09.14，现已截止",
+    "个人及公司申请有不同资格，资助需满足里程碑"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "符合香港身份或公司资格的早期团队 / 需要验证技术想法与商业模式的创始人",
+    avoidWhen: "已公布窗口为 2026.08.31–09.14，现已截止 / 个人及公司申请有不同资格，资助需满足里程碑",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "masschallenge": {
+  identity: {
+    model: "MassChallenge 官网区分早期计划、面向中后期团队的行业挑战和其他支持路径，不同项目有独立安排。",
+    primaryValue: "从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+    valueCondition: "Pioneer 建议：从行业和地区匹配开始，核对具体项目窗口和投入要求。"
+  },
+  capabilities: [
+    {
+      label: "覆盖范围",
+      strength: "核心",
+      detail: "多地区 / 多行业"
+    },
+    {
+      label: "参与入口",
+      strength: "中",
+      detail: "按具体计划核对"
+    }
+  ],
+  offers: [
+    {
+      title: "创业支持网络",
+      includes: "MassChallenge 官网区分早期计划、面向中后期团队的行业挑战和其他支持路径，不同项目有独立安排。",
+      founderValue: "从行业和地区匹配开始，核对具体项目窗口和投入要求。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "寻找导师与创业生态支持的团队 / 希望参与行业挑战的成长型公司",
+      prepare: "Pioneer 建议：从行业和地区匹配开始，核对具体项目窗口和投入要求。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "寻找导师与创业生态支持的团队 / 希望参与行业挑战的成长型公司"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "机构入口不代表所有批次正在开放",
+    "资格、费用、奖励及参与方式按具体项目核对"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "寻找导师与创业生态支持的团队 / 希望参与行业挑战的成长型公司",
+    avoidWhen: "机构入口不代表所有批次正在开放 / 资格、费用、奖励及参与方式按具体项目核对",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
+  "aws-reinvent-2026": {
+  identity: {
+    model: "AWS 官方介绍技术会议、学习与生态交流，适合带着架构、产品或合作问题选择议程。",
+    primaryValue: "先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+    valueCondition: "Pioneer 建议：先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。"
+  },
+  capabilities: [
+    {
+      label: "活动日期",
+      strength: "核心",
+      detail: "2026.11.30–12.04"
+    },
+    {
+      label: "核心人群",
+      strength: "中",
+      detail: "开发者 / 技术创业"
+    }
+  ],
+  offers: [
+    {
+      title: "云与 AI 技术大会",
+      includes: "AWS 官方介绍技术会议、学习与生态交流，适合带着架构、产品或合作问题选择议程。",
+      founderValue: "先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。"
+    }
+  ],
+  entryPaths: [
+    {
+      title: "查看官方资料与参与入口",
+      forWhom: "使用 AWS 的技术创业团队 / 关注云架构与 AI 产品的技术负责人",
+      prepare: "Pioneer 建议：先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。"
+    }
+  ],
+  stageFit: [
+    {
+      stage: "目标匹配的团队",
+      fit: "可以考虑",
+      reason: "使用 AWS 的技术创业团队 / 关注云架构与 AI 产品的技术负责人"
+    }
+  ],
+  costs: [],
+  diligence: [
+    "大会日期不是报名截止日期",
+    "门票、差旅和不同环节权限需核对"
+  ],
+  playbook: [
+    {
+      phase: "01",
+      title: "确定需要解决的问题",
+      action: "先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+      output: "一项可验证的目标"
+    },
+    {
+      phase: "02",
+      title: "确认参与条件",
+      action: "核对官方费用、资格和时间；未公布的信息直接向官方确认。",
+      output: "下一步行动与待确认清单"
+    }
+  ],
+  comparison: {
+    chooseWhen: "使用 AWS 的技术创业团队 / 关注云架构与 AI 产品的技术负责人",
+    avoidWhen: "大会日期不是报名截止日期 / 门票、差旅和不同环节权限需核对",
+    compareWith: "比较同类资源的能力、投入和参与条件。"
+  }
+},
 };
 
 export function getResourceProfile(slug: string) {

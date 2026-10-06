@@ -1995,6 +1995,442 @@ export const resources: Resource[] = [
   {id: 116, slug: "cyberport-incubation", name: "Cyberport Incubation Programme", type: "program", kind: "数字科技孵化", location: "中国 · 香港", url: "https://www.cyberport.hk/en/entrepreneurship/cyberport_incubation_programme/", description: "香港数码港数字科技孵化计划；官网正在更新计划安排，申请前需确认新条款。", overview: "官方介绍技术与商业支持、导师网络及产品商业化路径，同时发布计划升级通知，新的安排尚待公布。", editorialNote: "先准备产品与商业计划，等待官方更新后再判断参与成本和资源匹配。", whyItMatters: "适合关注香港数字科技生态的团队持续跟进。", bestFor: ["数字科技创业团队", "计划在香港运营并拓展客户的创始人"], considerations: ["官网已提示计划升级，旧支持额度不能视为新承诺", "本地运营与公司资格按更新后的官方规则确认"], highlights: [{label: "当前安排", value: "等待官方更新"}, {label: "适合团队", value: "数字科技创业"}], tags: ["数字科技", "孵化器", "香港"], status: "计划更新中", timing: "新安排待公布", verified: "2026.10.06 核验", source: "Cyberport Incubation Programme 官方资料", sources: [{label: "Cyberport Incubation Programme 官方资料", href: "https://www.cyberport.hk/en/entrepreneurship/cyberport_incubation_programme/"}], color: "blue", monogram: "CP"},
   {id: 117, slug: "entrepreneur-day-2026", name: "HKTDC Entrepreneur Day 2026", type: "event", kind: "创业交流活动", location: "中国 · 香港", url: "https://www.hktdc.com/event/eday/en/important-notices", description: "2026 年 11 月 19–20 日在香港会议展览中心举行的创业活动。", overview: "香港贸发局公布本届创业日的日期与地点，并与亚洲知识产权营商论坛及 DesignInspire 同期举行。", editorialNote: "参会前明确希望接触的客户或伙伴，并核对正式议程和登记安排。", whyItMatters: "提供香港创业生态与商业连接的现场入口。", bestFor: ["希望接触香港客户与合作伙伴的创业者", "关注创业生态及知识产权的团队"], considerations: ["举办日期不是报名截止日期", "门票、议程和对接安排以活动官网为准"], highlights: [{label: "活动日期", value: "2026.11.19–11.20"}, {label: "核心人群", value: "创业者 / 商业伙伴"}], tags: ["创业活动", "香港", "商业对接"], status: "活动待举行", timing: "2026.11.19–11.20 · 活动日期", verified: "2026.10.06 核验", source: "HKTDC Entrepreneur Day 2026 官方资料", sources: [{label: "HKTDC Entrepreneur Day 2026 官方资料", href: "https://www.hktdc.com/event/eday/en/important-notices"}], color: "orange", monogram: "ED", eventWindow: {lastDay: "2026-11-20", timeZone: "Asia/Hong_Kong"}},
   {id: 118, slug: "innovex-2027", name: "InnoVEX 2027", type: "event", kind: "创业展示与对接", location: "中国 · 台湾 · 台北", url: "https://innovex.computex.biz/show/registration-info.aspx", description: "2027 年 6 月 1–4 日在台北南港展览馆 2 馆 4 楼举行的创业展示活动。", overview: "官方已发布 2027 年参展登记安排与资格说明，面向符合成立时间要求的科技创业公司及组织展团。", editorialNote: "适合有可展示产品和明确合作目标的团队，先确认参展资格、预算和展位方案。", whyItMatters: "为科技产品展示、投资人接触与国际合作提供活动入口。", bestFor: ["希望展示产品的科技创业团队", "组织创业公司展团的机构"], considerations: ["独立科技创业公司须符合官方成立日期要求", "参展、观展和 Pitch Contest 是不同参与路径"], highlights: [{label: "活动日期", value: "2027.06.01–06.04"}, {label: "核心人群", value: "科技创业 / 展团"}], tags: ["科技", "台北", "创业活动"], status: "参展登记已公布", timing: "2027.06.01–06.04 · 活动日期", verified: "2026.10.06 核验", source: "InnoVEX 2027 官方资料", sources: [{label: "InnoVEX 2027 官方资料", href: "https://innovex.computex.biz/show/registration-info.aspx"}], color: "violet", monogram: "IX", eventWindow: {lastDay: "2027-06-04", timeZone: "Asia/Taipei"}},
+{
+  id: 119,
+  slug: "supabase",
+  type: "startup",
+  kind: "数据库与后端平台",
+  name: "Supabase",
+  location: "全球 · Online",
+  description: "围绕 Postgres 提供数据库、身份验证、存储、实时数据与 API。",
+  overview: "Supabase 将常用后端能力整合在同一平台，并提供开源代码与开发文档。",
+  editorialNote: "Pioneer 建议：用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+  whyItMatters: "用一个最小产品验证数据结构和权限，再比较运行成本与迁移要求。",
+  bestFor: [
+    "搭建 SaaS 或应用的技术创始人",
+    "需要数据库与账号体系的团队"
+  ],
+  considerations: [
+    "生产数据需配置访问权限与备份",
+    "免费额度和托管费用以当前方案为准"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "数据库与后端平台"
+    }
+  ],
+  tags: [
+    "开发工具",
+    "数据库",
+    "SaaS"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Supabase 官方资料",
+  url: "https://supabase.com/",
+  sources: [
+    {
+      label: "Supabase 官方资料",
+      href: "https://supabase.com/"
+    }
+  ],
+  color: "mint",
+  monogram: "SU"
+},
+{
+  id: 120,
+  slug: "framer",
+  type: "startup",
+  kind: "网站设计与内容管理",
+  name: "Framer",
+  location: "全球 · Online",
+  description: "从设计到发布的网站平台，结合内容管理与 AI 辅助能力。",
+  overview: "Framer 提供网站编辑、发布和 CMS，帮助团队维护营销页面与内容站点。",
+  editorialNote: "Pioneer 建议：用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+  whyItMatters: "用产品说明页测试定位和转化，同时确认网站方案、内容规模与维护方式。",
+  bestFor: [
+    "需要产品官网的创业团队",
+    "设计师与内容运营团队"
+  ],
+  considerations: [
+    "不是通用业务后端的替代品",
+    "域名、内容与访问额度按当前方案确认"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "网站设计与内容管理"
+    }
+  ],
+  tags: [
+    "网站",
+    "设计",
+    "内容管理"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Framer 官方资料",
+  url: "https://www.framer.com/",
+  sources: [
+    {
+      label: "Framer 官方资料",
+      href: "https://www.framer.com/"
+    }
+  ],
+  color: "blue",
+  monogram: "FR"
+},
+{
+  id: 121,
+  slug: "posthog",
+  type: "startup",
+  kind: "产品分析与实验",
+  name: "PostHog",
+  location: "全球 · Online",
+  description: "整合产品分析、会话回放、功能开关与实验，理解用户如何使用产品。",
+  overview: "PostHog 提供用户行为和错误等数据工具，支持围绕漏斗、产品问题与功能发布开展分析。",
+  editorialNote: "Pioneer 建议：先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+  whyItMatters: "先定义激活或留存问题，再建立事件记录和实验标准，避免只收集数据。",
+  bestFor: [
+    "已拥有真实用户的产品团队",
+    "需要验证转化与留存的创始人"
+  ],
+  considerations: [
+    "回放与行为采集应配置隐私保护",
+    "各产品用量与收费分别核对"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "产品分析与实验"
+    }
+  ],
+  tags: [
+    "用户分析",
+    "增长",
+    "B2B"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "PostHog 官方资料",
+  url: "https://posthog.com/",
+  sources: [
+    {
+      label: "PostHog 官方资料",
+      href: "https://posthog.com/"
+    }
+  ],
+  color: "orange",
+  monogram: "PO"
+},
+{
+  id: 122,
+  slug: "hugging-face",
+  type: "startup",
+  kind: "模型与数据协作平台",
+  name: "Hugging Face",
+  location: "全球 · Online",
+  description: "查找模型、数据集与 AI 应用，连接机器学习开发社区。",
+  overview: "Hugging Face 提供模型与数据托管、应用展示、推理和计算入口，支持开发者研究与部署 AI 能力。",
+  editorialNote: "Pioneer 建议：先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+  whyItMatters: "先对具体任务做模型对比，同时核对模型许可、数据来源和计算需求。",
+  bestFor: [
+    "AI 产品与模型开发团队",
+    "研究开源模型生态的创业者"
+  ],
+  considerations: [
+    "不同模型和数据集的许可各不相同",
+    "托管推理与计算服务有独立费用"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "模型与数据协作平台"
+    }
+  ],
+  tags: [
+    "AI",
+    "模型",
+    "开发社区"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "Hugging Face 官方资料",
+  url: "https://huggingface.co/",
+  sources: [
+    {
+      label: "Hugging Face 官方资料",
+      href: "https://huggingface.co/"
+    }
+  ],
+  color: "violet",
+  monogram: "HU"
+},
+{
+  id: 123,
+  slug: "heygen",
+  type: "startup",
+  kind: "AI 视频与多语言内容",
+  name: "HeyGen",
+  location: "全球 · Online",
+  description: "提供数字人视频、语音及视频翻译等 AI 内容制作能力。",
+  overview: "HeyGen 面向创作者与企业提供视频生成和本地化工具，可用于产品介绍、培训及多语言传播。",
+  editorialNote: "Pioneer 建议：用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+  whyItMatters: "用一段真实产品说明验证内容质量，再比较目标语言表现与编辑成本。",
+  bestFor: [
+    "需要多语言产品内容的创业团队",
+    "制作演示与培训内容的团队"
+  ],
+  considerations: [
+    "人物和声音素材应具有使用授权",
+    "翻译与口型效果需人工检查"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "产品已发布"
+    },
+    {
+      label: "产品方向",
+      value: "AI 视频与多语言内容"
+    }
+  ],
+  tags: [
+    "AI 视频",
+    "出海",
+    "内容工具"
+  ],
+  timing: "持续资料入口",
+  status: "产品可访问",
+  verified: "2026.10.06 核验",
+  source: "HeyGen 官方资料",
+  url: "https://www.heygen.com/",
+  sources: [
+    {
+      label: "HeyGen 官方资料",
+      href: "https://www.heygen.com/"
+    }
+  ],
+  color: "rose",
+  monogram: "HE"
+},
+{
+  id: 124,
+  slug: "hax",
+  type: "program",
+  kind: "硬科技投资与工程支持",
+  name: "HAX",
+  location: "美国 · Newark",
+  description: "面向 Pre-Seed 硬科技团队，结合早期投资与工程设施支持。",
+  overview: "HAX 是 SOSV 旗下硬科技项目，覆盖能源、先进计算、交通、健康技术与制造等方向，官网介绍 Newark 工程基地。",
+  editorialNote: "Pioneer 建议：优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+  whyItMatters: "优先准备技术证据、原型和工程难点，让支持需求与实验计划对应。",
+  bestFor: [
+    "具有科学或工程壁垒的早期团队",
+    "需要原型与产业化支持的创始人"
+  ],
+  considerations: [
+    "投资条款与参与安排需逐项核对",
+    "纯软件或普通消费项目应先确认方向匹配"
+  ],
+  highlights: [
+    {
+      label: "适合阶段",
+      value: "Pre-Seed"
+    },
+    {
+      label: "重点方向",
+      value: "硬科技 / 工程"
+    }
+  ],
+  tags: [
+    "硬科技",
+    "原型",
+    "早期投资"
+  ],
+  timing: "持续资料入口",
+  status: "资料可查",
+  verified: "2026.10.06 核验",
+  source: "HAX 官方资料",
+  url: "https://hax.co/",
+  sources: [
+    {
+      label: "HAX 官方资料",
+      href: "https://hax.co/"
+    }
+  ],
+  color: "mint",
+  monogram: "HA"
+},
+{
+  id: 125,
+  slug: "hkstp-ideation",
+  type: "program",
+  kind: "早期创业验证计划",
+  name: "HKSTP Ideation Programme",
+  location: "中国 · 香港",
+  description: "为香港早期创业者提供一年期验证支持；官网所列 2027 年 1 月批次申请已截止。",
+  overview: "官方提供导师、培训与生态连接，最高 10 万港元资助分三次按里程碑评审发放。",
+  editorialNote: "Pioneer 建议：可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+  whyItMatters: "可先研究资格与里程碑要求，等待新的申请窗口，不把旧批次当作开放机会。",
+  bestFor: [
+    "符合香港身份或公司资格的早期团队",
+    "需要验证技术想法与商业模式的创始人"
+  ],
+  considerations: [
+    "已公布窗口为 2026.08.31–09.14，现已截止",
+    "个人及公司申请有不同资格，资助需满足里程碑"
+  ],
+  highlights: [
+    {
+      label: "申请截止",
+      value: "2026.09.14 12:00 HKT"
+    },
+    {
+      label: "适合阶段",
+      value: "想法 / 验证"
+    }
+  ],
+  tags: [
+    "创业验证",
+    "香港",
+    "资助"
+  ],
+  timing: "2027.01 批次 · 申请已截止",
+  status: "本批次已截止",
+  verified: "2026.10.06 核验",
+  source: "HKSTP Ideation Programme 官方资料",
+  url: "https://www.hkstp.org/programmes/ideation",
+  sources: [
+    {
+      label: "HKSTP Ideation Programme 官方资料",
+      href: "https://www.hkstp.org/programmes/ideation"
+    }
+  ],
+  color: "blue",
+  monogram: "HK"
+},
+{
+  id: 126,
+  slug: "masschallenge",
+  type: "organization",
+  kind: "创业支持网络",
+  name: "MassChallenge",
+  location: "全球 · 多地区",
+  description: "按地区与行业提供早期加速、主题挑战和导师资源的创业网络。",
+  overview: "MassChallenge 官网区分早期计划、面向中后期团队的行业挑战和其他支持路径，不同项目有独立安排。",
+  editorialNote: "Pioneer 建议：从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+  whyItMatters: "从行业和地区匹配开始，核对具体项目窗口和投入要求。",
+  bestFor: [
+    "寻找导师与创业生态支持的团队",
+    "希望参与行业挑战的成长型公司"
+  ],
+  considerations: [
+    "机构入口不代表所有批次正在开放",
+    "资格、费用、奖励及参与方式按具体项目核对"
+  ],
+  highlights: [
+    {
+      label: "覆盖范围",
+      value: "多地区 / 多行业"
+    },
+    {
+      label: "参与入口",
+      value: "按具体计划核对"
+    }
+  ],
+  tags: [
+    "创业支持",
+    "导师",
+    "国际网络"
+  ],
+  timing: "持续资料入口",
+  status: "资料可查",
+  verified: "2026.10.06 核验",
+  source: "MassChallenge 官方资料",
+  url: "https://masschallenge.org/",
+  sources: [
+    {
+      label: "MassChallenge 官方资料",
+      href: "https://masschallenge.org/"
+    }
+  ],
+  color: "orange",
+  monogram: "MA"
+},
+{
+  id: 127,
+  slug: "aws-reinvent-2026",
+  type: "event",
+  kind: "云与 AI 技术大会",
+  name: "AWS re:Invent 2026",
+  location: "美国 · Las Vegas",
+  description: "2026 年 11 月 30 日至 12 月 4 日在拉斯维加斯举行的云与 AI 大会。",
+  overview: "AWS 官方介绍技术会议、学习与生态交流，适合带着架构、产品或合作问题选择议程。",
+  editorialNote: "Pioneer 建议：先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+  whyItMatters: "先筛选与产品相关的议题和目标伙伴，再比较线下参加与线上资料的投入。",
+  bestFor: [
+    "使用 AWS 的技术创业团队",
+    "关注云架构与 AI 产品的技术负责人"
+  ],
+  considerations: [
+    "大会日期不是报名截止日期",
+    "门票、差旅和不同环节权限需核对"
+  ],
+  highlights: [
+    {
+      label: "活动日期",
+      value: "2026.11.30–12.04"
+    },
+    {
+      label: "核心人群",
+      value: "开发者 / 技术创业"
+    }
+  ],
+  tags: [
+    "云计算",
+    "AI",
+    "技术大会"
+  ],
+  timing: "2026.11.30–12.04 · 活动日期",
+  status: "活动待举行",
+  verified: "2026.10.06 核验",
+  source: "AWS re:Invent 2026 官方资料",
+  url: "https://aws.amazon.com/events/reinvent/",
+  sources: [
+    {
+      label: "AWS re:Invent 2026 官方资料",
+      href: "https://aws.amazon.com/events/reinvent/"
+    }
+  ],
+  color: "violet",
+  monogram: "AW",
+  eventWindow: {
+    lastDay: "2026-12-04",
+    timeZone: "America/Los_Angeles"
+  }
+},
 ];
 
 export const typeConfig: Record<ResourceType, {
