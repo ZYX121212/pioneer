@@ -27,9 +27,10 @@ export async function initializeWorkspace(): Promise<Record> {
   return loading;
 }
 export function workspaceSnapshot() { return cached; }
-export async function updateWorkspace(change: (state: WorkspaceState) => void | WorkspaceState) {
+export async function updateWorkspace(change: (state: WorkspaceState) => void | WorkspaceState, expectedVersion?: number) {
   const operation = queue.catch(() => {}).then(async () => {
     await initializeWorkspace();
+    if (expectedVersion !== undefined && cached.version !== expectedVersion) throw new WorkspaceError("version_conflict", 409, "Workspace changed after backup preview");
     const draft = structuredClone(cached.state), replacement = change(draft);
     const next = validateWorkspace(replacement ?? draft);
     const saved = await responseRecord(await fetch("/api/workspace", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ version: cached.version, state: next }) }));

@@ -168,3 +168,20 @@ test('event end days expire at venue midnight, including DST, and never invent a
     assert.equal(freshness.resourceFreshness({ ...row, eventWindow: window }), 'needs-review');
   }
 });
+
+test('backup merge refuses a workspace changed after preview before sending a write', async () => {
+  const originalFetch = globalThis.fetch, client = await clientModule();
+  let savedState = model.emptyWorkspace(), savedVersion = 0, writes = 0;
+  globalThis.fetch = async (_url, options = {}) => {
+    if (!options.method) return Response.json({state:savedState,version:savedVersion,updatedAt:null});
+    writes++;savedState=JSON.parse(options.body).state;savedVersion++;
+    return Response.json({state:savedState,version:savedVersion,updatedAt:null});
+  };
+  try {
+    await client.initializeWorkspace(); const previewVersion=client.workspaceSnapshot().version;
+    const first=client.saveProject({...project,name:'Saved after preview'});
+    const stale=client.updateWorkspace(state=>{state.shortlist.push('y-combinator');},previewVersion);
+    await first;await assert.rejects(stale,error=>error.code==='version_conflict');
+    assert.equal(writes,1);assert.equal(client.readProject().name,'Saved after preview');assert.deepEqual(client.workspaceSnapshot().state.shortlist,[]);
+  } finally {globalThis.fetch=originalFetch;}
+});

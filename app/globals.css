@@ -10659,3 +10659,10 @@ footer .footer-links { flex-wrap:wrap; }
 .finder-home .directory-pagination, .finder-directory .directory-pagination { flex-wrap:wrap; gap:12px; }
 .finder-home .resource-save button, .finder-directory .resource-save button { font-size:13px; }
 @media(max-width:760px) { .finder-home .pagination-pages, .finder-directory .pagination-pages { flex-basis:100%; order:3; } }
+.workspace-restore { margin-top:20px; border-top:1px solid #d4ddd7; padding-top:16px; }
+.workspace-restore summary { cursor:pointer; font-weight:600; }
+.workspace-restore label { display:grid; gap:8px; margin:16px 0; }
+.workspace-restore textarea { width:100%; max-width:100%; padding:12px; border:1px solid #bbb; font:inherit; }
+.workspace-restore input[type="file"] { width:100%; max-width:100%; }
+.workspace-restore-preview { padding:16px; margin:16px 0; border:1px solid #d4ddd7; background:#f6f8f5; overflow-wrap:anywhere; }
+.workspace-restore button { margin:8px 12px 8px 0; }
