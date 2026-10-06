@@ -93,10 +93,10 @@ test("server-renders English directories and resource briefs", async () => {
   const detailResponse = await render("/en/resources/station-f");
   const detail = await detailResponse.text();
   assert.equal(detailResponse.status, 200);
-  assert.match(detail, /What It Actually Is/);
-  assert.match(detail, /Who Should Pay Attention/);
-  assert.match(detail, /Before You Click Apply/);
-  assert.match(detail, /Open official page/);
+  assert.match(detail, /What it actually is/);
+  assert.match(detail, /Who it&#x27;s for|Who it’s for|Who it.s for/);
+  assert.match(detail, /Check these conditions|Considerations/);
+  assert.match(detail, /Visit official website/);
   assert.match(detail, /href="https:\/\/stationf\.co\/"/);
 });
 
@@ -889,5 +889,24 @@ test('event decision pages separate official facts, closed application paths and
     const ended=await (await render(`${prefix}/resources/techcrunch-disrupt-2026`,'2026-10-16T08:00:00Z')).text();
     assert.doesNotMatch(ended,new RegExp(`href="${prefix}/resources/techcrunch-disrupt-2026/calendar.ics"`));
     assert.equal((await render(`${prefix}/resources/techcrunch-disrupt-2026/calendar.ics`,'2026-10-16T08:00:00Z')).status,410);
+  }
+});
+
+
+test("all institution routes use the shared bilingual design with official access and analysis controls", async () => {
+  const data = await readFile(new URL("../app/data/resources.ts", import.meta.url), "utf8");
+  const slugs = [...data.matchAll(/slug: "([^\"]+)"[\s\S]*?type: "([^\"]+)"/g)].filter(x => x[2] === "organization").map(x => x[1]);
+  assert.equal(slugs.length, 31);
+  for (const slug of slugs) for (const prefix of ["", "/en"]) {
+    const response = await render(`${prefix}/resources/${slug}`);
+    assert.equal(response.status, 200, `${prefix}/${slug}`);
+    const html = await response.text();
+    for (const section of ["overview", "highlights", "analysis", "location", "sources", "similar"]) assert.ok(html.includes(`id="institution-${section}"`), `${slug}: ${section}`);
+    assert.match(html, /role="tablist"/);
+    assert.match(html, /aria-controls="institution-analysis-panel"/);
+    assert.match(html, /institution-primary/);
+    assert.match(html, /aria-pressed="false"/);
+    assert.doesNotMatch(html, /8\.7 \/ 10|Watch campus video|contact@stationf/);
+    assert.equal(html.includes("institution-full-research"), prefix === "");
   }
 });

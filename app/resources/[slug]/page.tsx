@@ -1,3 +1,4 @@
+import { InstitutionDetail } from "../../components/institutions/InstitutionDetail";
 import { DecisionProfileSections } from "../../components/DecisionProfileSections";
 import { getDecisionProfile, hasDecisionProfile } from "../../data/decisionProfiles";
 import { EventDecisionDetail } from "../../components/EventDecisionDetail";
@@ -50,6 +51,8 @@ export default async function ResourceDetailPage({ params }: PageProps) {
   const startupProfile = getStartupProfile(slug);
   if (!resource || (!profile && !investmentProfile && !startupProfile)) notFound();
   const organizationProfile = resource.type === "organization" ? getOrganizationProfile(slug) : undefined;
+
+  if (resource.type === "organization") return <InstitutionDetail resource={resource} lang="zh" />;
 
   if (resource.type === "event") return <EventDecisionDetail resource={resource} lang="zh" />;
 

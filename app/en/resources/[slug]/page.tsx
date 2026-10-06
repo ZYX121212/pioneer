@@ -1,3 +1,4 @@
+import { InstitutionDetail } from "../../../components/institutions/InstitutionDetail";
 import { DecisionProfileSections } from "../../../components/DecisionProfileSections";
 import { hasDecisionProfile, getDecisionProfile } from "../../../data/decisionProfiles";
 import { EventDecisionDetail } from "../../../components/EventDecisionDetail";
@@ -41,6 +42,8 @@ export default async function EnglishResourceDetailPage({ params }: PageProps) {
   const resource = getResourceBySlug(slug);
   const english = getEnglishResource(slug);
   if (!resource || !english) notFound();
+
+  if (resource.type === "organization") return <InstitutionDetail resource={resource} lang="en" />;
 
   if (resource.type === "event") return <EventDecisionDetail resource={resource} lang="en" />;
 
