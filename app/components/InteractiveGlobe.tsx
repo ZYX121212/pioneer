@@ -10,6 +10,7 @@ const regionCenters: Record<string,[number,number]> = {'asia':[110,25],'north-am
 const clamp=(v:number,min:number,max:number)=>Math.max(min,Math.min(max,v));
 export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:{lang:'zh'|'en';activeRegion:string;onRegion:(id:string)=>void;entries?:Resource[]}) {
  const en=lang==='en', uid=useId().replace(/:/g,''), svg=useRef<SVGSVGElement>(null);
+ const [viewRegion,setViewRegion]=useState<string|null>(null);
  const [rotation,setRotation]=useState<[number,number]>([15,-15]);
  const [zoom,setZoom]=useState(1.2),[hover,setHover]=useState('');
  const drag=useRef<{x:number;y:number;rotation:[number,number];moved:boolean;id:number}|null>(null);
@@ -19,7 +20,14 @@ export function InteractiveGlobe({lang,activeRegion,onRegion,entries=resources}:
  const selected=globePlaces.find(p=>p.id===activeRegion);
  const country=selected?.parent?globeCountries.find(p=>p.id===selected.parent):selected;
  const count=useMemo(()=>Object.fromEntries(globePlaces.map(p=>[p.id,entries.filter(r=>matchesGlobePlace(r,p.id)).length])),[entries]);
- useEffect(()=>{if(selected){setRotation([-selected.lon,-selected.lat]);setZoom(1.2);}else if(activeRegion==='all'){setZoom(1.2);}else if(regionCenters[activeRegion]) {const [lon,lat]=regionCenters[activeRegion];setRotation([-lon,-lat]);setZoom(1.15);}},[activeRegion,selected]);
+ // Adjust this component's view before committing a changed location.
+ // Clearing the filter keeps the current orientation; only reset returns to World.
+ if(viewRegion!==activeRegion){
+  setViewRegion(activeRegion);
+  if(selected){setRotation([-selected.lon,-selected.lat]);setZoom(1.2);}
+  else if(activeRegion==='all'){setZoom(1.2);}
+  else if(regionCenters[activeRegion]){const [lon,lat]=regionCenters[activeRegion];setRotation([-lon,-lat]);setZoom(1.15);}
+ }
  const adjustZoom=(delta:number)=>setZoom(z=>clamp(z*delta,1,7));
  useEffect(()=>{const el=svg.current;if(!el)return;const wheel=(e:WheelEvent)=>{e.preventDefault();adjustZoom(Math.exp(-e.deltaY*.0015));};el.addEventListener('wheel',wheel,{passive:false});return()=>el.removeEventListener('wheel',wheel);},[]);
  const projection=geoOrthographic().translate([360,230]).scale(190*zoom).rotate([rotation[0],rotation[1],0]).clipExtent([[0,0],[720,460]]);

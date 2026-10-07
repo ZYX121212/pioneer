@@ -11,12 +11,15 @@ type Tab='overview'|'resources'|'event'|'organization'|'guide';
 export function LocationPanel({id,lang,entries,onClose,onSelect,onView,loading,error}:{id:string;lang:'zh'|'en';entries:Resource[];onClose:()=>void;onSelect:(id:string)=>void;onView:(type?:ResourceType)=>void;loading:boolean;error:boolean}){
  const en=lang==='en',prefix=en?'/en':'',place=globePlaces.find(p=>p.id===id)!,country=place.parent?globePlaces.find(p=>p.id===place.parent)!:place;
  const dialog=useRef<HTMLDialogElement>(null),[tab,setTab]=useState<Tab>('overview');
+ const [tabLocation,setTabLocation]=useState(id);
+ // Reset the tab before rendering a different place, without remounting the dialog.
+ if(tabLocation!==id){setTabLocation(id);setTab('overview');}
  const rows=entries.filter(r=>matchesGlobePlace(r,id));
  const cities=globeCities.filter(p=>p.parent===country.id),regions=country.id==='country:CHN'?chinaRegions:[];
  const eventCount=rows.filter(r=>r.type==='event').length,orgCount=rows.filter(r=>r.type==='organization').length;
  const shown=(tab==='event'||tab==='organization'?rows.filter(r=>r.type===tab):rows).slice(0,tab==='overview'?3:20);
  useEffect(()=>{const previouslyFocused=document.activeElement as HTMLElement|null;dialog.current?.showModal();const overflow=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=overflow;previouslyFocused?.focus();};},[]);
- useEffect(()=>{setTab('overview');dialog.current?.scrollTo({top:0});},[id]);
+ useEffect(()=>{dialog.current?.scrollTo({top:0});},[id]);
  const features=world.features.filter(f=>f.properties.id===country.id);
  const projection=geoMercator();if(features.length)projection.fitExtent([[30,15],[410,155]],{type:'FeatureCollection',features} as never);
  const path=geoPath(projection),point=projection([place.lon,place.lat]);
